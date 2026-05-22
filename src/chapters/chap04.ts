@@ -166,6 +166,11 @@ export const chap04: Chapter = {
           html: 'Každý blok šifrován nezávisle. <strong>Slabina:</strong> stejné bloky OT dají stejné ŠT — odhaluje strukturu. Šifrováním se nezajišťuje integrita; útočník může bloky přeskupovat.',
         },
         {
+          kind: 'interactive',
+          component: 'mode-ecb',
+          title: 'Schéma ECB',
+        },
+        {
           kind: 'h3',
           id: 'subsec-4-5-2',
           number: '4.5.2',
@@ -180,6 +185,11 @@ export const chap04: Chapter = {
           html: 'Nejpoužívanější mód. Náhodný IV zajišťuje, že stejný OT 2× dá různý ŠT. Dešifrování: $\\text{OT}_i = \\text{ŠT}_{i-1} \\oplus D_K(\\text{ŠT}_i)$. Samosynchronizující — chyba se „opraví“ po 2 správných ŠT.',
         },
         {
+          kind: 'interactive',
+          component: 'mode-cbc',
+          title: 'Schéma CBC',
+        },
+        {
           kind: 'h3',
           id: 'subsec-4-5-3',
           number: '4.5.3',
@@ -188,6 +198,16 @@ export const chap04: Chapter = {
         {
           kind: 'p',
           html: 'Převádí blokovou šifru na proudovou. <strong>OFB</strong>: heslo $H = E_K(\\text{IV})$, dále $H := E_K(H)$, $\\text{ŠT}_i = \\text{OT}_i \\oplus H$. Synchronní — heslo nezávisí na OT/ŠT. <strong>CFB</strong>: $\\text{ŠT}_i = \\text{OT}_i \\oplus E_K(\\text{ŠT}_{i-1})$ — samosynchronizující.',
+        },
+        {
+          kind: 'interactive',
+          component: 'mode-cfb',
+          title: 'Schéma CFB',
+        },
+        {
+          kind: 'interactive',
+          component: 'mode-ofb',
+          title: 'Schéma OFB',
         },
         {
           kind: 'h3',
@@ -202,6 +222,11 @@ export const chap04: Chapter = {
         {
           kind: 'p',
           html: 'Heslo lze počítat <strong>nezávisle</strong> na předchozích blocích (na rozdíl od OFB) — paralelizovatelné. Hodnota čítače nesmí být v rámci jednoho klíče opakována.',
+        },
+        {
+          kind: 'interactive',
+          component: 'mode-ctr',
+          title: 'Schéma CTR',
         },
         {
           kind: 'h3',

@@ -20,6 +20,21 @@ const components: Record<InteractiveName, ReturnType<typeof lazy>> = {
   'ecb-vs-cbc': lazy(() =>
     import('./ECBvsCBC').then((m) => ({ default: m.ECBvsCBC })),
   ),
+  'mode-ecb': lazy(() =>
+    import('./ModeFlow').then((m) => ({ default: m.ModeECB })),
+  ),
+  'mode-cbc': lazy(() =>
+    import('./ModeFlow').then((m) => ({ default: m.ModeCBC })),
+  ),
+  'mode-cfb': lazy(() =>
+    import('./ModeFlow').then((m) => ({ default: m.ModeCFB })),
+  ),
+  'mode-ofb': lazy(() =>
+    import('./ModeFlow').then((m) => ({ default: m.ModeOFB })),
+  ),
+  'mode-ctr': lazy(() =>
+    import('./ModeFlow').then((m) => ({ default: m.ModeCTR })),
+  ),
   avalanche: lazy(() =>
     import('./Avalanche').then((m) => ({ default: m.Avalanche })),
   ),
