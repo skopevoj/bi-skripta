@@ -39,6 +39,13 @@ export type Block =
       // Optional caption rendered below the figure (e.g. "Obr. 4.1: …").
       caption?: string
     }
+  | {
+      // Auto-rendered list of glossary terms grouped by category. The content
+      // is sourced from `src/glossary.ts`; this block type exists so we can
+      // bypass the MathHTML processor (which would otherwise turn every term
+      // in its own definition into a tooltip).
+      kind: 'glossary'
+    }
 
 export type InteractiveName =
   | 'caesar'
@@ -59,6 +66,7 @@ export type InteractiveName =
   | 'rsa'
   | 'ec-add'
   | 'bb84'
+  | 'feistel'
 
 export type DiagramName =
   | 'feistel'

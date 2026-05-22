@@ -1,4 +1,5 @@
 import type { Skripta } from './types'
+import { chap00 } from './chapters/chap00'
 import { chap01 } from './chapters/chap01'
 import { chap02 } from './chapters/chap02'
 import { chap03 } from './chapters/chap03'
@@ -26,6 +27,7 @@ export const skripta: Skripta = {
     chap09,
     chap10,
     chap11,
+    chap00,
   ],
 }
 

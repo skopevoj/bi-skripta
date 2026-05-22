@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import katex from 'katex'
+import { glossaryLookup, glossaryPattern } from '../glossary'
 
 type Token =
   | { kind: 'text'; value: string }
@@ -79,6 +80,38 @@ function escapeHtml(s: string): string {
     .replace(/>/g, '&gt;')
 }
 
+function escapeAttr(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
+}
+
+// Wrap occurrences of glossary terms inside a plain-text string with a
+// hover-tooltip span. Matches must be on word boundaries (Czech letters /
+// digits aware) and we don't recurse into already-wrapped output.
+function wrapGlossary(text: string): string {
+  if (!text) return text
+  glossaryPattern.lastIndex = 0
+  let out = ''
+  let last = 0
+  let m: RegExpExecArray | null
+  while ((m = glossaryPattern.exec(text)) !== null) {
+    const matched = m[0]
+    const entry = glossaryLookup.get(matched.toLowerCase())
+    if (!entry) continue
+    out += text.slice(last, m.index)
+    out +=
+      `<span class="gloss" tabindex="0" data-term="${escapeAttr(entry.term)}">` +
+      matched +
+      `<span class="gloss-tip" role="tooltip">` +
+      `<span class="gloss-tip-term">${escapeHtml(entry.term)}</span>` +
+      `<span class="gloss-tip-def">${escapeHtml(entry.definition)}</span>` +
+      `</span>` +
+      `</span>`
+    last = m.index + matched.length
+  }
+  out += text.slice(last)
+  return out
+}
+
 // Recognize the start of an HTML tag (or comment / closing tag). This must
 // NOT match bare "<" inside math like `$a < b$`.
 function isTagStart(html: string, i: number): boolean {
@@ -89,17 +122,27 @@ function isTagStart(html: string, i: number): boolean {
   return /[a-zA-Z]/.test(next)
 }
 
-function process(html: string): string {
+// Tags inside which we do NOT want to auto-wrap glossary terms (would either
+// nest awkwardly or change verbatim content).
+const NO_GLOSS_TAGS = new Set(['code', 'a', 'pre', 'kbd'])
+
+function process(html: string, skipGlossary: boolean): string {
   // Process text nodes while preserving HTML tags. Simple state machine:
-  // outside tags we tokenize math, inside tags we copy verbatim.
+  // outside tags we tokenize math, inside tags we copy verbatim. A small
+  // counter tracks depth inside `<code>` (and a few similar tags) so we can
+  // suppress glossary-term wrapping for verbatim-ish content.
   let out = ''
   let i = 0
   let buf = ''
+  let noGlossDepth = 0
   const flushBuf = () => {
     if (!buf) return
     for (const t of tokenize(buf)) {
-      if (t.kind === 'text') out += t.value
-      else out += renderMath(t.value, t.display)
+      if (t.kind === 'text') {
+        out += skipGlossary || noGlossDepth > 0 ? t.value : wrapGlossary(t.value)
+      } else {
+        out += renderMath(t.value, t.display)
+      }
     }
     buf = ''
   }
@@ -113,7 +156,17 @@ function process(html: string): string {
         i = html.length
         break
       }
-      out += html.slice(i, close + 1)
+      const tag = html.slice(i, close + 1)
+      const nameMatch = /^<\s*(\/?)([a-zA-Z][a-zA-Z0-9]*)/.exec(tag)
+      if (nameMatch) {
+        const isClose = nameMatch[1] === '/'
+        const name = nameMatch[2]!.toLowerCase()
+        if (NO_GLOSS_TAGS.has(name)) {
+          if (isClose) noGlossDepth = Math.max(0, noGlossDepth - 1)
+          else if (!tag.endsWith('/>')) noGlossDepth++
+        }
+      }
+      out += tag
       i = close + 1
       continue
     }
@@ -128,11 +181,15 @@ export function MathHTML({
   html,
   className,
   as: Tag = 'div',
+  noGloss = false,
 }: {
   html: string
   className?: string
   as?: 'div' | 'span'
+  // When true, render math but skip wrapping glossary terms in tooltip spans.
+  // Used for headings and labels where the popover would be visually noisy.
+  noGloss?: boolean
 }) {
-  const rendered = useMemo(() => process(html), [html])
+  const rendered = useMemo(() => process(html, noGloss), [html, noGloss])
   return <Tag className={className} dangerouslySetInnerHTML={{ __html: rendered }} />
 }

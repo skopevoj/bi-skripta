@@ -8,6 +8,7 @@ import { InteractiveCard } from './components/interactive/InteractiveCard'
 import { InteractiveWidget } from './components/interactive/registry'
 import { Figure } from './components/diagram/Figure'
 import { DiagramComponent } from './components/diagram/registry'
+import { GlossaryList } from './components/GlossaryList'
 
 function BlockRenderer({ block }: { block: Block }) {
   switch (block.kind) {
@@ -51,6 +52,8 @@ function BlockRenderer({ block }: { block: Block }) {
           <DiagramComponent name={block.component} />
         </Figure>
       )
+    case 'glossary':
+      return <GlossaryList />
   }
 }
 

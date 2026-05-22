@@ -74,4 +74,101 @@
   .skripta-prose .katex-display {
     @apply my-4 overflow-x-auto overflow-y-hidden;
   }
+
+  /* Inline glossary terms — hover or focus reveals an explanation popover. */
+  .gloss {
+    position: relative;
+    cursor: help;
+    border-bottom: 1px dotted theme('colors.ink.500');
+    color: inherit;
+    outline: none;
+    transition: border-color 150ms ease, color 150ms ease;
+  }
+  .gloss:hover,
+  .gloss:focus-visible {
+    color: theme('colors.ink.100');
+    border-bottom-color: theme('colors.ink.300');
+  }
+  .gloss-tip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    transform: translate(-50%, 4px);
+    width: max-content;
+    max-width: min(22rem, calc(100vw - 2rem));
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 150ms ease, transform 150ms ease, visibility 0s linear 150ms;
+    background: theme('colors.ink.100');
+    color: theme('colors.ink.950');
+    padding: 10px 12px;
+    border-radius: 8px;
+    box-shadow:
+      0 12px 28px -8px rgba(22, 22, 26, 0.35),
+      0 4px 10px -3px rgba(22, 22, 26, 0.20);
+    font-family: theme('fontFamily.sans');
+    font-size: 13px;
+    line-height: 1.45;
+    text-align: left;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .gloss-tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: theme('colors.ink.100');
+  }
+  .gloss:hover > .gloss-tip,
+  .gloss:focus-visible > .gloss-tip,
+  .gloss:focus > .gloss-tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+  .gloss-tip-term {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: theme('colors.ink.700');
+  }
+  .gloss-tip-def {
+    display: block;
+    color: theme('colors.ink.950');
+  }
+
+  /* Glossary chapter — a clean two-column list of terms with definitions. */
+  .glossary-list {
+    @apply font-sans;
+  }
+  .glossary-list .gloss-category {
+    @apply mt-8 mb-3 text-[11px] tracking-[0.22em] uppercase font-semibold text-ink-500;
+  }
+  .glossary-list dl {
+    @apply grid gap-x-6 gap-y-2.5;
+    grid-template-columns: minmax(8rem, 16rem) 1fr;
+  }
+  .glossary-list dt {
+    @apply text-ink-100 font-semibold text-[15px];
+  }
+  .glossary-list dd {
+    @apply text-ink-300 text-[14px] leading-relaxed m-0;
+  }
+  @media (max-width: 640px) {
+    .glossary-list dl {
+      grid-template-columns: 1fr;
+    }
+    .glossary-list dd {
+      @apply -mt-1 mb-2;
+    }
+  }
 }

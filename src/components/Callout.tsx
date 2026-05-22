@@ -58,11 +58,11 @@ export function Callout({
   const header = [meta.label, number].filter(Boolean).join(' ')
   const hasHeader = !!header || !!title
   return (
-    <section className="my-5 rounded-lg overflow-hidden border border-ink-800 bg-ink-900/40">
+    <section className="my-5 rounded-lg border border-ink-800 bg-ink-900/40">
       {hasHeader && (
         <header
           className={
-            'flex items-center justify-between gap-3 px-4 py-2.5 font-sans font-semibold ' +
+            'flex items-center justify-between gap-3 px-4 py-2.5 font-sans font-semibold rounded-t-lg ' +
             meta.bar
           }
         >
@@ -73,6 +73,7 @@ export function Callout({
                 as="span"
                 className="font-medium opacity-90"
                 html={`(${title})`}
+                noGloss
               />
             )}
           </span>
