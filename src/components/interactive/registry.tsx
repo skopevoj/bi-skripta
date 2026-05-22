@@ -3,6 +3,8 @@ import type { InteractiveName } from '../../types'
 
 const components: Record<InteractiveName, ReturnType<typeof lazy>> = {
   caesar: lazy(() => import('./Caesar').then((m) => ({ default: m.Caesar }))),
+  affine: lazy(() => import('./Affine').then((m) => ({ default: m.Affine }))),
+  hill: lazy(() => import('./Hill').then((m) => ({ default: m.Hill }))),
   vigenere: lazy(() =>
     import('./Vigenere').then((m) => ({ default: m.Vigenere })),
   ),

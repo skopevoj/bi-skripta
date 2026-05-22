@@ -35,6 +35,8 @@ export type Block =
 
 export type InteractiveName =
   | 'caesar'
+  | 'affine'
+  | 'hill'
   | 'vigenere'
   | 'frequency'
   | 'diffie-hellman'

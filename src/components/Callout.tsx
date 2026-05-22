@@ -66,10 +66,14 @@ export function Callout({
             meta.bar
           }
         >
-          <span className="text-[15px]">
-            {header}
+          <span className="text-[15px] flex items-baseline gap-1">
+            <span>{header}</span>
             {title && (
-              <span className="font-medium opacity-90"> ({title})</span>
+              <MathHTML
+                as="span"
+                className="font-medium opacity-90"
+                html={`(${title})`}
+              />
             )}
           </span>
           <span className="opacity-90" aria-hidden="true">

@@ -105,6 +105,12 @@ export const chap01: Chapter = {
           html: 'Pro $a = 7$, $b = 10$ máme $c = |7p + 10|_{26}$ a $p = |15(c - 10)|_{26} = |15c + 6|_{26}$, protože $7^{-1} \\equiv 15 \\pmod{26}$.',
         },
         {
+          kind: 'interactive',
+          component: 'affine',
+          title: 'Afinní šifra',
+          hint: 'Volte koeficient a (jen hodnoty nesoudělné s 26) a posun b; sledujte mapování abecedy.',
+        },
+        {
           kind: 'callout',
           type: 'poznamka',
           number: '1.2',
@@ -148,6 +154,12 @@ export const chap01: Chapter = {
           number: '1.4',
           title: 'Hillova šifra pro $n=2$',
           html: 'Šifrování OT <code>THE GOLD IS BURIED IN ORONO</code> s rovnicemi $c_1 = |5p_1 + 17p_2|_{26}$, $c_2 = |4p_1 + 15p_2|_{26}$. První blok TH = (19,7) → (6,25) = GZ. Dešifrovací matice je $\\begin{pmatrix}17 & 5\\\\18 & 23\\end{pmatrix}$.',
+        },
+        {
+          kind: 'interactive',
+          component: 'hill',
+          title: 'Hillova šifra (n = 2)',
+          hint: 'Upravujte klíčovou matici A; sledujte determinant, inverzi a šifrování po dvojicích písmen.',
         },
         {
           kind: 'callout',

@@ -124,7 +124,15 @@ function process(html: string): string {
   return out
 }
 
-export function MathHTML({ html, className }: { html: string; className?: string }) {
+export function MathHTML({
+  html,
+  className,
+  as: Tag = 'div',
+}: {
+  html: string
+  className?: string
+  as?: 'div' | 'span'
+}) {
   const rendered = useMemo(() => process(html), [html])
-  return <div className={className} dangerouslySetInnerHTML={{ __html: rendered }} />
+  return <Tag className={className} dangerouslySetInnerHTML={{ __html: rendered }} />
 }
