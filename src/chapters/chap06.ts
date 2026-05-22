@@ -177,5 +177,90 @@ export const chap06: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-6-5',
+      number: '6.5',
+      title: 'Příklady',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Praktické úlohy ze zápočtů — sestavení klíčů, dešifrování i podvodná manipulace s ElGamalem.',
+        },
+        {
+          kind: 'exercise',
+          number: '6.3',
+          title: 'RSA — výpočet soukromého klíče a dešifrování',
+          source: '1. selftest 2025/26',
+          problem:
+            'Mějme RSA s $p = 7$, $q = 13$ a veřejným exponentem $e = 59$. Spočítejte $d$ a dešifrujte $c = 10$. Odpověď: $n, d, m$.',
+          solution:
+            '<p>$n = 7 \\cdot 13 = 91$. $\\varphi(n) = 6 \\cdot 12 = 72$.</p><p>$d = e^{-1} \\bmod 72$. Rozšířený Eukleides: $72 = 1\\cdot 59 + 13$, $59 = 4\\cdot 13 + 7$, $13 = 1\\cdot 7 + 6$, $7 = 1\\cdot 6 + 1$. Zpětně: $1 = 7 - 6 = 7 - (13 - 7) = 2\\cdot 7 - 13 = 2(59 - 4\\cdot 13) - 13 = 2\\cdot 59 - 9\\cdot 13 = 2\\cdot 59 - 9(72 - 59) = 11\\cdot 59 - 9\\cdot 72$. Tedy $d \\equiv 11 \\pmod{72}$.</p><p>$m = |c^d|_n = |10^{11}|_{91}$. Pomocí RSA-CRT: $10 \\bmod 7 = 3$, $3^{11} \\bmod 7 = 3^{11 \\bmod 6} = 3^5 \\bmod 7 = 5$ (z Malé Fermatovy věty). $10 \\bmod 13 = 10$, $10^{11} \\bmod 13 = 10^{11 \\bmod 12} = 10^{11} \\bmod 13$; postupně $10^2 \\equiv 9$, $10^4 \\equiv 3$, $10^8 \\equiv 9$, $10^{11} = 10^8 \\cdot 10^2 \\cdot 10 \\equiv 9 \\cdot 9 \\cdot 10 = 810 \\equiv 4 \\pmod{13}$. CRT: hledáme $m$ s $m \\equiv 5 \\pmod 7$, $m \\equiv 4 \\pmod{13}$. $m = 13 k + 4$, $13k + 4 \\equiv 5 \\pmod 7 \\Rightarrow 6k \\equiv 1 \\pmod 7 \\Rightarrow k \\equiv 6 \\pmod 7$, $k = 6$, $m = 82$.</p>',
+          result: '$n = 91,\\ d = 11,\\ m = 82$',
+          answer: {
+            type: 'open',
+            accept: ['91,11,82'],
+            placeholder: 'n, d, m',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '6.4',
+          title: 'RSA — Alenka generuje klíče',
+          source: '2. test 02.05.2025',
+          problem:
+            'Alenka si pro RSA volí $p = 13$, $q = 17$. Rozhodněte o pravdivosti tvrzení.',
+          solution:
+            '<p>$n = 221$, $\\varphi(n) = 12 \\cdot 16 = 192$. Veřejný exponent musí splňovat $\\gcd(e, 192) = 1$. $192 = 2^6 \\cdot 3$, takže $e$ musí být liché a nedělitelné 3.</p><p>$e = 7$: $\\gcd(7, 192) = 1$, lze.</p><p>$e = 48$: $\\gcd(48, 192) = 48 \\ne 1$, <em>nelze</em>.</p><p>$e = 31$: $\\gcd(31, 192) = 1$. $d = 31^{-1} \\bmod 192$. $31 \\cdot 31 = 961 = 5 \\cdot 192 + 1$, takže $d = 31$. (Hezká samoinverzní volba.)</p>',
+          result: '$\\varphi(n) = 192$. Lze $e = 7$ a $e = 31$ (pak $d = 31$). $e = 48$ nelze.',
+          answer: {
+            type: 'multichoice',
+            options: [
+              { text: 'Eulerova funkce modulu je $\\varphi(n) = 192$.', correct: true },
+              { text: 'Jako veřejný exponent lze zvolit $e = 7$.', correct: true },
+              {
+                text: 'Pokud zvolíme $e = 31$, soukromý exponent je $d = 31$.',
+                correct: true,
+              },
+              {
+                text: 'Pokud zvolíme $e = 48$, soukromý exponent je $d = 16$.',
+                correct: false,
+              },
+            ],
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '6.5',
+          title: 'RSA-CRT — dešifrování',
+          source: '2. test 02.05.2025',
+          problem:
+            'RSA-CRT s $p = 11$, $q = 13$, $CT = 61$, $d = 37$. Dešifrujte $CT$ metodou CRT. Odpovězte $m_p, m_q, OT$.',
+          solution:
+            '<p>$d_p = d \\bmod (p-1) = 37 \\bmod 10 = 7$. $d_q = d \\bmod (q-1) = 37 \\bmod 12 = 1$.</p><p>$m_p = |CT^{d_p}|_p = |61^7|_{11}$. $61 \\equiv 6 \\pmod{11}$. $6^2 = 36 \\equiv 3$, $6^4 \\equiv 9$, $6^7 = 6^4 \\cdot 6^2 \\cdot 6 \\equiv 9 \\cdot 3 \\cdot 6 = 162 \\equiv 8 \\pmod{11}$.</p><p>$m_q = |CT^{d_q}|_q = |61^1|_{13} = 61 \\bmod 13 = 9$.</p><p>CRT: hledáme $OT$ s $OT \\equiv 8 \\pmod{11}$, $OT \\equiv 9 \\pmod{13}$. $OT = 11 k + 8$, $11k + 8 \\equiv 9 \\pmod{13} \\Rightarrow 11k \\equiv 1 \\pmod{13} \\Rightarrow k \\equiv 6 \\pmod{13}$ (protože $11 \\cdot 6 = 66 = 5\\cdot 13 + 1$). $k = 6$, $OT = 66 + 8 = 74$.</p>',
+          result: '$m_p = 8,\\ m_q = 9,\\ OT = 74$',
+          answer: {
+            type: 'open',
+            accept: ['8,9,74'],
+            placeholder: 'm_p, m_q, OT',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '6.6',
+          title: 'ElGamal — útok na malleability',
+          source: '2. test 02.05.2025',
+          problem:
+            'Mějme ElGamal s $m = 821$. Zadrželi jsme šifrovanou zprávu $c = 678$, o které víme, že obsahuje počet diamantů. Chceme zasílaný počet zdesetinásobit (aniž bychom znali OT). Jaká musí být hodnota $c$?',
+          solution:
+            '<p>ElGamal je <strong>multiplikativně homomorfní</strong>: zašifrovaný $c = |p \\cdot K|_m$, takže $|c \\cdot 10|_m = |10p \\cdot K|_m$ je platný šifrový text zprávy $10p$ (se stejným $y_B$).</p><p>$|678 \\cdot 10|_{821} = |6780|_{821}$. $6780 = 8 \\cdot 821 + 212 = 6568 + 212$. Tedy $c\' = 212$.</p>',
+          result: '$c\' = 212$',
+          answer: {
+            type: 'open',
+            accept: ['212'],
+            placeholder: "c' = ?",
+          },
+        },
+      ],
+    },
   ],
 }

@@ -1,0 +1,1969 @@
+{
+  "subjects": [
+    {
+      "id": "kab",
+      "title": "Kybernetika a bezpečnost",
+      "topicMap": {
+        "aritmetika-modulo-m": "Aritmetika modulo m",
+        "substitucni-transpozicni-afinni-sifry": "Substituční, transpoziční, afinní šifry",
+        "hillova-sifra-modularni-umocnovani-blokove-sifry": "Hillova šifra, blokové šifry",
+        "diffie-hellman-diskretni-logaritmus": "Diffie-Hellman, diskrétní logaritmus",
+        "openssl-hasovaci-proudove-sifry": "OpenSSL, hašování, proudové šifry",
+        "openssl-blokove-sifry-operacni-mody": "OpenSSL, blokové šifry, módy",
+        "entropie-vzdalenost-jednoznacnosti": "Entropie, vzdálenost jednoznačnosti",
+        "openssl-asymetricka-kryptografie-rsa-crt": "OpenSSL, RSA, RSA-CRT",
+        "testy-prvociselnosti-rabin-miller": "Prvočíselnost, Rabin-Miller",
+        "certifikaty-digitalni-podpisy": "Certifikáty, digitální podpisy",
+        "selftest-2025-2026": "1. Selftest 2025/2026",
+        "2-selftest-2025-2026": "2. Selftest 2025/2026",
+        "1-test-21-03-2025": "1. test 21.03.2025",
+        "1-test-23-03-2021": "1. test 23.03.2021",
+        "2-test-09-05-2025": "2. test 09.05.2025",
+        "2-test-02-05-2025": "2. test 02.05.2025",
+        "2-test-23-04-2025": "2. test 23.04.2025"
+      },
+      "primaryColor": "#3b82f6",
+      "questions": [
+        {
+          "id": "1773660881266-0",
+          "type": "open",
+          "question": "Anička, Bob a Cyril spolu chtějí komunikovat a za pomocí Diffie-Hellmanova algoritmu si chtějí vyměnit tajný klíč $K$. Společně si zvolili parametry $a = 5$ a $m = 23$. Anička má subklíč $k_A = 5$, Bob $k_B = 2$ a Cyril $k_C = 3$. Jaký bude jejich sdílený klíč $K$?",
+          "topics": [
+            "selftest-2025-2026",
+            "diffie-hellman-diskretni-logaritmus"
+          ],
+          "answers": [
+            {
+              "text": "16",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#1 Anička, Bob a Cyril spolu chtějí komunikovat a za pomocí Diffie-Hellmanova algoritmu si chtějí vyměnit tajný klíč K. Společně si zvolili parametry a = 5 a m = 23. Anička má subklíč kA = 5, Bob kB = 2 a Cyril kC = 3. Jaký bude jejich sdílený klíč K? 2 16"
+        },
+        {
+          "id": "1773660881409-1",
+          "type": "open",
+          "question": "Frekvenční analýzou jsme zjistili, že nejčetnějším písmenem v šifrovém textu s abecedou o délce $26$ znaků je písmeno $B$. Druhé nejčetnější je písmeno $K$. Víme, že otevřený text je psán anglicky. Jakým šifrovacím předpisem byl (pravděpodobně afinní šifrou) šifrován ST = IBAAH? Určete koeficienty $a$ a $b$. Dále dešifrujte ST, za předpokladu, že četnost znaků zprávy odpovídá průměrné četnosti znaků v jazyku. Odpověď uveďte ve formátu \"a,b,OT\" (bez uvozovek, oddělené čárkou).",
+          "topics": [
+            "selftest-2025-2026",
+            "aritmetika-modulo-m",
+            "substitucni-transpozicni-afinni-sifry"
+          ],
+          "answers": [
+            {
+              "text": "11,9,HELLO",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#2 Frekvenční analýzou jsme zjistili, že nejčetnějším písmenem v šifrovém textu s abecedou o délce 26 znaků je písmeno B. Druhé nejčetnější je písmeno K. Víme, že otevřený text je psán anglicky. Jakým šifrovacím předpisem byl (pravděpodobně afinní šifrou) šifrován ST = IBAAH? Určete koeficienty a a b. Dále dešifrujte ST, za předpokladu, že četnost znaků zprávy odpovídá průměrné četnosti znaků v jazyku. Odpověď uveďte ve formátu \"a,b,OT\" (bez uvozovek, oddělené čárkou). 2 11,9,HELLO"
+        },
+        {
+          "id": "1773660881480-2",
+          "type": "multichoice",
+          "question": "Mějme Hillovu šifru nad abecedou s 26 znaky určenou maticí $$\\mathbb{A} = \\begin{pmatrix} 3 & 2 \\\\ 7 & 5 \\end{pmatrix}$$ Vyberte všechny správné dešifrovací matice $\\mathbb{A}^{-1}$.",
+          "topics": [
+            "selftest-2025-2026",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "$\\mathbb{A}^{-1} = \\begin{pmatrix} 5 & 24 \\\\ 19 & 3 \\end{pmatrix}$",
+              "isCorrect": true
+            },
+            {
+              "text": "$\\mathbb{A}^{-1} = \\begin{pmatrix} 5 & -2 \\\\ 19 & 20 \\end{pmatrix}$",
+              "isCorrect": false
+            },
+            {
+              "text": "$\\mathbb{A}^{-1} = \\begin{pmatrix} 5 & 24 \\\\ 17 & 3 \\end{pmatrix}$",
+              "isCorrect": false
+            },
+            {
+              "text": "$\\mathbb{A}^{-1} = \\begin{pmatrix} 5 & 24 \\\\ 21 & 3 \\end{pmatrix}$",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Mějme Hillovu šifru nad abecedou s 26 znaky určenou maticí A = (3 2, 7 5). Vyberte všechny správné dešifrovací matice A^-1.\nA^-1 = (5 24, 19 3)\nA^-1 = (5 -2, 19 20)\nA^-1 = (5 24, 17 3)\nA^-1 = (5 24, 21 3)"
+        },
+        {
+          "id": "1773660881563-3",
+          "type": "multichoice",
+          "question": "Vypočítejte hodnotu Eulerovy funkce čísla $3575$.",
+          "topics": [
+            "selftest-2025-2026",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "1200",
+              "isCorrect": false
+            },
+            {
+              "text": "2400",
+              "isCorrect": true
+            },
+            {
+              "text": "480",
+              "isCorrect": false
+            },
+            {
+              "text": "1920",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#4 Vypočítejte hodnotu Eulerovy funkce čísla 3575.\n1200\n2400\n480\n1920"
+        },
+        {
+          "id": "1773660881667-4",
+          "type": "multichoice",
+          "question": "Mějme abecedu o 45 značích. Kolik existuje různých klíčů pro afinní šifru? (Různých znamená, že definují různé šifrovací předpisy.)",
+          "topics": [
+            "selftest-2025-2026",
+            "substitucni-transpozicni-afinni-sifry",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "$24 \\cdot 45$",
+              "isCorrect": true
+            },
+            {
+              "text": "$24 \\cdot 24$",
+              "isCorrect": false
+            },
+            {
+              "text": "1080",
+              "isCorrect": true
+            },
+            {
+              "text": "2025",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#2 Mějme abecedu o 45 značích. Kolik existuje různých klíčů pro afinní šifru? (Různých znamená, že definují různé šifrovací předpisy.)\n\n24 · 45\n24 · 24\n1080\n2025"
+        },
+        {
+          "id": "1773660881810-5",
+          "type": "open",
+          "question": "Je dán klíč - šifrovací matice $\\mathbb{A}$ pro Hillovu šifru. Spočítejte dešifrovací matici, když víte, že byla použita anglická abeceda o 26 znacích. $$\\mathbb{A} = \\begin{pmatrix} 3 & 7 \\\\ 5 & 2 \\end{pmatrix}$$ Výslednou matici zapište jako serializaci matice po řádcích. Tedy matice $\\mathbb{A}^{-1} = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ bude vypadat jako \"a,b,c,d\" (bez uvozovek, oddělené čárkou, kladná čísla).",
+          "topics": [
+            "selftest-2025-2026",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "8,11,19,25",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#3 Je dán klíč - šifrovací matice A pro Hillovu šifru. Spočítejte dešifrovací matici, když víte, že byla použita anglická abeceda o 26 znacích.\n\nA = (3 7)\n    (5 2)\n\nVýslednou matici zapište jako serializaci matice po řádcích. Tedy matice A^-1 = (a b) bude\n                                                                              (c d)\nvypadat jako \"a,b,c,d\" (bez uvozovek, oddělené čárkou, kladná čísla). 8,11,19,25"
+        },
+        {
+          "id": "1773660881918-6",
+          "type": "multichoice",
+          "question": "Jů a Hele spolu chtějí komunikovat pomocí exponenciální šifry. Zvolí si modul $m = 23$. Která z následujících tvrzení jsou platná?",
+          "topics": [
+            "selftest-2025-2026",
+            "aritmetika-modulo-m",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Pro exponent $e = 7$ a $ST = 2$ je $OT = 5$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Exponent $e = 2$ může být použit jako šifrovací klíč.",
+              "isCorrect": false
+            },
+            {
+              "text": "Pro exponent $e = 7$ a $ST = 2$ je $OT = 3$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pro $e = 7$ je dešifrovací klíč $d = 19$.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Jů a Hele spolu chtějí komunikovat pomocí exponenciální šifry. Zvolí si modul m = 23. Která z následujících tvrzení jsou platná?\nPro exponent e = 7 a ST = 2 je OT = 5.\nExponent e = 2 může být použit jako šifrovací klíč.\nPro exponent e = 7 a ST = 2 je OT = 3.\nPro e = 7 je dešifrovací klíč d = 19."
+        },
+        {
+          "id": "1773660882054-7",
+          "type": "open",
+          "question": "Určete kanonický rozklad čísla $72900$. Odpověď zadávejte jako nenulové exponenty u mocnin jednotlivých prvočísel ve vzestupném pořadí a oddělené čárkou. Obecně pro $n = p_1^{\\alpha_1} p_2^{\\alpha_2} \\dots$ napíšeme \"$\\alpha_1, \\alpha_2, \\dots$\". Například odpověď pro číslo $14$ zapíšeme jako \"1,1\" (bez uvozovek).",
+          "topics": [
+            "selftest-2025-2026",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "2,6,2",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Určete kanonický rozklad čísla 72900. Odpověď zadávejte jako nenulové exponenty u mocnin jednotlivých prvočísel ve vzestupném pořadí a oddělené čárkou. Obecně pro n = p1^alpha1 p2^alpha2 ... napíšeme \"alpha1, alpha2, ...\". Například odpověď pro číslo 14 zapíšeme jako \"1,1\" (bez uvozovek). 2,6,2"
+        },
+        {
+          "id": "1773660882144-8",
+          "type": "multichoice",
+          "question": "Afinní šifra šifruje s koeficienty $a = 73$ a $b = 85$ v modulu $m = 256$. Vyberte správné šifrovací a dešifrovací předpisy:",
+          "topics": [
+            "selftest-2025-2026",
+            "substitucni-transpozicni-afinni-sifry",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "$c = |73 \\cdot p + 85|_{255}$",
+              "isCorrect": false
+            },
+            {
+              "text": "$p = |73^{-1} \\cdot c + 85|_{255}$",
+              "isCorrect": false
+            },
+            {
+              "text": "$p = |249 \\cdot c + 83|_{256}$",
+              "isCorrect": true
+            },
+            {
+              "text": "$c = |85 \\cdot p + 73|_{256}$",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#1 Afinní šifra šifruje s koeficienty a = 73 a b = 85 v modulu m = 256. Vyberte správné šifrovací a dešifrovací předpisy:\n\nc = |73 · p + 85|_{255}\np = |73^{-1} · c + 85|_{255}\np = |249 · c + 83|_{256}\nc = |85 · p + 73|_{256}"
+        },
+        {
+          "id": "1773660882227-9",
+          "type": "open",
+          "question": "Spočtěte $|\\log_{7} 11|_{13}$ v multiplikativní grupě.",
+          "topics": [
+            "selftest-2025-2026",
+            "diffie-hellman-diskretni-logaritmus",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "5",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#3 Spočtěte |log7 11|13 v multiplikativní grupě.\n5"
+        },
+        {
+          "id": "1773661263556-0",
+          "type": "open",
+          "question": "Dostali jsme zprávu $c = 100$ vzniklou šifrováním exponenciální šifrou $c = |p^e|_m$ s parametry $e = 67$ a $m = 101$. Dešifrujte ji.",
+          "topics": [
+            "1-test-21-03-2025",
+            "aritmetika-modulo-m",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "100",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Dostali jsme zprávu c = 100 vzniklou šifrováním exponenciální šifrou c = |p^e|_m s parametry e = 67 a m = 101. Dešifrujte ji. 100"
+        },
+        {
+          "id": "1773661263691-1",
+          "type": "multichoice",
+          "question": "Dostali jsme za úkol provést kryptoanalýzu afinní šifry. Z frekvenční analýzy víme, že nejčastější znaky ST jsou $B(1.)$ a $D(2.)$. Předpokládáme, že OT je napsán v angličtině, kde nejčetněší jsou $E(1.)$ a $T(2.)$. Zjistěte klíč pro odhad, kdy zkusíme spárovat znaky z ST na OT přesně podle pořadí jejich četností.",
+          "topics": [
+            "1-test-21-03-2025",
+            "substitucni-transpozicni-afinni-sifry",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "$a = 23, b = 4$",
+              "isCorrect": false
+            },
+            {
+              "text": "$a = 14, b = 14$",
+              "isCorrect": false
+            },
+            {
+              "text": "$a = 14, b = 23$",
+              "isCorrect": true
+            },
+            {
+              "text": "$a = 14, b = 20$",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Dostali jsme za úkol provést kryptoanalýzu afinní šifry. Z frekvenční analýzy víme, že nejčastější znaky ST jsou B(1.) a D(2.). Předpokládáme, že OT je napsán v angličtině, kde nejčetněší jsou E(1.) a T(2.). Zjistěte klíč pro odhad, kdy zkusíme spárovat znaky z ST na OT přesně podle pořadí jejich četností.\n\na = 23, b = 4\na = 14, b = 14\na = 14, b = 23\na = 14, b = 20"
+        },
+        {
+          "id": "1773661263767-2",
+          "type": "open",
+          "question": "Alice a Bob používají Diffie-Hellmanův algoritmus pro zřízení společného klíče, přičemž zvolili parametry $m = 13$ a $a = 2$. Alice zaslala své $y_A = 6$ Bobovi a Bob zaslal své $y_B = 3$ Alici. Jaká je hodnota jejich sdíleného klíče $K$?",
+          "topics": [
+            "1-test-21-03-2025",
+            "diffie-hellman-diskretni-logaritmus",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "9",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#3 Alice a Bob používají Diffie-Hellmanův algoritmus pro zřízení společného klíče, přičemž zvolili parametry m = 13 a a = 2. Alice zaslala své y_A = 6 Bobovi a Bob zaslal své y_B = 3 Alici. Jaká je hodnota jejich sdíleného klíče K?"
+        },
+        {
+          "id": "1773661263814-3",
+          "type": "multichoice",
+          "question": "Mějme Hillovu šifru nad abecedou s 26 znaky určenou maticí $$\\mathbb{A} = \\begin{pmatrix} 2 & 7 \\\\ 1 & 4 \\end{pmatrix}$$ Vyberte všechny správné dešifrovací matice $\\mathbb{A}^{-1}$.",
+          "topics": [
+            "1-test-21-03-2025",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "$$\\mathbb{A}^{-1} = \\begin{pmatrix} 4 & -7 \\\\ 26 & 2 \\end{pmatrix}$$",
+              "isCorrect": false
+            },
+            {
+              "text": "$$\\mathbb{A}^{-1} = \\begin{pmatrix} 4 & -6 \\\\ -1 & 2 \\end{pmatrix}$$",
+              "isCorrect": false
+            },
+            {
+              "text": "$$\\mathbb{A}^{-1} = \\begin{pmatrix} 4 & -7 \\\\ -1 & 2 \\end{pmatrix}$$",
+              "isCorrect": true
+            },
+            {
+              "text": "$$\\mathbb{A}^{-1} = \\begin{pmatrix} 4 & 19 \\\\ 25 & 2 \\end{pmatrix}$$",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Mějme Hillovu šifru nad abecedou s 26 znaky určenou maticí\n\n$$\\mathbb{A} = \\begin{pmatrix} 2 & 7 \\\\ 1 & 4 \\end{pmatrix}$$\n\nVyberte všechny správné dešifrovací matice $\\mathbb{A}^{-1}$.\n\n$$\\mathbb{A}^{-1} = \\begin{pmatrix} 4 & -7 \\\\ 26 & 2 \\end{pmatrix}$$\n$$\\mathbb{A}^{-1} = \\begin{pmatrix} 4 & -6 \\\\ -1 & 2 \\end{pmatrix}$$\n$$\\mathbb{A}^{-1} = \\begin{pmatrix} 4 & -7 \\\\ -1 & 2 \\end{pmatrix}$$\n$$\\mathbb{A}^{-1} = \\begin{pmatrix} 4 & 19 \\\\ 25 & 2 \\end{pmatrix}$$"
+        },
+        {
+          "id": "1773661263857-4",
+          "type": "multichoice",
+          "question": "Mějme příklad $$\\left| \\frac{208^{192} + 29^{992}}{3^{21}} \\right|_{22}$$ Rozhodněte o pravdivosti následujících tvrzení:",
+          "topics": [
+            "1-test-21-03-2025",
+            "aritmetika-modulo-m",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Pro výpočet $|3^{21}|_{22}$ lze použít Eulerovu větu.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pro výpočet $|29^{992}|_{22}$ lze použít algoritmus Square and Multiply.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pro výpočet $|3^{21}|_{22}$ nelze použít Malou Fermatovu větu.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pro výpočet $|208^{192}|_{22}$ lze použít Malou Fermatovu větu.",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#5 Mějme příklad |(208^192 + 29^992)/3^21|_22 Rozhodněte o pravdivosti následujících tvrzení:\nPro výpočet |3^21|_22 lze použít Eulerovu větu. \nPro výpočet |29^992|_22 lze použít algoritmus Square and Multiply. \nPro výpočet |3^21|_22 nelze použít Malou Fermatovu větu. \nPro výpočet |208^192|_22 lze použít Malou Fermatovu větu."
+        },
+        {
+          "id": "1773666225666-0",
+          "type": "open",
+          "question": "Mějme proudovou šifru, kde hodnoty hesla jsou $h_i$ jsou generovány náhodně. Alice pošle Bobovi zašifrovanou zprávu ŠT obsahující znaky $c_1, c_2, c_3, c_4, c_5$. Při přenosu ovšem došlo k narušení znaku $c_2$ (změnila se jeho hodnota). Napište hodnoty OT $(p_1, p_2...)$, které se podaří Bobovi dešifrovat správně. Odpověď je ve tvaru: p1,p2,p3,p4,p5.",
+          "topics": [
+            "1-test-23-03-2021",
+            "openssl-hasovaci-proudove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "p1,p3,p4,p5",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Mějme proudovou šifru, kde hodnoty hesla jsou h_i jsou generovány náhodně. Alice pošle Bobovi zašifrovanou zprávu ŠT obsahující znaky c_1, c_2, c_3, c_4, c_5. Při přenosu ovšem došlo k narušení znaku c_2 (změnila se jeho hodnota). Napište hodnoty OT (p_1, p_2...), které se podaří Bobovi dešifrovat správně. Odpověď je ve tvaru: p1,p2,p3,p4,p5."
+        },
+        {
+          "id": "1773666234405-1",
+          "type": "multichoice",
+          "question": "O transpozičních šifrách platí následující:",
+          "topics": [
+            "1-test-23-03-2021",
+            "substitucni-transpozicni-afinni-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Nemění statistické rozložení četnosti písmen v textu (vyjma paddingu)",
+              "isCorrect": true
+            },
+            {
+              "text": "Zaměňují znaky v textu jinými v abecedě",
+              "isCorrect": false
+            },
+            {
+              "text": "Do šifrového textu vnášejí konfúzi",
+              "isCorrect": false
+            },
+            {
+              "text": "Rozprostírají informaci po délce šifrového textu",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "O transpozičních šifrách platí následující: \nNemění statistické rozložení četnosti písmen v textu (vyjma paddingu)\nZaměňují znaky v textu jinými v abecedě\nDo šifrového textu vnášejí konfúzi\nRozprostírají informaci po délce šifrového textu"
+        },
+        {
+          "id": "1773666237433-2",
+          "type": "open",
+          "question": "Zachytili jsme zašifrovanou zprávu znějící: $ST = \\text{NLSEJEUSXCEXIMX}$. Víme, že byla použita transpoziční šifra. Určete $OT$. (Odpověď napiště buď jen malými nebo jen velkými písmeny)",
+          "topics": [
+            "1-test-23-03-2021",
+            "substitucni-transpozicni-afinni-sifry"
+          ],
+          "answers": [
+            {
+              "text": "NEUCILJSEMSEXXX",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Zachytili jsme zašifrovanou zprávu znějící: ST = NLSEJEUSXCEXIMX. Víme, že byla použita transpoziční šifra. Určete OT. (Odpověď napiště buď jen malými nebo jen velkými písmeny) \n NEUCILJSEMSEXXX"
+        },
+        {
+          "id": "1773666240699-3",
+          "type": "open",
+          "question": "Alfons a Berna si chtějí domluvit tajný klíč pomocí Diffie-Hellmanova algoritmu. Společně si zvolili parametry $a = 2$ a $m = 13$. Alfons má subklíč $k_A = 7$ a Berna má $k_B = 5$. Napište hodnoty v pořadí: Co pošle Alfons ($y_A$), co pošle Berna ($y_B$), a pak sdílený klíč ($K$). Odpovědí budou 3 čísla oddělená čárkami. Příklad odpovědi: 2,3,6",
+          "topics": [
+            "1-test-23-03-2021",
+            "diffie-hellman-diskretni-logaritmus",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "11,6,7",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Alfons a Berna si chtějí domluvit tajný klíč pomocí Diffie-Hellmanova algoritmu. Společně si zvolili parametry a = 2 a m = 13. Alfons má subklíč kA = 7 a Berna má kB = 5. Napište hodnoty v pořadí: Co pošle Alfons (yA), co pošle Berna (yB), a pak sdílený klíč (K). Odpovědí budou 3 čísla oddělená čárkami. Příklad odpovědi: 2,3,6\n\n11,6,7"
+        },
+        {
+          "id": "1773666242083-4",
+          "type": "open",
+          "question": "Alice a Bob používají Diffie-Hellmanův algoritmus pro zřízení společného klíče, přičemž zvolili parametry $m = 13$ a $a = 2$. Alice zaslala své $y_A = 8$ Bobovi a Bob zaslal své $y_B = 6$ Alici. Jaká je hodnota jejich sdíleného klíče $K$?",
+          "topics": [
+            "1-test-23-03-2021",
+            "diffie-hellman-diskretni-logaritmus",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "8",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Alice a Bob používají Diffie-Hellmanův algoritmus pro zřízení společného klíče, přičemž zvolili parametry m = 13 a a = 2. Alice zaslala své y_A = 8 Bobovi a Bob zaslal své y_B = 6 Alici. Jaká je hodnota jejich sdíleného klíče K?\n\n8"
+        },
+        {
+          "id": "1773666448782-0",
+          "type": "multichoice",
+          "question": "Mějme key derivation function definovanou jako $kdf(\\text{passwd, salt, rounds}) := \\text{SHA512}^{\\text{rounds}}(\\text{passwd}|\\text{salt})$, kde $|$ je konkatenace. Vyberte pravdivá tvrzení.",
+          "topics": [
+            "2-test-09-05-2025",
+            "openssl-hasovaci-proudove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Vhodná volba salt a rounds ztěžuje slovníkový útok.",
+              "isCorrect": true
+            },
+            {
+              "text": "Velikost předpočítané tabulky pro funkci kdf, závisí na parametru rounds.",
+              "isCorrect": false
+            },
+            {
+              "text": "S rostoucím parametrem rounds, roste velikost výstupu kdf funkce.",
+              "isCorrect": false
+            },
+            {
+              "text": "Vhodná volba parametrů salt a rounds, znemožní slovníkový útok.",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#1 Mějme key derivation function definovanou jako kdf(passwd, salt, rounds) := SHA512^rounds (passwd|salt), kde | je konkatenace. Vyberte pravdivá tvrzení.\n\nVhodná volba salt a rounds ztěžuje slovníkový útok.\n\nVelikost předpočítané tabulky pro funkci kdf, závisí na parametru rounds.\n\nS rostoucím parametrem rounds, roste velikost výstupu kdf funkce.\n\nVhodná volba parametrů salt a rounds, znemožní slovníkový útok."
+        },
+        {
+          "id": "1773666452115-1",
+          "type": "open",
+          "question": "Jaký největší exponent, a kolik mocnin nejvýše potřebujeme spočítat pro Rabinův-Millerův test čísla 401? Odpovědi jsou dvě čísla oddělená čárkou.",
+          "topics": [
+            "2-test-09-05-2025",
+            "testy-prvociselnosti-rabin-miller"
+          ],
+          "answers": [
+            {
+              "text": "200,4",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#2 Jaký největší exponent, a kolik mocnin nejvýše potřebujeme spočítat pro Rabinův-Millerův test čísla 401? Odpovědi jsou dvě čísla oddělená čárkou. 200,4"
+        },
+        {
+          "id": "1773666455637-2",
+          "type": "open",
+          "question": "Mějme šifru RSA. Zvolili jsme prvočísla $p = 7, q = 13$ a veřejný exponent $e = 59$. Spočítejte soukromý exponent $d$, a dešifrujte zprávu $c = 10$. Odpovědí je modul $n$, soukromý exponent $d$ a otevřený text $m$ ve formátu 3 čísel oddělených čárkami. Příklad odpovědi: 1,2,3",
+          "topics": [
+            "2-test-09-05-2025",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "91,11,82",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#3 Mějme šifru RSA. Zvolili jsme prvočísla p = 7, q = 13 a veřejný exponent e = 59. Spočítejte soukromý exponent d, a dešifrujte zprávu c = 10. Odpovědí je modul n, soukromý exponent d a otevřený text m ve formátu 3 čísel oddělených čárkami. Příklad odpovědi: 1,2,3 91,11,82"
+        },
+        {
+          "id": "1773666460002-3",
+          "type": "multichoice",
+          "question": "Šifra DES",
+          "topics": [
+            "2-test-09-05-2025",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry",
+            "openssl-blokove-sifry-operacni-mody"
+          ],
+          "answers": [
+            {
+              "text": "má krátký klíč, který je zásadní bezpečnostní slabinou",
+              "isCorrect": true
+            },
+            {
+              "text": "je šifra, která není založená na algoritmu Feistelova typu",
+              "isCorrect": false
+            },
+            {
+              "text": "pro dešifrování používá stejný způsob jako pro šifrování, pouze obrátí pořadí výběru rundovních klíčů",
+              "isCorrect": true
+            },
+            {
+              "text": "obsahuje S-boxy, které jsou jediným nelineárním prvkem šifry",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#4 Šifra DES\nmá krátký klíč, který je zásadní bezpečnostní slabinou\nje šifra, která není založená na algoritmu Feistelova typu\npro dešifrování používá stejný způsob jako pro šifrování, pouze obrátí pořadí výběru rundovních klíčů\nobsahuje S-boxy, které jsou jediným nelineárním prvkem šifry"
+        },
+        {
+          "id": "1773666462848-4",
+          "type": "open",
+          "question": "Mějme zdroj entropie $X$, o kterém víme, že generoval 16 zpráv. Pak došlo ke změně, kdy se kromě dvou zpráv všechny zprávy přestaly generovat ($p=0$). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie $H(X)$ po této změně?",
+          "topics": [
+            "2-test-09-05-2025",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "1",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Mějme zdroj entropie X, o kterém víme, že generoval 16 zpráv. Pak došlo ke změně, kdy se kromě dvou zpráv všechny zprávy přestaly generovat (p = 0). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie H(X) po této změně?"
+        },
+        {
+          "id": "1773666593998-0",
+          "type": "multichoice",
+          "question": "Zvažujeme číslo 35 jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?",
+          "topics": [
+            "2-test-02-05-2025",
+            "testy-prvociselnosti-rabin-miller",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "34",
+              "isCorrect": false
+            },
+            {
+              "text": "29",
+              "isCorrect": true
+            },
+            {
+              "text": "7",
+              "isCorrect": false
+            },
+            {
+              "text": "2",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#1 Zvažujeme číslo 35 jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?\n\n34\n29\n7\n2"
+        },
+        {
+          "id": "1773666597198-1",
+          "type": "multichoice",
+          "question": "Alenka si vytváří klíče pro RSA. Zvolí si $p = 13$ a $q = 17$. Rozhodněte o pravdivosti následujících tvrzení:",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-asymetricka-kryptografie-rsa-crt"
+          ],
+          "answers": [
+            {
+              "text": "Pokud zvolíme jako veřejný exponent $e = 48$, soukromý exponent je $d = 16$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Dvojici $(n, d)$ zveřejníme jako soukromý klíč.",
+              "isCorrect": false
+            },
+            {
+              "text": "Jako veřejný exponent lze zvolit $e = 7$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Pokud zvolíme jako veřejný exponent $e = 31$, soukromý exponent je $d = 31$.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#2 Alenka si vytváří klíče pro RSA. Zvolí si p = 13 a q = 17. Rozhodněte o pravdivosti následujících tvrzení: 1 Pokud zvolíme jako veřejný exponent e = 48, soukromý exponent je d = 16. Dvojici (n, d) zveřejníme jako soukromý klíč. Jako veřejný exponent lze zvolit e = 7. Pokud zvolíme jako veřejný exponent e = 31, soukromý exponent je d = 31."
+        },
+        {
+          "id": "1773666598431-2",
+          "type": "open",
+          "question": "Mějme operační mód OFB (Output Feedback), přičemž $i$-tý blok keystreamu (hesla) značíme $H_i$. Chceme spočítat hodnotu třetího bloku šifrového textu ($ST_3$). Máme k dispozici tyto údaje: $ST_2 = 1101_2, E_K(H_2) = 0111_2, OT_3 = 1001_2$. $ST_3 = ?$",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-blokove-sifry-operacni-mody",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "1110",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#3 Mějme operační mód OFB (Output Feedback), přičemž i-tý blok keystreamu (hesla) značíme Hi. Chceme spočítat hodnotu třetího bloku šifrového textu (ST3). Máme k dispozici tyto údaje: ST2 = 11012, EK(H2) = 01112, OT3 = 10012. ST3 = ?"
+        },
+        {
+          "id": "1773666599280-3",
+          "type": "open",
+          "question": "Mějme algoritmus El Gamal s $m = 821$. Zadrželi jsme šifrovanou zprávu $c = 678$, která víme, že obsahuje množství diamantů, které nám mají být zaslány. Chceme, aby nám jich bylo posláno desetkrát více. Jaká musí být hodnota $c$, abychom toho dosáhli?",
+          "topics": [
+            "2-test-02-05-2025",
+            "aritmetika-modulo-m",
+            "diffie-hellman-diskretni-logaritmus"
+          ],
+          "answers": [
+            {
+              "text": "212",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#4 Mějme algoritmus El Gamal s m = 821. Zadrželi jsme šifrovanou zprávu c = 678, která víme, že obsahuje množství diamantů, které nám mají být zaslány. Chceme, aby nám jich bylo posláno desetkrát více. Jaká musí být hodnota c, abychom toho dosáhli?"
+        },
+        {
+          "id": "1773666600114-4",
+          "type": "open",
+          "question": "Mějme zdroj entropie $X$, o kterém víme, že generoval 17 zpráv. Pak došlo ke změně, a jedna ze zpráv se přestala generovat ($p=0$). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie $H(X)$ po této změně?",
+          "topics": [
+            "2-test-02-05-2025",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "4",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Mějme zdroj entropie X, o kterém víme, že generoval 17 zpráv. Pak došlo ke změně, a jedna ze zprávy se přestala generovat (p = 0). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie H(X) po této změně?\n4"
+        },
+        {
+          "id": "1776237074423-0",
+          "type": "open",
+          "question": "Je dán šifrový text $ST = \\text{GWGTENYR}$, který je zašifrovaný Hillovou šifrou nad abecedou s 26 znaky maticí\n\n$$\\mathbb{A} = \\begin{pmatrix} 3 & 2 \\\\ 7 & 5 \\end{pmatrix}$$\n\nUrčete otevřený text $OT$.",
+          "topics": [
+            "selftest-2025-2026",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "MYSPULIN",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Je dán šifrový text ST = GWGTENYR, který je zašifrovaný Hillovou šifrou nad abecedou s 26 znaky maticí\n\nA = (3 2)\n    (7 5)\n\nUrčete otevřený text OT.\nMYSPULIN"
+        },
+        {
+          "id": "1776237077050-1",
+          "type": "multichoice",
+          "question": "Vypočítejte hodnotu Eulerovy funkce čísla $3575$.",
+          "topics": [
+            "selftest-2025-2026",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "480",
+              "isCorrect": false
+            },
+            {
+              "text": "1200",
+              "isCorrect": false
+            },
+            {
+              "text": "2860",
+              "isCorrect": false
+            },
+            {
+              "text": "3574",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#4 Vypočítejte hodnotu Eulerovy funkce čísla 3575. \n2\n480\n1200\n2860\n3574"
+        },
+        {
+          "id": "1776237081903-2",
+          "type": "multichoice",
+          "question": "Afinní šifra šifruje s koeficienty $a = 73$ a $b = 85$ v modulu $m = 256$. Vyberte správné šifrovací a dešifrovací předpisy:",
+          "topics": [
+            "selftest-2025-2026",
+            "substitucni-transpozicni-afinni-sifry",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "$p = |73^{-1} \\cdot c + 83|_{256}$",
+              "isCorrect": true
+            },
+            {
+              "text": "$p = |73^{-1} \\cdot c + 85|_{255}$",
+              "isCorrect": false
+            },
+            {
+              "text": "$c = |73 \\cdot p + 85|_{256}$",
+              "isCorrect": true
+            },
+            {
+              "text": "$c = |85 \\cdot p + 73|_{256}$",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#1 Afinní šifra šifruje s koeficienty a = 73 a b = 85 v modulu m = 256. Vyberte správné šifrovací a dešifrovací předpisy: 2 p = |73^-1 * c + 83|_256 p = |73^-1 * c + 85|_255 c = |73 * p + 85|_256 c = |85 * p + 73|_256"
+        },
+        {
+          "id": "1776237492549-0",
+          "type": "open",
+          "question": "Mějme algoritmus El Gamal s $m = 821$. Zadrželi jsme šifrovanou zprávu $c = 678$, která víme, že obsahuje množství diamantů, které nám mají být zaslány. Chceme, aby nám jich bylo posláno desetkrát více. Jaká musí být hodnota $c$, abychom toho dosáhli?",
+          "topics": [
+            "2-test-02-05-2025",
+            "aritmetika-modulo-m",
+            "diffie-hellman-diskretni-logaritmus"
+          ],
+          "answers": [
+            {
+              "text": "212",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#1 Mějme algoritmus El Gamal s m = 821. Zadrželi jsme šifrovanou zprávu c = 678, která víme, obsahuje množství diamantů, které nám mají být zaslány. Chceme, aby nám jich bylo posláno desetkrát více. Jaká musí být hodnota c, abychom toho dosáhli?"
+        },
+        {
+          "id": "1776237496399-1",
+          "type": "open",
+          "question": "Mějme operační mód OFB (Output Feedback), přičemž $i$-tý blok keystreamu (hesla) značíme $H_i$. Chceme spočítat hodnotu třetího bloku šifrového textu ($ST_3$). Máme k dispozici tyto údaje:\n$ST_2 = 1101_2, E_K(H_2) = 0111_2, OT_3 = 1001_2. ST_3 = ?$",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-blokove-sifry-operacni-mody"
+          ],
+          "answers": [
+            {
+              "text": "1110",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Mějme operační mód OFB (Output Feedback), přičemž i-tý blok keystreamu (hesla) značíme H_i Chceme spočítat hodnotu třetího bloku šifrového textu (ST_3). Máme k dispozici tyto údaje: ST_2 = 1101_2, E_K(H_2) = 0111_2, OT_3 = 1001_2. ST_3 = ?"
+        },
+        {
+          "id": "1776237501866-2",
+          "type": "multichoice",
+          "question": "Zvažujeme číslo $35$ jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?",
+          "topics": [
+            "2-test-02-05-2025",
+            "testy-prvociselnosti-rabin-miller",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "29",
+              "isCorrect": true
+            },
+            {
+              "text": "7",
+              "isCorrect": false
+            },
+            {
+              "text": "6",
+              "isCorrect": true
+            },
+            {
+              "text": "34",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#3 Zvažujeme číslo 35 jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?\n29\n7\n6\n34"
+        },
+        {
+          "id": "1776237506627-3",
+          "type": "multichoice",
+          "question": "Alenka si vytváří klíče pro RSA. Zvolí si $p = 13$ a $q = 17$. Rozhodněte o pravdivosti následujících tvrzení:",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "Při volbě veřejného exponentu $e = 48$ dešifruje Alenka zprávu $c = 2$ jako $m = 24$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Eulerova funkce modulu je $\\varphi(n) = 192$.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Alenka si vytváří klíče pro RSA. Zvolí si p = 13 a q = 17. Rozhodněte o pravdivosti následujících tvrzení: Při volbě veřejného exponentu e = 48 dešifruje Alenka zprávu c = 2 jako m = 24. Eulerova funkce modulu je φ(n) = 192."
+        },
+        {
+          "id": "1776237511653-4",
+          "type": "multichoice",
+          "question": "Zvažujeme číslo 35 jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?",
+          "topics": [
+            "2-test-02-05-2025",
+            "testy-prvociselnosti-rabin-miller",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "29",
+              "isCorrect": true
+            },
+            {
+              "text": "7",
+              "isCorrect": false
+            },
+            {
+              "text": "6",
+              "isCorrect": true
+            },
+            {
+              "text": "34",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#3 Zvažujeme číslo 35 jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?\n\n29\n7\n6\n34"
+        },
+        {
+          "id": "1776237515527-5",
+          "type": "multichoice",
+          "question": "Alenka si vytváří klíče pro RSA. Zvolí si $p = 13$ a $q = 17$. Rozhodněte o pravdivosti následujících tvrzení:",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "Při volbě veřejného exponentu $e = 48$ dešifruje Alenka zprávu $c = 2$ jako $m = 24$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Eulerova funkce modulu je $\\varphi(n) = 192$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Jako veřejný exponent lze zvolit $e = 7$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pokud zvolíme jako veřejný exponent $e = 48$, soukromý exponent je $d = 16$.",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Alenka si vytváří klíče pro RSA. Zvolí si p = 13 a q = 17. Rozhodněte o pravdivosti následujících tvrzení: \n\nPři volbě veřejného exponentu e = 48 dešifruje Alenka zprávu c = 2 jako m = 24.\nEulerova funkce modulu je phi(n) = 192.\nJako veřejný exponent lze zvolit e = 7.\nPokud zvolíme jako veřejný exponent e = 48, soukromý exponent je d = 16."
+        },
+        {
+          "id": "1776237521628-6",
+          "type": "open",
+          "question": "Mějme zdroj entropie $X$, o kterém víme, že generoval 17 zpráv. Pak došlo ke změně, a jedna ze zpráv se přestala generovat ($p = 0$). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie $H(X)$ po této změně?",
+          "topics": [
+            "2-test-02-05-2025",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "4",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Mějme zdroj entropie X, o kterém víme, že generoval 17 zpráv. Pak došlo ke změně, a jedna ze zpráv se přestala generovat (p = 0). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie H(X) po této změně?\n4"
+        },
+        {
+          "id": "1776237528367-7",
+          "type": "open",
+          "question": "Mějme šifru RSA. Zvolili jsme prvočísla $p = 7, q = 13$ a veřejný exponent $e = 29$. Spočítejte soukromý exponent $d$, a dešifrujte zprávu $c = 15$. Odpovědí je modul $n$, soukromý exponent $d$ a otevřený text $m$ ve formátu 3 čísel oddělených čárkami. Příklad odpovědi: 1,2,3",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-asymetricka-kryptografie-rsa-crt"
+          ],
+          "answers": [
+            {
+              "text": "91,5,71",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#2 Mějme šifru RSA. Zvolili jsme prvočísla p = 7, q = 13 a veřejný exponent e = 29. Spočítejte soukromý exponent d, a dešifrujte zprávu c = 15. Odpovědí je modul n, soukromý exponent d a otevřený text m ve formátu 3 čísel oddělených čárkami. Příklad odpovědi: 1,2,3"
+        },
+        {
+          "id": "1776237530922-8",
+          "type": "open",
+          "question": "Zdroj zpráv $X$ posílá 5 různých zpráv s pravděpodobnostmi $p_1 = \\frac{2}{32}, p_2 = \\frac{1}{16}, p_3 = \\frac{1}{8}, p_4 = \\frac{1}{4}$ a $p_5 = \\frac{1}{2}$. Jaká je hodnota entropie $H(X)$?",
+          "topics": [
+            "2-test-02-05-2025",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "1.875",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Zdroj zpráv X posílá 5 různých zpráv s pravděpodobnostmi p1 = 2/32, p2 = 1/16, p3 = 1/8, p4 = 1/4 a p5 = 1/2. Jaká je hodnota entropie H(X)X) H(X)?"
+        },
+        {
+          "id": "1776237533701-9",
+          "type": "open",
+          "question": "Jaký největší exponent, a kolik mocnin nejvýše potřebujeme spočítat pro Rabinův-Millerův test čísla $401$? Odpovědi jsou dvě čísla oddělená čárkou.",
+          "topics": [
+            "2-test-02-05-2025",
+            "testy-prvociselnosti-rabin-miller"
+          ],
+          "answers": [
+            {
+              "text": "200,4",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#4 Jaký největší exponent, a kolik mocnin nejvýše potřebujeme spočítat pro Rabinův-Millerův test čísla 401? Odpovědi jsou dvě čísla oddělená čárkou. 200,4"
+        },
+        {
+          "id": "1776237537265-10",
+          "type": "multichoice",
+          "question": "Které z následujících vyjádření reprezentují operační mód ECB pro šifrování/dešifrování? Kde $CT$ je šifrový text a $PT$ je otevřený text.",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-blokove-sifry-operacni-mody"
+          ],
+          "answers": [
+            {
+              "text": "$PT_i = CT_{i-1} \\oplus D_K(CT_i)$",
+              "isCorrect": false
+            },
+            {
+              "text": "$CT_i = PT_i \\oplus E_K(CT_{i-1})$",
+              "isCorrect": false
+            },
+            {
+              "text": "$CT_i = PT_i \\oplus H, H = E_K(H)$",
+              "isCorrect": false
+            },
+            {
+              "text": "$CT_i = E_K(PT_i \\oplus CT_{i-1})$",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#5 Které z následujících vyjádření reprezentují operační mód ECB pro šifrování/dešifrování? Kde CT je šifrový text a PT je otevřený text. PT_i = CT_{i-1} \\oplus D_K(CT_i) CT_i = PT_i \\oplus E_K(CT_{i-1}) CT_i = PT_i \\oplus H, H = E_K(H) CT_i = E_K(PT_i \\oplus CT_{i-1})"
+        },
+        {
+          "id": "1776237588425-11",
+          "type": "multichoice",
+          "question": "Zvažujeme číslo 35 jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?",
+          "topics": [
+            "2-test-02-05-2025",
+            "testy-prvociselnosti-rabin-miller",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "29",
+              "isCorrect": true
+            },
+            {
+              "text": "7",
+              "isCorrect": false
+            },
+            {
+              "text": "6",
+              "isCorrect": true
+            },
+            {
+              "text": "34",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Zvažujeme číslo 35 jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?\n\n29\n7\n6\n34"
+        },
+        {
+          "id": "1776237593556-12",
+          "type": "multichoice",
+          "question": "Alenka si vytváří klíče pro RSA. Zvolí si $p = 13$ a $q = 17$. Rozhodněte o pravdivosti následujících tvrzení:",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "Při volbě veřejného exponentu $e = 48$ dešifruje Alenka zprávu $c = 2$ jako $m = 24$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Eulerova funkce modulu je $\\varphi(n) = 192$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Jako veřejný exponent lze zvolit $e = 7$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pokud zvolíme jako veřejný exponent $e = 48$, soukromý exponent je $d = 16$.",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Alenka si vytváří klíče pro RSA. Zvolí si p = 13 a q = 17. Rozhodněte o pravdivosti následujících tvrzení:\n\n* Při volbě veřejného exponentu e = 48 dešifruje Alenka zprávu c = 2 jako m = 24.\n* Eulerova funkce modulu je φ(n) = 192.\n* Jako veřejný exponent lze zvolit e = 7.\n* Pokud zvolíme jako veřejný exponent e = 48, soukromý exponent je d = 16."
+        },
+        {
+          "id": "1776237596586-13",
+          "type": "open",
+          "question": "Mějme zdroj entropie $X$, o kterém víme, že generoval 17 zpráv. Pak došlo ke změně, a jedna ze zpráv se přestala generovat ($p = 0$). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie $H(X)$ po této změně?",
+          "topics": [
+            "2-test-02-05-2025",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "4",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Mějme zdroj entropie X, o kterém víme, že generoval 17 zpráv. Pak došlo ke změně, a jedna ze zpráv se přestala generovat (p = 0). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie H(X) po této změně?\n4"
+        },
+        {
+          "id": "1776237599315-14",
+          "type": "open",
+          "question": "Jaká je požadovaná délka klíče šifry, aby pro zprávy psané v jazyce Mordoru (jehož obsažnost je $r = 2.5$) v kódování HOBIT-12bit byla vzdálenost jednoznačnosti cca 30 znaků? Předpokládejte, že klíče šifry jsou vybírány náhodně a jsou stejně pravděpodobné.",
+          "topics": [
+            "2-test-02-05-2025",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "285",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Jaká je požadovaná délka klíče šifry, aby pro zprávy psané v jazyce Mordoru (jehož obsažnost je r = 2.5) v kódování HOBIT-12bit byla vzdálenost jednoznačnosti cca 30 znaků? Předpokládejte, že klíče šifry jsou vybírány náhodně a jsou stejně pravděpodobné."
+        },
+        {
+          "id": "1776237602401-15",
+          "type": "open",
+          "question": "Jaký nejmenší exponent, a kolik mocnin nejvýše potřebujeme spočítat pro Rabinův-Millerův test čísla 481? Odpovědí jsou dvě čísla oddělená čárkou.",
+          "topics": [
+            "2-test-02-05-2025",
+            "testy-prvociselnosti-rabin-miller"
+          ],
+          "answers": [
+            {
+              "text": "15, 5",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#2 Jaký nejmenší exponent, a kolik mocnin nejvýše potřebujeme spočítat pro Rabinův-Millerův test čísla 481? Odpovědí jsou dvě čísla oddělená čárkou. 15,5"
+        },
+        {
+          "id": "1776237613094-16",
+          "type": "multichoice",
+          "question": "Označme $h$ jako hashovací funkci SHA-384. Chceme nalézt dvě různé zprávy $x_1$ a $x_2$ takové, že $h(x_1) = h(x_2)$. Rozhodněte o platnosti následujících tvrzení:",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-hasovaci-proudove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{383}$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Jedná se o kolizi prvního řádu.",
+              "isCorrect": true
+            },
+            {
+              "text": "Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{192}$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Jedná se o kolizi druhého řádu.",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Označme h jako hashovací funkci SHA-384. Chceme nalézt dvě různé zprávy x1 a x2 takové, že h(x1) = h(x2). Rozhodněte o platnosti následujících tvrzení:\nPočet hashovacích operací (pro 50% pravděpodobnost) je zhruba 2^383.\nJedná se o kolizi prvního řádu.\nPočet hashovacích operací (pro 50% pravděpodobnost) je zhruba 2^192.\nJedná se o kolizi druhého řádu."
+        },
+        {
+          "id": "1776237617484-17",
+          "type": "open",
+          "question": "Mějme šifru RSA. Zvolili jsme prvočísla $p = 7, q = 11$ a veřejný exponent $e = 11$. Spočítejte soukromý exponent $d$, a dešifrujte zprávu $c = 12$. Odpovědí je modul $n$, soukromý exponent $d$ a otevřený text $m$ ve formátu 3 čísel oddělených čárkami. Příklad odpovědi: 1,2,3",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "77,11,12",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Mějme šifru RSA. Zvolili jsme prvočísla p = 7, q = 11 a veřejný exponent e = 11. Spočítejte soukromý exponent d, a dešifrujte zprávu c = 12. Odpovědí je modul n, soukromý exponent d a otevřený text m ve formátu 3 čísel oddělených čárkami. Příklad odpovědi: 1,2,3"
+        },
+        {
+          "id": "1776237621907-18",
+          "type": "multichoice",
+          "question": "Označme $h$ jako hashovací funkci SHA-384. Chceme nalézt dvě různé zprávy $x_1$ a $x_2$ takové, že $h(x_1) = h(x_2)$. Rozhodněte o platnosti následujících tvrzení:",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-hasovaci-proudove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{383}$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Jedná se o kolizi prvního řádu.",
+              "isCorrect": true
+            },
+            {
+              "text": "Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{192}$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Jedná se o kolizi druhého řádu.",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#3 Označme h jako hashovací funkci SHA-384. Chceme nalézt dvě různé zprávy x1 a x2 takové, že h(x1) = h(x2). Rozhodněte o platnosti následujících tvrzení:\n\nPočet hashovacích operací (pro 50% pravděpodobnost) je zhruba 2^383.\nJedná se o kolizi prvního řádu.\nPočet hashovacích operací (pro 50% pravděpodobnost) je zhruba 2^192.\nJedná se o kolizi druhého řádu."
+        },
+        {
+          "id": "1776237624867-19",
+          "type": "open",
+          "question": "Mějme šifru RSA. Zvolili jsme prvočísla $p = 7$, $q = 11$ a veřejný exponent $e = 11$. Spočítejte soukromý exponent $d$, a dešifrujte zprávu $c = 12$. Odpovědí je modul $n$, soukromý exponent $d$ a otevřený text $m$ ve formátu 3 čísel oddělených čárkami. Příklad odpovědi: 1,2,3",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "77,11,45",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Mějme šifru RSA. Zvolili jsme prvočísla p = 7, q = 11 a veřejný exponent e = 11. Spočítejte soukromý exponent d, a dešifrujte zprávu c = 12. Odpovědí je modul n, soukromý exponent d a otevřený text m ve formátu 3 čísel oddělených čárkami. Příklad odpovědi: 1,2,3"
+        },
+        {
+          "id": "1776237629877-20",
+          "type": "multichoice",
+          "question": "Které z následujících vyjádření reprezentují operační mód CFB pro šifrování/dešifrování? Kde $CT$ je šifrový text a $PT$ je otevřený text.",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-blokove-sifry-operacni-mody"
+          ],
+          "answers": [
+            {
+              "text": "$PT_i = CT_i \\oplus E_K(CT_{i-1})$",
+              "isCorrect": true
+            },
+            {
+              "text": "$CT_i = PT_i \\oplus E_K(CT_{i-1})$",
+              "isCorrect": true
+            },
+            {
+              "text": "$PT_i = D_K(CT_i)$",
+              "isCorrect": false
+            },
+            {
+              "text": "$CT_i = CT_i \\oplus E_K(CT_{i-1})$",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Které z následujících vyjádření reprezentují operační mód CFB pro šifrování/dešifrování? Kde CT je šifrový text a PT je otevřený text.\nPT_i = CT_i \\oplus E_K(CT_{i-1})\nCT_i = PT_i \\oplus E_K(CT_{i-1})\nPT_i = D_K(CT_i)\nCT_i = CT_i \\oplus E_K(CT_{i-1})"
+        },
+        {
+          "id": "1776237633270-21",
+          "type": "multichoice",
+          "question": "Zvažujeme číslo 35 jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?",
+          "topics": [
+            "2-test-02-05-2025",
+            "testy-prvociselnosti-rabin-miller",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "34",
+              "isCorrect": false
+            },
+            {
+              "text": "29",
+              "isCorrect": true
+            },
+            {
+              "text": "7",
+              "isCorrect": false
+            },
+            {
+              "text": "2",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Zvažujeme číslo 35 jako kandidáta na prvočíslo. Které z následujících bází budou lhát u Fermatova testu, a budou silným svědkem složenosti u Rabin-Millerova testu?\n\n34\n29\n7\n2"
+        },
+        {
+          "id": "1776237636316-22",
+          "type": "multichoice",
+          "question": "Alenka si vytváří klíče pro RSA. Zvolí si $p = 13$ a $q = 17$. Rozhodněte o pravdivosti následujících tvrzení:",
+          "topics": [
+            "2-test-02-05-2025",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "Pokud zvolíme jako veřejný exponent $e = 48$, soukromý exponent je $d = 16$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Dvojici $(n, d)$ zveřejníme jako soukromý klíč.",
+              "isCorrect": false
+            },
+            {
+              "text": "Jako veřejný exponent lze zvolit $e = 7$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pokud zvolíme jako veřejný exponent $e = 31$, soukromý exponent je $d = 31$.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Alenka si vytváří klíče pro RSA. Zvolí si p = 13 a q = 17. Rozhodněte o pravdivosti následujících tvrzení:\nPokud zvolíme jako veřejný exponent e = 48, soukromý exponent je d = 16.\nDvojici (n, d) zveřejníme jako soukromý klíč.\nJako veřejný exponent lze zvolit e = 7.\nPokud zvolíme jako veřejný exponent e = 31, soukromý exponent je d = 31."
+        },
+        {
+          "id": "1776237638706-23",
+          "type": "open",
+          "question": "Mějme operační mód OFB (Output Feedback), přičemž $i$-tý blok keystreamu (hesla) značíme $H_i$. Chceme spočítat hodnotu třetího bloku šifrového textu ($ST_3$). Máme k dispozici tyto údaje: $ST_2 = 1101_2, E_K(H_2) = 0111_2, OT_3 = 1001_2, ST_3 = ?$",
+          "topics": [
+            "2-test-02-05-2025",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry",
+            "openssl-blokove-sifry-operacni-mody"
+          ],
+          "answers": [
+            {
+              "text": "1110",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#3 Mějme operační mód OFB (Output Feedback), přičemž i-tý blok keystreamu (hesla) značíme H_i. Chceme spočítat hodnotu třetího bloku šifrového textu (ST_3). Máme k dispozici tyto údaje: ST_2 = 1101_2, E_K(H_2) = 0111_2, OT_3 = 1001_2, ST_3 = ?"
+        },
+        {
+          "id": "1776237641288-24",
+          "type": "open",
+          "question": "Mějme algoritmus El Gamal s $m = 821$. Zadrželi jsme šifrovanou zprávu $c = 678$, která víme, že obsahuje množství diamantů, které nám mají být zaslány. Chceme, aby nám jich bylo posláno desetkrát více. Jaká musí být hodnota $c$, abychom toho dosáhli?",
+          "topics": [
+            "2-test-02-05-2025",
+            "diffie-hellman-diskretni-logaritmus",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "212",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#4 Mějme algoritmus El Gamal s m = 821. Zadrželi jsme šifrovanou zprávu c = 678, která víme, že obsahuje množství diamantů, které nám mají být zaslány. Chceme, aby nám jich bylo posláno desetkrát více. Jaká musí být hodnota c, abychom toho dosáhli? 212"
+        },
+        {
+          "id": "1776237644298-25",
+          "type": "open",
+          "question": "Mějme zdroj entropie $X$, o kterém víme, že generoval $17$ zpráv. Pak došlo ke změně, a jedna ze zpráv se přestala generovat ($p = 0$). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie $H(X)$ po této změně?",
+          "topics": [
+            "2-test-02-05-2025",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "4",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Mějme zdroj entropie X, o kterém víme, že generoval 17 zpráv. Pak došlo ke změně, a jedna ze zpráv se přestala generovat (p = 0). Zbylé zprávy mají stejnou pravděpodobnost. Jaká je celková entropie H(X) po této změně? 4"
+        },
+        {
+          "id": "1776237848120-0",
+          "type": "open",
+          "question": "Jaký nejmenší exponent a kolik mocnin musíme spočítat pro Rabin-Millerův test čísla 281?",
+          "topics": [
+            "testy-prvociselnosti-rabin-miller",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "35, 3",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Jaký nejmenší exponent a kolik mocnin musíme spočítat pro Rabin-Milleruv test čísla 281\nŘešení: 35, 3"
+        },
+        {
+          "id": "1776237850309-1",
+          "type": "open",
+          "question": "RSA: $p = 7, q = 13, e = 5$ a zpráva $m = 3$. Vypočítejte modul $n$, exponent $d$ a zašifrovanou zprávu $c$.",
+          "topics": [
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "91, 29, 61",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "RSA: p = 7, q = 13, e = 5 a zprávu m = 3. Vypočítejte modul n, exponent d a zašifrovanou zprávu c\nŘešení: 91, 29, 61"
+        },
+        {
+          "id": "1776237853860-2",
+          "type": "open",
+          "question": "Dostali jsme zprávu dlouhou 38 znaků v UTF-8 zašifrovanou pomocí AES-256, kolik smysluplných zpráv otevřeného textu v angličtině může odpovídat této zprávě?",
+          "topics": [
+            "entropie-vzdalenost-jednoznacnosti",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "512",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Dostali jsme zprávu dlouho 38 znaků v UTF-8 zašifrovanou pomocí AES-256, kolik smysluplných zpráv otevřeného textu v angličtině může odpovídat této zprávě?\nŘešení: 512"
+        },
+        {
+          "id": "1776237853876-3",
+          "type": "open",
+          "question": "Zdroj posílal 9 různých zpráv se stejnou pravděpodobností, pak přestal jednu z nich posílat ($p = 0$), jaká je entropie zdroje $H(X)$ po této změně?",
+          "topics": [
+            "entropie-vzdalenost-jednoznacnosti",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "3",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Zdroj posílal 9 různých zpráv se stejnou pravděpodobností, pak přestal jednu z nich posílat (p = 0), jaká je entropie zdroje H(X) po této změně?\nŘešení: 3"
+        },
+        {
+          "id": "1776237853893-4",
+          "type": "multichoice",
+          "question": "Označme $h$ jako hashovací funkci SHA-1. Chceme nalézt k dané zprávě $x_1$ jinou zprávu $x_2$ takovou, že $h(x_1) = h(x_2)$. Rozhodněte o platnosti následujících tvrzení:",
+          "topics": [
+            "openssl-hasovaci-proudove-sifry",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "Jedná se o kolizi 2. řadu.",
+              "isCorrect": true
+            },
+            {
+              "text": "Jedná se o kolizi 1. řadu.",
+              "isCorrect": false
+            },
+            {
+              "text": "Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{256}$",
+              "isCorrect": false
+            },
+            {
+              "text": "Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{160}$",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Označme h jako hashovací funkci SHA-1. Chceme nalézt k dané zprávě x1 jinou zprávu x2 takovou, že h(x1) = h(x2). Rozhodněte o platnosti následujících tvrzení:\n        Nečíslovaný seznamJedná se o kolizi 2. řadu.\n        Jedná se o kolizi 1. řadu.\n        Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba 2^256\n        Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba 2^160\nŘešení: Ano, ne, ne, ano"
+        },
+        {
+          "id": "1776237853923-5",
+          "type": "open",
+          "question": "Kolik OT může v průměru existovat, zadáno $r = 2$, kód UTF-16 a AES-192 šifrování, délka textu 13?",
+          "topics": [
+            "entropie-vzdalenost-jednoznacnosti",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "Idk",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Kolik OT muze v prumeru existovat, zadano r = 2, kod UTF-16 a AES-192 sifrovani, delka textu 13"
+        },
+        {
+          "id": "1776237853955-6",
+          "type": "open",
+          "question": "Máme dáno $H(X)=5$. Tato entropie je maximální možná. Kolik různých zpráv produkuje zdroj X? Jaká je pravděpodobnost každé z nich?",
+          "topics": [
+            "entropie-vzdalenost-jednoznacnosti",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "Počet stavů N=32, pravděpodobnost p_i = 1/32",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Máme dáno H(X)=5 Tato entropie je maximální možná. Kolik různých zpráv produkuje zdroj X? Jaká je pravděpodobnost každé z nich?\nŘešení: Počet stavů N=32, pravděpodobnost p_i = 1/32"
+        },
+        {
+          "id": "1776237853964-7",
+          "type": "multichoice",
+          "question": "Alenka vybírá RSA klíče, $p=13, q=17$. Rozhodněte o pravdivosti (T/F):",
+          "topics": [
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "když e=31, tak d=31",
+              "isCorrect": true
+            },
+            {
+              "text": "když e=35, tak dešifruje zprávu c=2 jako m=59",
+              "isCorrect": true
+            },
+            {
+              "text": "když e=48, tak dešifruje zprávu c=2 jako m=24",
+              "isCorrect": false
+            },
+            {
+              "text": "$\\phi(n)=220$",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Alenka vybírá RSA klíče, p=13, q=17. [T/F]:\n        když e=31, tak d=31\n        když e=35, tak dešifruje zprávu c=2 jako m=59\n        když e=48, tak dešifruje zprávu c=2 jako m=24\n        𝜑(n)=220\nŘešení: Ano, ano, ne, ne"
+        },
+        {
+          "id": "1776237853982-8",
+          "type": "multichoice",
+          "question": "Posuďte pravdivost tvrzení o bezkoliznosti 1. řádu (preimage resistance):",
+          "topics": [
+            "openssl-hasovaci-proudove-sifry",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "Je výpočetně neproveditelné najít libovolný pár (x1,x2), tak aby x1≠x2 a h(x1)=h(x2)",
+              "isCorrect": true
+            },
+            {
+              "text": "Je výpočetně neproveditelné najít pro danou zprávu x1 jinou zprávu x2, tak aby x1≠x2 a h(x1)=h(x2)",
+              "isCorrect": false
+            },
+            {
+              "text": "Existuje jen několik kolizí, tj. pro danou zprávu x1 existuje právě jedna další x2, tak aby x1≠x2 a h(x1)=h(x2)",
+              "isCorrect": false
+            },
+            {
+              "text": "Kolize neexistují, tj. pro danou zprávu x1 je zásadně nemožné najít zprávu x2, tak aby x1≠x2 a h(x1)=h(x2)",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "Posuďte pravdivost tvrzení o bezkoliznosti 1. řádu. [T/F]:\n        Je výpočetně neproveditelné najít libovolný pár (x1,x2), tak aby x1≠x2 a h(x1)=h(x2)\n        Je výpočetně neproveditelné najít pro danou zprávu x1 jinou zprávu x2, tak aby x1≠x2 a h(x1)=h(x2)\n        Existuje jen několik kolizí, tj. pro danou zprávu x1 existuje právě jedna další x2, tak aby x1≠x2 a h(x1)=h(x2)\n        Kolize neexistují, tj. pro danou zprávu x1 je zásadně nemožné najít zprávu x2, tak aby x1≠x2 a h(x1)=h(x2)\nŘešení: Ano, ne, ne, ne"
+        },
+        {
+          "id": "1776237853991-9",
+          "type": "open",
+          "question": "Testujeme prvočíselnost $p$ pomocí Rabin-Millerova testu. Provedli jsme testy pro 4 různé báze $a$. 3 testy byly úspěšné, ale 4. test selhal. Jaká je pravděpodobnost, že $p$ je prvočíslo?",
+          "topics": [
+            "testy-prvociselnosti-rabin-miller",
+            "2-test-23-04-2025"
+          ],
+          "answers": [
+            {
+              "text": "p = 0",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Testujeme prvočíselnost p pomocí Rabin-Millerova testu. Provedli jsme testy pro 4 různé báze a. 3 testy byly úspěšné, ale 4. test selhal. Jaká je pravděpodobnost, že p je prvočíslo?\nŘešení: p = 0"
+        },
+        {
+          "id": "1776239756023-0",
+          "type": "multichoice",
+          "question": "Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-blokove-sifry-operacni-mody",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Operační mód MAC zajišťuje nepopiratelnost.",
+              "isCorrect": false
+            },
+            {
+              "text": "Operační mód CTR převádí blokovou šifru na asynchronní proudovou šifru.",
+              "isCorrect": false
+            },
+            {
+              "text": "Pro zajištění autentizace dat lze použít mód CBC-MAC.",
+              "isCorrect": true
+            },
+            {
+              "text": "Operační mód OFB převádí blokovou šifru na synchronní proudovou šifru.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer:\nOperační mód MAC zajišťuje nepopiratelnost.\nOperační mód CTR převádí blokovou šifru na asynchronní proudovou šifru.\nPro zajištění autentizace dat lze použít mód CBC-MAC.\nOperační mód OFB převádí blokovou šifru na synchronní proudovou šifru."
+        },
+        {
+          "id": "1776239756103-1",
+          "type": "open",
+          "question": "Mějme číslo $p = 39$ a zvolené báze $a_1 = 4$ a $a_2 = 11$, které použijeme v Rabin-Millerově testu prvočíselnosti. Napište, zda jsou tyto báze svědky složenosti čísla $p$. Jaká je pravděpodobnost, že $p$ je prvočíslo? (Odpovědi oddělte čárkou. Vzor odpovědi: ano,ne,0.5)",
+          "topics": [
+            "2-selftest-2025-2026",
+            "testy-prvociselnosti-rabin-miller"
+          ],
+          "answers": [
+            {
+              "text": "ano,ano,0",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#2 Mějme číslo p = 39 a zvolené báze a1 = 4 a a2 = 11, které použijeme v Rabin-Millerově testu prvočíselnosti. Napište, zda jsou tyto báze svědky složenosti čísla p. Jaká je pravděpodobnost, že p je prvočíslo? (Odpovědi oddělte čárkou. Vzor odpovědi: ano,ne,0.5) 2 ano,ano,0"
+        },
+        {
+          "id": "1776239756146-2",
+          "type": "open",
+          "question": "Posíláme Alici naše oblíbené číslo zašifrované algoritmem El Gamal. Alicí zvolené veřejné parametry jsou $(m = 919, g = 431, y_A = 67)$. Námi zvolený parametr $k_B = 69, oblibeneCislo = 42$. Výsledek zapište jako uspořádanou dvojici \"$(y_B, c)$\" bez uvozovek, tedy například $(15, 22)$.",
+          "topics": [
+            "2-selftest-2025-2026",
+            "diffie-hellman-diskretni-logaritmus"
+          ],
+          "answers": [
+            {
+              "text": "(486, 767)",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#4 Posíláme Alici naše oblíbené číslo zašifrované algoritmem El Gamal. Alicí zvolené veřejné parametry jsou (m = 919, g = 431, y_A = 67). Námi zvolený parametr k_B = 69, oblibeneCislo = 42. Výsledek zapište jako uspořádanou dvojici \"(y_B, c)\" bez uvozovek, tedy například (15, 22)."
+        },
+        {
+          "id": "1776239756178-3",
+          "type": "multichoice",
+          "question": "Máme šifru 3DES-168 a zprávy psané v angličtině ($r = 1.5$). Klíče šifry jsou vybírány náhodně a jsou stejně pravděpodobné. Na základě těch znalostí rozhodněte o platnosti následujících tvrzení:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "Při použitém kódování ASCII-8bit je vzdálenost jednoznačnosti zhruba 25.85 znaků.",
+              "isCorrect": true
+            },
+            {
+              "text": "Při použitém kódování ASCII-8bit je vzdálenost jednoznačnosti zhruba 21 bitů.",
+              "isCorrect": false
+            },
+            {
+              "text": "Při použitém kódování UTF-32 je vzdálenost jednoznačnosti zhruba 5.51 znaků.",
+              "isCorrect": true
+            },
+            {
+              "text": "Při použitém kódování UTF-32 je vzdálenost jednoznačnosti zhruba 5.51 bitů.",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#5 Máme šifru 3DES-168 a zprávy psané v angličtině (r = 1.5). Klíče šifry jsou vybírány náhodně a jsou stejně pravděpodobné. Na základě těch znalostí rozhodněte o platnosti následujících tvrzení:\n\nPři použitém kódování ASCII-8bit je vzdálenost jednoznačnosti zhruba 25.85 znaků. [v]\nPři použitém kódování ASCII-8bit je vzdálenost jednoznačnosti zhruba 21 bitů. [x]\nPři použitém kódování UTF-32 je vzdálenost jednoznačnosti zhruba 5.51 znaků. [v]\nPři použitém kódování UTF-32 je vzdálenost jednoznačnosti zhruba 5.51 bitů. [x]"
+        },
+        {
+          "id": "1776239756209-4",
+          "type": "open",
+          "question": "Jaká je požadovaná délka klíče šifry, aby pro zprávy psané v angličtině ($r = 1.5$) v kódování ASCII-8bit byla vzdálenost jednoznačnosti cca 20 znaků? Předpokládejte, že klíče šifry jsou vybírány náhodně a jsou stejně pravděpodobné.",
+          "topics": [
+            "2-selftest-2025-2026",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "130",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#2 Jaká je požadovaná délka klíče šifry, aby pro zprávy psané v angličtině (r = 1.5) v kódování ASCII-8bit byla vzdálenost jednoznačnosti cca 20 znaků? Předpokládejte, že klíče šifry jsou vybírány náhodně a jsou stejně pravděpodobné. 2 130"
+        },
+        {
+          "id": "1776239756240-5",
+          "type": "multichoice",
+          "question": "Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-blokove-sifry-operacni-mody",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Operační mód CBC zajišťuje autentizaci dat.",
+              "isCorrect": false
+            },
+            {
+              "text": "Máme-li mód CFB, změna 1 bitu v bloku $ST_1$ může způsobit změnu 1 bitu v $OT_1$ a více bitů v $OT_2$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Operační mód CTR převádí blokovou šifru na asynchronní proudovou šifru.",
+              "isCorrect": false
+            },
+            {
+              "text": "Operační mód ECB umožňuje útočníkovi snadno měnit pořadí bloků ŠT, nebo je mazat a vkládat.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#4 Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer:\nOperační mód CBC zajišťuje autentizaci dat.\nMáme-li mód CFB, změna 1 bitu v bloku ST1 může způsobit změnu 1 bitu v OT1 a více bitů v OT2.\nOperační mód CTR převádí blokovou šifru na asynchronní proudovou šifru.\nOperační mód ECB umožňuje útočníkovi snadno měnit pořadí bloků ŠT, nebo je mazat a vkládat."
+        },
+        {
+          "id": "1776239756269-6",
+          "type": "open",
+          "question": "Spočítejte entropii $H(X)$, víte-li, že zdroj zpráv $X$ generuje 7 zpráv. Tři z nich mají pravděpodobnost $\\frac{1}{4}$ a zbylé čtyři pravděpodobnost $\\frac{1}{16}$. Odpověď uveďte jako desetinné číslo, nebo zlomek v základním tvaru.",
+          "topics": [
+            "2-selftest-2025-2026",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "2.5",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Spočítejte entropii H(X), víte-li, že zdroj zpráv X generuje 7 zpráv. Tři z nich mají pravděpodobnost 1/4 a zbylé čtyři pravděpodobnost 1/16 . Odpověď uveďte jako desetinné číslo, nebo zlomek v základním tvaru."
+        },
+        {
+          "id": "1776239756298-7",
+          "type": "multichoice",
+          "question": "Máme šifru 3DES-168 a zprávy psané v angličtině ($r = 1.5$). Klíče šifry jsou vybírány náhodně a jsou stejně pravděpodobné. Na základě těch znalostí rozhodněte o platnosti následujících tvrzení:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "Při použitém kódování ASCII-8bit je vzdálenost jednoznačnosti zhruba 21 bitů.",
+              "isCorrect": false
+            },
+            {
+              "text": "Při použitém kódování UTF-16 je vzdálenost jednoznačnosti zhruba 11.59 znaků.",
+              "isCorrect": true
+            },
+            {
+              "text": "Při použitém kódování UTF-32 je vzdálenost jednoznačnosti zhruba 5.51 znaků.",
+              "isCorrect": true
+            },
+            {
+              "text": "Při použitém kódování ASCII-8bit je vzdálenost jednoznačnosti zhruba 25.85 znaků.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "Máme šifru 3DES-168 a zprávy psané v angličtině (r = 1.5). Klíče šifry jsou vybírány náhodně a jsou stejně pravděpodobné. Na základě těch znalostí rozhodněte o platnosti následujících tvrzení: \nPři použitém kódování ASCII-8bit je vzdálenost jednoznačnosti zhruba 21 bitů.\nPři použitém kódování UTF-16 je vzdálenost jednoznačnosti zhruba 11.59 znaků.\nPři použitém kódování UTF-32 je vzdálenost jednoznačnosti zhruba 5.51 znaků.\nPři použitém kódování ASCII-8bit je vzdálenost jednoznačnosti zhruba 25.85 znaků."
+        },
+        {
+          "id": "1776239756330-8",
+          "type": "multichoice",
+          "question": "Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-blokove-sifry-operacni-mody",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Máme-li mód CFB, změna 1 bitu v bloku $ST_1$ může způsobit změnu 1 bitu v $OT_1$ a více bitů v $OT_2$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Operační mód CBC zajišťuje autentizaci dat.",
+              "isCorrect": false
+            },
+            {
+              "text": "Pro zajištění autentizace dat lze použít mód CBC-MAC.",
+              "isCorrect": true
+            },
+            {
+              "text": "Operační mód MAC zajišťuje nepopiratelnost.",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#4 Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer: 2\nMáme-li mód CFB, změna 1 bitu v bloku ST1 může způsobit změnu 1 bitu v OT1 a více bitů v OT2.\nOperační mód CBC zajišťuje autentizaci dat.\nPro zajištění autentizace dat lze použít mód CBC-MAC.\nOperační mód MAC zajišťuje nepopiratelnost."
+        },
+        {
+          "id": "1776239756362-9",
+          "type": "multichoice",
+          "question": "Alenka si vytváří klíče pro RSA. Zvolí si $p = 5$ a $q = 11$. Rozhodněte o pravdivosti následujících tvrzení:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "Jako veřejný exponent lze zvolit $e = 7$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pokud zvolíme jako veřejný exponent $e = 5$, soukromý exponent je $d = 27$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Při volbě veřejného exponentu $e = 7$ dešifruje Alenka zprávu $c = 2$ jako $m = 8$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pokud zvolíme jako veřejný exponent $e = 7$, soukromý exponent je $d = 23$.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#3 Alenka si vytváří klíče pro RSA. Zvolí si p = 5 a q = 11. Rozhodněte o pravdivosti následujících tvrzení:\nJako veřejný exponent lze zvolit e = 7.\nPokud zvolíme jako veřejný exponent e = 5, soukromý exponent je d = 27.\nPři volbě veřejného exponentu e = 7 dešifruje Alenka zprávu c = 2 jako m = 8.\nPokud zvolíme jako veřejný exponent e = 7, soukromý exponent je d = 23."
+        },
+        {
+          "id": "1776239756400-10",
+          "type": "open",
+          "question": "Jakou symetrickou šifru bychom měli použít, pokud chceme, aby byla vzdálenost jednoznačnosti přibližně 39 znaků? Uvažujme komunikaci v angličtině s obsažností jazyka $r = 1.5$ a použitém kódování ASCII 8-bit.",
+          "topics": [
+            "2-selftest-2025-2026",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "AES-256",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Jakou symetrickou šifru bychom měli použít, pokud chceme, aby byla vzdálenost jednoznačnosti přibližně 39 znaků? Uvažujme komunikaci v angličtině s obsažností jazyka r = 1.5 a použitém kódování ASCII 8-bit. \nAES-256"
+        },
+        {
+          "id": "1776239756437-11",
+          "type": "open",
+          "question": "Zdroj zpráv $X$ posílá 4 různé zprávy s pravděpodobnostmi $p_1 = \\frac{1}{8}, p_2 = \\frac{1}{4}, p_3 = \\frac{1}{2}$ a $p_4 = \\frac{1}{8}$. Jaká je hodnota entropie $H(X)$? Jaká by byla entropie, pokud bychom změnili pravděpodobnosti tak, aby byly všechny stejné? Odpověď zadejte jako dvě čísla oddělená čárkou.",
+          "topics": [
+            "2-selftest-2025-2026",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "1.75,2",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#3 Zdroj zpráv X posílá 4 různé zprávy s pravděpodobnostmi p_1 = 1/8, p_2 = 1/4, p_3 = 1/2 a p_4 = 1/8. Jaká je hodnota entropie H(X)? Jaká by byla entropie, pokud bychom změnili pravděpodobnosti tak, aby byly všechny stejné? Odpověď zadejte jako dvě čísla oddělená čárkou."
+        },
+        {
+          "id": "1776239756477-12",
+          "type": "open",
+          "question": "Mějme RSA-CRT s modulem složeným z prvočísel $p = 11$ a $q = 13$. Máme šifrový text $CT = 61$ a exponent pro dešifrování $d = 37$. Dešifrujte $CT$ metodou RSA-CRT. Odpověď zapište ve formě čísel oddělených čárkou, kde nejdříve zapíšete mezivýsledky v modulech $p$ a $q$ (v tomto pořadí), poté hodnotu $OT$.",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "8,9,74",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Mějme RSA-CRT s modulem složeným z prvočísel p = 11 a q = 13. Máme šifrový text CT = 61 a exponent pro dešifrování d = 37. Dešifrujte CT metodou RSA-CRT. Odpověď zapište ve formě čísel oddělených čárkou, kde nejdříve zapíšete mezivýsledky v modulech p a q (v tomto pořadí), poté hodnotu OT. 8,9,74"
+        },
+        {
+          "id": "1776239756512-13",
+          "type": "open",
+          "question": "Máme dáno $H(X) = 4$. Tato entropie je maximální možná. Kolik různých zpráv produkuje zdroj $X$? Jaká je pravděpodobnost každé z nich? Odpověď zadejte jako dvě čísla oddělená čárkou.",
+          "topics": [
+            "2-selftest-2025-2026",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "16, 0.0625",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#3 Máme dáno H(X) = 4. Tato entropie je maximální možná. Kolik různých zpráv produkuje zdroj X? Jaká je pravděpodobnost každé z nich? Odpověď zadejte jako dvě čísla oddělená čárkou. 2 16, 0.0625"
+        },
+        {
+          "id": "1776239756547-14",
+          "type": "multichoice",
+          "question": "Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-blokove-sifry-operacni-mody",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Operační mód MAC zajišťuje nepopiratelnost.",
+              "isCorrect": false
+            },
+            {
+              "text": "Operační mód CTR převádí blokovou šifru na asynchronní proudovou šifru.",
+              "isCorrect": false
+            },
+            {
+              "text": "Máme-li mód CFB, změna 1 bitu v bloku $ST_1$ může způsobit změnu 1 bitu v $OT_1$ a více bitů v $OT_2$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pro zajištění autentizace dat lze použít mód CBC-MAC.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#4 Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer: 2 Operační mód MAC zajišťuje nepopiratelnost. Operační mód CTR převádí blokovou šifru na asynchronní proudovou šifru. Máme-li mód CFB, změna 1 bitu v bloku ST1 může způsobit změnu 1 bitu v OT1 a více bitů v OT2. Pro zajištění autentizace dat lze použít mód CBC-MAC."
+        },
+        {
+          "id": "1776239756595-15",
+          "type": "open",
+          "question": "Mějme RSA-CRT s modulem složeným z prvočísel $p = 11$ a $q = 13$. Máme šifrový text $CT = 61$ a exponent pro dešifrování $d = 37$. Dešifrujte $CT$ metodou RSA-CRT. Odpověď zapište ve formě čísel oddělených čárkou, kde nejdříve zapíšete mezivýsledky v modulech $p$ a $q$ (v tomto pořadí), poté hodnotu $OT$.",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-asymetricka-kryptografie-rsa-crt",
+            "aritmetika-modulo-m"
+          ],
+          "answers": [
+            {
+              "text": "8, 9, 74",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#5 Mějme RSA-CRT s modulem složeným z prvočísel p = 11 a q = 13. Máme šifrový text CT = 61 a exponent pro dešifrování d = 37. Dešifrujte CT metodou RSA-CRT. Odpověď zapište ve formě čísel oddělených čárkou, kde nejdříve zapíšete mezivýsledky v modulech p a q (v tomto pořadí), poté hodnotu OT. 8, 9, 74"
+        },
+        {
+          "id": "1776239756650-16",
+          "type": "open",
+          "question": "Máme zdroj zpráv, který generuje nenulové množství zpráv a má minimální možnou entropii. Kolik různých zpráv s nenulovou pravděpodobností generuje? Jaká je jejich pravděpodobnost? Odpověď uveďte jako dvě čísla oddělená čárkou.",
+          "topics": [
+            "2-selftest-2025-2026",
+            "entropie-vzdalenost-jednoznacnosti"
+          ],
+          "answers": [
+            {
+              "text": "1, 1",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#2 Máme zdroj zpráv, který generuje nenulové množství zpráv a má minimální možnou entropii. Kolik různých zpráv s nenulovou pravděpodobností generuje? Jaká je jejich pravděpodobnost? Odpověď uveďte jako dvě čísla oddělená čárkou. 2 1, 1"
+        },
+        {
+          "id": "1776239756893-17",
+          "type": "multichoice",
+          "question": "Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-blokove-sifry-operacni-mody",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Pro zajištění autentizace dat lze použít mód CBC-MAC.",
+              "isCorrect": true
+            },
+            {
+              "text": "Máme-li mód CFB, změna 1 bitu v bloku $ST_1$ může způsobit změnu 1 bitu v $OT_1$ a více bitů v $OT_2$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Operační mód ECB umožňuje útočníkovi snadno měnit pořadí bloků ŠT, nebo je mazat a vkládat.",
+              "isCorrect": true
+            },
+            {
+              "text": "Operační mód OFB převádí blokovou šifru na synchronní proudovou šifru.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#4 Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer: 2\nPro zajištění autentizace dat lze použít mód CBC-MAC.\nMáme-li mód CFB, změna 1 bitu v bloku ST1 může způsobit změnu 1 bitu v OT1 a více bitů v OT2.\nOperační mód ECB umožňuje útočníkovi snadno měnit pořadí bloků ŠT, nebo je mazat a vkládat.\nOperační mód OFB převádí blokovou šifru na synchronní proudovou šifru."
+        },
+        {
+          "id": "1776239756932-18",
+          "type": "multichoice",
+          "question": "Označme $h$ jako hashovací funkci SHA-512. Chceme k dané zprávě $x_1$ nalézt zprávu $x_2$ různou od $x_1$ tak, že $h(x_1) = h(x_2)$. Rozhodněte o platnosti následujících tvrzení:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-hasovaci-proudove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{128}$.",
+              "isCorrect": false
+            },
+            {
+              "text": "Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{512}$.",
+              "isCorrect": true
+            },
+            {
+              "text": "Jedná se o kolizi prvního řádu.",
+              "isCorrect": false
+            },
+            {
+              "text": "Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{256}$.",
+              "isCorrect": false
+            }
+          ],
+          "originalText": "#3 Označme h jako hashovací funkci SHA-512. Chceme k dané zprávě x1 nalézt zprávu x2 různou od x1 tak, že h(x1) = h(x2). Rozhodněte o platnosti následujících tvrzení:\n\nPočet hashovacích operací (pro 50% pravděpodobnost) je zhruba 2^128.\nPočet hashovacích operací (pro 50% pravděpodobnost) je zhruba 2^512.\nJedná se o kolizi prvního řádu.\nPočet hashovacích operací (pro 50% pravděpodobnost) je zhruba 2^256."
+        },
+        {
+          "id": "1776239756971-19",
+          "type": "multichoice",
+          "question": "Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer:",
+          "topics": [
+            "2-selftest-2025-2026",
+            "openssl-blokove-sifry-operacni-mody",
+            "hillova-sifra-modularni-umocnovani-blokove-sifry"
+          ],
+          "answers": [
+            {
+              "text": "Operační mód ECB umožňuje útočníkovi snadno měnit pořadí bloků ŠT, nebo je mazat a vkládat.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pro zajištění autentizace dat lze použít mód CBC-MAC.",
+              "isCorrect": true
+            },
+            {
+              "text": "Operační mód CBC zajišťuje autentizaci dat.",
+              "isCorrect": false
+            },
+            {
+              "text": "Máme-li mód CFB, změna 1 bitu v bloku $ST_1$ může způsobit změnu 1 bitu v $OT_1$ a více bitů v $OT_2$.",
+              "isCorrect": true
+            }
+          ],
+          "originalText": "#1 Zvolte pravdivost následujících tvrzení o operačních módech blokových šifer: 2\n\nOperační mód ECB umožňuje útočníkovi snadno měnit pořadí bloků ŠT, nebo je mazat a vkládat.\nPro zajištění autentizace dat lze použít mód CBC-MAC.\nOperační mód CBC zajišťuje autentizaci dat.\nMáme-li mód CFB, změna 1 bitu v bloku ST1 může způsobit změnu 1 bitu v OT1 a více bitů v OT2."
+        }
+      ]
+    }
+  ]
+}

@@ -13,7 +13,6 @@ import { chap10 } from './chapters/chap10'
 import { chap11 } from './chapters/chap11'
 
 export const skripta: Skripta = {
-  title: 'BI-KAB',
   subtitle: 'Kryptografie a bezpečnost',
   chapters: [
     chap01,

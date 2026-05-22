@@ -263,5 +263,160 @@ export const chap04: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-4-6',
+      number: '4.6',
+      title: 'Příklady',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Vybrané úlohy ze zápočtů a selftestů — k procvičení Hillovy šifry, výpočtů v operačních módech a vlastností DES/AES.',
+        },
+        {
+          kind: 'exercise',
+          number: '4.1',
+          title: 'Inverze klíčové matice Hillovy šifry',
+          source: '1. selftest 2025/26',
+          problem:
+            'Mějme Hillovu šifru nad abecedou 26 znaků určenou maticí $$\\mathbb{A} = \\begin{pmatrix} 3 & 2 \\\\ 7 & 5 \\end{pmatrix}.$$ Vyberte všechny správné dešifrovací matice $\\mathbb{A}^{-1}$ (modulo $26$).',
+          solution:
+            '<p>$\\det \\mathbb{A} = 15 - 14 = 1$, takže $\\det^{-1} = 1$.</p><p>Adjugovaná matice: $\\mathrm{adj}(\\mathbb{A}) = \\begin{pmatrix} 5 & -2 \\\\ -7 & 3 \\end{pmatrix}$.</p><p>$\\mathbb{A}^{-1} = \\det^{-1} \\cdot \\mathrm{adj}(\\mathbb{A}) = \\begin{pmatrix} 5 & -2 \\\\ -7 & 3 \\end{pmatrix} \\equiv \\begin{pmatrix} 5 & 24 \\\\ 19 & 3 \\end{pmatrix} \\pmod{26}$.</p><p>Pozor: $-2 \\equiv 24$, $-7 \\equiv 19$. Možnost s prvkem 17 nebo 21 v levém dolním rohu je chybná.</p>',
+          result: '$\\mathbb{A}^{-1} \\equiv \\begin{pmatrix} 5 & 24 \\\\ 19 & 3 \\end{pmatrix} \\pmod{26}$',
+          answer: {
+            type: 'multichoice',
+            options: [
+              {
+                text: '$\\mathbb{A}^{-1} = \\begin{pmatrix} 5 & 24 \\\\ 19 & 3 \\end{pmatrix}$',
+                correct: true,
+              },
+              {
+                text: '$\\mathbb{A}^{-1} = \\begin{pmatrix} 5 & -2 \\\\ 19 & 20 \\end{pmatrix}$',
+                correct: false,
+              },
+              {
+                text: '$\\mathbb{A}^{-1} = \\begin{pmatrix} 5 & 24 \\\\ 17 & 3 \\end{pmatrix}$',
+                correct: false,
+              },
+              {
+                text: '$\\mathbb{A}^{-1} = \\begin{pmatrix} 5 & 24 \\\\ 21 & 3 \\end{pmatrix}$',
+                correct: false,
+              },
+            ],
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '4.2',
+          title: 'Výpočet dešifrovací matice',
+          source: '2. test 02.05.2025',
+          problem:
+            'Je dán šifrovací klíč Hillovy šifry $$\\mathbb{A} = \\begin{pmatrix} 3 & 7 \\\\ 5 & 2 \\end{pmatrix}$$ pro 26-znakovou abecedu. Spočítejte $\\mathbb{A}^{-1}$ a zapište po řádcích jako kladná čísla „a,b,c,d“.',
+          solution:
+            '<p>$\\det \\mathbb{A} = 6 - 35 = -29 \\equiv -29 + 26 = -3 \\equiv 23 \\pmod{26}$.</p><p>Hledáme $23^{-1} \\pmod{26}$. Rozšířený Eukleides: $26 = 23 + 3$, $23 = 7\\cdot 3 + 2$, $3 = 2 + 1$. Zpětně: $1 = 3 - 2 = 3 - (23 - 7\\cdot 3) = 8\\cdot 3 - 23 = 8(26 - 23) - 23 = 8\\cdot 26 - 9\\cdot 23$. Tedy $23^{-1} \\equiv -9 \\equiv 17 \\pmod{26}$.</p><p>$\\mathrm{adj}(\\mathbb{A}) = \\begin{pmatrix} 2 & -7 \\\\ -5 & 3 \\end{pmatrix} \\equiv \\begin{pmatrix} 2 & 19 \\\\ 21 & 3 \\end{pmatrix} \\pmod{26}$.</p><p>$\\mathbb{A}^{-1} = 17 \\cdot \\begin{pmatrix} 2 & 19 \\\\ 21 & 3 \\end{pmatrix} = \\begin{pmatrix} 34 & 323 \\\\ 357 & 51 \\end{pmatrix} \\equiv \\begin{pmatrix} 8 & 11 \\\\ 19 & 25 \\end{pmatrix} \\pmod{26}$.</p>',
+          result: '$\\mathbb{A}^{-1} \\equiv \\begin{pmatrix} 8 & 11 \\\\ 19 & 25 \\end{pmatrix} \\pmod{26}$, tedy „8,11,19,25“.',
+          answer: {
+            type: 'open',
+            accept: ['8,11,19,25'],
+            placeholder: 'a,b,c,d',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '4.3',
+          title: 'Dešifrování Hillovou šifrou',
+          source: '2. test 02.05.2025',
+          problem:
+            'Šifrový text $ST = \\text{GWGTENYR}$ je zašifrován Hillovou šifrou ($26$ znaků) maticí $$\\mathbb{A} = \\begin{pmatrix} 3 & 2 \\\\ 7 & 5 \\end{pmatrix}.$$ Určete $OT$.',
+          solution:
+            '<p>Z příkladu 4.1: $\\mathbb{A}^{-1} = \\begin{pmatrix} 5 & 24 \\\\ 19 & 3 \\end{pmatrix} \\pmod{26}$.</p><p>Bloky po dvou znacích: $GW = (6,22)$, $GT = (6, 19)$, $EN = (4, 13)$, $YR = (24, 17)$.</p><p>Aplikujeme $\\mathbb{A}^{-1}$:</p><ul><li>$(6,22) \\to (5\\cdot 6 + 24\\cdot 22,\\ 19\\cdot 6 + 3\\cdot 22) = (558, 180) \\equiv (12, 24) = MY$.</li><li>$(6,19) \\to (5\\cdot 6 + 24\\cdot 19,\\ 19\\cdot 6 + 3\\cdot 19) = (486, 171) \\equiv (18, 15) = SP$.</li><li>$(4,13) \\to (5\\cdot 4 + 24\\cdot 13,\\ 19\\cdot 4 + 3\\cdot 13) = (332, 115) \\equiv (20, 11) = UL$.</li><li>$(24,17) \\to (5\\cdot 24 + 24\\cdot 17,\\ 19\\cdot 24 + 3\\cdot 17) = (528, 507) \\equiv (8, 13) = IN$.</li></ul>',
+          result: 'OT = <code>MYSPULIN</code>',
+          answer: {
+            type: 'open',
+            accept: ['MYSPULIN'],
+            placeholder: 'otevřený text',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '4.4',
+          title: 'OFB — výpočet bloku ŠT',
+          source: '2. test 02.05.2025',
+          problem:
+            'Mějme operační mód OFB. $i$-tý blok keystreamu označme $H_i$. Známe $ST_2 = 1101_2$, $E_K(H_2) = 0111_2$, $OT_3 = 1001_2$. Spočítejte $ST_3$.',
+          solution:
+            '<p>V OFB platí $H_{i+1} = E_K(H_i)$ a $ST_i = OT_i \\oplus H_i$. Takže $H_3 = E_K(H_2) = 0111_2$.</p><p>$ST_3 = OT_3 \\oplus H_3 = 1001 \\oplus 0111 = 1110_2$.</p>',
+          result: '$ST_3 = 1110_2$',
+          answer: {
+            type: 'open',
+            accept: ['1110', '1110_2'],
+            placeholder: 'ST_3 binárně',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '4.5',
+          title: 'Vlastnosti operačních módů',
+          source: '2. test 02.05.2025',
+          problem:
+            'Označte všechna pravdivá tvrzení o operačních módech blokových šifer.',
+          solution:
+            '<p><strong>CBC-MAC</strong> je standardní autentizační kód postavený na CBC s odlišným klíčem než šifrování. Zajišťuje autentizaci dat.</p><p><strong>OFB</strong> převádí blokovou šifru na <em>synchronní</em> proudovou — keystream nezávisí na OT/ŠT. Naopak <strong>CTR</strong> je také synchronní (čítač nezávisí na ŠT), nikoli asynchronní.</p><p><strong>ECB</strong> nemá řetězení — útočník může bloky přeskupovat, mazat a vkládat, aniž by to bylo detekovatelné.</p><p><strong>CFB</strong>: změna 1 bitu v $ST_1$ změní 1 bit v $OT_1$ (přímý XOR s $E_K(ST_0)$, ten není narušen) a celý $OT_2$ (protože $ST_1$ vstupuje do dešifrování dalšího bloku).</p><p><strong>MAC</strong> sám o sobě <em>nezaručuje nepopiratelnost</em> — sdílený klíč může použít kterákoli strana.</p>',
+          result:
+            'Pravdivá: ECB umožňuje přeskupování bloků, CBC-MAC pro autentizaci, OFB → synchronní proudová, CFB šíří chybu do $OT_2$.',
+          answer: {
+            type: 'multichoice',
+            options: [
+              {
+                text: 'Operační mód ECB umožňuje útočníkovi snadno měnit pořadí bloků ŠT, nebo je mazat a vkládat.',
+                correct: true,
+              },
+              {
+                text: 'Pro zajištění autentizace dat lze použít mód CBC-MAC.',
+                correct: true,
+              },
+              {
+                text: 'Operační mód OFB převádí blokovou šifru na synchronní proudovou šifru.',
+                correct: true,
+              },
+              {
+                text: 'Máme-li mód CFB, změna 1 bitu v bloku $ST_1$ může způsobit změnu 1 bitu v $OT_1$ a více bitů v $OT_2$.',
+                correct: true,
+              },
+            ],
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '4.6',
+          title: 'Šifra DES',
+          source: '2. test 02.05.2025',
+          problem: 'Která tvrzení o DES jsou pravdivá?',
+          solution:
+            '<p>DES má klíč $56$ bitů (z 64 je 8 paritních), což je z dnešního pohledu nedostatečné — DES byl prolomen brute-force útokem už 1998.</p><p>DES je Feistelova šifra, takže dešifrování probíhá stejně jako šifrování, jen s obráceným pořadím rundovních klíčů. Použití stejného obvodu pro $E$ i $D$ bylo cílem návrhu.</p><p>S-boxy jsou nelineární prvkem, ale nikoli jediným — funkce $f$ obsahuje i expanzi a permutaci, které jsou lineární.</p>',
+          result: 'Krátký klíč jako slabina + dešifrování přes obrácené pořadí klíčů.',
+          answer: {
+            type: 'multichoice',
+            options: [
+              {
+                text: 'Má krátký klíč, který je zásadní bezpečnostní slabinou.',
+                correct: true,
+              },
+              {
+                text: 'Pro dešifrování používá stejný způsob jako pro šifrování, pouze obrátí pořadí výběru rundovních klíčů.',
+                correct: true,
+              },
+              {
+                text: 'Není šifra Feistelova typu.',
+                correct: false,
+              },
+              {
+                text: 'Obsahuje S-boxy, které jsou jediným nelineárním prvkem šifry.',
+                correct: false,
+              },
+            ],
+          },
+        },
+      ],
+    },
   ],
 }

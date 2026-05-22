@@ -190,6 +190,13 @@ export const chap05: Chapter = {
         },
         {
           kind: 'callout',
+          type: 'priklad',
+          number: '5.2',
+          title: 'HMAC',
+          html: 'Klíč $K$ doplníme nulami zleva na $K^+$ délky $b$ (např. 512 b pro SHA-256). Výpočet $h\\bigl((K^+ \\oplus opad) \\,\\|\\, h((K^+ \\oplus ipad) \\,\\|\\, M)\\bigr)$ provedeme dvojím průchodem hašovací funkce. Bez znalosti $K$ útočník nemůže přepočítat HMAC.',
+        },
+        {
+          kind: 'callout',
           type: 'definice',
           number: '5.9',
           title: 'HMAC',
@@ -203,6 +210,149 @@ export const chap05: Chapter = {
             '<strong>Autentizace původu</strong> — správný HMAC dokazuje, že odesílatel zná $K$.',
             '<strong>Důkaz znalosti (challenge–response)</strong>: výzva $\\to$ odpověď $= \\text{HMAC}_K(\\text{challenge})$. Útočník na kanále neumí odvodit $K$.',
           ],
+        },
+      ],
+    },
+    {
+      id: 'sec-5-8',
+      number: '5.8',
+      title: 'Příklady',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Úlohy zaměřené na narozeninový paradox, řády bezkoliznosti a vlastnosti odvozovacích funkcí.',
+        },
+        {
+          kind: 'exercise',
+          number: '5.2',
+          title: 'Kolize SHA-384 (1. řád)',
+          source: '1. selftest 2025/26',
+          problem:
+            'Označme $h$ jako SHA-384. Chceme nalézt dvě <em>libovolné</em> různé zprávy $x_1, x_2$ tak, aby $h(x_1) = h(x_2)$. Která tvrzení platí?',
+          solution:
+            '<p>Jelikož hledáme jakoukoli kolizní dvojici (bez fixované zprávy), jde o <strong>kolizi 1. řádu</strong>.</p><p>Délka výstupu SHA-384 je $n = 384$ bitů. Z narozeninového paradoxu je očekávaný počet operací $\\approx 2^{n/2} = 2^{192}$.</p>',
+          result: 'Kolize 1. řádu, složitost $\\approx 2^{192}$ operací.',
+          answer: {
+            type: 'multichoice',
+            options: [
+              { text: 'Jedná se o kolizi prvního řádu.', correct: true },
+              {
+                text: 'Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{192}$.',
+                correct: true,
+              },
+              {
+                text: 'Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{383}$.',
+                correct: false,
+              },
+              { text: 'Jedná se o kolizi druhého řádu.', correct: false },
+            ],
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '5.3',
+          title: 'Kolize SHA-1 (2. řád)',
+          source: '2. test 02.05.2025',
+          problem:
+            'Označme $h$ jako SHA-1. Chceme k dané zprávě $x_1$ nalézt zprávu $x_2 \\ne x_1$ s $h(x_1) = h(x_2)$. Která tvrzení platí?',
+          solution:
+            '<p>Jelikož $x_1$ je <em>pevně daná</em>, jde o kolizi 2. řádu (2nd preimage).</p><p>Pro náhodné orákulum je očekávaná složitost $\\approx 2^n = 2^{160}$, nikoli $2^{n/2}$.</p>',
+          result: 'Kolize 2. řádu, složitost $\\approx 2^{160}$.',
+          answer: {
+            type: 'multichoice',
+            options: [
+              { text: 'Jedná se o kolizi 2. řádu.', correct: true },
+              {
+                text: 'Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{160}$.',
+                correct: true,
+              },
+              { text: 'Jedná se o kolizi 1. řádu.', correct: false },
+              {
+                text: 'Počet hashovacích operací (pro 50% pravděpodobnost) je zhruba $2^{256}$.',
+                correct: false,
+              },
+            ],
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '5.4',
+          title: 'Bezkoliznost 1. řádu',
+          source: '2. test 02.05.2025',
+          problem: 'Posuďte pravdivost tvrzení o bezkoliznosti 1. řádu (preimage resistance).',
+          solution:
+            '<p>Bezkoliznost 1. řádu znamená: je výpočetně neproveditelné nalézt <em>libovolný</em> pár $(x_1, x_2)$ s $x_1 \\ne x_2$ a $h(x_1) = h(x_2)$. Pozor — bezkoliznost <strong>nezaručuje neexistenci</strong> kolizí, kolize z principu existují (vstupů je mnohem víc než výstupů).</p><p>Tvrzení o „pro danou $x_1$ najít $x_2$“ patří k bezkoliznosti 2. řádu, nikoli 1. řádu.</p>',
+          result:
+            'Pravdivé: nelze najít libovolný pár $(x_1, x_2)$ s kolizí.',
+          answer: {
+            type: 'multichoice',
+            options: [
+              {
+                text: 'Je výpočetně neproveditelné najít libovolný pár $(x_1, x_2)$ s $x_1 \\ne x_2$ a $h(x_1) = h(x_2)$.',
+                correct: true,
+              },
+              {
+                text: 'Je výpočetně neproveditelné najít pro danou zprávu $x_1$ jinou zprávu $x_2$ s $x_1 \\ne x_2$ a $h(x_1) = h(x_2)$.',
+                correct: false,
+              },
+              {
+                text: 'Existuje jen několik kolizí — pro danou $x_1$ existuje právě jedna $x_2$.',
+                correct: false,
+              },
+              {
+                text: 'Kolize neexistují — pro danou $x_1$ nelze najít $x_2 \\ne x_1$ s $h(x_1) = h(x_2)$.',
+                correct: false,
+              },
+            ],
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '5.5',
+          title: 'Key Derivation Function',
+          source: '2. test 02.05.2025',
+          problem:
+            'Mějme KDF definovanou jako $\\text{kdf}(\\text{passwd},\\text{salt},\\text{rounds}) = \\text{SHA512}^{\\text{rounds}}(\\text{passwd} \\| \\text{salt})$. Která tvrzení jsou pravdivá?',
+          solution:
+            '<p><strong>Salt</strong> způsobí, že stejné heslo má pokaždé jiný výstup KDF — předpočítaná tabulka (rainbow) by musela existovat pro každý salt zvlášť, takže její velikost roste exponenciálně.</p><p><strong>Rounds</strong> zvyšují čas potřebný k výpočtu KDF (lineárně), čímž ztěžují slovníkový útok. Velikost výstupu KDF se však s počtem rund <em>nemění</em> (stále výstup SHA-512 = 512 bitů). Salt + rounds slovníkový útok ztěžují, ale <em>neznemožní</em>.</p>',
+          result: 'Vhodná volba salt a rounds ztěžuje slovníkový útok.',
+          answer: {
+            type: 'multichoice',
+            options: [
+              {
+                text: 'Vhodná volba salt a rounds ztěžuje slovníkový útok.',
+                correct: true,
+              },
+              {
+                text: 'S rostoucím parametrem rounds roste velikost výstupu KDF.',
+                correct: false,
+              },
+              {
+                text: 'Velikost předpočítané tabulky pro KDF závisí na parametru rounds.',
+                correct: false,
+              },
+              {
+                text: 'Vhodná volba salt a rounds <em>znemožní</em> slovníkový útok.',
+                correct: false,
+              },
+            ],
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '5.6',
+          title: 'Proudová šifra a porucha přenosu',
+          source: '1. selftest 2025/26',
+          problem:
+            'Mějme proudovou šifru, kde hodnoty hesla $h_i$ jsou generovány náhodně. Alice pošle Bobovi $ST = c_1 c_2 c_3 c_4 c_5$. Při přenosu se narušil pouze znak $c_2$. Které znaky OT Bob dešifruje správně?',
+          solution:
+            '<p>U synchronní proudové šifry s XOR platí $p_i = c_i \\oplus h_i$. Generátor hesla $h_i$ <em>nezávisí</em> na ŠT, takže chyba v $c_2$ ovlivní pouze $p_2$ (lokální propagace chyby — jeden z hlavních důvodů, proč se proudové šifry hodí pro nespolehlivé kanály).</p><p>Bob správně dešifruje $p_1, p_3, p_4, p_5$, ale ne $p_2$.</p>',
+          result: '$p_1, p_3, p_4, p_5$',
+          answer: {
+            type: 'open',
+            accept: ['p1,p3,p4,p5'],
+            placeholder: 'p1,p2,...',
+          },
         },
       ],
     },

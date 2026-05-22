@@ -130,6 +130,42 @@ export const chap01: Chapter = {
           title: 'Frekvenční analýza',
           hint: 'Zkuste upravit ŠT a porovnat naměřenou distribuci s referenční četností češtiny.',
         },
+        {
+          kind: 'exercise',
+          number: '1.1',
+          title: 'Kryptoanalýza afinní šifry',
+          source: '1. selftest 2025/26',
+          problem:
+            'Frekvenční analýzou jsme zjistili, že nejčetnějším písmenem v ŠT (abeceda 26 znaků) je $B$, druhé nejčetnější $K$. OT je anglický (nejčetnější $E$, druhý $T$). Šifrováno afinní šifrou: $ST = \\text{IBAAH}$. Určete $a$, $b$ a dešifrujte. Odpověď ve formátu „a,b,OT“.',
+          solution:
+            '<p>Z předpokladu četností párujeme $B \\leftrightarrow E$ a $K \\leftrightarrow T$, tj. $|a\\cdot 4 + b|_{26} = 1$ a $|a\\cdot 19 + b|_{26} = 10$.</p><p>Odečtením rovnic: $|15a|_{26} = 9$. Inverze $15^{-1} \\equiv 7 \\pmod{26}$, takže $a = |7\\cdot 9|_{26} = 11$. Dosazením do první rovnice: $b = |1 - 44|_{26} = 9$.</p><p>Dešifrovací předpis: $p = |a^{-1}(c - b)|_{26} = |19(c-9)|_{26}$, protože $11^{-1} \\equiv 19 \\pmod{26}$.</p><p>$ST = $ I(8), B(1), A(0), A(0), H(7) → $|19\\cdot(8-9)|_{26}=7$ (H), $|19\\cdot(1-9)|_{26}=4$ (E), $|19\\cdot(-9)|_{26}=11$ (L), 11 (L), $|19\\cdot(-2)|_{26}=14$ (O). OT = HELLO.</p>',
+          result: '$a = 11,\\ b = 9,\\ OT = \\text{HELLO}$',
+          answer: {
+            type: 'open',
+            accept: ['11,9,HELLO', '11, 9, HELLO'],
+            placeholder: 'a, b, OT',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '1.2',
+          title: 'Počet klíčů afinní šifry',
+          source: '2. selftest 2025/26',
+          problem:
+            'Mějme abecedu o $45$ znacích. Kolik existuje různých klíčů pro afinní šifru (různých = různých šifrovacích předpisů)?',
+          solution:
+            '<p>Klíčem je dvojice $(a, b)$, kde $\\gcd(a, 45) = 1$ a $b \\in \\{0, \\dots, 44\\}$.</p><p>Počet přípustných $a$ je $\\varphi(45) = \\varphi(9)\\varphi(5) = 6 \\cdot 4 = 24$. Počet $b$ je $45$. Celkem $24 \\cdot 45 = 1080$.</p>',
+          result: '$\\varphi(45) \\cdot 45 = 24 \\cdot 45 = 1080$',
+          answer: {
+            type: 'multichoice',
+            options: [
+              { text: '$24 \\cdot 45$', correct: true },
+              { text: '$1080$', correct: true },
+              { text: '$24 \\cdot 24$', correct: false },
+              { text: '$2025$', correct: false },
+            ],
+          },
+        },
       ],
     },
     {
@@ -223,6 +259,22 @@ export const chap01: Chapter = {
           number: '1.6',
           title: '5-sloupcová transpozice',
           html: 'OT „THIS IS THE MESSAGE TO SHOW HOW A COLUMNAR TRANSPOSITION WORKS“ doplněný písmeny X do plné tabulky 11×5 dá ŠT <code>TSEEO AMROO KHTST WCNAS NSIHS OHOAN IWXSE ASOLR STOXI MGHWU TPIRX</code>.',
+        },
+        {
+          kind: 'exercise',
+          number: '1.3',
+          title: 'Luštění transpoziční šifry',
+          source: '2. test 02.05.2025',
+          problem:
+            'Zachytili jsme zašifrovanou zprávu $ST = \\text{NLSEJEUSXCEXIMX}$. Víme, že byla použita transpoziční šifra. Určete $OT$.',
+          solution:
+            '<p>Délka ŠT je $15 = 3 \\cdot 5$. Zkusíme zápis po sloupcích do tabulky $3 \\times 5$ (5 sloupců, 3 řádky): N L S E J / E U S X C / E X I M X.</p><p>Čtení po řádcích zleva doprava ale zatím nedává smysl. Zkusíme tedy obrácený postup: ŠT byl získán <em>čtením po sloupcích</em>, takže zapíšeme ŠT po sloupcích do tabulky $5 \\times 3$ a OT čteme po řádcích: sloupce „NLSEJ“, „EUSXC“, „EXIMX“ → tabulka řádek 1: N E E, řádek 2: L U X, řádek 3: S S I, řádek 4: E X M, řádek 5: J C X.</p><p>Po řádcích zleva: <code>NEU CIL JSE MSE XXX</code> = <strong>NEUCILJSEMSEXXX</strong>. X je padding.</p>',
+          result: 'OT = <code>NEUCILJSEMSEXXX</code> (česky: „neučil jsem se“, doplněno XXX).',
+          answer: {
+            type: 'open',
+            accept: ['NEUCILJSEMSEXXX', 'neucilejsemsexxx', 'neucilJSEMSExxx'],
+            placeholder: 'otevřený text',
+          },
         },
       ],
     },

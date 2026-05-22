@@ -46,6 +46,37 @@ export type Block =
       // in its own definition into a tooltip).
       kind: 'glossary'
     }
+  | {
+      // Real exam-style exercise rendered as a multi-step card:
+      // Zadání → (optional) interactive guess → Výpočet → Výsledek.
+      kind: 'exercise'
+      number: string // "1.7", "2.1"
+      title?: string // optional short label, e.g. "Diffie–Hellman, 3 účastníci"
+      source?: string // optional, e.g. "1. test 21.03.2025"
+      // Problem statement (HTML, supports math).
+      problem: string
+      // Optional worked solution shown on the "Výpočet" tab.
+      solution?: string
+      // Final answer shown on the "Výsledek" tab.
+      result: string
+      // Optional answer-checking widget on the Zadání tab.
+      // - 'open': free-text input; user input is compared against `accept`.
+      // - 'multichoice': user toggles a set of options; checked set must equal correct set.
+      answer?:
+        | {
+            type: 'open'
+            // Accepted answers (case- and whitespace-insensitive). The first
+            // value is treated as the canonical form shown on the Výsledek tab
+            // if `result` is not given.
+            accept: string[]
+            // Optional short hint shown next to the input (e.g. format).
+            placeholder?: string
+          }
+        | {
+            type: 'multichoice'
+            options: { text: string; correct: boolean }[]
+          }
+    }
 
 export type InteractiveName =
   | 'caesar'
@@ -97,7 +128,6 @@ export type Chapter = {
 }
 
 export type Skripta = {
-  title: string
   subtitle?: string
   chapters: Chapter[]
 }

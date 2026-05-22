@@ -9,6 +9,7 @@ import { InteractiveWidget } from './components/interactive/registry'
 import { Figure } from './components/diagram/Figure'
 import { DiagramComponent } from './components/diagram/registry'
 import { GlossaryList } from './components/GlossaryList'
+import { Exercise } from './components/Exercise'
 
 function BlockRenderer({ block }: { block: Block }) {
   switch (block.kind) {
@@ -54,6 +55,18 @@ function BlockRenderer({ block }: { block: Block }) {
       )
     case 'glossary':
       return <GlossaryList />
+    case 'exercise':
+      return (
+        <Exercise
+          number={block.number}
+          title={block.title}
+          source={block.source}
+          problem={block.problem}
+          solution={block.solution}
+          result={block.result}
+          answer={block.answer}
+        />
+      )
   }
 }
 
@@ -140,17 +153,7 @@ export default function App() {
       />
 
       <main className="min-w-0 px-6 md:px-12 lg:px-16 py-10 max-w-4xl">
-        <header className="mb-10">
-          {/* <div className="text-[11px] font-sans tracking-[0.22em] uppercase text-ink-500 mb-2">
-            Skripta · Kapitola {chapter.number} / {chapters.length}
-          </div> */}
-          <h1 className="text-3xl md:text-4xl font-bold text-ink-100 tracking-tight">
-            {skripta.title}
-          </h1>
-          {/* {skripta.subtitle && (
-            <p className="mt-2 text-base text-ink-400">{skripta.subtitle}</p>
-          )} */}
-        </header>
+        <header className="mb-10" />
 
         <ChapterView chapter={chapter} />
 

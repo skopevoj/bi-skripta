@@ -270,5 +270,116 @@ export const chap10: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-10-9',
+      number: '10.9',
+      title: 'Příklady',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Klasická úloha k Rabin-Millerovu testu: rozložit $p - 1 = 2^b \\cdot m$ na sudou a lichou část a říct, kolik mocnin v testu spočítáme.',
+        },
+        {
+          kind: 'exercise',
+          number: '10.2',
+          title: 'Rabin–Miller pro $p = 401$',
+          source: '1. selftest 2025/26',
+          problem:
+            'Jaký největší exponent $m$ a kolik mocnin nejvýše musíme spočítat pro Rabinův–Millerův test čísla $401$? Odpovězte „m, počet“.',
+          solution:
+            '<p>$p - 1 = 400 = 2^4 \\cdot 25$. Tedy $b = 4$ a lichý zbytek $m = 25$.</p><p>„Největší exponent“ ve smyslu mocniny báze v průběhu testu: $a^{2^{b-1} m} = a^{8\\cdot 25} = a^{200}$. Postupně počítáme $a^m, a^{2m}, a^{4m}, a^{8m}$, tj. <strong>4 mocniny</strong> (po výpočtu $a^m$ stačí $b - 1$ umocnění na druhou).</p>',
+          result: '$m_{\\max} = 200$, počet mocnin $= 4$.',
+          answer: {
+            type: 'open',
+            accept: ['200,4'],
+            placeholder: 'm, počet',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '10.3',
+          title: 'Rabin–Miller pro $p = 481$',
+          source: '2. test 02.05.2025',
+          problem:
+            'Jaký nejmenší exponent $m$ a kolik mocnin nejvýše musíme spočítat pro Rabin-Millerův test čísla $481$? Odpovězte „m, počet“.',
+          solution:
+            '<p>$p - 1 = 480 = 2^5 \\cdot 15$. Tedy $b = 5$ a lichá část $m = 15$ (nejmenší exponent v posloupnosti).</p><p>Postupně počítáme $a^{15}, a^{30}, a^{60}, a^{120}, a^{240}$ — celkem <strong>5 mocnin</strong>.</p>',
+          result: '$m_{\\min} = 15$, počet mocnin $= 5$.',
+          answer: {
+            type: 'open',
+            accept: ['15,5'],
+            placeholder: 'm, počet',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '10.4',
+          title: 'Rabin–Miller pro $p = 281$',
+          source: '2. test 02.05.2025',
+          problem:
+            'Jaký nejmenší exponent a kolik mocnin musíme spočítat pro Rabin-Millerův test čísla $281$?',
+          solution:
+            '<p>$p - 1 = 280 = 2^3 \\cdot 35$. Lichá část $m = 35$, $b = 3$.</p><p>Posloupnost: $a^{35}, a^{70}, a^{140}$ — celkem <strong>3 mocniny</strong>.</p>',
+          result: '$m_{\\min} = 35$, počet mocnin $= 3$.',
+          answer: {
+            type: 'open',
+            accept: ['35,3'],
+            placeholder: 'm, počet',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '10.5',
+          title: 'Báze v Rabin-Millerově testu',
+          source: '2. test 02.05.2025',
+          problem:
+            'Mějme $p = 39$ a báze $a_1 = 4$, $a_2 = 11$. Jsou tyto báze silnými svědky složenosti? Jaká je pravděpodobnost, že $p$ je prvočíslo? (Odpověď: „ano/ne, ano/ne, pravděpodobnost“.)',
+          solution:
+            '<p>$39 = 3 \\cdot 13$ — tedy <em>nikdy</em> není prvočíslo, pravděpodobnost $= 0$ bez ohledu na výsledky.</p><p>$p - 1 = 38 = 2 \\cdot 19$, $b = 1$, $m = 19$.</p><p>$a_1 = 4$: $4^{19} \\bmod 39$. $4^2 = 16$, $4^4 = 256 \\equiv 256 - 6\\cdot 39 = 22$, $4^8 \\equiv 22^2 = 484 \\equiv 484 - 12\\cdot 39 = 16$, $4^{16} \\equiv 16^2 = 256 \\equiv 22$. $4^{19} = 4^{16} \\cdot 4^2 \\cdot 4 \\equiv 22 \\cdot 16 \\cdot 4 = 1408 \\equiv 1408 - 36 \\cdot 39 = 4$. Hodnota není $\\pm 1 \\bmod 39$, takže $a_1$ je silný svědek složenosti. ✓</p><p>$a_2 = 11$: $11^2 = 121 \\equiv 121 - 3\\cdot 39 = 4$, $11^4 \\equiv 16$, $11^8 \\equiv 22$, $11^{16} \\equiv 22^2 = 484 \\equiv 16$. $11^{19} = 11^{16} \\cdot 11^2 \\cdot 11 \\equiv 16 \\cdot 4 \\cdot 11 = 704 \\equiv 704 - 18\\cdot 39 = 2$. Není $\\pm 1$, takže i $a_2$ je silný svědek složenosti. ✓</p>',
+          result: 'ano, ano, $0$',
+          answer: {
+            type: 'open',
+            accept: ['ano,ano,0'],
+            placeholder: 'ano/ne, ano/ne, P',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '10.6',
+          title: 'Fermat lhář vs. silný svědek',
+          source: '2. test 02.05.2025',
+          problem:
+            'Které z následujících bází budou <em>lhát</em> u Fermatova testu nad $p = 35$, ale budou <em>silným svědkem složenosti</em> u Rabin-Millerova testu? Vyberte všechny správné.',
+          solution:
+            '<p>$35 = 5 \\cdot 7$. $\\varphi(35) = 24$. Fermatův lhář $a$: $a^{34} \\equiv 1 \\pmod{35}$ přes Carmichaelovu $\\lambda(35) = \\mathrm{lcm}(4, 6) = 12$. $34 \\bmod 12 = 10$, takže $a$ je lhář, právě když $a^{10} \\equiv 1 \\pmod{35}$.</p><p>$p-1 = 34 = 2 \\cdot 17$, $b = 1$, $m = 17$. R-M projde, pokud $a^{17} \\equiv \\pm 1 \\pmod{35}$ — jinak je silný svědek.</p><p>Pro $a = 29$: $29 \\equiv -6 \\pmod{35}$. $29^2 \\equiv 36 \\equiv 1$. Takže $29^{17} = 29 \\cdot (29^2)^8 \\equiv 29 \\cdot 1 = 29 \\equiv -6 \\pmod{35}$. To není $\\pm 1$ → silný svědek. Fermat: $29^{10} = (29^2)^5 \\equiv 1$ → lhář. ✓</p><p>Pro $a = 6$: $6^2 = 36 \\equiv 1$. $6^{17} = 6 \\cdot (6^2)^8 \\equiv 6$, není $\\pm 1$ → silný svědek. Fermat: $6^{10} \\equiv 1$ → lhář. ✓</p><p>Pro $a = 7$: $\\gcd(7, 35) = 7$, není nesoudělné — báze nemá smysl pro testy. Není ani lhář, ani svědek v běžném smyslu.</p><p>Pro $a = 34 \\equiv -1$: $34^{17} \\equiv -1 \\equiv 34 \\pmod{35}$ → není silný svědek (R-M projde, $\\pm 1$).</p>',
+          result: 'Báze $a = 29$ a $a = 6$.',
+          answer: {
+            type: 'multichoice',
+            options: [
+              { text: '$a = 29$', correct: true },
+              { text: '$a = 6$', correct: true },
+              { text: '$a = 7$', correct: false },
+              { text: '$a = 34$', correct: false },
+            ],
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '10.7',
+          title: 'Pravděpodobnost prvočíselnosti',
+          source: '2. test 02.05.2025',
+          problem:
+            'Testujeme prvočíselnost $p$ Rabin-Millerovým testem se 4 různými bázemi. 3 testy proběhly úspěšně, 4. test selhal. Jaká je pravděpodobnost, že $p$ je prvočíslo?',
+          solution:
+            '<p>Jakmile <em>jediný</em> R-M test selže (báze je svědek složenosti), víme s jistotou, že $p$ je složené.</p><p>Pravděpodobnost prvočíselnosti je proto $0$ — bez ohledu na to, kolik testů předtím proběhlo úspěšně.</p>',
+          result: '$P = 0$',
+          answer: {
+            type: 'open',
+            accept: ['0', 'p=0'],
+            placeholder: 'P = ?',
+          },
+        },
+      ],
+    },
   ],
 }

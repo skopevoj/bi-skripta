@@ -143,5 +143,177 @@ export const chap08: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-8-4',
+      number: '8.4',
+      title: 'Příklady',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Úlohy se opakují na zápočtech — všechny se točí kolem dvou vzorců: $H(X) = -\\sum p_i \\log_2 p_i$ a $\\delta_U = H(K) / D$, kde $D = R - r$.',
+        },
+        {
+          kind: 'exercise',
+          number: '8.5',
+          title: 'Entropie po odebrání zprávy',
+          source: '2. test 02.05.2025',
+          problem:
+            'Zdroj $X$ generoval 17 zpráv (rovnoměrně). Pak jedna zpráva přestala být generována ($p=0$), zbylé zůstaly stejně pravděpodobné. Jaká je nyní $H(X)$?',
+          solution:
+            '<p>Po změně máme 16 stejně pravděpodobných zpráv, každá $p = 1/16$.</p><p>$H(X) = -16 \\cdot \\tfrac{1}{16} \\log_2 \\tfrac{1}{16} = \\log_2 16 = 4$ bity.</p>',
+          result: '$H(X) = 4$',
+          answer: {
+            type: 'open',
+            accept: ['4'],
+            placeholder: 'H(X) = ?',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '8.6',
+          title: 'Entropie — degenerovaný zdroj',
+          source: '1. selftest 2025/26',
+          problem:
+            'Zdroj $X$ generoval 16 zpráv. Pak došlo ke změně — kromě dvou zpráv se všechny ostatní přestaly generovat ($p=0$). Zbylé dvě jsou stejně pravděpodobné. Jaká je $H(X)$?',
+          solution:
+            '<p>Zbyly 2 zprávy, každá $p = 1/2$. $H(X) = -2 \\cdot 0{,}5 \\log_2 0{,}5 = 1$ bit.</p>',
+          result: '$H(X) = 1$',
+          answer: {
+            type: 'open',
+            accept: ['1'],
+            placeholder: 'H(X) = ?',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '8.7',
+          title: 'Entropie geometrické řady',
+          source: '2. test 02.05.2025',
+          problem:
+            'Zdroj posílá 5 různých zpráv s pravděpodobnostmi $p_1 = \\tfrac{2}{32}, p_2 = \\tfrac{1}{16}, p_3 = \\tfrac{1}{8}, p_4 = \\tfrac{1}{4}, p_5 = \\tfrac{1}{2}$. Spočítejte $H(X)$.',
+          solution:
+            '<p>$p_1 = p_2 = 1/16$, takže pravděpodobnosti jsou $\\{1/16, 1/16, 1/8, 1/4, 1/2\\}$ a součet $= 1$. ✓</p><p>$H = 2 \\cdot \\tfrac{1}{16} \\cdot 4 + \\tfrac{1}{8} \\cdot 3 + \\tfrac{1}{4} \\cdot 2 + \\tfrac{1}{2} \\cdot 1$</p><p>$= \\tfrac{8}{16} + \\tfrac{3}{8} + \\tfrac{1}{2} + \\tfrac{1}{2} = 0{,}5 + 0{,}375 + 0{,}5 + 0{,}5 = 1{,}875$ bitů.</p>',
+          result: '$H(X) = 1{,}875$ bitu',
+          answer: {
+            type: 'open',
+            accept: ['1.875', '1,875', '15/8'],
+            placeholder: 'H(X) = ?',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '8.8',
+          title: 'Entropie — sdružené pravděpodobnosti',
+          source: '2. test 02.05.2025',
+          problem:
+            'Zdroj $X$ generuje 7 zpráv. Tři z nich mají pravděpodobnost $\\tfrac{1}{4}$ a zbylé čtyři $\\tfrac{1}{16}$. Spočítejte $H(X)$.',
+          solution:
+            '<p>Kontrola: $3 \\cdot \\tfrac{1}{4} + 4 \\cdot \\tfrac{1}{16} = \\tfrac{3}{4} + \\tfrac{1}{4} = 1$. ✓</p><p>$H = 3 \\cdot \\tfrac{1}{4} \\cdot 2 + 4 \\cdot \\tfrac{1}{16} \\cdot 4 = \\tfrac{3}{2} + 1 = 2{,}5$ bitu.</p>',
+          result: '$H(X) = 2{,}5$ bitu',
+          answer: {
+            type: 'open',
+            accept: ['2.5', '2,5', '5/2'],
+            placeholder: 'H(X) = ?',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '8.9',
+          title: 'Maximální entropie',
+          source: '2. test 02.05.2025',
+          problem:
+            'Máme dáno $H(X) = 5$, přičemž tato entropie je maximální možná. Kolik různých zpráv produkuje zdroj a jaká je pravděpodobnost každé z nich?',
+          solution:
+            '<p>Maximální entropie $\\log_2 N = 5$ je dosažena při rovnoměrném rozdělení, $N = 2^5 = 32$.</p><p>Každá zpráva má pravděpodobnost $p_i = 1/32 = 0{,}03125$.</p>',
+          result: 'N = 32, $p_i = 1/32$',
+          answer: {
+            type: 'open',
+            accept: ['32,1/32', '32,0.03125', 'N=32,p=1/32'],
+            placeholder: 'N, p_i',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '8.10',
+          title: 'Minimální entropie',
+          source: '2. test 02.05.2025',
+          problem:
+            'Zdroj generuje nenulové množství zpráv a má minimální možnou entropii. Kolik různých zpráv s nenulovou pravděpodobností generuje a jaká je jejich pravděpodobnost?',
+          solution:
+            '<p>$H(X) = 0$ právě tehdy, když je rozdělení degenerované — tj. existuje jediná zpráva s $p = 1$ (a všechny ostatní s $p = 0$).</p>',
+          result: '$N = 1,\\ p = 1$',
+          answer: {
+            type: 'open',
+            accept: ['1,1'],
+            placeholder: 'N, p',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '8.11',
+          title: 'Vzdálenost jednoznačnosti — Mordor',
+          source: '2. test 02.05.2025',
+          problem:
+            'Jaká musí být délka klíče šifry, aby pro zprávy v jazyce Mordoru ($r = 2{,}5$) v kódování HOBIT-12bit byla vzdálenost jednoznačnosti $\\delta_U \\approx 30$ znaků? Klíče vybíráme rovnoměrně náhodně.',
+          solution:
+            '<p>$\\delta_U = H(K)/D$, kde $D = R - r$ a $R = \\log_2 L$ pro abecedu velikosti $L$.</p><p>HOBIT-12bit: $R = 12$ bitů/znak. Redundance $D = 12 - 2{,}5 = 9{,}5$ b/znak.</p><p>$H(K) = \\delta_U \\cdot D = 30 \\cdot 9{,}5 = 285$ bitů.</p><p>Pro rovnoměrný náhodný klíč $H(K) = \\log_2(\\text{počet klíčů})$, tj. délka klíče je $285$ bitů.</p>',
+          result: 'Délka klíče $= 285$ bitů.',
+          answer: {
+            type: 'open',
+            accept: ['285'],
+            placeholder: 'délka klíče [b]',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '8.12',
+          title: 'Vzdálenost jednoznačnosti — výběr šifry',
+          source: '2. test 02.05.2025',
+          problem:
+            'Jakou symetrickou šifru použít, pokud chceme $\\delta_U \\approx 39$ znaků pro angličtinu ($r = 1{,}5$) v ASCII-8bit?',
+          solution:
+            '<p>$R = 8$, $D = 8 - 1{,}5 = 6{,}5$ b/znak.</p><p>$H(K) = 39 \\cdot 6{,}5 = 253{,}5$ bitů. Nejbližší (větší nebo rovno) standardní velikost je $256$ bitů.</p><p>→ <strong>AES-256</strong> (3DES-168 by stačil pro $H(K) = 168$, což odpovídá $\\delta_U \\approx 25{,}8$).</p>',
+          result: 'AES-256',
+          answer: {
+            type: 'open',
+            accept: ['AES-256', 'AES256', 'aes-256', 'aes 256'],
+            placeholder: 'název šifry',
+          },
+        },
+        {
+          kind: 'exercise',
+          number: '8.13',
+          title: 'Vzdálenost jednoznačnosti — 3DES',
+          source: '2. test 02.05.2025',
+          problem:
+            'Šifra 3DES-168, angličtina ($r = 1{,}5$), klíče vybírány rovnoměrně. Která tvrzení o vzdálenosti jednoznačnosti jsou pravdivá?',
+          solution:
+            '<p>$H(K) = 168$ b. Postupně:</p><ul><li>ASCII-8bit: $D = 8 - 1{,}5 = 6{,}5$, $\\delta_U = 168/6{,}5 \\approx 25{,}85$ znaků.</li><li>UTF-16: $R = 16$, $D = 14{,}5$, $\\delta_U \\approx 11{,}59$ znaků.</li><li>UTF-32: $R = 32$, $D = 30{,}5$, $\\delta_U \\approx 5{,}51$ znaků.</li></ul><p>Tvrzení s jednotkou „bitů“ místo „znaků“ jsou chybná.</p>',
+          result:
+            '$\\delta_U \\approx 25{,}85$ pro ASCII-8bit, $\\approx 11{,}59$ pro UTF-16, $\\approx 5{,}51$ pro UTF-32.',
+          answer: {
+            type: 'multichoice',
+            options: [
+              {
+                text: 'Při kódování ASCII-8bit je $\\delta_U \\approx 25{,}85$ znaků.',
+                correct: true,
+              },
+              {
+                text: 'Při kódování UTF-16 je $\\delta_U \\approx 11{,}59$ znaků.',
+                correct: true,
+              },
+              {
+                text: 'Při kódování UTF-32 je $\\delta_U \\approx 5{,}51$ znaků.',
+                correct: true,
+              },
+              {
+                text: 'Při kódování ASCII-8bit je $\\delta_U \\approx 21$ bitů.',
+                correct: false,
+              },
+            ],
+          },
+        },
+      ],
+    },
   ],
 }
