@@ -1,0 +1,77 @@
+@import 'katex/dist/katex.min.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ink-950 text-ink-200 font-serif antialiased;
+    font-feature-settings: 'kern', 'liga', 'onum';
+  }
+  ::selection {
+    background: rgba(217, 119, 6, 0.18);
+    color: #16161a;
+  }
+}
+
+@layer components {
+  .sidebar-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: theme('colors.ink.700');
+    border-radius: 3px;
+  }
+  .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.ink.600');
+  }
+
+  /* Prose-ish styling for content blocks rendered from HTML strings. */
+  .skripta-prose {
+    @apply text-ink-200 leading-relaxed text-[15.5px];
+  }
+  .skripta-prose p {
+    @apply my-3;
+  }
+  .skripta-prose strong {
+    @apply text-ink-100 font-semibold;
+  }
+  .skripta-prose em {
+    @apply italic text-ink-100;
+  }
+  .skripta-prose a {
+    @apply text-ink-100 underline decoration-ink-500 decoration-1 underline-offset-2
+           hover:decoration-ink-300 transition-colors;
+  }
+  .skripta-prose ul {
+    @apply list-disc pl-6 my-3 space-y-1.5;
+  }
+  .skripta-prose ol {
+    @apply list-decimal pl-6 my-3 space-y-1.5;
+  }
+  .skripta-prose li::marker {
+    @apply text-ink-500;
+  }
+  .skripta-prose code {
+    @apply bg-ink-900 text-ink-100 px-1.5 py-0.5 rounded text-[0.9em] font-mono border border-ink-800;
+  }
+  .skripta-prose .footnote-ref {
+    @apply text-ink-400 text-[0.7em] align-super ml-0.5 no-underline hover:text-ink-200;
+  }
+  .skripta-prose sup {
+    @apply text-ink-400 text-[0.7em];
+  }
+  .skripta-prose .katex {
+    @apply text-ink-100;
+  }
+  .skripta-prose .katex-display {
+    @apply my-4 overflow-x-auto overflow-y-hidden;
+  }
+}
