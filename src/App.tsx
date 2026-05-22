@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { skripta, footnotes } from './data'
-import type { Block, Chapter } from './types'
+import type { Block, Chapter, Section } from './types'
 import { Sidebar } from './components/Sidebar'
 import { Callout } from './components/Callout'
 import { MathHTML } from './components/MathHTML'
@@ -10,6 +10,7 @@ import { Figure } from './components/diagram/Figure'
 import { DiagramComponent } from './components/diagram/registry'
 import { GlossaryList } from './components/GlossaryList'
 import { Exercise } from './components/Exercise'
+import { Link, navigate, pathFor, useRoute } from './router'
 
 function BlockRenderer({ block }: { block: Block }) {
   switch (block.kind) {
@@ -70,75 +71,152 @@ function BlockRenderer({ block }: { block: Block }) {
   }
 }
 
-function ChapterView({ chapter }: { chapter: Chapter }) {
+function ChapterLanding({ chapter }: { chapter: Chapter }) {
   return (
     <section id={chapter.id} className="scroll-mt-6">
-      <h2 className="text-3xl font-sans font-bold text-ink-100 mb-6 pb-3 border-b border-ink-800 flex items-baseline gap-4">
+      <h1 className="text-3xl font-sans font-bold text-ink-100 mb-6 pb-3 border-b border-ink-800 flex items-baseline gap-4">
         <span className="tabular-nums text-ink-500 text-2xl font-semibold">
           {chapter.number}
         </span>
         <span>{chapter.title}</span>
-      </h2>
+      </h1>
 
       {chapter.intro?.map((b, i) => <BlockRenderer key={`intro-${i}`} block={b} />)}
 
-      {chapter.sections.map((s) => (
-        <section key={s.id} id={s.id} className="scroll-mt-6 mt-10">
-          <h2 className="text-2xl font-sans font-semibold text-ink-100 mb-4 flex items-baseline gap-3">
-            <span className="tabular-nums text-ink-500 text-xl">{s.number}</span>
-            <span>{s.title}</span>
+      {chapter.sections.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-sm font-sans font-semibold tracking-[0.18em] uppercase text-ink-500 mb-4">
+            Sekce
           </h2>
-          {s.blocks.map((b, i) => (
-            <BlockRenderer key={`${s.id}-${i}`} block={b} />
-          ))}
+          <ul className="space-y-2 font-sans">
+            {chapter.sections.map((s) => (
+              <li key={s.id}>
+                <Link
+                  to={pathFor(chapter.id, s.id)}
+                  className="group flex items-baseline gap-3 rounded-lg border border-ink-800 bg-ink-900/40 hover:bg-ink-900 hover:border-ink-700 transition-colors px-4 py-3"
+                >
+                  <span className="tabular-nums text-ink-500 shrink-0">
+                    {s.number}
+                  </span>
+                  <span className="text-ink-200 group-hover:text-ink-100 font-medium">
+                    {s.title}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
-      ))}
+      )}
     </section>
   )
 }
 
+function SectionView({ chapter, section }: { chapter: Chapter; section: Section }) {
+  return (
+    <article id={section.id} className="scroll-mt-6">
+      <div className="mb-3 text-[12px] tracking-[0.18em] uppercase text-ink-500 font-sans font-semibold">
+        <Link
+          to={pathFor(chapter.id)}
+          className="hover:text-ink-200 transition-colors"
+        >
+          {chapter.number}. {chapter.title}
+        </Link>
+      </div>
+      <h1 className="text-3xl font-sans font-bold text-ink-100 mb-6 pb-3 border-b border-ink-800 flex items-baseline gap-4">
+        <span className="tabular-nums text-ink-500 text-2xl font-semibold">
+          {section.number}
+        </span>
+        <span>{section.title}</span>
+      </h1>
+
+      {section.blocks.map((b, i) => (
+        <BlockRenderer key={`${section.id}-${i}`} block={b} />
+      ))}
+    </article>
+  )
+}
+
+type Page =
+  | { kind: 'chapter'; chapter: Chapter; label: string; number: string; to: string }
+  | {
+      kind: 'section'
+      chapter: Chapter
+      section: Section
+      label: string
+      number: string
+      to: string
+    }
+
+function buildPages(chapters: Chapter[]): Page[] {
+  const pages: Page[] = []
+  for (const c of chapters) {
+    pages.push({
+      kind: 'chapter',
+      chapter: c,
+      label: c.title,
+      number: c.number,
+      to: pathFor(c.id),
+    })
+    for (const s of c.sections) {
+      pages.push({
+        kind: 'section',
+        chapter: c,
+        section: s,
+        label: s.title,
+        number: s.number,
+        to: pathFor(c.id, s.id),
+      })
+    }
+  }
+  return pages
+}
+
 export default function App() {
   const chapters = skripta.chapters
-  const [chapterIndex, setChapterIndex] = useState(0)
-  const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
+  const route = useRoute()
 
-  const chapter = chapters[chapterIndex]!
-  const prev = chapterIndex > 0 ? chapters[chapterIndex - 1] : null
-  const next = chapterIndex < chapters.length - 1 ? chapters[chapterIndex + 1] : null
+  const pages = useMemo(() => buildPages(chapters), [chapters])
 
-  const sectionIds = useMemo(() => chapter.sections.map((s) => s.id), [chapter])
-
-  useEffect(() => {
-    // reset scroll + active section when chapter changes
-    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-    setActiveSectionId(null)
-  }, [chapterIndex])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (visible.length === 0) return
-        setActiveSectionId(visible[0]!.target.id)
-      },
-      { rootMargin: '-10% 0px -70% 0px', threshold: 0 },
-    )
-    for (const id of sectionIds) {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
+  // Resolve route → current page (or null on home / 404).
+  const current: Page | null = useMemo(() => {
+    if (route.kind === 'chapter') {
+      return pages.find((p) => p.kind === 'chapter' && p.chapter.id === route.chapterId) ?? null
     }
-    return () => observer.disconnect()
-  }, [sectionIds])
+    if (route.kind === 'section') {
+      return (
+        pages.find(
+          (p) =>
+            p.kind === 'section' &&
+            p.chapter.id === route.chapterId &&
+            p.section.id === route.sectionId,
+        ) ?? null
+      )
+    }
+    return null
+  }, [route, pages])
 
-  const goChapter = (id: string) => {
-    const idx = chapters.findIndex((c) => c.id === id)
-    if (idx >= 0) setChapterIndex(idx)
-  }
-  const jumpSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  // Redirect / → first chapter.
+  useEffect(() => {
+    if (route.kind === 'home' && chapters[0]) {
+      navigate(pathFor(chapters[0].id), { replace: true })
+    }
+  }, [route, chapters])
+
+  // Scroll to top on every route change.
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+  }, [route])
+
+  const currentIndex = current ? pages.indexOf(current) : -1
+  const prev = currentIndex > 0 ? pages[currentIndex - 1]! : null
+  const next =
+    currentIndex >= 0 && currentIndex < pages.length - 1
+      ? pages[currentIndex + 1]!
+      : null
+
+  const activeChapterId =
+    route.kind === 'chapter' || route.kind === 'section' ? route.chapterId : null
+  const activeSectionId = route.kind === 'section' ? route.sectionId : null
 
   const footnoteEntries = Object.entries(footnotes)
 
@@ -146,51 +224,76 @@ export default function App() {
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-[280px_1fr]">
       <Sidebar
         chapters={chapters}
-        activeChapterId={chapter.id}
+        activeChapterId={activeChapterId}
         activeSectionId={activeSectionId}
-        onSelectChapter={goChapter}
-        onJumpSection={jumpSection}
       />
 
       <main className="min-w-0 px-6 md:px-12 lg:px-16 py-10 max-w-4xl">
         <header className="mb-10" />
 
-        <ChapterView chapter={chapter} />
+        {current?.kind === 'chapter' && <ChapterLanding chapter={current.chapter} />}
+        {current?.kind === 'section' && (
+          <SectionView chapter={current.chapter} section={current.section} />
+        )}
+        {!current && route.kind === 'notFound' && (
+          <div className="font-sans">
+            <h1 className="text-2xl font-bold text-ink-100 mb-3">
+              Stránka nenalezena
+            </h1>
+            <p className="text-ink-300 mb-6">
+              Adresa <code className="text-ink-200">{route.path}</code> neexistuje.
+            </p>
+            {chapters[0] && (
+              <Link
+                to={pathFor(chapters[0].id)}
+                className="text-ink-200 underline decoration-ink-600 hover:text-ink-100"
+              >
+                Zpět na začátek
+              </Link>
+            )}
+          </div>
+        )}
 
-        <nav className="mt-16 pt-8 border-t border-ink-800 grid grid-cols-2 gap-3 font-sans">
-          {prev ? (
-            <button
-              onClick={() => setChapterIndex(chapterIndex - 1)}
-              className="group text-left rounded-lg border border-ink-800 bg-ink-900/40 hover:bg-ink-900 hover:border-ink-700 transition-colors px-4 py-3"
-            >
-              <div className="text-[11px] tracking-[0.18em] uppercase text-ink-500 mb-1">
-                ← Předchozí
-              </div>
-              <div className="text-ink-200 group-hover:text-ink-100 text-sm font-medium leading-snug">
-                <span className="tabular-nums text-ink-500 mr-2">{prev.number}</span>
-                {prev.title}
-              </div>
-            </button>
-          ) : (
-            <div />
-          )}
-          {next ? (
-            <button
-              onClick={() => setChapterIndex(chapterIndex + 1)}
-              className="group text-right rounded-lg border border-ink-800 bg-ink-900/40 hover:bg-ink-900 hover:border-ink-700 transition-colors px-4 py-3"
-            >
-              <div className="text-[11px] tracking-[0.18em] uppercase text-ink-500 mb-1">
-                Další →
-              </div>
-              <div className="text-ink-200 group-hover:text-ink-100 text-sm font-medium leading-snug">
-                <span className="tabular-nums text-ink-500 mr-2">{next.number}</span>
-                {next.title}
-              </div>
-            </button>
-          ) : (
-            <div />
-          )}
-        </nav>
+        {current && (
+          <nav className="mt-16 pt-8 border-t border-ink-800 grid grid-cols-2 gap-3 font-sans">
+            {prev ? (
+              <Link
+                to={prev.to}
+                className="group text-left rounded-lg border border-ink-800 bg-ink-900/40 hover:bg-ink-900 hover:border-ink-700 transition-colors px-4 py-3"
+              >
+                <div className="text-[11px] tracking-[0.18em] uppercase text-ink-500 mb-1">
+                  ← Předchozí
+                </div>
+                <div className="text-ink-200 group-hover:text-ink-100 text-sm font-medium leading-snug">
+                  <span className="tabular-nums text-ink-500 mr-2">
+                    {prev.number}
+                  </span>
+                  {prev.label}
+                </div>
+              </Link>
+            ) : (
+              <div />
+            )}
+            {next ? (
+              <Link
+                to={next.to}
+                className="group text-right rounded-lg border border-ink-800 bg-ink-900/40 hover:bg-ink-900 hover:border-ink-700 transition-colors px-4 py-3"
+              >
+                <div className="text-[11px] tracking-[0.18em] uppercase text-ink-500 mb-1">
+                  Další →
+                </div>
+                <div className="text-ink-200 group-hover:text-ink-100 text-sm font-medium leading-snug">
+                  <span className="tabular-nums text-ink-500 mr-2">
+                    {next.number}
+                  </span>
+                  {next.label}
+                </div>
+              </Link>
+            ) : (
+              <div />
+            )}
+          </nav>
+        )}
 
         {footnoteEntries.length > 0 && (
           <section className="mt-16 pt-8 border-t border-ink-800">

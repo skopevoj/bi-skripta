@@ -1,24 +1,18 @@
 import type { Chapter } from '../types'
+import { Link, pathFor } from '../router'
 
 export function Sidebar({
   chapters,
   activeChapterId,
   activeSectionId,
-  onSelectChapter,
-  onJumpSection,
 }: {
   chapters: Chapter[]
   activeChapterId: string | null
   activeSectionId: string | null
-  onSelectChapter: (id: string) => void
-  onJumpSection: (id: string) => void
 }) {
   return (
     <aside className="lg:sticky lg:top-0 self-start lg:h-screen lg:overflow-y-auto sidebar-scroll border-r border-ink-800 bg-ink-900/60">
       <div className="px-4 py-5">
-        <div className="text-[10px] tracking-[0.22em] uppercase text-ink-500 font-sans font-semibold">
-          Skripta
-        </div>
         <div className="mt-1 text-lg font-sans font-bold text-ink-100">BI-KAB</div>
       </div>
 
@@ -27,8 +21,8 @@ export function Sidebar({
           const isActive = activeChapterId === c.id
           return (
             <div key={c.id}>
-              <button
-                onClick={() => onSelectChapter(c.id)}
+              <Link
+                to={pathFor(c.id)}
                 className={
                   'w-full text-left px-4 py-2 text-[14px] flex items-baseline gap-2 transition-colors ' +
                   (isActive
@@ -40,14 +34,14 @@ export function Sidebar({
                   {c.number}
                 </span>
                 <span className="font-medium">{c.title}</span>
-              </button>
+              </Link>
               {isActive &&
                 c.sections.map((s) => {
                   const isSecActive = activeSectionId === s.id
                   return (
-                    <button
+                    <Link
                       key={s.id}
-                      onClick={() => onJumpSection(s.id)}
+                      to={pathFor(c.id, s.id)}
                       className={
                         'w-full text-left pl-10 pr-4 py-1.5 text-[13px] flex items-baseline gap-2 transition-colors ' +
                         (isSecActive
@@ -59,7 +53,7 @@ export function Sidebar({
                         {s.number}
                       </span>
                       <span className="truncate">{s.title}</span>
-                    </button>
+                    </Link>
                   )
                 })}
             </div>

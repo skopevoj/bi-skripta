@@ -176,6 +176,8 @@ function OpenAnswer({
   )
 }
 
+type TriState = 'yes' | 'no' | null
+
 function MultiChoiceAnswer({
   answer,
   onReveal,
@@ -183,29 +185,24 @@ function MultiChoiceAnswer({
   answer: Extract<Answer, { type: 'multichoice' }>
   onReveal: () => void
 }) {
-  const [picked, setPicked] = useState<Set<number>>(new Set())
+  const [picks, setPicks] = useState<TriState[]>(() =>
+    answer.options.map(() => null),
+  )
   const [state, setState] = useState<'idle' | 'correct' | 'wrong'>('idle')
 
-  const toggle = (i: number) => {
-    setPicked((prev) => {
-      const next = new Set(prev)
-      if (next.has(i)) next.delete(i)
-      else next.add(i)
+  const set = (i: number, v: TriState) => {
+    setPicks((prev) => {
+      const next = prev.slice()
+      next[i] = next[i] === v ? null : v
       return next
     })
     if (state !== 'idle') setState('idle')
   }
 
   const check = () => {
-    const correctIdx = new Set(
-      answer.options.map((o, i) => (o.correct ? i : -1)).filter((i) => i >= 0),
-    )
-    if (picked.size !== correctIdx.size) {
-      setState('wrong')
-      return
-    }
-    for (const i of picked) {
-      if (!correctIdx.has(i)) {
+    for (let i = 0; i < answer.options.length; i++) {
+      const want = answer.options[i]!.correct ? 'yes' : 'no'
+      if (picks[i] !== want) {
         setState('wrong')
         return
       }
@@ -213,48 +210,39 @@ function MultiChoiceAnswer({
     setState('correct')
   }
 
+  const showResult = state !== 'idle'
+
   return (
     <div className="rounded bg-ink-950/40 px-3 py-3 font-sans space-y-2">
       <div className="text-[11px] tracking-[0.18em] uppercase text-ink-500">
-        Vyberte správné odpovědi
+        U každého tvrzení vyberte ano nebo ne
       </div>
       <ul className="space-y-1.5">
         {answer.options.map((o, i) => {
-          const isPicked = picked.has(i)
-          const showResult = state !== 'idle'
-          const isCorrect = o.correct
-          const rowState = showResult
-            ? isPicked && isCorrect
-              ? 'hit'
-              : isPicked && !isCorrect
-                ? 'miss'
-                : !isPicked && isCorrect
-                  ? 'missed'
-                  : 'neutral'
-            : 'neutral'
-          const ring =
-            rowState === 'hit'
-              ? 'border-emerald-500/60 bg-emerald-500/[0.06]'
-              : rowState === 'miss'
-                ? 'border-rose-500/60 bg-rose-500/[0.06]'
-                : rowState === 'missed'
-                  ? 'border-amber-500/60 bg-amber-500/[0.05]'
-                  : isPicked
-                    ? 'border-ink-600 bg-ink-900/60'
-                    : 'border-ink-800 hover:border-ink-700 bg-transparent'
+          const pick = picks[i]
+          const want: TriState = o.correct ? 'yes' : 'no'
+          const isHit = showResult && pick === want
+          const isMiss = showResult && pick !== want
+          const rowBg = isHit
+            ? 'bg-emerald-500/[0.06]'
+            : isMiss
+              ? 'bg-rose-500/[0.06]'
+              : ''
           return (
             <li key={i}>
-              <label
+              <div
                 className={
-                  'flex items-start gap-2 px-2.5 py-2 rounded border cursor-pointer transition-colors ' +
-                  ring
+                  'flex items-center gap-3 px-2 py-1.5 rounded transition-colors ' +
+                  rowBg
                 }
               >
-                <input
-                  type="checkbox"
-                  checked={isPicked}
-                  onChange={() => toggle(i)}
-                  className="mt-1 accent-ink-400"
+                <TriToggle
+                  value={pick}
+                  onChange={(v) => set(i, v)}
+                  disabled={showResult}
+                  resultHint={
+                    showResult ? (isHit ? 'hit' : 'miss') : undefined
+                  }
                 />
                 <MathHTML
                   as="span"
@@ -262,17 +250,7 @@ function MultiChoiceAnswer({
                   html={o.text}
                   noGloss
                 />
-                {showResult && isCorrect && (
-                  <span className="text-emerald-600 text-[12px] font-semibold tracking-wider mt-0.5">
-                    ✓
-                  </span>
-                )}
-                {showResult && !isCorrect && isPicked && (
-                  <span className="text-rose-600 text-[12px] font-semibold tracking-wider mt-0.5">
-                    ✗
-                  </span>
-                )}
-              </label>
+              </div>
             </li>
           )
         })}
@@ -287,6 +265,87 @@ function MultiChoiceAnswer({
         </button>
       </div>
       <FeedbackRow state={state} onReveal={onReveal} />
+    </div>
+  )
+}
+
+function TriToggle({
+  value,
+  onChange,
+  disabled,
+  resultHint,
+}: {
+  value: TriState
+  onChange: (v: 'yes' | 'no') => void
+  disabled?: boolean
+  resultHint?: 'hit' | 'miss'
+}) {
+  // Three-position pill: ✓ / – / ✗. Default is the middle dash (no choice).
+  // After Zkontrolovat, the chosen end gets a green/red tint depending on
+  // whether the pick matched the expected answer.
+  const baseSeg =
+    'w-7 h-7 flex items-center justify-center text-[13px] font-semibold transition-colors select-none'
+  const dashActive = value === null
+  return (
+    <div
+      role="radiogroup"
+      aria-label="ano / ne"
+      className="inline-flex items-center rounded-md border border-ink-800 bg-ink-950 overflow-hidden"
+    >
+      <button
+        type="button"
+        role="radio"
+        aria-checked={value === 'yes'}
+        disabled={disabled}
+        onClick={() => onChange('yes')}
+        className={
+          baseSeg +
+          ' ' +
+          (value === 'yes'
+            ? resultHint === 'hit'
+              ? 'bg-emerald-500/20 text-emerald-700'
+              : resultHint === 'miss'
+                ? 'bg-rose-500/20 text-rose-700'
+                : 'bg-ink-900 text-ink-100'
+            : 'text-ink-500 hover:text-ink-200 hover:bg-ink-900/60') +
+          (disabled ? ' cursor-default' : ' cursor-pointer')
+        }
+        title="Ano"
+      >
+        ✓
+      </button>
+      <span
+        aria-hidden="true"
+        className={
+          baseSeg +
+          ' border-x border-ink-800 ' +
+          (dashActive ? 'bg-ink-900 text-ink-300' : 'text-ink-600')
+        }
+      >
+        –
+      </span>
+      <button
+        type="button"
+        role="radio"
+        aria-checked={value === 'no'}
+        disabled={disabled}
+        onClick={() => onChange('no')}
+        className={
+          baseSeg +
+          ' ' +
+          (value === 'no'
+            ? resultHint === 'hit'
+              ? 'bg-emerald-500/20 text-emerald-700'
+              : resultHint === 'miss'
+                ? 'bg-rose-500/20 text-rose-700'
+                : 'bg-ink-900 text-ink-100'
+            : 'text-ink-500 hover:text-ink-200 hover:bg-ink-900/60') +
+          (disabled ? ' cursor-default' : ' cursor-pointer')
+        }
+        title="Ne"
+      >
+        ✗
+      </button>
     </div>
   )
 }
