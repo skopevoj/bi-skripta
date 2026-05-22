@@ -37,6 +37,8 @@ export const chap10: Chapter = {
           number: '10.1',
           title: 'Kvadratické residuum',
           html: 'Celé $a$ je <strong>kvadratickým residuem</strong> modulo $m$, pokud $\\gcd(a, m) = 1$ a kongruence $x^2 \\equiv a \\pmod m$ má řešení. Jinak je <strong>nonresiduum</strong>.',
+          plain:
+            'Číslo, které je modulo m něčí druhou mocninou. Slouží jako stavební kámen pro Solovay-Strassenův test prvočíselnosti a pro generátor Blum-Blum-Shub — bezpečnost obojího stojí na rozeznávání residuí od nonresiduí.',
         },
         {
           kind: 'callout',
@@ -51,6 +53,8 @@ export const chap10: Chapter = {
           number: '10.2',
           title: 'Legendreův symbol',
           html: '$\\left(\\dfrac{a}{p}\\right) = +1$ pokud je $a$ kvadratickým residuem mod $p$, $-1$ jinak.',
+          plain:
+            'Vrátí +1 nebo -1 podle toho, zda je číslo druhou mocninou modulo prvočíslo. Důležité pro testy prvočíselnosti — pomocí Eulerova kritéria se rychle spočítá umocněním.',
         },
         {
           kind: 'callout',
@@ -65,6 +69,8 @@ export const chap10: Chapter = {
           number: '10.3',
           title: 'Jacobiho symbol',
           html: 'Zobecnění pro liché $n = p_1^{\\alpha_1} \\cdots p_k^{\\alpha_k}$: $\\left[\\dfrac{a}{n}\\right] = \\prod_i \\left(\\dfrac{a}{p_i}\\right)^{\\alpha_i}$.',
+          plain:
+            'Rozšíření Legendreova symbolu i na liché složené moduly. Klíčové pro Solovay-Strassenův test — počítá se rychle Eukleidovým algoritmem, aniž bychom znali rozklad n.',
         },
       ],
     },
@@ -79,6 +85,8 @@ export const chap10: Chapter = {
           number: '10.4',
           title: 'Generátor',
           html: '$g$ je <strong>generátorem</strong> $\\mathbb{Z}_p^*$, pokud pro každé $b \\in \\{1, \\dots, p-1\\}$ existuje $a$ tak, že $g^a \\equiv b \\pmod p$.',
+          plain:
+            'Prvek, jehož mocniny postupně „obsahují“ všechna nenulová čísla modulo p. Bez generátoru by Diffie-Hellman ani ElGamal nefungovaly — potřebujeme prostor, ve kterém má diskrétní logaritmus smysl.',
         },
         {
           kind: 'callout',
@@ -114,6 +122,8 @@ export const chap10: Chapter = {
           number: '10.5',
           title: 'Solovay–Strassenův test',
           html: 'Vybereme náhodné liché $a < p$. Spočteme $j = |a^{(p-1)/2}|_p$. Pokud $j \\ne \\left[\\dfrac{a}{p}\\right]$, $p$ není prvočíslo. Pravděpodobnost, že složené $p$ projde, je $\\le 1/2$. Po $t$ testech klesá na $2^{-t}$.',
+          plain:
+            'Pravděpodobnostní test prvočíselnosti — porovnává mocninu a^((p-1)/2) s Jacobiho symbolem. Pokud se neshodují, p prvočíslo není; pokud ano, není to jistota, ale po několika nezávislých kolech klesá pravděpodobnost falešného úspěchu na zanedbatelnou.',
         },
         {
           kind: 'callout',
@@ -121,6 +131,8 @@ export const chap10: Chapter = {
           number: '10.6',
           title: 'Lehmannův test',
           html: 'Místo Legendreova symbolu se kontroluje pouze $a^{(p-1)/2} \\equiv \\pm 1 \\pmod p$. Stejná složitost, jednodušší implementace.',
+          plain:
+            'Zjednodušená verze Solovay-Strassena, která nepotřebuje počítat Legendreův symbol. V praxi se moc nepoužívá — Miller-Rabin je silnější a stejně rychlý.',
         },
         {
           kind: 'callout',
@@ -128,6 +140,8 @@ export const chap10: Chapter = {
           number: '10.7',
           title: 'Rabin–Millerův test',
           html: 'Zapíšeme $p = 1 + 2^b m$ s lichým $m$. Pro náhodné $a$: $z := |a^m|_p$. Pokud $z = 1$, pokračuj iterací. Jinak postupně $z := |z^2|_p$ a kontroluj zda $z = p - 1$. Pokud po $b - 1$ krocích není $z = p - 1$, pak $p$ není prvočíslo. Pravděpodobnost, že složené $p$ projde, je $\\le 1/4$ — po $t$ testech $4^{-t}$.',
+          plain:
+            'Dnes standardní test prvočíselnosti — pravděpodobnost falešného úspěchu je 1/4 na test, takže po 5-10 testech je jistota dostatečná. Bez něj by RSA neuměla rychle vygenerovat klíče: nikdo nemá čas hledat prvočíslo deterministicky.',
         },
         {
           kind: 'callout',
@@ -160,6 +174,8 @@ export const chap10: Chapter = {
           number: '10.8',
           title: 'Entropie',
           html: 'Míra náhodnosti — jak obtížné je hodnotu uhodnout. Vždy se vztahuje k útočníkovi. Maximální entropie generátoru: rovnoměrné rozdělení všech možných posloupností.',
+          plain:
+            'Kolik bitů „skutečné náhodnosti“ v hodnotě je. Bez dostatečné entropie ve zdroji nelze vyrobit bezpečný klíč — útočník by ho jednoduše uhádnul. Praktický příklad: známá zranitelnost Debianu 2008 vznikla z chyby v entropii.',
         },
       ],
     },
@@ -174,6 +190,8 @@ export const chap10: Chapter = {
           number: '10.9',
           title: 'Lineární kongruenční generátor',
           html: '$X_{n+1} = (a X_n + c) \\bmod m$. Maximální periody $m$ dosáhneme, když $\\gcd(c, m) = 1$, $a - 1$ je dělitelné všemi prvočiniteli $m$ a navíc 4 dělí $a - 1$ pokud 4 | $m$.',
+          plain:
+            'Jeden z nejjednodušších generátorů pseudonáhodných čísel — každé další číslo vznikne lineárním vzorcem z předchozího. Rychlý a vhodný pro simulace, ale pro kryptografii zcela nepoužitelný — útočník z pár výstupů dopočítá další.',
         },
         {
           kind: 'callout',
@@ -188,6 +206,8 @@ export const chap10: Chapter = {
           number: '10.10',
           title: 'Kryptograficky bezpečný PRNG',
           html: '<ul><li><strong>Next-bit test:</strong> z $k$ bitů nelze polynomiálním algoritmem uhodnout $(k+1)$-tý bit s pravděpodobností > 1/2.</li><li><strong>State compromise:</strong> ze znalosti vnitřního stavu nelze rekonstruovat dříve vygenerovaná data ani předpovědět budoucí (pokud do generátoru vstupuje entropie).</li></ul>',
+          plain:
+            'PRNG, který útočník nedokáže předpovídat — ani když vidí dlouhou historii výstupu. Tohle je vlastnost, kterou musí splňovat všechny generátory klíčů, nonces a podobně, aby je nešlo uhádnout.',
         },
         {
           kind: 'list',
@@ -229,6 +249,8 @@ export const chap10: Chapter = {
           number: '10.11',
           title: 'Von Neumannův dekorelátor',
           html: 'Bity se odebírají po dvou: 00 a 11 se zahodí, 01 → 0, 10 → 1. Eliminuje nevyváženost a korelaci.',
+          plain:
+            'Trik, jak z proudu mírně předpojatých bitů (např. 60 % jedniček) vyrobit férový. Dvojice 00 a 11 se zahodí, asymetrické 01/10 dají férový bit. Cena: pomalejší rychlost.',
         },
         {
           kind: 'list',

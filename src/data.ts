@@ -1,5 +1,6 @@
 import type { Skripta } from './types'
 import { chap00 } from './chapters/chap00'
+import { chapMath } from './chapters/chapMath'
 import { chap01 } from './chapters/chap01'
 import { chap02 } from './chapters/chap02'
 import { chap03 } from './chapters/chap03'
@@ -15,6 +16,7 @@ import { chap11 } from './chapters/chap11'
 export const skripta: Skripta = {
   subtitle: 'Kryptografie a bezpečnost',
   chapters: [
+    chapMath,
     chap01,
     chap02,
     chap03,

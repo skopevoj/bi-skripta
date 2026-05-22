@@ -40,6 +40,7 @@ function BlockRenderer({ block }: { block: Block }) {
           number={block.number}
           title={block.title}
           html={block.html}
+          plain={block.plain}
         />
       )
     case 'interactive':

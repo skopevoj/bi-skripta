@@ -51,6 +51,8 @@ export const chap11: Chapter = {
           number: '11.1',
           title: 'Výměna VK s autoritou (7 zpráv)',
           html: '(1) A → Aut: Req. ‖ $T_1$. (2) Aut → A: $E_{SK_{Aut}}(VK_B \\| \\text{Req.} \\| T_1)$. (3) A → B: $E_{VK_B}(ID_A \\| N_1)$. (4) B → Aut: Req. ‖ $T_2$. (5) Aut → B: $E_{SK_{Aut}}(VK_A \\| \\text{Req.} \\| T_2)$. (6) B → A: $E_{VK_A}(N_1 \\| N_2)$. (7) A → B: $E_{VK_B}(N_2)$.',
+          plain:
+            'Postup, jak si dvě strany získají autentický veřejný klíč protějšku přes důvěryhodnou autoritu. Pomocí jednorázových hodnot (nonces) si pak ověří, že na druhé straně opravdu je ten, kdo vlastní příslušný soukromý klíč.',
         },
         {
           kind: 'diagram',
@@ -77,6 +79,8 @@ export const chap11: Chapter = {
           number: '11.2',
           title: 'Certifikát',
           html: 'Datová struktura obsahující veřejný klíč žadatele, jeho identifikační údaje, dobu platnosti a další údaje. Celé je podepsáno soukromým klíčem CA — kdokoli s $VK_{Aut}$ může ověřit jeho pravost.',
+          plain:
+            'Veřejný klíč spojený s identitou (např. „www.banka.cz“) a podepsaný autoritou. Funguje jako „občanka“ veřejného klíče — díky podpisu autority si kdokoli ověří, že daný klíč opravdu patří konkrétnímu subjektu.',
         },
         {
           kind: 'callout',
@@ -84,6 +88,8 @@ export const chap11: Chapter = {
           number: '11.3',
           title: 'Certifikační autorita (CA)',
           html: 'Důvěryhodná třetí strana, která vydává a spravuje certifikáty. <strong>Registrační autorita (RA)</strong> přijímá žádosti, kontroluje údaje a předává certifikáty žadatelům.',
+          plain:
+            'Důvěryhodná třetí strana, která ručí svým podpisem za pravost certifikátů. V prohlížeči vidíte zelený zámeček díky tomu, že některá CA podepsala certifikát serveru. Bez CA by web nemohl prokázat svou identitu.',
         },
         {
           kind: 'callout',
@@ -119,6 +125,8 @@ export const chap11: Chapter = {
           number: '11.4',
           title: 'Křížová certifikace',
           html: 'Spojení dvou stromů: CA$_1$ podepíše veřejný klíč CA$_2$ a naopak.<ul><li><strong>Jednosměrná</strong> — důvěra pouze v jednom směru.</li><li><strong>Obousměrná</strong> — vzájemná důvěra.</li></ul>',
+          plain:
+            'Dvě hierarchie CA si vzájemně podepíší veřejné klíče, aby si uživatelé z různých systémů mohli důvěřovat. Bez křížové certifikace by museli mít každou „cizí“ kořenovou CA předem nainstalovanou jako důvěryhodnou.',
         },
         {
           kind: 'diagram',
@@ -163,6 +171,8 @@ export const chap11: Chapter = {
           number: '11.5',
           title: 'Distribuce s utajením a autentizací',
           html: 'Předpoklad: A a B si bezpečně vyměnili $VK_A$ a $VK_B$ (pomocí certifikátů). <br>(1) A → B: $E_{VK_B}(N_1 \\| ID_A)$. (2) B → A: $E_{VK_A}(N_1 \\| N_2)$. (3) A → B: $E_{VK_B}(N_2)$. (4) A → B: $E_{VK_B}(E_{SK_A}(k_s))$ — klíč $k_s$ je podepsán A a šifrován $VK_B$.',
+          plain:
+            'Bezpečný způsob, jak Alice pošle Bobovi symetrický klíč relace. Klíč nejprve podepíše (důkaz, že je od ní), pak ho zašifruje veřejným klíčem Boba (jen Bob ho přečte). Nonces N1, N2 přitom brání replay útokům.',
         },
         {
           kind: 'callout',

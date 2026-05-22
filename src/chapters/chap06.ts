@@ -26,6 +26,8 @@ export const chap06: Chapter = {
           number: '6.1',
           title: 'RSA — generování klíčů',
           html: 'Volíme prvočísla $p, q$, modul $n = pq$, Eulerova funkce $\\Phi(n) = (p-1)(q-1)$. Šifrovací exponent $e$ s $\\gcd(e, \\Phi(n)) = 1$. Dešifrovací exponent $d = |e^{-1}|_{\\Phi(n)}$. <strong>Veřejný klíč:</strong> $VK = (n, e)$. <strong>Soukromý klíč:</strong> $SK = (n, d)$.',
+          plain:
+            'Klíčová dvojice RSA vznikne vynásobením dvou velkých prvočísel a vypočtením inverzního exponentu. Bezpečnost stojí na tom, že z veřejného modulu nikdo neumí v rozumném čase zpětně zjistit jeho dvě prvočinná složky — a bez nich nedopočítá soukromý klíč.',
         },
         {
           kind: 'callout',
@@ -33,6 +35,8 @@ export const chap06: Chapter = {
           number: '6.2',
           title: 'RSA — šifrování a dešifrování',
           html: 'Šifrování: $c = E(m) = |m^e|_n$. Dešifrování: $m = D(c) = |c^d|_n$.',
+          plain:
+            'Šifrování je umocnění zprávy veřejným exponentem modulo n, dešifrování je opak — umocnění soukromým exponentem. Stejná operace v obou směrech; co dělá ji asymetrickou, je rozdíl mezi e (veřejný) a d (soukromý).',
         },
         {
           kind: 'callout',
@@ -77,6 +81,8 @@ export const chap06: Chapter = {
           number: '6.3',
           title: 'RSA-CRT',
           html: 'Předpočítáme $d_p = |d|_{p-1}$, $d_q = |d|_{q-1}$, $q_{inv} = |q^{-1}|_p$. Dešifrování:<br>(1) $m_1 = |c^{d_p}|_p$, $m_2 = |c^{d_q}|_q$;<br>(2) $h = |q_{inv}(m_1 - m_2)|_p$;<br>(3) $m = m_2 + h\\cdot q$. Zrychlení 4–8× díky polovičním délkám čísel.',
+          plain:
+            'Trik, jak dešifrovat RSA 4-8× rychleji. Místo umocňování modulo velké n se počítá zvlášť modulo p a modulo q (poloviční čísla), výsledky se pak složí podle Čínské věty o zbytcích. Funguje jen vlastník soukromého klíče — útočník bez rozkladu n tohle nedokáže.',
         },
         {
           kind: 'h3',
@@ -135,6 +141,8 @@ export const chap06: Chapter = {
           number: '6.4',
           title: 'ElGamal — příprava klíče',
           html: 'Alice zvolí grupu řádu $m-1$ a generátor $g$, soukromý klíč $k_A < m$. Spočítá $y_A = |g^{k_A}|_m$. <strong>VK Alice:</strong> $(m, g, y_A)$. <strong>SK Alice:</strong> $k_A$.',
+          plain:
+            'Alice si zvolí tajné číslo a zveřejní mocninu generátoru tímto číslem. Bezpečnost stojí na diskrétním logaritmu — z veřejné mocniny nikdo zpětně neumí spočítat samotný exponent.',
         },
         {
           kind: 'callout',
@@ -142,6 +150,8 @@ export const chap06: Chapter = {
           number: '6.5',
           title: 'ElGamal — šifrování',
           html: 'Bob chce poslat zprávu $p$. Volí $k_B$, spočítá $y_B = |g^{k_B}|_m$ a sdílený klíč $K = |y_A^{k_B}|_m$. Šifruje $c = |p \\cdot K|_m$. Posílá dvojici $(y_B, c)$.',
+          plain:
+            'Bob si pro jednu zprávu vytvoří jednorázový Diffie-Hellman se svou stranou, použije výsledný sdílený klíč k „maskování“ zprávy (vynásobením modulo m) a pošle Alici i svou veřejnou polovinu. Důležité: jednorázové k_B se nesmí opakovat, jinak by ze dvou zpráv šel klíč dopočítat.',
         },
         {
           kind: 'callout',
@@ -149,6 +159,8 @@ export const chap06: Chapter = {
           number: '6.6',
           title: 'ElGamal — dešifrování',
           html: 'Alice spočítá $K = |y_B^{k_A}|_m$, najde inverzi $K^{-1}$ rozšířeným Euklidovým algoritmem a dešifruje $p = |c \\cdot K^{-1}|_m$.',
+          plain:
+            'Alice si z Bobovy veřejné poloviny a svého tajného klíče dopočítá stejný sdílený klíč jako on a vynásobením inverzí ho ze šifrové zprávy odečte. Útočník toto neumí — chybí mu Alicin tajný klíč.',
         },
         {
           kind: 'callout',

@@ -22,6 +22,8 @@ export const chap08: Chapter = {
           number: '8.1',
           title: 'Nepodmíněná bezpečnost',
           html: 'Kryptosystém je <strong>nepodmíněně bezpečný</strong>, pokud jej nelze prolomit <em>bez ohledu na prostředky útočníka</em>. Pokud útočník nezíská žádnou novou informaci ani opakovaným použitím, mluvíme o <strong>absolutní bezpečnosti</strong>. Asymetrické šifry nemohou být nepodmíněně bezpečné (VK nese informaci o SK).',
+          plain:
+            'Šifru nelze prolomit ani s nekonečným výpočetním výkonem. Splňuje to jen one-time pad. Asymetrické šifry tohle splnit nemohou — veřejný klíč nese informaci o soukromém, takže by stačil dostatečně silný útočník.',
         },
         {
           kind: 'callout',
@@ -36,6 +38,8 @@ export const chap08: Chapter = {
           number: '8.2',
           title: 'Podmíněná bezpečnost',
           html: 'Kryptosystém je <strong>podmíněně bezpečný</strong>, pokud jeho prolomení vyžaduje prostředky, které útočník nemá. Dělíme na <strong>prokazatelnou</strong> (matematický důkaz redukce na NP-těžký problém) a <strong>výpočetní</strong> (čas/náklady přesahují cenu informace).',
+          plain:
+            'Šifra je „prakticky bezpečná“ — útočník teoreticky existuje, ale potřeboval by neúnosně velkou výpočetní sílu. Tahle míra stačí v praxi pro všechno krom utajení nejvyššího stupně.',
         },
         {
           kind: 'callout',
@@ -64,6 +68,8 @@ export const chap08: Chapter = {
           number: '8.3',
           title: 'Entropie',
           html: 'Entropie zprávy ze zdroje $X$ s pravděpodobnostmi $p_1, \\dots, p_n$ je $H(X) = -\\sum_{i=1}^n p_i \\log_2 p_i$. Vyjadřuje průměrný počet bitů potřebných k optimálnímu zakódování — také <strong>míru neurčitosti</strong> zprávy.',
+          plain:
+            'Měří, kolik informace zpráva nese — kolik bitů by stačilo k jejímu optimálnímu zakódování. Čím vyšší entropie klíče, tím těžší prolomení. Tahle veličina od Shannona je základ celé teorie informace.',
         },
         {
           kind: 'callout',
@@ -85,6 +91,8 @@ export const chap08: Chapter = {
           number: '8.4',
           title: 'Obsažnost a redundance jazyka',
           html: '<ul><li><strong>Obsažnost</strong>: $R_N = H(X)/N$, průměrný počet bitů informace na 1 znak ($N \\to \\infty$ dává $r$).</li><li><strong>Absolutní obsažnost</strong>: $R = \\log_2 L$ pro abecedu velikosti $L$.</li><li><strong>Redundance</strong>: $D = R - r$.</li></ul>Pro angličtinu $r \\approx 1{,}5$, $R = 4{,}7$, $D = 3{,}2$ b/znak (~68&nbsp;%).',
+          plain:
+            'Rozdíl mezi tím, co by jazyk teoreticky mohl nést (kdyby všechna písmena byla rovnoměrná), a kolik reálně nese. Angličtina má redundanci přes 68 % — proto ji jde dobře komprimovat a proto frekvenční analýza funguje.',
         },
         {
           kind: 'callout',
@@ -92,6 +100,8 @@ export const chap08: Chapter = {
           number: '8.5',
           title: 'Vzdálenost jednoznačnosti',
           html: '$\\delta_U = \\dfrac{H(K)}{D}$ — počet znaků ŠT potřebných k tomu, aby zbýval v průměru jediný OT. Pro jednoduchou substituci v angličtině: $\\delta_U = \\log_2(26!)/3{,}2 \\approx 27{,}6$.',
+          plain:
+            'Kolik znaků šifry musí útočník vidět, než zbude jediný smysluplný kandidát na otevřený text. Pod touhle hranicí existuje víc možných výkladů — útočník nemá jak se rozhodnout, který je správný.',
         },
         {
           kind: 'callout',
@@ -126,6 +136,8 @@ export const chap08: Chapter = {
           number: '8.6',
           title: 'Třídy složitosti',
           html: '<ul><li><strong>P</strong> — řešitelné v polynomiálním čase deterministickým TS.</li><li><strong>NP</strong> — řešitelné v polynomiálním čase nedeterministickým TS (nebo „ověřitelné“ v PT).</li><li><strong>NP-úplné</strong> — leží v NP a každý problém z NP se na ně dá polynomiálně redukovat.</li><li><strong>PSPACE</strong> — polynomiální paměť.</li><li><strong>EXPTIME</strong> — exponenciální čas.</li><li><strong>CoNP</strong> — doplňky NP.</li></ul>',
+          plain:
+            'Třídy „jak těžký je daný problém“. P jsou problémy, které počítač spolehlivě zvládne v rozumném čase, NP jsou ty, kde řešení rychle ověříte, ale najít je je zřejmě těžké. Kryptografie staví právě na NP problémech (faktorizace, diskrétní logaritmus).',
         },
         {
           kind: 'callout',

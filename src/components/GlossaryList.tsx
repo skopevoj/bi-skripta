@@ -55,7 +55,12 @@ export function GlossaryList() {
             <h3 className="gloss-category">{cat}</h3>
             <dl>
               {entries.map((e) => (
-                <FragmentRow key={e.term} term={e.term} def={e.definition} />
+                <FragmentRow
+                  key={e.term}
+                  term={e.term}
+                  def={e.definition}
+                  plain={e.plain}
+                />
               ))}
             </dl>
           </section>
@@ -65,11 +70,22 @@ export function GlossaryList() {
   )
 }
 
-function FragmentRow({ term, def }: { term: string; def: string }) {
+function FragmentRow({
+  term,
+  def,
+  plain,
+}: {
+  term: string
+  def: string
+  plain: string
+}) {
   return (
     <>
       <dt>{term}</dt>
-      <dd>{def}</dd>
+      <dd>
+        {def}
+        <span className="gloss-plain">{plain}</span>
+      </dd>
     </>
   )
 }

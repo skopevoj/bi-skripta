@@ -27,11 +27,21 @@ function modPow(base: number, exp: number, mod: number): number {
   return result
 }
 
+// Stages of the protocol; cursor 0..5 means how many of them are "revealed".
+const STAGES = [
+  { n: 1, label: 'Veřejné parametry (m, g)' },
+  { n: 2, label: 'Soukromé klíče (a, b)' },
+  { n: 3, label: 'Veřejné klíče (A = gᵃ, B = gᵇ)' },
+  { n: 4, label: 'Výměna přes kanál' },
+  { n: 5, label: 'Sdílené tajemství' },
+] as const
+
 export function DiffieHellman() {
   const [m, setM] = useState(23)
   const [g, setG] = useState(5)
   const [a, setA] = useState(6)
   const [b, setB] = useState(15)
+  const [stage, setStage] = useState<number>(5)
 
   const validM = isPrime(m) && m >= 5 && m <= 9973
   // Clamp keys against the prime: private key in [1, m-2].
@@ -54,14 +64,69 @@ export function DiffieHellman() {
   )
   const Kb = useMemo(
     () => (validM ? modPow(A, bClamped, m) : 0),
-    [validM, A, bClamped, m],
+    [validM, B, bClamped, m, A],
   )
+
+  // Visibility per element by stage cursor.
+  const showPublic = stage >= 1
+  const showPrivate = stage >= 2
+  const showPubKeys = stage >= 3
+  const showChannel = stage >= 4
+  const showSecret = stage >= 5
 
   return (
     <div className="space-y-4">
+      {/* Stage stepper */}
+      <div className="flex flex-wrap items-center gap-1.5">
+        {STAGES.map((s) => {
+          const isCurrent = s.n === stage
+          const isDone = s.n <= stage
+          return (
+            <button
+              key={s.n}
+              type="button"
+              onClick={() => setStage(s.n)}
+              className={
+                'px-2 py-1 rounded border text-[11px] font-sans transition-colors ' +
+                (isCurrent
+                  ? 'bg-ink-200 text-ink-950 border-ink-200'
+                  : isDone
+                    ? 'bg-ink-900 text-ink-100 border-ink-700'
+                    : 'bg-ink-900 text-ink-500 border-ink-800 hover:border-ink-700')
+              }
+            >
+              <span className="font-mono mr-1">{s.n}.</span>
+              {s.label}
+            </button>
+          )
+        })}
+        <div className="ml-auto flex gap-1.5">
+          <button
+            type="button"
+            onClick={() => setStage((s) => Math.max(0, s - 1))}
+            disabled={stage === 0}
+            className={ui.button + ' disabled:opacity-40 disabled:cursor-not-allowed'}
+          >
+            ← Zpět
+          </button>
+          <button
+            type="button"
+            onClick={() => setStage((s) => Math.min(5, s + 1))}
+            disabled={stage >= 5}
+            className={ui.button + ' disabled:opacity-40 disabled:cursor-not-allowed'}
+          >
+            Další →
+          </button>
+        </div>
+      </div>
+
       {/* Veřejné parametry */}
-      <div className={ui.panel}>
-        <div className={ui.rowLabel + ' mb-2'}>Veřejné parametry</div>
+      <div
+        className={
+          ui.panel + ' transition-opacity ' + (showPublic ? 'opacity-100' : 'opacity-30')
+        }
+      >
+        <div className={ui.rowLabel + ' mb-2'}>1. Veřejné parametry</div>
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
             <span className={ui.label}>Modul m (prvočíslo)</span>
@@ -106,9 +171,7 @@ export function DiffieHellman() {
               onChange={(e) => setG(Number(e.target.value) || 0)}
               className={ui.input}
             />
-            <div className={'mt-1.5 ' + ui.monoMuted}>
-              g mod m = {gClamped}
-            </div>
+            <div className={'mt-1.5 ' + ui.monoMuted}>g mod m = {gClamped}</div>
           </label>
         </div>
       </div>
@@ -118,43 +181,57 @@ export function DiffieHellman() {
         {/* Alice */}
         <div className={ui.panel}>
           <div className={ui.rowLabel + ' mb-2'}>Alice</div>
-          <label className="block mb-3">
-            <span className={ui.label}>Soukromý klíč a</span>
-            <input
-              type="range"
-              min={1}
-              max={maxKey}
-              value={aClamped}
-              onChange={(e) => setA(Number(e.target.value))}
-              className={ui.slider}
-            />
-            <div className="flex items-baseline justify-between mt-1">
-              <span className={ui.monoMuted}>1 ≤ a ≤ {maxKey}</span>
-              <span className={ui.chip}>a = {aClamped}</span>
+          <div
+            className={
+              'transition-opacity ' + (showPrivate ? 'opacity-100' : 'opacity-30')
+            }
+          >
+            <label className="block mb-3">
+              <span className={ui.label}>2. Soukromý klíč a (tajný)</span>
+              <input
+                type="range"
+                min={1}
+                max={maxKey}
+                value={aClamped}
+                onChange={(e) => setA(Number(e.target.value))}
+                className={ui.slider}
+              />
+              <div className="flex items-baseline justify-between mt-1">
+                <span className={ui.monoMuted}>1 ≤ a ≤ {maxKey}</span>
+                <span className={ui.chip}>a = {aClamped}</span>
+              </div>
+            </label>
+          </div>
+          <div
+            className={
+              'transition-opacity ' + (showPubKeys ? 'opacity-100' : 'opacity-30')
+            }
+          >
+            <div className={ui.label}>3. Veřejný klíč A</div>
+            <div className={ui.mono}>
+              A = g<sup>a</sup> mod m
             </div>
-          </label>
-          <div className="space-y-2">
-            <div>
-              <div className={ui.label}>Veřejný klíč A</div>
-              <div className={ui.mono}>
-                A = g<sup>a</sup> mod m
-              </div>
-              <div className={ui.monoMuted}>
-                = {gClamped}
-                <sup>{aClamped}</sup> mod {m} ={' '}
-                <span className="text-ink-100">{A}</span>
-              </div>
+            <div className={ui.monoMuted}>
+              = {gClamped}
+              <sup>{aClamped}</sup> mod {m} ={' '}
+              <span className="text-ink-100">{showPubKeys ? A : '…'}</span>
             </div>
-            <div>
-              <div className={ui.label}>Sdílené tajemství</div>
-              <div className={ui.mono}>
-                K = B<sup>a</sup> mod m
-              </div>
-              <div className={ui.monoMuted}>
-                = {B}
-                <sup>{aClamped}</sup> mod {m} ={' '}
-                <span className="text-ink-100 font-semibold">{Ka}</span>
-              </div>
+          </div>
+          <div
+            className={
+              'mt-2 transition-opacity ' + (showSecret ? 'opacity-100' : 'opacity-30')
+            }
+          >
+            <div className={ui.label}>5. Sdílené tajemství</div>
+            <div className={ui.mono}>
+              K = B<sup>a</sup> mod m
+            </div>
+            <div className={ui.monoMuted}>
+              = {showSecret ? B : '…'}
+              <sup>{aClamped}</sup> mod {m} ={' '}
+              <span className="text-ink-100 font-semibold">
+                {showSecret ? Ka : '…'}
+              </span>
             </div>
           </div>
         </div>
@@ -163,24 +240,28 @@ export function DiffieHellman() {
         <div className={ui.panel}>
           <div className={ui.rowLabel + ' mb-2'}>Veřejný kanál</div>
           <div className="space-y-2 text-center">
-            <div>
-              <div className={ui.label}>Alice → Bob</div>
-              <div className={ui.mono}>A = {A}</div>
+            <div className={'transition-opacity ' + (showPublic ? 'opacity-100' : 'opacity-30')}>
+              <div className={ui.label}>1. domluveno veřejně</div>
+              <div className={ui.mono}>m = {m},  g = {gClamped}</div>
             </div>
-            <div className="flex items-center justify-center gap-2">
-              <span className={ui.monoMuted}>m = {m}</span>
-              <span className={ui.monoMuted}>·</span>
-              <span className={ui.monoMuted}>g = {gClamped}</span>
+            <div className={'transition-opacity ' + (showChannel ? 'opacity-100' : 'opacity-30')}>
+              <div className={ui.label}>4. Alice → Bob</div>
+              <div className={ui.mono}>A = {showPubKeys ? A : '…'}</div>
             </div>
-            <div>
-              <div className={ui.label}>Bob → Alice</div>
-              <div className={ui.mono}>B = {B}</div>
+            <div className={'transition-opacity ' + (showChannel ? 'opacity-100' : 'opacity-30')}>
+              <div className={ui.label}>4. Bob → Alice</div>
+              <div className={ui.mono}>B = {showPubKeys ? B : '…'}</div>
             </div>
-            <div className="pt-2 border-t border-ink-800">
-              <div className={ui.label}>Shoda klíčů</div>
+            <div
+              className={
+                'pt-2 border-t border-ink-800 transition-opacity ' +
+                (showSecret ? 'opacity-100' : 'opacity-30')
+              }
+            >
+              <div className={ui.label}>5. shoda klíčů</div>
               {validM && Ka === Kb ? (
                 <div className="font-mono text-[13px] text-ink-100">
-                  K<sub>A</sub> = K<sub>B</sub> = {Ka} ✓ shoda
+                  K<sub>A</sub> = K<sub>B</sub> = {showSecret ? Ka : '…'} ✓
                 </div>
               ) : (
                 <div className="font-mono text-[13px] text-ink-400">
@@ -194,43 +275,57 @@ export function DiffieHellman() {
         {/* Bob */}
         <div className={ui.panel}>
           <div className={ui.rowLabel + ' mb-2'}>Bob</div>
-          <label className="block mb-3">
-            <span className={ui.label}>Soukromý klíč b</span>
-            <input
-              type="range"
-              min={1}
-              max={maxKey}
-              value={bClamped}
-              onChange={(e) => setB(Number(e.target.value))}
-              className={ui.slider}
-            />
-            <div className="flex items-baseline justify-between mt-1">
-              <span className={ui.monoMuted}>1 ≤ b ≤ {maxKey}</span>
-              <span className={ui.chip}>b = {bClamped}</span>
+          <div
+            className={
+              'transition-opacity ' + (showPrivate ? 'opacity-100' : 'opacity-30')
+            }
+          >
+            <label className="block mb-3">
+              <span className={ui.label}>2. Soukromý klíč b (tajný)</span>
+              <input
+                type="range"
+                min={1}
+                max={maxKey}
+                value={bClamped}
+                onChange={(e) => setB(Number(e.target.value))}
+                className={ui.slider}
+              />
+              <div className="flex items-baseline justify-between mt-1">
+                <span className={ui.monoMuted}>1 ≤ b ≤ {maxKey}</span>
+                <span className={ui.chip}>b = {bClamped}</span>
+              </div>
+            </label>
+          </div>
+          <div
+            className={
+              'transition-opacity ' + (showPubKeys ? 'opacity-100' : 'opacity-30')
+            }
+          >
+            <div className={ui.label}>3. Veřejný klíč B</div>
+            <div className={ui.mono}>
+              B = g<sup>b</sup> mod m
             </div>
-          </label>
-          <div className="space-y-2">
-            <div>
-              <div className={ui.label}>Veřejný klíč B</div>
-              <div className={ui.mono}>
-                B = g<sup>b</sup> mod m
-              </div>
-              <div className={ui.monoMuted}>
-                = {gClamped}
-                <sup>{bClamped}</sup> mod {m} ={' '}
-                <span className="text-ink-100">{B}</span>
-              </div>
+            <div className={ui.monoMuted}>
+              = {gClamped}
+              <sup>{bClamped}</sup> mod {m} ={' '}
+              <span className="text-ink-100">{showPubKeys ? B : '…'}</span>
             </div>
-            <div>
-              <div className={ui.label}>Sdílené tajemství</div>
-              <div className={ui.mono}>
-                K = A<sup>b</sup> mod m
-              </div>
-              <div className={ui.monoMuted}>
-                = {A}
-                <sup>{bClamped}</sup> mod {m} ={' '}
-                <span className="text-ink-100 font-semibold">{Kb}</span>
-              </div>
+          </div>
+          <div
+            className={
+              'mt-2 transition-opacity ' + (showSecret ? 'opacity-100' : 'opacity-30')
+            }
+          >
+            <div className={ui.label}>5. Sdílené tajemství</div>
+            <div className={ui.mono}>
+              K = A<sup>b</sup> mod m
+            </div>
+            <div className={ui.monoMuted}>
+              = {showSecret ? A : '…'}
+              <sup>{bClamped}</sup> mod {m} ={' '}
+              <span className="text-ink-100 font-semibold">
+                {showSecret ? Kb : '…'}
+              </span>
             </div>
           </div>
         </div>
@@ -245,8 +340,8 @@ export function DiffieHellman() {
             <div className="font-mono text-[13px] text-ink-200 space-y-0.5">
               <div>m = {m}</div>
               <div>g = {gClamped}</div>
-              <div>A = {A}</div>
-              <div>B = {B}</div>
+              <div>A = {showPubKeys ? A : '…'}</div>
+              <div>B = {showPubKeys ? B : '…'}</div>
             </div>
           </div>
           <div>

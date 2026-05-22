@@ -37,6 +37,8 @@ export const chap01: Chapter = {
           number: '1.1',
           title: 'Modely útočníka',
           html: 'Odolnost šifry posuzujeme v 5 situacích:<ul><li><strong>COA</strong> (ciphertext-only) — útočník zná jen ŠT.</li><li><strong>KPA</strong> (known-plaintext) — zná ŠT a odpovídající OT.</li><li><strong>CPA</strong> (chosen-plaintext) — může si zvolit OT k zašifrování.</li><li><strong>CCA</strong> (chosen-ciphertext) — může si zvolit ŠT k dešifrování.</li><li><strong>Chosen-text attack</strong> — kombinace CPA a CCA.</li></ul>',
+          plain:
+            'Škála toho, kolik útočník o šifře ví — od „vidí jen šifrový text“ až po „může si nechat šifrovat i dešifrovat, co si vybere“. Slouží k tomu, abychom dokázali říct, proti jakému útoku je daná šifra odolná.',
         },
         {
           kind: 'callout',
@@ -51,6 +53,8 @@ export const chap01: Chapter = {
           number: '1.2',
           title: 'Základní pojmy o textu',
           html: '<ul><li><strong>Monogram</strong> – 1 písmeno.</li><li><strong>Bigram</strong> – 2 sousední písmena.</li><li><strong>Trigram</strong> – 3 sousední písmena.</li><li><strong>Polygram</strong> – obecná posloupnost znaků.</li><li><strong>Symbol</strong> – libovolný znak (písmeno, číslice, interpunkce).</li><li><strong>Řetězec</strong> – posloupnost symbolů.</li></ul>',
+          plain:
+            'Jednotná slovní zásoba pro popis textu — jedno písmeno, dvojice, trojice, obecná skupina. Pojmy slouží hlavně pro statistiku jazyka (které trojice se vyskytují nejčastěji) a pro frekvenční analýzu.',
         },
       ],
     },
@@ -69,6 +73,8 @@ export const chap01: Chapter = {
           number: '1.3',
           title: 'Caesarova šifra',
           html: 'Šifrování: $c = |p + 3|_{26}$, dešifrování: $p = |c - 3|_{26}$.',
+          plain:
+            'Posun každého písmene o tři místa v abecedě (A→D, B→E…). Historicky ji používal Caesar — dnes ji rozluští každý za pár minut tužkou, protože stačí vyzkoušet všech 25 posunů.',
         },
         {
           kind: 'callout',
@@ -89,6 +95,8 @@ export const chap01: Chapter = {
           number: '1.4',
           title: 'Šifra s posunem',
           html: 'Obecně $c = |p + k|_{26}$ s klíčem $k$. Existuje 26 různých posunutí.',
+          plain:
+            'Zobecnění Caesarovy šifry — posun místo o 3 je o libovolné číslo k. Pořád velmi slabá, protože všech 26 posunů lze rychle zkusit hrubou silou.',
         },
         {
           kind: 'callout',
@@ -96,6 +104,8 @@ export const chap01: Chapter = {
           number: '1.5',
           title: 'Afinní transformace',
           html: 'Šifrování: $c = |ap + b|_{26}$, kde $a, b \\in \\mathbb{Z}$ a $\\gcd(a, 26) = 1$. Dešifrování: $p = |a^{-1}(c - b)|_{26}$. Existuje $\\varphi(26) \\cdot 26 = 12 \\cdot 26 = 312$ afinních transformací.',
+          plain:
+            'Trochu obecnější Caesarova šifra — písmeno se nejdřív vynásobí a teprve pak posune. Pořád prolomitelná frekvenční analýzou, protože klíčů je jen 312.',
         },
         {
           kind: 'callout',
@@ -183,6 +193,8 @@ export const chap01: Chapter = {
           number: '1.6',
           title: 'Hillova šifra',
           html: 'Pro blok délky $n$ a matici $\\mathbf{A}$ rozměru $n \\times n$ s $\\gcd(\\det \\mathbf{A}, 26) = 1$ platí $|\\mathbf{c}|_{26} = |\\mathbf{A}\\mathbf{p}|_{26}$, dešifrování $|\\mathbf{p}|_{26} = |\\mathbf{A}^{-1}\\mathbf{c}|_{26}$.',
+          plain:
+            'Šifruje se rovnou blok n písmen najednou — vynásobí se maticí klíče v modulární aritmetice. Lepší než jednoduchá substituce, ale stále lineární — známá-OT útokem se klíč dopočítá řešením soustavy.',
         },
         {
           kind: 'callout',
@@ -221,6 +233,8 @@ export const chap01: Chapter = {
           number: '1.7',
           title: 'Vigenèrova šifra',
           html: 'Heslo $K = (k_1, \\dots, k_n)$ délky $n$. Šifrování: $c_j = |p_j + k_{((j-1) \\bmod n) + 1}|_N$. Délka $n$ se nazývá <em>perioda</em>.',
+          plain:
+            'Vezme krátké heslo a opakovaně jím posouvá písmena otevřeného textu (jako Caesar, ale jiná hodnota posunu pro každé písmeno hesla). Tím se rozbije jednoduchá frekvenční analýza — jedno písmeno se může šifrovat různě podle své pozice.',
         },
         {
           kind: 'callout',
@@ -252,6 +266,8 @@ export const chap01: Chapter = {
           number: '1.8',
           title: 'Sloupcová transpozice',
           html: 'OT se zapíše po řádcích do tabulky s pevným počtem sloupců. ŠT vznikne čtením po sloupcích. Příklad pro 5 sloupců: ŠT je $p_1 p_6 p_{11} \\dots\\, p_2 p_7 p_{12} \\dots$',
+          plain:
+            'Otevřený text se zapíše do tabulky po řádcích a šifrový text se přečte po sloupcích. Písmena se zachovají, jen se prohází jejich pořadí — proto má šifrový text stejnou frekvenci znaků jako otevřený.',
         },
         {
           kind: 'callout',

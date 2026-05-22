@@ -22,6 +22,10 @@ export type Block =
       number: string // "5.5", "8.6"
       title: string // "Injektivita, důkaz"
       html: string
+      // Optional plain-Czech follow-up rendered under the main body. Used for
+      // definitions to give a no-symbols "what it does + why it exists" gloss
+      // for readers overwhelmed by the formal text.
+      plain?: string
     }
   | {
       kind: 'interactive'
@@ -79,6 +83,10 @@ export type Block =
     }
 
 export type InteractiveName =
+  | 'mod-clock'
+  | 'gcd-euclid'
+  | 'ext-euclid'
+  | 'euler-totient'
   | 'caesar'
   | 'affine'
   | 'hill'

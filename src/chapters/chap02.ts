@@ -22,6 +22,8 @@ export const chap02: Chapter = {
           number: '2.1',
           title: 'Exponenciální šifra (Pohlig–Hellman)',
           html: 'Nechť $m$ je prvočíslo, $e$ klíč splňující $\\gcd(e, m-1) = 1$. Šifrování bloku $p$ ($0 \\le p < m$): $c = |p^e|_m$. Dešifrování: $p = |c^d|_m$, kde $d = |e^{-1}|_{m-1}$.',
+          plain:
+            'Zpráva se převede na číslo a umocní se na klíč modulo velké prvočíslo. Předchůdce RSA — ukazuje myšlenku „šifruji mocněním, dešifruji jinou mocninou“ ještě nad jedním prvočíslem.',
         },
         {
           kind: 'callout',
@@ -103,6 +105,8 @@ export const chap02: Chapter = {
           number: '2.2',
           title: 'Diffie–Hellmanův protokol',
           html: '<ol><li>Veřejné parametry: prvočíslo $m$ a generátor $a$ grupy $\\mathbb{Z}_m^*$.</li><li>Alice volí $k_A$, posílá $y_1 = |a^{k_A}|_m$.</li><li>Bob volí $k_B$, posílá $y_2 = |a^{k_B}|_m$.</li><li>Společný klíč $K = |y_2^{k_A}|_m = |y_1^{k_B}|_m = |a^{k_A k_B}|_m$.</li></ol>',
+          plain:
+            'Postup, jak si dvě strany dohodnou společný tajný klíč i přes nezabezpečenou linku. Bez něj by HTTPS nemělo z čeho začít — odposlech vidí jen výsledky mocnin a nedokáže z nich spočítat klíč.',
         },
         {
           kind: 'callout',
@@ -173,6 +177,8 @@ export const chap02: Chapter = {
           number: '2.3',
           title: 'Diskrétní logaritmus',
           html: 'V cyklické grupě $G$ s generátorem $b$ je diskrétní logaritmus prvku $y$ o základu $b$ číslo $k$, pro které $b^k = y$. Značíme $\\log_b y = k$.',
+          plain:
+            'Najít exponent k, když znáte výsledek mocniny v cyklické grupě. Umocňování je snadné, ale obrácená úloha (najít k) je tak těžká, že na ní stojí Diffie-Hellman i ElGamal.',
         },
         {
           kind: 'callout',

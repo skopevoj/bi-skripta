@@ -163,6 +163,19 @@
   .glossary-list dd {
     @apply text-ink-300 text-[14px] leading-relaxed m-0;
   }
+  .glossary-list .gloss-plain {
+    @apply block mt-1.5 pl-3 text-ink-400 text-[13px] leading-relaxed border-l border-ink-800/70;
+  }
+
+  /* Plain-Czech follow-up rendered under a definition callout. */
+  .callout-plain {
+    @apply mt-3 pl-4 py-1 border-l-2 border-ink-700/80 text-ink-300 text-[14.5px] leading-relaxed;
+  }
+  .callout-plain-label {
+    @apply font-sans font-semibold text-ink-100 tracking-wide text-[12.5px] uppercase
+           mr-1.5;
+    letter-spacing: 0.06em;
+  }
   @media (max-width: 640px) {
     .glossary-list dl {
       grid-template-columns: 1fr;

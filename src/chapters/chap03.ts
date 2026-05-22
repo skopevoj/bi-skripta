@@ -26,6 +26,8 @@ export const chap03: Chapter = {
           number: '3.1',
           title: 'Symetrická proudová šifra',
           html: 'Skládá se z generátoru $G$, který z klíče $k$ produkuje posloupnost $h_1, h_2, \\dots$ Šifrování: $c_i = E_{h_i}(m_i)$. Dešifrování: $m_i = D_{h_i}(c_i)$. U moderních šifer nad $\\{0,1\\}$ je transformací XOR: $c_i = m_i \\oplus h_i$.',
+          plain:
+            'Z krátkého klíče se vyrobí dlouhý proud „náhodně vypadajících“ dat (tzv. heslo) a XOR-uje se po bitech se zprávou. Hodí se na proudy dat (hovor, video), kde nelze čekat na celý blok.',
         },
         {
           kind: 'callout',
@@ -33,6 +35,8 @@ export const chap03: Chapter = {
           number: '3.2',
           title: 'Vernamova šifra (one-time pad)',
           html: 'Heslo je <strong>zcela náhodné</strong> a stejně dlouhé jako OT, použije se právě jednou. Vlastnost <strong>absolutní bezpečnosti</strong> — ŠT nenese žádnou informaci o OT.',
+          plain:
+            'Jediná šifra, kterou nelze prolomit ani s nekonečným výpočetním výkonem. Cenou je, že heslo musí být opravdu náhodné, stejně dlouhé jako zpráva a nikdy nepoužité podruhé — proto se v praxi nepoužívá.',
         },
         {
           kind: 'callout',
@@ -85,6 +89,8 @@ export const chap03: Chapter = {
           number: '3.3',
           title: 'RC4 — inicializace permutace S',
           html: 'Pole $S$ se naplní identickou permutací $S[i] = i$. Poté pomocí klíče $k$ délky $n$ proběhne $j = |j + S[i] + k[|i|_n]|_{256}$ a swap $S[i] \\leftrightarrow S[j]$ pro $i = 0, \\dots, 255$.',
+          plain:
+            'První krok RC4: pomocí klíče se zamíchá pole 256 bajtů tak, aby z něj vzniklo „náhodné“ pořadí. Z tohoto pomíchaného pole se pak generuje proud hesla.',
         },
         {
           kind: 'callout',
@@ -92,6 +98,8 @@ export const chap03: Chapter = {
           number: '3.4',
           title: 'RC4 — generování hesla',
           html: 'V cyklu: $i = |i+1|_{256}$, $j = |j + S[i]|_{256}$, swap $S[i] \\leftrightarrow S[j]$, výstup $h = S[|S[i] + S[j]|_{256}]$.',
+          plain:
+            'Druhý krok RC4: opakovaně se v poli prohazují bajty podle pravidel a každý průchod vyplivne jeden bajt hesla. Tento bajt se pak XOR-uje s bajtem zprávy.',
         },
       ],
     },
@@ -110,6 +118,8 @@ export const chap03: Chapter = {
           number: '3.5',
           title: 'Salsa20 Quarter-Round',
           html: '$b := b \\oplus ((a \\boxplus d) \\lll 7)$; $c := c \\oplus ((b \\boxplus a) \\lll 9)$; $d := d \\oplus ((c \\boxplus b) \\lll 13)$; $a := a \\oplus ((d \\boxplus c) \\lll 18)$.',
+          plain:
+            'Základní mixovací krok šifry Salsa20 — čtyřice slov se postupně mění operacemi sčítání, rotace a XOR. Opakováním této čtveřice ve sloupcích a řádcích matice vznikne důkladně promíchaný stav.',
         },
         {
           kind: 'p',

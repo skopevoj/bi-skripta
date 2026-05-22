@@ -22,6 +22,8 @@ export const chap09: Chapter = {
           number: '9.1',
           title: 'Eliptická křivka',
           html: 'Množina bodů $[x, y]$ vyhovujících rovnici $y^2 = x^3 + ax + b$, doplněná o „bod v nekonečnu“ $O$. Nad tělesem $GF(p)$ platí $y^2 \\equiv x^3 + ax + b \\pmod p$ s podmínkou $|4a^3 + 27b^2|_p \\ne 0$.',
+          plain:
+            'Speciální křivka v rovině, na které lze pomocí sčítání bodů vybudovat „grupu“ podobnou Z_p*. Tahle algebraická struktura tvoří základ ECC — kratší klíče pro stejnou bezpečnost než RSA.',
         },
         {
           kind: 'callout',
@@ -29,6 +31,8 @@ export const chap09: Chapter = {
           number: '9.2',
           title: 'Součet bodů',
           html: 'Pro $P + Q = R$, $P \\ne Q$: směrnice $s = |(y_Q - y_P)(x_Q - x_P)^{-1}|_p$. Pro $P = Q$ (zdvojení): $s = |(3x_P^2 + a)(2y_P)^{-1}|_p$. Souřadnice: $x_R = |s^2 - x_P - x_Q|_p$, $y_R = |s(x_P - x_R) - y_P|_p$. Inverze: $-P = [x_P, |-y_P|_p]$. Identita: $P + (-P) = O$, $P + O = P$.',
+          plain:
+            'Geometrický recept, jak ze dvou bodů na křivce vyrobit třetí: spojím je sečnou, najdu třetí průsečík s křivkou a překlopím přes osu x. Tato „sčítací“ operace dělá z bodů na křivce grupu, ve které jdou počítat mocniny.',
         },
         {
           kind: 'callout',
@@ -43,6 +47,8 @@ export const chap09: Chapter = {
           number: '9.3',
           title: 'Řád bodu a křivky',
           html: '<strong>Řád bodu</strong> $P$ je nejmenší $r$ takové, že $rP = O$. <strong>Řád křivky</strong> $\\#E$ je počet bodů na $E$. Řád bodu dělí řád křivky. V kryptografii volíme bod, jehož řád je nejvyšší prvočinitel $\\#E$ (kofaktor musí být malý).',
+          plain:
+            'Kolikrát musíme bod sčítat sám se sebou, než se dostaneme zpět na nulu. Pro ECC potřebujeme bod s velkým prvočíselným řádem — jinak by se dal diskrétní logaritmus rozdělit na menší (snadnější) podproblémy.',
         },
         {
           kind: 'interactive',
@@ -96,6 +102,8 @@ export const chap09: Chapter = {
           number: '9.4',
           title: 'Qubit',
           html: 'Stav $|\\psi\\rangle = \\omega_0 |0\\rangle + \\omega_1 |1\\rangle$ v 2-rozměrném Hilbertově prostoru, $|\\omega_0|^2 + |\\omega_1|^2 = 1$. Měřením qubit kolabuje do jednoho z vlastních stavů s pravděpodobností $|\\omega_i|^2$ — superpozici nelze přímo „vidět“.',
+          plain:
+            'Kvantová obdoba bitu — místo „buď 0 nebo 1“ je v superpozici obou. Po měření se ale vždy zafixuje jen jedna z hodnot — superpozici není možné odpozorovat. To je klíč k tomu, proč jde kvantově detekovat odposlech.',
         },
         {
           kind: 'callout',
@@ -103,6 +111,8 @@ export const chap09: Chapter = {
           number: '9.5',
           title: 'Polarizační kódování',
           html: '<ul><li><strong>Lineární báze (+)</strong>: $|0\\rangle = $ „|“, $|1\\rangle = $ „—“.</li><li><strong>Diagonální báze (×)</strong>: $|0\\rangle = $ „\\“, $|1\\rangle = $ „/“.</li></ul>Báze jsou navzájem konjugované — měření v nesprávné bázi dává náhodný výsledek.',
+          plain:
+            'Bit se zakóduje do polarizace fotonu jednou ze dvou bází (svislé+vodorovné, nebo diagonální). Klíč je v tom, že kdo měří ve špatné bázi, dostane náhodný výsledek — toho protokol BB84 využívá k detekci odposlechu.',
         },
         {
           kind: 'diagram',
@@ -126,6 +136,8 @@ export const chap09: Chapter = {
           number: '9.6',
           title: 'Průběh BB84',
           html: '<ol><li>Alice posílá náhodnou binární posloupnost zakódovanou náhodně volenou bází pro každý bit.</li><li>Bob měří v náhodně zvolených bázích.</li><li>Veřejným autentizovaným kanálem si oznámí použité báze; bity, kde se neshodli, vyřadí. Zbývající bity tvoří sdílený klíč.</li></ol>',
+          plain:
+            'Alice posílá fotony s náhodně zvolenými bity v náhodných bázích, Bob měří v náhodných bázích. Pak si veřejně řeknou, jaké báze použili, a nechají si jen bity, kde báze náhodou souhlasily — z těch sestaví sdílený klíč.',
         },
         {
           kind: 'callout',

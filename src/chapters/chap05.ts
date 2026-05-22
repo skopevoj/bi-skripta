@@ -16,6 +16,8 @@ export const chap05: Chapter = {
           number: '5.1',
           title: 'Jednosměrná funkce',
           html: 'Funkce $f: X \\to Y$, kde je snadné spočítat $y = f(x)$, ale pro náhodně zvolené $y$ je výpočetně nemožné nalézt vzor $x$. Dva typy: <strong>(1)</strong> jen jednosměrná (teoreticky lze, ale ne v rozumném čase — např. násobení vs. faktorizace), <strong>(2)</strong> s padacími vrátky (inverzi zvládne pouze ten, kdo zná klíč).',
+          plain:
+            'Funkce, která se snadno spočítá jedním směrem, ale prakticky se nedá obrátit. Příklad: snadno spočítáte součin dvou prvočísel, ale rozklad zpět je peklo. Padací vrátka jsou trik, který se znalostí tajné informace inverzi umožní — to je podstata asymetrické kryptografie.',
         },
         {
           kind: 'callout',
@@ -23,6 +25,8 @@ export const chap05: Chapter = {
           number: '5.2',
           title: 'Hašovací funkce',
           html: 'Funkce $h: X \\to \\{0,1\\}^n$, kde $X$ je množina všech binárních řetězců délky $0$ až $d$. Musí být <strong>jednosměrná 1. typu</strong> a <strong>bezkolizní</strong>. Výstup délky $n$ se nazývá <em>haš</em>.',
+          plain:
+            'Vyrobí z libovolně dlouhých dat krátký „otisk“ pevné délky. Slouží k ověření, že se data nezměnila — i drobná změna mění celý haš. Používá se třeba u stažených souborů: zveřejněný haš si stáhnete a porovnáte s tím, který si spočítáte sami.',
         },
         {
           kind: 'callout',
@@ -30,6 +34,8 @@ export const chap05: Chapter = {
           number: '5.3',
           title: 'Bezkoliznost',
           html: '<ul><li><strong>1. řádu (collision resistance):</strong> výpočetně nemožné nalézt libovolné $M \\ne M\'$ s $h(M) = h(M\')$.</li><li><strong>2. řádu (2nd preimage):</strong> pro daný vzor $x$ je nemožné najít $y \\ne x$ s $h(x) = h(y)$.</li></ul>',
+          plain:
+            'Bez kolizí by haš neměl smysl jako důkaz nezměněnosti. 1. řád = útočník najde libovolné dva soubory se stejným hašem; 2. řád = pro konkrétní soubor najde jiný se stejným hašem. Druhý útok je mnohem těžší — kdo by to uměl, mohl by podvrhnout konkrétní dokument.',
         },
         {
           kind: 'callout',
@@ -88,6 +94,8 @@ export const chap05: Chapter = {
           number: '5.4',
           title: 'Iterativní hašovací funkce',
           html: '$H_0 = \\text{IV}$, $H_i = f(H_{i-1}, M_i)$ pro $i = 1, \\dots, N$. Hodnota $H_i$ se nazývá <em>kontext</em>. Funkce $f$ je <strong>kompresní</strong> — má dva vstupy (kontext + blok) a výstup velikosti kontextu.',
+          plain:
+            'Recept, jak z malé „kompresní“ funkce postavit haš pro libovolně dlouhou zprávu. Zpráva se rozdělí na bloky a každý blok pomalu mixuje běžící mezivýsledek (kontext). Tahle myšlenka stojí za MD5, SHA-1 i SHA-2.',
         },
         {
           kind: 'diagram',
@@ -107,6 +115,8 @@ export const chap05: Chapter = {
           number: '5.5',
           title: 'Davies-Meyerova konstrukce',
           html: 'Kompresní funkce z blokové šifry $E_M$: $H_i = E_{M_i}(H_{i-1}) \\oplus H_{i-1}$. Přičtení vstupu maskuje výstup a posiluje jednosměrnost.',
+          plain:
+            'Recept, jak z blokové šifry udělat kompresní funkci pro haš. Blok zprávy se použije jako klíč a šifruje se s ním kontext — výsledek se ještě XOR-uje se vstupem, aby šel proces obtížně obrátit.',
         },
       ],
     },
@@ -125,6 +135,8 @@ export const chap05: Chapter = {
           number: '5.6',
           title: 'SHA-1 — expanze zprávy',
           html: 'Pro $t = 0, \\dots, 15$: $W_t = m_t$. Pro $t = 16, \\dots, 79$: $W_t = (W_{t-16} \\oplus W_{t-14} \\oplus W_{t-8} \\oplus W_{t-3}) \\lll 1$.',
+          plain:
+            'Z 16 slov vstupního bloku se „natáhne“ 80 slov potřebných pro všech 80 rund SHA-1. Slouží k tomu, aby se každý bit zprávy zapojil do více rund a více se „rozléval“ po výstupu.',
         },
         {
           kind: 'callout',
@@ -132,6 +144,8 @@ export const chap05: Chapter = {
           number: '5.7',
           title: 'SHA-1 — runda',
           html: 'V každé rundě $E := D$; $D := C$; $C := B \\lll 30$; $B := A$; $A := (A \\lll 5) \\boxplus F_t(B,C,D) \\boxplus E \\boxplus W_t \\boxplus K_t$. Funkce $F_t$: rundy 0–19 $(b\\wedge c) \\vee (\\bar b \\wedge d)$; 20–39, 60–79 $b \\oplus c \\oplus d$; 40–59 majorita.',
+          plain:
+            'Jeden krok promíchání kontextu SHA-1. Pět slov A-E se v každé rundě cyklicky posune a do nového A se namixují všechny ostatní spolu se slovem zprávy a konstantou. Opakuje se 80×, aby se každý bit zprávy promítl do celého výstupu.',
         },
       ],
     },
@@ -159,6 +173,8 @@ export const chap05: Chapter = {
           number: '5.8',
           title: 'SHA-256 — pomocné funkce',
           html: '$Ch(x,y,z) = (x\\wedge y) \\oplus (\\bar x \\wedge z)$; $Ma(x,y,z) = (x\\wedge y) \\oplus (x\\wedge z) \\oplus (y\\wedge z)$; $\\Sigma_0 = ROTR_2 \\oplus ROTR_{13} \\oplus ROTR_{22}$; $\\Sigma_1 = ROTR_6 \\oplus ROTR_{11} \\oplus ROTR_{25}$; $\\sigma_0 = ROTR_7 \\oplus ROTR_{18} \\oplus SHR_3$; $\\sigma_1 = ROTR_{17} \\oplus ROTR_{19} \\oplus SHR_{10}$.',
+          plain:
+            'Šest pomocných bitových funkcí, ze kterých se v SHA-256 v každé rundě skládá nová hodnota kontextu. Ch („choice“) vybírá bity podle jednoho slova, Ma rozhoduje majoritou, sigmy a Sigmy jsou XOR-y různě rotovaných slov.',
         },
       ],
     },
@@ -201,6 +217,8 @@ export const chap05: Chapter = {
           number: '5.9',
           title: 'HMAC',
           html: 'Konstanty $ipad = \\texttt{0x36}^{\\,b/8}$, $opad = \\texttt{0x5C}^{\\,b/8}$, kde $b$ je velikost bloku kompresní funkce. Klíč $K$ doplněn nulami zleva na $K^+$ délky $b$. Pak $\\text{HMAC}_K(M) = h\\bigl((K^+ \\oplus opad) \\,\\|\\, h((K^+ \\oplus ipad) \\,\\|\\, M)\\bigr)$.',
+          plain:
+            'Klíčovaný autentizační kód postavený dvojím hašováním zprávy s namixovaným tajným klíčem. Bez znalosti klíče útočník HMAC nepřepočítá — proto se používá v HTTPS i v API podpisech k ověření, že zprávu poslal opravdu ten, kdo zná klíč.',
         },
         {
           kind: 'list',

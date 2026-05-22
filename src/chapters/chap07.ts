@@ -74,6 +74,8 @@ export const chap07: Chapter = {
           number: '7.1',
           title: 'APDU',
           html: '<strong>Command APDU</strong> = hlavička <code>CLA INS P1 P2</code> + volitelné tělo <code>Lc DATA Le</code>. Rozlišujeme 4 případy podle přítomnosti dat a očekávané odpovědi.<br><strong>Response APDU</strong> = volitelné tělo + povinné zápatí <code>SW1 SW2</code>. Status <code>9000</code> = úspěch, <code>6A81</code> = file not found atd.',
+          plain:
+            'Standardizovaný formát zpráv mezi terminálem a čipovou kartou. Bez něj by terminál nevěděl, jak kartě říct „podepiš tuhle hodnotu“ nebo „vrať mi PIN“. Karta vždy odpoví dvěma stavovými bajty, podle kterých terminál pozná, jestli příkaz prošel.',
         },
         {
           kind: 'diagram',
@@ -109,6 +111,8 @@ export const chap07: Chapter = {
           number: '7.2',
           title: 'Diverzifikace klíčů',
           html: 'Z jednoho hlavního klíče (Master Key) a diverzifikačních dat (sériové číslo karty, identifikátor aplikace) se jednosměrnou funkcí (HMAC, CMAC) odvodí klíč specifický pro kartu: $k = \\mathrm{KDF}(MK, \\text{SerialNo})$. Prolomení odvozeného klíče <strong>neprozradí MasterKey</strong> a ostatní karty zůstávají bezpečné.',
+          plain:
+            'Z jednoho hlavního klíče vydavatele se pro každou kartu odvodí vlastní klíč podle jejího sériového čísla. Pokud útočník dostane klíč z jedné karty, ostatní karty zůstanou v bezpečí — vydavatel nemusí měnit hlavní klíč.',
         },
       ],
     },
@@ -156,6 +160,8 @@ export const chap07: Chapter = {
           number: '7.3',
           title: 'Jména souborů',
           html: '<ul><li><strong>FID</strong> (File Identifier) — 2 bajty, libovolný soubor.</li><li><strong>SFI</strong> (Short File Identifier) — 5 bitů, jen EF, přímý výběr v příkazu.</li><li><strong>DF name (AID)</strong> — až 16 bajtů pro adresář / aplikaci.</li></ul>',
+          plain:
+            'Tři druhy „adres“, pod kterými terminál najde data na kartě. FID je krátký pro běžné soubory, SFI ještě kratší pro rychlý přístup, AID slouží jako „doménové jméno“ aplikace na kartě.',
         },
         {
           kind: 'list',
@@ -192,6 +198,8 @@ export const chap07: Chapter = {
           number: '7.4',
           title: 'FIDO2 — registrace',
           html: 'RP pošle výzvu (challenge), RP ID a parametry. Uživatel potvrdí přítomnost / ověření. Authenticator vygeneruje pár klíčů per-RP, uloží soukromý klíč a vrátí <em>attestation</em> + veřejný klíč + credential ID.',
+          plain:
+            'První návštěva: token (YubiKey) si pro daný server vyrobí nový pár klíčů, soukromý si nechá u sebe, veřejný předá serveru. Pro každý web tak má token jiný klíč — únik z jednoho webu neohrozí účty jinde.',
         },
         {
           kind: 'diagram',
@@ -204,6 +212,8 @@ export const chap07: Chapter = {
           number: '7.5',
           title: 'FIDO2 — autentizace (assertion)',
           html: 'RP pošle challenge a seznam credential ID. Authenticator vybere odpovídající credential, podepíše challenge + metadata (sign counter) soukromým klíčem. RP ověří podpis veřejným klíčem z registrace.',
+          plain:
+            'Přihlášení: server pošle náhodnou výzvu, token ji podepíše uloženým soukromým klíčem a vrátí podpis. Server ho ověří veřejným klíčem z registrace. Phishingová stránka by dostala podpis pro jiné jméno domény — proto FIDO2 nelze phishingovat.',
         },
         {
           kind: 'diagram',

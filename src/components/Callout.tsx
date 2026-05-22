@@ -48,11 +48,13 @@ export function Callout({
   number,
   title,
   html,
+  plain,
 }: {
   type: CalloutKind
   number: string
   title: string
   html: string
+  plain?: string
 }) {
   const meta = META[type]
   const header = [meta.label, number].filter(Boolean).join(' ')
@@ -84,6 +86,12 @@ export function Callout({
       )}
       <div className="px-5 py-4">
         <MathHTML className="skripta-prose" html={html} />
+        {plain && (
+          <div className="callout-plain">
+            <span className="callout-plain-label">Jednoduše:</span>{' '}
+            <MathHTML as="span" html={plain} noGloss />
+          </div>
+        )}
       </div>
     </section>
   )

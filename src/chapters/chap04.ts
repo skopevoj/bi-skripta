@@ -22,6 +22,8 @@ export const chap04: Chapter = {
           number: '4.1',
           title: 'Bloková šifra',
           html: 'Šifrovací systém $(M, C, K, E, D)$, kde $M = C$ je množina řetězců délky $t$ nad abecedou $A$. Pro každý klíč $k \\in K$ existují transformace $E_k$, $D_k$ a všechny bloky jsou šifrovány toutéž $E_k$.',
+          plain:
+            'Šifra, která pracuje s bloky pevné velikosti (typicky 128 bitů u AES). Hodí se na soubory a disky — celá zpráva se rozkrájí na bloky a každý se zašifruje stejnou transformací.',
         },
         {
           kind: 'callout',
@@ -29,6 +31,8 @@ export const chap04: Chapter = {
           number: '4.2',
           title: 'Feistelův kryptosystém',
           html: 'Zpráva $m = (m_0, m_1) \\in V_{2n}$ se transformuje rekurentně: $m_{i+1} = m_{i-1} \\oplus f_i(m_i)$ pro $i = 1, \\dots, h$. Výstup $T_k(m) = (m_h, m_{h+1})$. Funkce $f_i$ nemusí být prostá — dešifrování probíhá stejně s obráceným pořadím klíčů.',
+          plain:
+            'Konstrukce blokových šifer, kde se blok rozdělí na dvě poloviny a v každé rundě se míchá jen jedna z nich. Krásné je, že dešifrování běží stejným kódem jako šifrování — stačí obrátit pořadí rundovních klíčů.',
         },
         {
           kind: 'diagram',
@@ -104,6 +108,8 @@ export const chap04: Chapter = {
           number: '4.3',
           title: '3DES-EDE',
           html: '$\\text{ŠT} = E_{K_3}(D_{K_2}(E_{K_1}(\\text{OT})))$. Volba $K_1 = K_2 = K_3$ → kompatibilní s DES. Volba $K_1 = K_3 \\ne K_2$ → 112 b klíč. Tři různé klíče → 168 b klíč.',
+          plain:
+            'Aplikuje DES třikrát za sebou — šifrovat, dešifrovat, šifrovat — s několika klíči. Vznikl jako rychlá záplata na slabý 56bitový klíč DES, než se dohodl AES; dnes se postupně vyřazuje.',
         },
         {
           kind: 'p',
@@ -146,6 +152,8 @@ export const chap04: Chapter = {
           number: '4.4',
           title: 'MixColumns',
           html: '$\\begin{pmatrix}b_0\\\\b_1\\\\b_2\\\\b_3\\end{pmatrix} = \\begin{pmatrix}02 & 03 & 01 & 01\\\\01 & 02 & 03 & 01\\\\01 & 01 & 02 & 03\\\\03 & 01 & 01 & 02\\end{pmatrix} \\cdot \\begin{pmatrix}a_0\\\\a_1\\\\a_2\\\\a_3\\end{pmatrix}$, kde konstanty jsou v hex zápisu $GF(2^8)$.',
+          plain:
+            'Krok AES, který „rozmaže“ jednotlivé sloupce stavu vynásobením pevnou maticí. Stará se o difúzi — drobná změna jednoho bajtu se promítne do všech čtyř bajtů sloupce.',
         },
         {
           kind: 'callout',

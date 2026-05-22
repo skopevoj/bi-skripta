@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ui } from './InteractiveCard'
 
 const M = 26
@@ -54,20 +54,40 @@ function cleanText(s: string): string {
   return s.toUpperCase().replace(/[^A-Z]/g, '')
 }
 
-function encrypt(plain: string, A: Matrix): { pairs: [string, string][]; cipher: string } {
+type Pair = {
+  ot: string
+  st: string
+  p1: number
+  p2: number
+  c1raw: number
+  c2raw: number
+  c1: number
+  c2: number
+}
+
+function encrypt(plain: string, A: Matrix): Pair[] {
   const clean = cleanText(plain)
   const padded = clean.length % 2 === 0 ? clean : clean + 'X'
-  const pairs: [string, string][] = []
-  let cipher = ''
+  const out: Pair[] = []
   for (let i = 0; i < padded.length; i += 2) {
     const p1 = letterToNum(padded[i]!)!
     const p2 = letterToNum(padded[i + 1]!)!
-    const c1 = mod(A[0][0] * p1 + A[0][1] * p2, M)
-    const c2 = mod(A[1][0] * p1 + A[1][1] * p2, M)
-    pairs.push([padded[i]! + padded[i + 1]!, numToLetter(c1) + numToLetter(c2)])
-    cipher += numToLetter(c1) + numToLetter(c2)
+    const c1raw = A[0][0] * p1 + A[0][1] * p2
+    const c2raw = A[1][0] * p1 + A[1][1] * p2
+    const c1 = mod(c1raw, M)
+    const c2 = mod(c2raw, M)
+    out.push({
+      ot: padded[i]! + padded[i + 1]!,
+      st: numToLetter(c1) + numToLetter(c2),
+      p1,
+      p2,
+      c1raw,
+      c2raw,
+      c1,
+      c2,
+    })
   }
-  return { pairs, cipher }
+  return out
 }
 
 function MatrixInput({
@@ -133,12 +153,19 @@ export function Hill() {
     [5, 17],
     [4, 15],
   ])
+  const [activePair, setActivePair] = useState(0)
 
   const d = det(A)
   const valid = gcd(d, M) === 1
   const Ainv = useMemo(() => (valid ? inverseMod26(A) : null), [A, valid])
+  const pairs = useMemo(() => (valid ? encrypt(text, A) : []), [text, A, valid])
 
-  const result = useMemo(() => (valid ? encrypt(text, A) : null), [text, A, valid])
+  useEffect(() => {
+    if (activePair >= pairs.length) setActivePair(0)
+  }, [pairs.length, activePair])
+
+  const cipher = pairs.map((p) => p.st).join('')
+  const active = pairs[activePair] ?? null
 
   return (
     <div className="space-y-5">
@@ -204,42 +231,100 @@ export function Hill() {
         </div>
       )}
 
-      {valid && result && (
+      {valid && pairs.length > 0 && (
         <>
+          {/* Pair selector with synchronized OT/ŠT highlight */}
           <div className={ui.panel + ' overflow-x-auto'}>
+            <div className="flex items-baseline justify-between mb-2 flex-wrap gap-2">
+              <span className={ui.rowLabel}>Dvojice znaků</span>
+              <span className="text-[11px] font-sans text-ink-400">
+                Klikněte na dvojici, abyste viděli rozepsané násobení matice × sloupec.
+              </span>
+            </div>
             <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 items-center min-w-fit">
               <span className={ui.rowLabel}>OT</span>
               <div className="flex flex-wrap gap-1.5">
-                {result.pairs.map(([p], i) => (
-                  <span key={`p-${i}`} className={ui.chip}>
-                    {p}
-                  </span>
+                {pairs.map((p, i) => (
+                  <button
+                    key={`p-${i}`}
+                    type="button"
+                    onClick={() => setActivePair(i)}
+                    className={
+                      'px-1.5 py-0.5 rounded font-mono text-[12px] border transition-colors ' +
+                      (i === activePair
+                        ? 'bg-ink-200 text-ink-950 border-ink-200'
+                        : 'bg-ink-900 text-ink-200 border-ink-800 hover:border-ink-700')
+                    }
+                  >
+                    {p.ot}
+                  </button>
                 ))}
               </div>
               <span className={ui.rowLabel + ' text-ink-600'} aria-hidden="true">
                 ↓
               </span>
-              <div className="text-ink-500 font-mono text-[12px]">A · p</div>
+              <div className="text-ink-500 font-mono text-[12px]">A · p (mod 26)</div>
               <span className={ui.rowLabel}>ŠT</span>
               <div className="flex flex-wrap gap-1.5">
-                {result.pairs.map(([, c], i) => (
-                  <span
+                {pairs.map((p, i) => (
+                  <button
                     key={`c-${i}`}
-                    className={ui.chip + ' text-ink-100'}
+                    type="button"
+                    onClick={() => setActivePair(i)}
+                    className={
+                      'px-1.5 py-0.5 rounded font-mono text-[12px] border transition-colors ' +
+                      (i === activePair
+                        ? 'bg-ink-200 text-ink-950 border-ink-200'
+                        : 'bg-ink-900 text-ink-100 border-ink-800 hover:border-ink-700')
+                    }
                   >
-                    {c}
-                  </span>
+                    {p.st}
+                  </button>
                 ))}
               </div>
             </div>
           </div>
+
+          {/* Walk-through of the active pair */}
+          {active && (
+            <div className={ui.panel}>
+              <div className={ui.rowLabel + ' mb-2'}>
+                Rozepsaný výpočet pro dvojici „{active.ot}"
+              </div>
+              <div className="space-y-2 font-mono text-[13px] text-ink-200">
+                <div>
+                  p = ({active.ot[0]}, {active.ot[1]})ᵀ = ({active.p1}, {active.p2})ᵀ
+                </div>
+                <div>
+                  c₁ = {A[0][0]}·{active.p1} + {A[0][1]}·{active.p2}{' '}
+                  = {A[0][0] * active.p1} + {A[0][1] * active.p2} = {active.c1raw}{' '}
+                  {active.c1raw !== active.c1 && (
+                    <span className="text-ink-400">≡ {active.c1} (mod 26)</span>
+                  )}{' '}
+                  → <span className="text-ink-100 font-semibold">{numToLetter(active.c1)}</span>
+                </div>
+                <div>
+                  c₂ = {A[1][0]}·{active.p1} + {A[1][1]}·{active.p2}{' '}
+                  = {A[1][0] * active.p1} + {A[1][1] * active.p2} = {active.c2raw}{' '}
+                  {active.c2raw !== active.c2 && (
+                    <span className="text-ink-400">≡ {active.c2} (mod 26)</span>
+                  )}{' '}
+                  → <span className="text-ink-100 font-semibold">{numToLetter(active.c2)}</span>
+                </div>
+              </div>
+              <div className={'mt-2 text-[12px] font-sans text-ink-400'}>
+                První řádek matice násobí celý sloupec p (skalární součin →
+                první souřadnice c). Druhý řádek dává druhou souřadnici.
+              </div>
+            </div>
+          )}
 
           <div>
             <span className={ui.label}>Šifrový text</span>
             <div
               className={ui.panel + ' ' + ui.mono + ' break-words whitespace-pre-wrap tracking-[0.15em]'}
             >
-              {result.cipher || ' '}
+              {cipher || ' '}
             </div>
           </div>
         </>

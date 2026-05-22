@@ -2,6 +2,18 @@ import { lazy, Suspense } from 'react'
 import type { InteractiveName } from '../../types'
 
 const components: Record<InteractiveName, ReturnType<typeof lazy>> = {
+  'mod-clock': lazy(() =>
+    import('./ModClock').then((m) => ({ default: m.ModClock })),
+  ),
+  'gcd-euclid': lazy(() =>
+    import('./GcdEuclid').then((m) => ({ default: m.GcdEuclid })),
+  ),
+  'ext-euclid': lazy(() =>
+    import('./ExtEuclid').then((m) => ({ default: m.ExtEuclid })),
+  ),
+  'euler-totient': lazy(() =>
+    import('./EulerTotient').then((m) => ({ default: m.EulerTotient })),
+  ),
   caesar: lazy(() => import('./Caesar').then((m) => ({ default: m.Caesar }))),
   affine: lazy(() => import('./Affine').then((m) => ({ default: m.Affine }))),
   hill: lazy(() => import('./Hill').then((m) => ({ default: m.Hill }))),
