@@ -26,14 +26,14 @@ export const chapMath: Chapter = {
       blocks: [
         {
           kind: 'p',
-          html: 'Když dělíme celé číslo $a$ číslem $n &gt; 0$, dostaneme jednoznačně podíl $q$ a <strong>zbytek</strong> $r$ s vlastností $a = qn + r$ a $0 \\le r &lt; n$. Tento zbytek značíme $a \\bmod n$ a říkáme „a modulo n".',
+          html: 'Když dělíme celé číslo $a$ číslem $n > 0$, dostaneme jednoznačně podíl $q$ a <strong>zbytek</strong> $r$ s vlastností $a = qn + r$ a $0 \\le r < n$. Tento zbytek značíme $a \\bmod n$ a říkáme „a modulo n".',
         },
         {
           kind: 'callout',
           type: 'definice',
           number: '0.1',
           title: 'Kongruence modulo n',
-          html: 'Pro celá $a, b, n$ s $n &gt; 0$ píšeme $a \\equiv b \\pmod{n}$, právě když $n \\mid (a - b)$ (čteme: $n$ dělí rozdíl). To je totéž jako $a \\bmod n = b \\bmod n$. Množinu zbytků $\\{0, 1, \\dots, n-1\\}$ značíme $\\mathbb{Z}_n$.',
+          html: 'Pro celá $a, b, n$ s $n > 0$ píšeme $a \\equiv b \\pmod{n}$, právě když $n \\mid (a - b)$ (čteme: $n$ dělí rozdíl). To je totéž jako $a \\bmod n = b \\bmod n$. Množinu zbytků $\\{0, 1, \\dots, n-1\\}$ značíme $\\mathbb{Z}_n$.',
           plain:
             'Říká, že dvě čísla mají stejný zbytek po dělení n. Jako u hodin: 15:00 a 3:00 jsou „stejné“ modulo 12. Tahle aritmetika je základ celé kryptografie — počítáme v omezeném prostoru zbytků, kde se mocniny chovají periodicky.',
         },
@@ -55,7 +55,7 @@ export const chapMath: Chapter = {
           type: 'veta',
           number: '0.1',
           title: 'Pravidla počítání modulo',
-          html: 'Pro libovolná celá $a, b, c$ a $n &gt; 0$ platí:<ul><li>$(a + b) \\bmod n = ((a \\bmod n) + (b \\bmod n)) \\bmod n$,</li><li>$(a \\cdot b) \\bmod n = ((a \\bmod n) \\cdot (b \\bmod n)) \\bmod n$,</li><li>z $a \\equiv b \\pmod{n}$ plyne $a + c \\equiv b + c$ a $ac \\equiv bc \\pmod{n}$.</li></ul>Důsledkem můžeme všechny mezivýsledky průběžně brát modulo $n$ a nikdy nepracovat s obrovskými čísly.',
+          html: 'Pro libovolná celá $a, b, c$ a $n > 0$ platí:<ul><li>$(a + b) \\bmod n = ((a \\bmod n) + (b \\bmod n)) \\bmod n$,</li><li>$(a \\cdot b) \\bmod n = ((a \\bmod n) \\cdot (b \\bmod n)) \\bmod n$,</li><li>z $a \\equiv b \\pmod{n}$ plyne $a + c \\equiv b + c$ a $ac \\equiv bc \\pmod{n}$.</li></ul>Důsledkem můžeme všechny mezivýsledky průběžně brát modulo $n$ a nikdy nepracovat s obrovskými čísly.',
         },
         {
           kind: 'callout',
@@ -80,7 +80,7 @@ export const chapMath: Chapter = {
           type: 'veta',
           number: '0.2',
           title: 'Euklidův algoritmus',
-          html: 'Pro $a \\ge b &gt; 0$ platí $\\gcd(a, b) = \\gcd(b, a \\bmod b)$. Algoritmus tuto rovnost opakovaně aplikuje: dvojici $(a, b)$ nahradí dvojicí $(b, a \\bmod b)$, dokud druhá složka není 0. Poslední nenulová hodnota je $\\gcd(a, b)$.',
+          html: 'Pro $a \\ge b > 0$ platí $\\gcd(a, b) = \\gcd(b, a \\bmod b)$. Algoritmus tuto rovnost opakovaně aplikuje: dvojici $(a, b)$ nahradí dvojicí $(b, a \\bmod b)$, dokud druhá složka není 0. Poslední nenulová hodnota je $\\gcd(a, b)$.',
         },
         {
           kind: 'callout',
