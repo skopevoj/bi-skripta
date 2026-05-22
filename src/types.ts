@@ -97,7 +97,6 @@ export type InteractiveName =
   | 'rsa'
   | 'ec-add'
   | 'bb84'
-  | 'feistel'
 
 export type DiagramName =
   | 'feistel'
