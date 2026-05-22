@@ -30,6 +30,11 @@ export const chap04: Chapter = {
           title: 'Feistelův kryptosystém',
           html: 'Zpráva $m = (m_0, m_1) \\in V_{2n}$ se transformuje rekurentně: $m_{i+1} = m_{i-1} \\oplus f_i(m_i)$ pro $i = 1, \\dots, h$. Výstup $T_k(m) = (m_h, m_{h+1})$. Funkce $f_i$ nemusí být prostá — dešifrování probíhá stejně s obráceným pořadím klíčů.',
         },
+        {
+          kind: 'diagram',
+          component: 'feistel',
+          caption: 'Obr. 4.1: Schéma Feistelovy sítě. Bloky L a R se v každé rundě prohazují; rundovní funkce F dostává polovinu R a klíč Kᵢ, výstup se sčítá XOR s druhou polovinou.',
+        },
       ],
     },
     {
@@ -73,6 +78,11 @@ export const chap04: Chapter = {
             '8 <strong>S-boxů</strong> redukuje 48 b zpět na 32 b — jediný nelineární prvek.',
             'Permutace P (32 → 32 b).',
           ],
+        },
+        {
+          kind: 'diagram',
+          component: 'des-round',
+          caption: 'Obr. 4.2: Rundovní funkce DES f(R, Kᵢ). Expanze E rozšíří 32 b na 48 b, XOR s rundovním klíčem Kᵢ, osm S-boxů zúží zpět na 32 b, permutace P uspořádá výstup.',
         },
         {
           kind: 'callout',

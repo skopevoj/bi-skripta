@@ -63,6 +63,11 @@ export const chap03: Chapter = {
             '<strong>Samosynchronizující</strong> — heslo závisí na předchozích $n$ znacích ŠT: $h_i = f(k, c_{i-n}, \\dots, c_{i-1})$. K obnovení dojde po přijetí $n+1$ správných znaků. Historický příklad: Vigenèrův autokláv.',
           ],
         },
+        {
+          kind: 'diagram',
+          component: 'stream-sync',
+          caption: 'Obr. 3.1: Šifrovací strana proudové šifry. Vlevo synchronní — generátor nezávisí na ŠT. Vpravo samosynchronizující — předchozích n znaků ŠT vstupuje zpět do generátoru přes posuvný registr.',
+        },
       ],
     },
     {

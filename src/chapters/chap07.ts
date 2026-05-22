@@ -56,6 +56,11 @@ export const chap07: Chapter = {
             '<strong>GlobalPlatform</strong> (dříve OpenPlatform) — standard pro správu aplikací (appletů) na kartě.',
           ],
         },
+        {
+          kind: 'diagram',
+          component: 'smartcard-arch',
+          caption: 'Obr. 7.1: Architektura procesorové čipové karty. CPU, kryptografický koprocesor a paměti (ROM/RAM/EEPROM) jsou propojeny vnitřní sběrnicí; I/O rozhraní komunikuje s terminálem standardem ISO 7816/14443.',
+        },
       ],
     },
     {
@@ -69,6 +74,11 @@ export const chap07: Chapter = {
           number: '7.1',
           title: 'APDU',
           html: '<strong>Command APDU</strong> = hlavička <code>CLA INS P1 P2</code> + volitelné tělo <code>Lc DATA Le</code>. Rozlišujeme 4 případy podle přítomnosti dat a očekávané odpovědi.<br><strong>Response APDU</strong> = volitelné tělo + povinné zápatí <code>SW1 SW2</code>. Status <code>9000</code> = úspěch, <code>6A81</code> = file not found atd.',
+        },
+        {
+          kind: 'diagram',
+          component: 'apdu-frame',
+          caption: 'Obr. 7.2: Struktura APDU. Command APDU má povinnou hlavičku (CLA, INS, P1, P2) a volitelné tělo (Lc, Data, Le). Response APDU má volitelné tělo a povinné zápatí SW1 SW2.',
         },
         {
           kind: 'callout',
@@ -184,11 +194,21 @@ export const chap07: Chapter = {
           html: 'RP pošle výzvu (challenge), RP ID a parametry. Uživatel potvrdí přítomnost / ověření. Authenticator vygeneruje pár klíčů per-RP, uloží soukromý klíč a vrátí <em>attestation</em> + veřejný klíč + credential ID.',
         },
         {
+          kind: 'diagram',
+          component: 'fido2-register',
+          caption: 'Obr. 7.3: FIDO2 registrace. Authenticator vygeneruje pár klíčů per-RP, vrátí attestation + veřejný klíč + credential ID; soukromý klíč zůstává v zařízení.',
+        },
+        {
           kind: 'callout',
           type: 'definice',
           number: '7.5',
           title: 'FIDO2 — autentizace (assertion)',
           html: 'RP pošle challenge a seznam credential ID. Authenticator vybere odpovídající credential, podepíše challenge + metadata (sign counter) soukromým klíčem. RP ověří podpis veřejným klíčem z registrace.',
+        },
+        {
+          kind: 'diagram',
+          component: 'fido2-auth',
+          caption: 'Obr. 7.4: FIDO2 autentizace (assertion). Authenticator podepíše challenge + sign counter pomocí SK; RP ověří podpis veřejným klíčem uloženým při registraci.',
         },
       ],
     },

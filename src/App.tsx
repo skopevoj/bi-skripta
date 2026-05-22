@@ -6,6 +6,8 @@ import { Callout } from './components/Callout'
 import { MathHTML } from './components/MathHTML'
 import { InteractiveCard } from './components/interactive/InteractiveCard'
 import { InteractiveWidget } from './components/interactive/registry'
+import { Figure } from './components/diagram/Figure'
+import { DiagramComponent } from './components/diagram/registry'
 
 function BlockRenderer({ block }: { block: Block }) {
   switch (block.kind) {
@@ -42,6 +44,12 @@ function BlockRenderer({ block }: { block: Block }) {
         <InteractiveCard title={block.title} hint={block.hint}>
           <InteractiveWidget name={block.component} />
         </InteractiveCard>
+      )
+    case 'diagram':
+      return (
+        <Figure caption={block.caption}>
+          <DiagramComponent name={block.component} />
+        </Figure>
       )
   }
 }

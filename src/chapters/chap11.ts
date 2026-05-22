@@ -53,6 +53,11 @@ export const chap11: Chapter = {
           html: '(1) A → Aut: Req. ‖ $T_1$. (2) Aut → A: $E_{SK_{Aut}}(VK_B \\| \\text{Req.} \\| T_1)$. (3) A → B: $E_{VK_B}(ID_A \\| N_1)$. (4) B → Aut: Req. ‖ $T_2$. (5) Aut → B: $E_{SK_{Aut}}(VK_A \\| \\text{Req.} \\| T_2)$. (6) B → A: $E_{VK_A}(N_1 \\| N_2)$. (7) A → B: $E_{VK_B}(N_2)$.',
         },
         {
+          kind: 'diagram',
+          component: 'pubkey-authority',
+          caption: 'Obr. 11.1: Výměna veřejných klíčů přes Autoritu. Sedm zpráv mezi A, Autoritou a B — kroky 1–2 a 4–5 získávají autentizovaný VK protějšku, kroky 3, 6, 7 tvoří vzájemnou autentizaci nonci N₁, N₂.',
+        },
+        {
           kind: 'callout',
           type: 'poznamka',
           number: '11.1',
@@ -114,6 +119,11 @@ export const chap11: Chapter = {
           number: '11.4',
           title: 'Křížová certifikace',
           html: 'Spojení dvou stromů: CA$_1$ podepíše veřejný klíč CA$_2$ a naopak.<ul><li><strong>Jednosměrná</strong> — důvěra pouze v jednom směru.</li><li><strong>Obousměrná</strong> — vzájemná důvěra.</li></ul>',
+        },
+        {
+          kind: 'diagram',
+          component: 'cert-tree',
+          caption: 'Obr. 11.2: Dvě hierarchie CA spojené obousměrnou křížovou certifikací. Každá hierarchie má kořen, sub-CA a koncové uživatele; kořeny si vzájemně podepisují veřejné klíče.',
         },
         {
           kind: 'callout',

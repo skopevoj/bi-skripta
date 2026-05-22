@@ -32,6 +32,13 @@ export type Block =
       // Optional short hint shown below the title.
       hint?: string
     }
+  | {
+      kind: 'diagram'
+      // Registered component name (see components/diagram/registry.ts)
+      component: DiagramName
+      // Optional caption rendered below the figure (e.g. "Obr. 4.1: …").
+      caption?: string
+    }
 
 export type InteractiveName =
   | 'caesar'
@@ -52,6 +59,19 @@ export type InteractiveName =
   | 'rsa'
   | 'ec-add'
   | 'bb84'
+
+export type DiagramName =
+  | 'feistel'
+  | 'des-round'
+  | 'merkle-damgard'
+  | 'stream-sync'
+  | 'apdu-frame'
+  | 'smartcard-arch'
+  | 'fido2-register'
+  | 'fido2-auth'
+  | 'cert-tree'
+  | 'pubkey-authority'
+  | 'qubit-bases'
 
 export type Section = {
   id: string // anchor, used by sidebar (e.g. "sec-5-5")

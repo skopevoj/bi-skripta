@@ -104,6 +104,11 @@ export const chap09: Chapter = {
           title: 'Polarizační kódování',
           html: '<ul><li><strong>Lineární báze (+)</strong>: $|0\\rangle = $ „|“, $|1\\rangle = $ „—“.</li><li><strong>Diagonální báze (×)</strong>: $|0\\rangle = $ „\\“, $|1\\rangle = $ „/“.</li></ul>Báze jsou navzájem konjugované — měření v nesprávné bázi dává náhodný výsledek.',
         },
+        {
+          kind: 'diagram',
+          component: 'qubit-bases',
+          caption: 'Obr. 9.1: Dvě konjugované polarizační báze v BB84. Vlevo lineární (+) s vertikálním |0⟩ a horizontálním |1⟩; vpravo diagonální (×) otočená o 45°.',
+        },
       ],
     },
     {

@@ -90,6 +90,11 @@ export const chap05: Chapter = {
           html: '$H_0 = \\text{IV}$, $H_i = f(H_{i-1}, M_i)$ pro $i = 1, \\dots, N$. Hodnota $H_i$ se nazývá <em>kontext</em>. Funkce $f$ je <strong>kompresní</strong> — má dva vstupy (kontext + blok) a výstup velikosti kontextu.',
         },
         {
+          kind: 'diagram',
+          component: 'merkle-damgard',
+          caption: 'Obr. 5.1: Damgård–Merklova konstrukce. Kontext Hᵢ se řetězí zleva doprava od IV; každý blok zprávy Mᵢ vstupuje do kompresní funkce f shora, finální Hₙ = h(M).',
+        },
+        {
           kind: 'callout',
           type: 'veta',
           number: '5.2',
