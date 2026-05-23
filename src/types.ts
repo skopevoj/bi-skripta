@@ -102,6 +102,7 @@ export type InteractiveName =
   | 'mode-ctr'
   | 'avalanche'
   | 'birthday'
+  | 'sha1'
   | 'rsa'
   | 'ec-add'
   | 'bb84'

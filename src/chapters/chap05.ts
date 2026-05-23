@@ -147,6 +147,12 @@ export const chap05: Chapter = {
           plain:
             'Jeden krok promíchání kontextu SHA-1. Pět slov A-E se v každé rundě cyklicky posune a do nového A se namixují všechny ostatní spolu se slovem zprávy a konstantou. Opakuje se 80×, aby se každý bit zprávy promítl do celého výstupu.',
         },
+        {
+          kind: 'interactive',
+          component: 'sha1',
+          title: 'SHA-1 krok za krokem',
+          hint: 'Napiš zprávu, podívej se na její zarovnání na 512-bitový blok a posuvníkem proklikávej všech 80 rund kompresní funkce.',
+        },
       ],
     },
     {

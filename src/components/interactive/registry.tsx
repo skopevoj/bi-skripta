@@ -53,6 +53,7 @@ const components: Record<InteractiveName, ReturnType<typeof lazy>> = {
   birthday: lazy(() =>
     import('./Birthday').then((m) => ({ default: m.Birthday })),
   ),
+  sha1: lazy(() => import('./Sha1').then((m) => ({ default: m.Sha1 }))),
   rsa: lazy(() => import('./RSA').then((m) => ({ default: m.RSA }))),
   'ec-add': lazy(() => import('./ECAdd').then((m) => ({ default: m.ECAdd }))),
   bb84: lazy(() => import('./BB84').then((m) => ({ default: m.BB84 }))),
