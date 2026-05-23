@@ -183,5 +183,138 @@ export const chap11: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-11-6',
+      number: '11.6',
+      title: 'Otázky k ústní zkoušce',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Tato otázka se může vyskytnout u ústní zkoušky — níže je shrnutí všech bodů, na které je dobré umět odpovědět.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Distribuce veřejných a tajných klíčů. Podvržení veřejného a tajného klíče. Způsoby distribuce veřejných klíčů: zveřejnění, veřejně dostupný adresář, autorita pro veřejné klíče a certifikace veřejných klíčů. Certifikace veřejných klíčů: definice certifikátu, certifikační autority a registrační autority. Princip komunikace pomocí certifikátů. Vlastnosti certifikátu, řetězec certifikátů, kořenová certifikační autorita, kořenový certifikát, křížová certifikace.</strong>',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-11-6-1',
+          number: '11.6.1',
+          title: 'Distribuce veřejných a tajných klíčů',
+        },
+        {
+          kind: 'p',
+          html: 'U <strong>tajných (symetrických) klíčů</strong> je hlavním problémem <em>utajení</em> klíče při přenosu. Klasické možnosti jsou: (a) fyzické předání mimo kanál (out-of-band), (b) použití dříve sdíleného klíče k zašifrování nového (key wrapping), (c) distribuce přes důvěryhodné centrum klíčů KDC (Key Distribution Center), (d) <strong>balení symetrického klíče asymetrickou kryptografií</strong> — A vygeneruje klíč relace $k_s$ a pošle B hodnotu $E_{VK_B}(k_s)$, kterou rozšifruje jen B pomocí $SK_B$.',
+        },
+        {
+          kind: 'p',
+          html: 'U <strong>veřejných klíčů</strong> není problémem utajení (klíč je veřejný), ale <em>autenticita</em> — příjemce musí mít jistotu, že obdržený VK opravdu patří uvedené identitě.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-11-6-2',
+          number: '11.6.2',
+          title: 'Podvržení veřejného a tajného klíče',
+        },
+        {
+          kind: 'p',
+          html: 'Pokud A pošle B veřejný klíč $VK_A$ bez ochrany, může aktivní útočník U provést <strong>man-in-the-middle</strong>: zachytí $VK_A$, podstrčí B vlastní $VK_U$ a obdobně podvrhne A klíč $VK_U$ místo $VK_B$. B pak šifruje zprávy klíčem $VK_U$, U je dešifruje, případně změní a přepošle A zašifrované pravým $VK_A$. Útok je pro B i A nedetekovatelný, dokud nemají žádný autentický odkaz na pravý VK protějšku.',
+        },
+        {
+          kind: 'p',
+          html: 'Analogicky lze podvrhnout i tajný klíč — pokud A pošle klíč relace $k_s$ pouze zašifrovaný podvrženým $VK_U$, dostane jej útočník místo B. Bez autentizace veřejného klíče je tedy i distribuce tajného klíče zranitelná.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-11-6-3',
+          number: '11.6.3',
+          title: 'Způsoby distribuce veřejných klíčů',
+        },
+        {
+          kind: 'list',
+          ordered: true,
+          items: [
+            '<strong>Zveřejnění (public announcement)</strong> — uživatel rozešle svůj VK e-mailem, zveřejní na osobní stránce, v diskusi apod. Jednoduché, ale zcela nechráněné proti podvržení — kdokoli může vystupovat pod cizí identitou.',
+            '<strong>Veřejně dostupný adresář</strong> — důvěryhodná organizace provozuje seznam dvojic $(ID, VK)$. Uživatelé se registrují osobně a mohou si svůj záznam aktualizovat. Bezpečnější než zveřejnění, ale jediný adresář se stává cílem útoku — kompromitace adresáře umožní podvrhnout libovolný VK.',
+            '<strong>Autorita pro veřejné klíče (online)</strong> — Aut udržuje adresář a zájemce o cizí VK získá od Aut <em>podepsanou</em> odpověď. Každý uživatel zná pouze $VK_{Aut}$. Pro získání $VK_B$ pošle A: Req. ‖ $T_1$; Aut vrátí $E_{SK_{Aut}}(VK_B \\| \\text{Req.} \\| T_1)$. Časová značka $T_1$ brání replay útokům. Nevýhoda: Autorita je úzké hrdlo a musí být stále online.',
+            '<strong>Certifikace veřejných klíčů</strong> — uživatel získá od důvěryhodné CA podepsaný certifikát, který může předat komukoli sám. CA nemusí být online při každém spojení; ověření je lokální záležitostí pomocí předem známého $VK_{CA}$.',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-11-6-4',
+          number: '11.6.4',
+          title: 'Certifikát, certifikační autorita, registrační autorita',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Certifikát</strong> je datová struktura obsahující veřejný klíč žadatele, jeho identifikační údaje, dobu platnosti a další metadata. Celý záznam je <em>digitálně podepsán</em> soukromým klíčem CA, takže kdokoli s autentickým $VK_{CA}$ může ověřit jeho pravost. Schematicky $C_A = E_{SK_{CA}}(T_1, ID_A, VK_A)$ a ověření $D_{VK_{CA}}(C_A) = (T_1, ID_A, VK_A)$.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Certifikační autorita (CA)</strong> je důvěryhodná třetí strana, která vystavuje, podepisuje, distribuuje a odvolává certifikáty. <strong>Registrační autorita (RA)</strong> je organizační složka (typicky kontaktní místo) odpovědná za <em>ověření totožnosti</em> žadatele, příjem žádosti a předání hotového certifikátu. RA tedy provádí byrokratickou a identifikační část procesu, samotný kryptografický podpis vystavuje CA.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-11-6-5',
+          number: '11.6.5',
+          title: 'Princip komunikace pomocí certifikátů',
+        },
+        {
+          kind: 'p',
+          html: 'Při navázání spojení si strany vymění certifikáty (např. v rámci TLS handshake). Každá strana ověří podpisem $VK_{CA}$ pravost certifikátu protějšku, zkontroluje platnost (časový rozsah, CRL/OCSP) a soulad identity (např. doménové jméno). Pokud certifikát vystavila CA, kterou strana přímo nezná, ověřuje se celý <strong>řetězec certifikátů</strong> až ke kořenové CA, jejíž kořenový certifikát má strana předem nainstalován v <em>úložišti důvěryhodných certifikátů</em> (trust store).',
+        },
+        {
+          kind: 'p',
+          html: 'Po ověření identity se ověřený veřejný klíč použije k ustanovení klíče relace — buď přímo zašifrováním symetrického klíče (key transport), nebo jako autentizační prvek v Diffie–Hellmanově výměně (authenticated key agreement). Tím se získá symetrický klíč $k_s$ pro vlastní šifrování dat.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-11-6-6',
+          number: '11.6.6',
+          title: 'Vlastnosti certifikátu (X.509)',
+        },
+        {
+          kind: 'p',
+          html: 'Standard ITU-T <strong>X.509</strong> (součást X.500) definuje formát certifikátů. Verze 3 obsahuje zejména: verzi formátu, sériové číslo certifikátu, identifikátor algoritmu podpisu, jméno vystavitele (CA), dobu platnosti (not before / not after), jméno subjektu (vlastníka), veřejný klíč subjektu spolu s identifikátorem algoritmu, volitelné jednoznačné identifikátory vystavitele a subjektu, rozšíření (extensions, např. použití klíče, alternativní jména) a digitální podpis CA přes všechna předchozí pole.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-11-6-7',
+          number: '11.6.7',
+          title: 'Řetězec certifikátů, kořenová CA, kořenový certifikát',
+        },
+        {
+          kind: 'p',
+          html: 'Při velkém počtu uživatelů se CA organizují do <strong>hierarchického stromu</strong>: kořenová CA podepisuje certifikáty podřízených (intermediate) CA, ty dále podepisují certifikáty koncových subjektů. <strong>Řetězec certifikátů</strong> je posloupnost od certifikátu uživatele přes všechny mezilehlé CA až po <strong>kořenový certifikát</strong>.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Kořenová certifikační autorita</strong> stojí na vrcholu hierarchie a její certifikát je <em>self-signed</em> — podepsaný vlastním soukromým klíčem, protože nad ní již žádná vyšší autorita není. Důvěra v kořenový certifikát se nezakládá kryptograficky, ale tím, že je předem nainstalován v <strong>úložišti důvěryhodných kořenů</strong> operačního systému či prohlížeče (out-of-band distribuce, typicky spolu s instalací systému).',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-11-6-8',
+          number: '11.6.8',
+          title: 'Křížová certifikace',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Křížová certifikace (cross-certification)</strong> umožňuje propojit dvě nezávislé hierarchie CA tak, aby si jejich uživatelé mohli vzájemně důvěřovat, aniž by každý měl ve svém úložišti druhou kořenovou CA. Kořenové CA si vzájemně podepíší veřejné klíče — vzniknou tzv. <em>křížové certifikáty</em>.',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Jednosměrná</strong> — pouze CA$_1$ podepíše VK CA$_2$, důvěra je jednostranná.',
+            '<strong>Obousměrná</strong> — obě strany se podepíší navzájem, důvěra je symetrická.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Příklad: uživatel C ze stromu CA$_2$ chce komunikovat s A ze stromu CA$_1$. A pošle C: vlastní certifikát podepsaný CA$_1$, případné mezilehlé certifikáty, kořenový certifikát CA$_1$ a křížový certifikát CA$_1$ podepsaný CA$_2$. C ověří řetězec od svého důvěryhodného kořene CA$_2$ přes křížový certifikát až k certifikátu uživatele A. Křížová certifikace tak vytváří „most“ mezi oddělenými oblastmi důvěry (např. mezi PKI různých států nebo organizací).',
+        },
+      ],
+    },
   ],
 }

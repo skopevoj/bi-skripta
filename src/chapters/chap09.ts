@@ -168,5 +168,167 @@ export const chap09: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-9-6',
+      number: '9.6',
+      title: 'Otázky k ústní zkoušce',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Tato otázka se může vyskytnout u ústní zkoušky — níže je shrnutí všech bodů, na které je dobré umět odpovědět.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Eliptické křivky: geometrická interpretace součtu 2 bodů na eliptické křivce. Eliptické křivky v šifrování, pojmy řád bodu, řád křivky, kofaktor. Problém diskrétního logaritmu u eliptických křivek a bezpečnost. Diffie-Hellman na eliptických křivkách. Klasická a kvantová informace, rozdíly. Kvantový bit – qubit, polarizační kódování fotonu a jeho využití v protokolu BB84 pro zřízení společného klíče a detekce odposlechu.</strong>',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-9-6-1',
+          number: '9.6.1',
+          title: 'Geometrická interpretace součtu bodů',
+        },
+        {
+          kind: 'p',
+          html: 'Eliptická křivka v <strong>krátké Weierstrassově</strong> tvaru je dána rovnicí $y^2 = x^3 + ax + b$ s podmínkou nesingularity $4a^3 + 27b^2 \\ne 0$. K množině bodů $(x, y)$ vyhovujících této rovnici se přidává jeden formální <strong>bod v nekonečnu</strong> $\\mathcal{O}$, který slouží jako neutrální prvek grupy.',
+        },
+        {
+          kind: 'p',
+          html: 'Sčítání bodů $P + Q = R$ má názornou <strong>geometrickou interpretaci „tětivy a tečny“</strong>: bodem $P$ a $Q$ vedeme přímku (pro $P = Q$ tečnu ke křivce v bodě $P$), ta protne křivku ve třetím bodě $-R$. Hledaný součet $R$ je <strong>zrcadlový obraz</strong> $-R$ podle osy $x$, tedy $R = (x_{-R}, -y_{-R})$. Pokud $Q = -P$ (tedy oba body mají stejné $x$ a opačná $y$), je spojnice svislá, „třetí průsečík“ leží v nekonečnu a definujeme $P + (-P) = \\mathcal{O}$.',
+        },
+        {
+          kind: 'p',
+          html: 'Tato operace činí z bodů křivky <strong>komutativní (Abelovu) grupu</strong>: $\\mathcal{O}$ je neutrální prvek ($P + \\mathcal{O} = P$), opačný prvek $-P$ vznikne překlopením přes osu $x$, asociativita se ověří algebraicky. Násobek $kP$ definujeme jako $k$-krát opakované sčítání bodu $P$ se sebou samým.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-9-6-2',
+          number: '9.6.2',
+          title: 'Řád bodu, řád křivky, kofaktor',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Řád bodu</strong> $P$, značený $|P| = n$, je nejmenší kladné celé číslo $n$ takové, že $nP = \\mathcal{O}$. Body s vyšším řádem generují větší podgrupu a poskytují větší prostor možných tajných exponentů.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Řád křivky</strong> $\\#E$ je celkový počet bodů na křivce nad konečným tělesem $GF(p)$ (včetně $\\mathcal{O}$). Podle Hasseho věty platí $\\#E = p + 1 - t$, kde $|t| \\le 2\\sqrt{p}$, takže $\\#E$ leží blízko $p$. Podle Lagrangeovy věty řád každého bodu dělí $\\#E$.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Kofaktor</strong> $h$ vyjadřuje poměr řádu křivky a řádu zvoleného generátoru: $h = \\#E / n$. Pro kryptografické účely volíme bod $P$, jehož řád $n$ je <strong>velké prvočíslo</strong>, a kofaktor je co nejmenší (ideálně $h = 1$, prakticky $h \\in \\{1, 2, 4, 8\\}$). Velký kofaktor by umožnil rozložit ECDLP na menší podproblémy v menších podgrupách (Pohlig–Hellman) a snížit bezpečnost.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-9-6-3',
+          number: '9.6.3',
+          title: 'Problém diskrétního logaritmu (ECDLP) a bezpečnost',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Problém diskrétního logaritmu na eliptické křivce (ECDLP)</strong> zní: pro dané body $P, Q \\in E$ s $Q = kP$ najít celé číslo $k$. Sčítání bodů (a tedy výpočet $kP$ pomocí double-and-add) je rychlé, opačný směr je výpočetně obtížný.',
+        },
+        {
+          kind: 'p',
+          html: 'Na rozdíl od klasického DLP v $\\mathbb{Z}_p^*$ <strong>neznáme</strong> pro ECDLP žádný subexponenciální útok (index calculus zde nefunguje). Nejlepší známé generické algoritmy — <strong>Pollardovo $\\rho$</strong> a jeho paralelní varianty — mají složitost $O(\\sqrt{n})$, kde $n$ je řád bodu $P$. Pro $n \\approx 2^{256}$ je to asi $2^{128}$ operací, což odpovídá bezpečnosti 128-bitové symetrické šifry. Proto ECC s klíčem délky 256 bitů poskytuje srovnatelnou bezpečnost jako 3072-bitový RSA — kratší klíče, menší podpisy, rychlejší operace.',
+        },
+        {
+          kind: 'p',
+          html: 'Bezpečnost ECC navíc vyžaduje pečlivý výběr křivky: vyhnout se <em>singulárním</em> křivkám, <em>anomálním</em> ($\\#E = p$) a křivkám s malým <em>embedding degree</em> (zranitelnost MOV redukcí na DLP v rozšiřujícím tělese). V praxi se používají standardizované křivky (NIST P-256, Curve25519, secp256k1).',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-9-6-4',
+          number: '9.6.4',
+          title: 'Diffie–Hellman na eliptických křivkách (ECDH)',
+        },
+        {
+          kind: 'p',
+          html: 'ECDH je přímou analogií klasického Diffie–Hellmanova protokolu. Účastníci se předem dohodnou na <strong>doménových parametrech</strong>: křivce $E$ nad $GF(p)$ a generujícím bodě $G$ řádu $n$. Pak:',
+        },
+        {
+          kind: 'list',
+          ordered: true,
+          items: [
+            'Alice zvolí náhodné soukromé $a \\in \\{1, \\dots, n-1\\}$ a vypočítá veřejný bod $A = aG$.',
+            'Bob zvolí náhodné soukromé $b \\in \\{1, \\dots, n-1\\}$ a vypočítá veřejný bod $B = bG$.',
+            'Alice i Bob si veřejně vymění body $A$ a $B$.',
+            'Alice spočítá $K = aB = a(bG) = (ab)G$, Bob spočítá $K = bA = b(aG) = (ab)G$. Oba získají stejný bod $K$, jehož $x$-souřadnice slouží jako sdílené tajemství (typicky se ještě protáhne KDF).',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Útočník odposlouchávající kanál vidí $G$, $A = aG$ a $B = bG$, ale k získání $(ab)G$ by musel vyřešit <strong>ECDH problém</strong>, který je v praxi ekvivalentní ECDLP — najít $a$ z $A = aG$ (nebo $b$ z $B$). Tento úkol je výpočetně neřešitelný pro správně zvolené parametry.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-9-6-5',
+          number: '9.6.5',
+          title: 'Klasická vs. kvantová informace',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Klasická informace</strong> (bit) nabývá vždy jedné ze dvou hodnot 0/1, lze ji libovolně <em>kopírovat</em>, číst bez ovlivnění a přenášet bez principiálních omezení. Bezpečnost klasické kryptografie proto vždy závisí buď na výpočetní složitosti, nebo na délce klíče (one-time pad).',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Kvantová informace</strong> se chová zásadně jinak: stav je popsán vektorem v Hilbertově prostoru a může být v <em>superpozici</em> více klasických hodnot zároveň. Měření stav nevratně mění (kolaps vlnové funkce), a podle <strong>no-cloning teorému</strong> nelze obecný neznámý kvantový stav identicky zkopírovat. Pokus odposlechu se tak nutně projeví měřitelnou poruchou — to je základem kvantové distribuce klíčů.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-9-6-6',
+          number: '9.6.6',
+          title: 'Qubit a polarizační kódování fotonu',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Qubit</strong> je kvantová jednotka informace, jejíž stav lze zapsat jako $|\\psi\\rangle = \\alpha |0\\rangle + \\beta |1\\rangle$, kde $\\alpha, \\beta \\in \\mathbb{C}$ splňují $|\\alpha|^2 + |\\beta|^2 = 1$. Měřením ve výpočetní bázi získáme $|0\\rangle$ s pravděpodobností $|\\alpha|^2$ nebo $|1\\rangle$ s pravděpodobností $|\\beta|^2$; po měření je stav fixován a původní superpozici nelze rekonstruovat.',
+        },
+        {
+          kind: 'p',
+          html: 'Fyzicky se qubit často realizuje <strong>polarizací jednoho fotonu</strong>. Použijeme dvě vzájemně <em>konjugované</em> báze:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Lineární (rektilineární) báze +</strong>: $|0\\rangle$ = svislá polarizace $|$, $|1\\rangle$ = vodorovná polarizace $-$.',
+            '<strong>Diagonální báze ×</strong>: $|0\\rangle$ = polarizace $\\nwarrow$ ($-45^\\circ$), $|1\\rangle$ = polarizace $\\nearrow$ ($+45^\\circ$).',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Báze jsou konjugované — vektor báze + lze vyjádřit jako rovnoměrnou superpozici vektorů báze × a naopak. Měření fotonu ve „špatné“ bázi proto dává zcela <strong>náhodný</strong> výsledek (s pravděpodobností 1/2 každý) a navíc původní stav nenávratně přepíše.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-9-6-7',
+          number: '9.6.7',
+          title: 'Protokol BB84 — zřízení klíče a detekce odposlechu',
+        },
+        {
+          kind: 'p',
+          html: 'BB84 (Bennett a Brassard, 1984) využívá obou popsaných bází ke kvantové distribuci klíče (QKD). Průběh:',
+        },
+        {
+          kind: 'list',
+          ordered: true,
+          items: [
+            'Alice si vygeneruje náhodnou posloupnost klasických bitů a pro každý bit nezávisle náhodně zvolí jednu ze dvou bází (+ nebo ×). Bit zakóduje do polarizace fotonu odpovídající zvolené bázi a foton pošle Bobovi kvantovým kanálem.',
+            'Bob pro každý přijatý foton náhodně nezávisle zvolí měřicí bázi (+ nebo ×) a foton změří. Pokud zvolil stejnou bázi jako Alice, dostane správný bit; pokud jinou, dostane náhodný výsledek.',
+            'Po přenosu si přes veřejný, ale <strong>autentizovaný</strong> klasický kanál sdělí, kterou bázi pro každý foton použili (nikoli však naměřené bity).',
+            'Bity, kde se báze neshodly, vyřadí (tzv. <em>sifting</em>). Ze zbývajících bitů, kde báze souhlasí, vznikne <strong>surový sdílený klíč</strong>; v průměru jím projde polovina původních bitů.',
+            'Část surového klíče veřejně porovnají a odhadnou <strong>QBER</strong> (quantum bit error rate). Pokud je chybovost pod prahem, zbytek prožene procedurami opravy chyb (information reconciliation) a zesílení soukromí (privacy amplification, např. hašováním) a získají konečný tajný klíč.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: '<strong>Detekce odposlechu</strong>: kdyby útočník (Eve) zachytával fotony a měřil je ve své vlastní náhodně zvolené bázi, v polovině případů by zvolil špatnou bázi a měření by zničilo původní stav. I když pak pošle Bobovi nový foton ve stavu, který sám naměřil, v polovině těchto případů Bob (pokud zvolí stejnou bázi jako Alice) naměří chybný bit. Eve tedy zavádí chybu do sdíleného klíče s pravděpodobností $\\tfrac{1}{2} \\cdot \\tfrac{1}{2} = 25\\%$ na bit, který by jinak souhlasil.',
+        },
+        {
+          kind: 'p',
+          html: 'Pravděpodobnost, že při soustavném odposlechu zůstane $n$ porovnávaných bitů náhodou bez chyby, je tedy $(3/4)^n$ a jde k nule s rostoucím $n$. Pokud Alice a Bob naměří QBER výrazně nad přirozenou úroveň kanálu, klíč zahodí. Doplněním BB84 o one-time pad získávají <strong>nepodmíněně bezpečný</strong> systém odolný i vůči budoucím kvantovým počítačům.',
+        },
+      ],
+    },
   ],
 }

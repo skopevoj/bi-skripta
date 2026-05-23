@@ -294,5 +294,163 @@ export const chap01: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-1-6',
+      number: '1.6',
+      title: 'Otázky k ústní zkoušce',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Tato otázka se může vyskytnout u ústní zkoušky — níže je shrnutí všech bodů, na které je dobré umět odpovědět.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Základní pojmy v kryptologii, substituční šifry, blokové šifry, polyalfabetické šifry, transpoziční šifry. Posuzování spolehlivosti šifrovacích systémů. Hillova šifra. Kryptoanalýza blokových šifer s použitím výskytu četností. Vigenèrova šifra. Pojem konfúze a difúze v souvislosti s transpoziční a substituční šifrou.</strong>',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-pojmy',
+          number: '1.6.1',
+          title: 'Základní pojmy v kryptologii',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Kryptologie</strong> je věda zabývající se utajenou komunikací; dělí se na <strong>kryptografii</strong> (návrh šifer) a <strong>kryptoanalýzu</strong> (jejich luštění). <strong>Otevřený text (OT)</strong> je zpráva určená k utajení, <strong>šifrový text (ŠT)</strong> je výstup šifrovacího algoritmu. <strong>Šifrování</strong> převádí OT na ŠT pomocí <strong>klíče</strong>, <strong>dešifrování</strong> je inverzní proces. Šifru je třeba odlišit od <strong>kódu</strong> (zpráva se neutajuje, jen převádí — Hammingovy, paritní kódy) a od <strong>steganografie</strong> (ukrývá samotnou existenci zprávy).',
+        },
+        {
+          kind: 'p',
+          html: 'Pro popis textu zavádíme pojmy <em>monogram, bigram, trigram, polygram</em> (skupiny 1–n sousedních znaků), <em>symbol</em> a <em>řetězec</em>. Tyto pojmy jsou nutné pro statistický popis jazyka a frekvenční analýzu.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-substitucni',
+          number: '1.6.2',
+          title: 'Substituční šifry',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Substituční šifra</strong> nahrazuje znaky OT jinými symboly. <strong>Monoalfabetická</strong> substituce mapuje každé písmeno OT vždy na týž znak ŠT (Caesarova šifra $c = |p+3|_{26}$, šifra s posunem $c = |p+k|_{26}$, afinní šifra $c = |ap+b|_{26}$ s $\\gcd(a,26)=1$). Počet klíčů afinní šifry nad abecedou délky $N$ je $\\varphi(N)\\cdot N$, pro $N=26$ tedy $312$. Všechny monoalfabetické šifry jsou triviálně prolomitelné frekvenční analýzou, protože zachovávají rozdělení četností znaků.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-blokove',
+          number: '1.6.3',
+          title: 'Blokové (polygrafické) šifry',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Bloková šifra</strong> zpracovává OT po blocích pevné délky $n$ (polygramech), nikoli po jednotlivých znacích. Tím se eliminuje přímá odpovídající četnost monogramů v OT a ŠT — distribuce ŠT je rovnoměrnější. Historickým reprezentantem je Hillova šifra; moderní blokové šifry (DES, AES) staví na stejné myšlence, ale s nelineárními operacemi a mnoha rundami.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-polyalfabeticke',
+          number: '1.6.4',
+          title: 'Polyalfabetické šifry',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Polyalfabetická šifra</strong> používá více šifrovacích abeced postupně — tytéž písmeno OT se podle své pozice zašifruje na různé symboly. Tím se vyhladí frekvenční distribuce ŠT a útok prostou frekvenční analýzou znaků selhává. Hlavním zástupcem je Vigenèrova šifra (viz níže).',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-transpozicni',
+          number: '1.6.5',
+          title: 'Transpoziční šifry',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Transpoziční šifra</strong> nemění identitu znaků, pouze jejich <em>pořadí</em> — permutuje je podle pevného předpisu. Typickou variantou je <strong>sloupcová transpozice</strong>: OT se zapíše po řádcích do tabulky o pevném počtu sloupců a ŠT se přečte po sloupcích (případně v pořadí daném klíčovým slovem). Důsledkem je, že ŠT má naprosto stejné četnosti monogramů jako OT — frekvenční analýza znaků sama o sobě šifru nerozluští, ale zradí ji např. nezvyklé četnosti bigramů či trigramů.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-spolehlivost',
+          number: '1.6.6',
+          title: 'Posuzování spolehlivosti šifrovacích systémů',
+        },
+        {
+          kind: 'p',
+          html: 'Odolnost šifry hodnotíme podle toho, jaké informace má útočník k dispozici. Standardní modely útoku jsou:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>COA</strong> (ciphertext-only) — útočník zná pouze ŠT.',
+            '<strong>KPA</strong> (known-plaintext) — zná dvojice (OT, ŠT).',
+            '<strong>CPA</strong> (chosen-plaintext) — může si vybrat OT k zašifrování.',
+            '<strong>CCA</strong> (chosen-ciphertext) — může si vybrat ŠT k dešifrování.',
+            '<strong>Chosen-text attack</strong> — kombinace CPA a CCA.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Důležitým principem je <strong>Kerckhoffsův princip</strong>: bezpečnost šifry musí stát výhradně na utajení klíče, nikoli na utajení algoritmu. Spolehlivost dále posuzujeme podle <em>velikosti prostoru klíčů</em> (odolnost vůči hrubé síle), <em>odolnosti vůči frekvenční analýze</em> a <em>vůči známým strukturálním útokům</em> (lineární a diferenční kryptoanalýza u moderních šifer).',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-hill',
+          number: '1.6.7',
+          title: 'Hillova šifra',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Hillova šifra</strong> (Lester Hill, 1929) je bloková lineární šifra nad $\\mathbb{Z}_{26}$. Klíčem je matice $\\mathbf{A}$ rozměru $n \\times n$ taková, že $\\gcd(\\det \\mathbf{A}, 26) = 1$ (podmínka invertovatelnosti modulo $26$). Šifrování bloku $\\mathbf{p} \\in \\mathbb{Z}_{26}^n$ probíhá vztahem',
+        },
+        {
+          kind: 'math',
+          tex: '\\mathbf{c} = |\\mathbf{A}\\mathbf{p}|_{26}, \\qquad \\mathbf{p} = |\\mathbf{A}^{-1}\\mathbf{c}|_{26}.',
+        },
+        {
+          kind: 'p',
+          html: 'Hlavní slabinou je <strong>linearita</strong>: při known-plaintext útoku stačí $n$ lineárně nezávislých dvojic (OT, ŠT), sestavit matice $\\mathbf{P}, \\mathbf{C}$ a klíč dopočítat jako $\\mathbf{A} = |\\mathbf{C}\\mathbf{P}^{-1}|_{26}$. Při CPA stačí zvolit $\\mathbf{P} = \\mathbf{E}$ (jednotková matice), čímž přímo $\\mathbf{C} = \\mathbf{A}$.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-frekvencni',
+          number: '1.6.8',
+          title: 'Kryptoanalýza blokových šifer pomocí četností',
+        },
+        {
+          kind: 'p',
+          html: 'U blokové šifry délky $n$ se obvyklá frekvenční analýza monogramů nedaří — ŠT má rovnoměrnější distribuci znaků než OT. Můžeme však použít <strong>frekvenční analýzu polygramů</strong>: každý blok ŠT odpovídá témuž bloku OT (deterministická substituce na polygramech), takže nejčastější bloky ŠT odpovídají nejčastějším $n$-gramům jazyka (např. v angličtině pro $n=2$ THE, AND, ING; pro $n=2$ TH, HE, IN, ER).',
+        },
+        {
+          kind: 'p',
+          html: 'U Hillovy šifry navíc využíváme linearitu: odhadneme-li z četností polygramů několik dvojic $(\\mathbf{p}_i, \\mathbf{c}_i)$, převedeme úlohu na soustavu lineárních rovnic modulo $26$ a klíč vypočteme přímo. Obrana je proto použít nelineární operace a velký počet rund — jak to dělají moderní blokové šifry.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-vigenere',
+          number: '1.6.9',
+          title: 'Vigenèrova šifra',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Vigenèrova šifra</strong> je polyalfabetická šifra s periodickým klíčem $K = (k_1, \\dots, k_n)$. Šifrování $j$-tého znaku je $c_j = |p_j + k_{((j-1)\\bmod n)+1}|_N$ — jde o posloupnost Caesarových posunů řízenou heslem. Pro periodu $n \\geq 3$ rozbíjí jednoduchou frekvenční analýzu monogramů.',
+        },
+        {
+          kind: 'p',
+          html: 'Kryptoanalýza Vigenèrovy šifry probíhá ve dvou krocích: (1) <strong>určení periody</strong> $n$ — buď <em>Kasiského metodou</em> (opakující se trigramy v ŠT mají vzdálenost dělitelnou $n$), nebo <em>indexem koincidence</em> (pro správné $n$ se index blíží hodnotě pro daný jazyk, např. $0{,}0667$ pro angličtinu); (2) <strong>rozdělení ŠT do $n$ podposloupností</strong> a samostatná frekvenční analýza každé z nich jako Caesarovy šifry. Slabinou je krátký klíč ze slov přirozeného jazyka; teoreticky nerozluštitelná je až limitní varianta s klíčem stejně dlouhým jako OT a opravdu náhodným — <strong>Vernamova šifra (one-time pad)</strong>.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-1-6-konfuze-difuze',
+          number: '1.6.10',
+          title: 'Konfúze a difúze',
+        },
+        {
+          kind: 'p',
+          html: 'Pojmy zavedl Claude Shannon (1949) jako dva základní cíle bezpečné šifry. <strong>Konfúze</strong> znamená, že vztah mezi klíčem a ŠT je co nejsložitější — malá změna klíče zcela změní ŠT, takže útočník nemůže z pozorování ŠT odvodit klíč po částech. Konfúzi typicky zajišťuje <strong>substituce</strong>: každý znak ŠT závisí na klíči složitým způsobem.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Difúze</strong> znamená, že statistická struktura OT je rozptýlena po velké části ŠT — změna jednoho znaku OT ovlivní mnoho znaků ŠT a každá statistika OT (např. četnost písmen) se v ŠT rozmaže. Difúzi typicky zajišťuje <strong>transpozice (permutace)</strong>: znaky se přemístí, takže lokální statistiky OT se rozprostřou.',
+        },
+        {
+          kind: 'p',
+          html: 'Samotná substituce ani samotná transpozice tedy nestačí: čistá monoalfabetická substituce má konfúzi, ale nulovou difúzi (četnosti zůstávají), čistá transpozice má difúzi pořadí, ale nulovou konfúzi vůči identitě znaků (četnosti se zachovají). Moderní blokové šifry (DES, AES) proto kombinují obojí ve více rundách — jde o tzv. <strong>SP-síť</strong> (Substitution-Permutation Network), kde se střídají substituční vrstvy (S-boxy) a permutační vrstvy.',
+        },
+      ],
+    },
   ],
 }

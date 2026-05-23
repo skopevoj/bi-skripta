@@ -175,5 +175,163 @@ export const chap03: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-3-7',
+      number: '3.7',
+      title: 'Otázky k ústní zkoušce',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Tato otázka se může vyskytnout u ústní zkoušky — níže je shrnutí všech bodů, na které je dobré umět odpovědět.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Principy proudových šifer, srovnání s blokovými šiframi. Vernamova šifra, pojem absolutní bezpečnosti, definice absolutně bezpečné šifry. Algoritmické proudové šifry a jejich principy. Problém dvojího použití hesla u aditivních šifer. Synchronní a asynchronní proudové šifry. Demonstrace samosynchronizace pomocí Vigenèrova autoklávu. Charakteristiky proudových šifer Salsa20 a Chacha. Základní popis proudové šifry A5/1, použití LFSR, zavedení nelinearity, inicializace.</strong>',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-3-7-1',
+          number: '3.7.1',
+          title: 'Principy proudových šifer, srovnání s blokovými',
+        },
+        {
+          kind: 'p',
+          html: 'Proudová šifra z klíče $k$ generuje pomocí generátoru $G$ posloupnost <em>hesla</em> $h_1, h_2, \\dots$ (keystream) a šifruje znak po znaku: $c_i = E_{h_i}(m_i)$. U moderních binárních proudových šifer je $E_{h_i}$ XOR, tedy $c_i = m_i \\oplus h_i$. Dešifrování je symetrické: $m_i = c_i \\oplus h_i$. Bloková šifra naopak šifruje celé bloky pevné délky (typ. 64 nebo 128 b) <strong>toutéž transformací</strong> $E_k$ a vyžaduje provozní mód (ECB, CBC, CFB, OFB, CTR).',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Granularita</strong>: proudová pracuje po bitu/bajtu, bloková po blocích.',
+            '<strong>Propagace chyby</strong>: u proudové (synchronní) chyba v 1 bitu ŠT naruší jen 1 bit OT; u blokové celý blok.',
+            '<strong>Rychlost</strong>: proudové šifry jsou typicky rychlejší a vhodné pro proudová data (hlas, video, terminál).',
+            '<strong>HW nároky</strong>: proudové (zejm. LFSR-based) jsou levné v hardware.',
+            '<strong>Bezpečnost</strong>: bloková je samostatně bezpečnější — proudová stojí a padá na kvalitě generátoru a unikátnosti hesla.',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-3-7-2',
+          number: '3.7.2',
+          title: 'Vernamova šifra a absolutní bezpečnost',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Vernamova šifra (one-time pad)</strong>: heslo $h$ je <em>zcela náhodné</em>, stejně dlouhé jako OT a použité <em>právě jednou</em>. Šifrování: $c = m \\oplus h$. Vernam ji patentoval 1917 pro telegrafii.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Absolutní (perfektní) bezpečnost</strong> dle Shannona (1949): šifra je absolutně bezpečná, právě když pro každý OT $m$ a každý ŠT $c$ platí $\\Pr[M = m \\mid C = c] = \\Pr[M = m]$. Jinými slovy znalost ŠT nedává útočníkovi žádnou informaci o OT — apriorní a aposteriorní rozdělení jsou shodná.',
+        },
+        {
+          kind: 'math',
+          tex: '\\Pr[M = m \\mid C = c] = \\Pr[M = m] \\quad \\forall m, c',
+        },
+        {
+          kind: 'p',
+          html: 'Shannon dokázal, že nutnou podmínkou je $|K| \\ge |M|$ — klíč musí být alespoň tak dlouhý jako zpráva. One-time pad tuto podmínku splňuje a je absolutně bezpečný. Cenou je nepoužitelnost v praxi: distribuce stejně dlouhého náhodného klíče je stejně těžká jako přenos samotné zprávy.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-3-7-3',
+          number: '3.7.3',
+          title: 'Algoritmické proudové šifry a IV',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Algoritmická proudová šifra</strong> nahrazuje opravdu náhodné heslo <em>pseudonáhodným</em> proudem generovaným deterministickým algoritmem ze short-term klíče. Generátor $G$ se inicializuje klíčem $k$ a <strong>inicializačním vektorem (IV)</strong>, IV je veřejný a pro každou zprávu jiný — zajistí, že stejný klíč produkuje různá hesla, takže klíč nemusíme měnit po každé zprávě. Příklady: RC4, A5/1, Salsa20, ChaCha, eSTREAM portfolio (Grain, Trivium, MICKEY).',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-3-7-4',
+          number: '3.7.4',
+          title: 'Problém dvojího použití hesla (two-time pad)',
+        },
+        {
+          kind: 'p',
+          html: 'Pokud je stejné heslo $h$ použito ke šifrování dvou OT $m$ a $m\'$, dostaneme $c = m \\oplus h$ a $c\' = m\' \\oplus h$. XORem ŠT:',
+        },
+        {
+          kind: 'math',
+          tex: 'c \\oplus c\' = (m \\oplus h) \\oplus (m\' \\oplus h) = m \\oplus m\'',
+        },
+        {
+          kind: 'p',
+          html: 'Heslo se zcela eliminuje a útočník získá XOR dvou OT — to je tzv. <em>knižní šifra</em>, kterou lze luštit statisticky (známé fráze, redundance přirozeného jazyka, crib-dragging). Důsledek: heslo aditivní proudové šifry nesmí být <strong>nikdy</strong> použito dvakrát. Proto se v praxi spolu s klíčem vždy posílá unikátní IV/nonce.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-3-7-5',
+          number: '3.7.5',
+          title: 'Synchronní a asynchronní (samosynchronizující) šifry',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Synchronní</strong>: heslo $h_i$ závisí jen na klíči (a IV), nikoli na OT/ŠT. Odesílatel a příjemce musí být přesně synchronizováni — ztráta nebo vložení znaku ŠT rozhodí veškerý další OT, dokud se synchronizace ručně neobnoví. Chyba v 1 bitu ŠT způsobí chybu v 1 bitu OT (žádná propagace).',
+            '<strong>Asynchronní (samosynchronizující)</strong>: heslo závisí na posledních $n$ znacích ŠT, tj. $h_i = f(k, c_{i-n}, \\dots, c_{i-1})$. Po přijetí $n+1$ správných znaků se příjemce sám zresynchronizuje. Cenou je propagace chyby na $n+1$ následujících znaků.',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-3-7-6',
+          number: '3.7.6',
+          title: 'Vigenèrův autokláv — demonstrace samosynchronizace',
+        },
+        {
+          kind: 'p',
+          html: 'Vigenèrův <strong>autokláv</strong> je historický příklad samosynchronizující šifry. Klíčem je krátké heslo $k_1 \\dots k_t$ a od pozice $t+1$ se jako další znaky hesla použijí samotné znaky ŠT: $h_{i} = c_{i-t}$ pro $i > t$. Šifrování je Vigenèrovo, tj. $c_i = (m_i + h_i) \\bmod 26$.',
+        },
+        {
+          kind: 'p',
+          html: 'Ztratíme-li nebo poškodíme 1 znak ŠT, špatně dešifrujeme následujících $t$ znaků (zatímco poškozený znak prochází posuvným registrem). Jakmile chybný znak „vypadne“ z okna, generátor hesla je opět ve správném stavu a dešifrování pokračuje korektně — šifra se sama zresynchronizovala bez zásahu příjemce.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-3-7-7',
+          number: '3.7.7',
+          title: 'Salsa20 a ChaCha',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Salsa20</strong> (D. J. Bernstein, 2005, eSTREAM Profile 1) je moderní synchronní proudová šifra postavená na operacích <strong>ARX</strong> (Add — modulární sčítání mod $2^{32}$; Rotate — bitová rotace; XOR). Stav tvoří matice $4\\times4$ šestnácti 32-bitových slov (512 b), obsahuje 4 konstanty „expand 32-byte k“, 256-bitový klíč, 64-bitový nonce a 64-bitový čítač bloku. Jádrem je <em>quarter-round</em> aktualizující 4 slova, který se aplikuje střídavě na sloupce (liché rundy) a řádky (sudé rundy), celkem 20 rund (10 dvourund). Výsledek se sečte se vstupní maticí (Davies-Meyer-like). Varianty Salsa20/8 a Salsa20/12 mají redukovaný počet rund; XSalsa20 rozšiřuje nonce na 192 b.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>ChaCha</strong> (Bernstein, 2008) je úprava Salsa20 s lepším rozptylem — quarter-round aktualizuje každé slovo <em>dvakrát</em> (Salsa pouze jednou). Rotace 16, 12, 8, 7. Liché rundy se aplikují na sloupce, sudé na <em>diagonály</em>. Nejpoužívanější varianta <strong>ChaCha20</strong> má 20 rund, 256b klíč a 96b nonce + 32b čítač. Společně s autentizátorem Poly1305 tvoří AEAD konstrukci <strong>ChaCha20-Poly1305</strong> (RFC 8439), nasazenou v TLS 1.3, QUIC, OpenSSH a WireGuard. Výhody: rychlost v software (i bez AES-NI), konstantní čas, jednoduchost.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-3-7-8',
+          number: '3.7.8',
+          title: 'A5/1 — LFSR, nelinearita, inicializace',
+        },
+        {
+          kind: 'p',
+          html: '<strong>A5/1</strong> (1987) je synchronní proudová šifra pro šifrování komunikace mezi mobilním telefonem a základnovou stanicí v <strong>GSM</strong>. Specifikace byla původně utajována, v roce 1999 byla rekonstruována reverzní analýzou (Briceno, Goldberg, Wagner). Klíč má <strong>64 b</strong> (efektivně 54 — posledních 10 b je v některých implementacích nulových), IV je 22-bitové číslo rámce.',
+        },
+        {
+          kind: 'p',
+          html: 'Šifra se skládá ze <strong>tří LFSR</strong> (Linear Feedback Shift Register) délek <strong>19, 22 a 23</strong> bitů. LFSR sám o sobě je lineární — celá jeho budoucí posloupnost je dána počátečním stavem a zpětnovazebním polynomem, lze ji algebraicky dopočítat z $2L$ známých bitů (Berlekamp-Massey). Proto musí být do schématu zavedena <strong>nelinearita</strong>.',
+        },
+        {
+          kind: 'p',
+          html: 'V A5/1 je nelinearita zavedena <strong>nelineárním taktováním</strong> (stop-and-go / majority clocking). Z každého registru se odebere taktovací bit — $R_1[8]$, $R_2[10]$, $R_3[10]$. Posunou se právě ty registry, jejichž taktovací bit se shoduje s <strong>většinou</strong> (majoritní funkce $\\mathrm{maj}(a,b,c)$). V průměru se v každém kroku posunou 2 ze 3 registrů. Výstupní bit hesla:',
+        },
+        {
+          kind: 'math',
+          tex: 'k_i = R_1[18] \\oplus R_2[21] \\oplus R_3[22]',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Inicializace</strong> probíhá ve čtyřech fázích: (1) všechny tři registry se vynulují; (2) postupně se po bitech XORuje 64-bitový tajný klíč do nejnižších bitů všech registrů, registry se taktují <em>bez majority</em> (taktují se všechny); (3) totéž s 22-bitovým IV (číslo rámce); (4) provede se 100 taktů „naprázdno“ s majoritním taktováním a zahazují se výstupy, čímž se stav promíchá. Pak se generuje 228 bitů hesla pro daný GSM rámec (114 b pro každý směr). Pro každý další rámec se opakuje inicializace se stejným klíčem a novým IV.',
+        },
+        {
+          kind: 'p',
+          html: 'Známé útoky: korelační útoky, time-memory-tradeoff útok Birykova–Shamira–Wagnera (rainbow tables nad stavy registrů), prakticky útoky Karstena Nohla s GSM rainbow tables (2009). A5/1 je dnes považována za prolomenou a v GSM ji nahrazují A5/3 (KASUMI) a v LTE/5G modernější šifry (SNOW 3G, ZUC, AES).',
+        },
+      ],
+    },
   ],
 }

@@ -380,5 +380,139 @@ export const chap05: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-5-9',
+      number: '5.9',
+      title: 'Otázky k ústní zkoušce',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Tato otázka se může vyskytnout u ústní zkoušky — níže je shrnutí všech bodů, na které je dobré umět odpovědět.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>U hašovacích funkcí: definice jednosměrné funkce, definice hašovací funkce, orákula a bezkoliznosti. Odolnost proti nalezení kolizí u hashovacích funkcí, narozeninový paradox. Konstrukce moderních hašovacích funkcí: zarovnání vstupní zprávy, Damgård-Merklovo zesílení, Damgård-Merklova konstrukce hašovací funkce, Davies-Meyerova konstrukce kompresní funkce. Základní charakteristika algoritmu SHA-1 a SHA-256, zpracování bloku zprávy. HMAC.</strong>',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-5-9-1',
+          number: '5.9.1',
+          title: 'Jednosměrná funkce, hašovací funkce, orákulum, bezkoliznost',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Jednosměrná funkce</strong> $f: X \\to Y$ je taková, u které je snadné spočítat $y = f(x)$, ale pro náhodně zvolené $y$ je výpočetně nemožné nalézt vzor $x$ s $f(x) = y$. Rozlišujeme dva typy: <strong>(1)</strong> jednosměrné bez padacích vrátek (např. násobení vs. faktorizace) a <strong>(2)</strong> s padacími vrátky, kde inverzi zvládne pouze ten, kdo zná tajný klíč (základ asymetrické kryptografie).',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Hašovací funkce</strong> je zobrazení $h: X \\to \\{0,1\\}^n$, kde $X$ je množina binárních řetězců délky $0$ až $d$ (typicky $d = 2^{64}-1$). Musí být <strong>jednosměrná 1. typu</strong> a <strong>bezkolizní</strong>. Výstup pevné délky $n$ se nazývá <em>haš</em> (otisk).',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Náhodné orákulum</strong> je idealizovaný model: hašovací funkce je černá skříňka, která pro každý nový vstup vrátí rovnoměrně náhodný výstup délky $n$ a pro stejný vstup vždy stejný výstup. Slouží jako referenční model pro analýzu bezpečnosti (útoky proti reálné hašovací funkci nesmí být snazší než proti orákulu).',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Bezkoliznost</strong> má dva řády:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>1. řád (collision resistance):</strong> je výpočetně nemožné najít <em>libovolnou</em> dvojici $M \\ne M\'$ s $h(M) = h(M\')$.',
+            '<strong>2. řád (2nd preimage):</strong> pro <em>danou</em> zprávu $x$ je výpočetně nemožné najít $y \\ne x$ s $h(x) = h(y)$.',
+            '<strong>Odolnost vůči vzoru (preimage):</strong> pro daný haš $y$ je výpočetně nemožné najít $x$ s $h(x) = y$ — odpovídá jednosměrnosti.',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-5-9-2',
+          number: '5.9.2',
+          title: 'Odolnost proti kolizím a narozeninový paradox',
+        },
+        {
+          kind: 'p',
+          html: 'Pro hašovací funkci s $n$-bitovým výstupem chovající se jako náhodné orákulum je složitost nalezení kolize <strong>1. řádu</strong> $\\approx 2^{n/2}$ operací (z narozeninového paradoxu), zatímco složitost nalezení kolize <strong>2. řádu</strong> i preimage je $\\approx 2^n$. Bezpečnostní úroveň hašovací funkce je proto pouze $n/2$ bitů.',
+        },
+        {
+          kind: 'math',
+          tex: 'P(n, k) \\approx 1 - \\exp\\!\\left(-\\frac{k^2}{2n}\\right)',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Narozeninový paradox:</strong> pro $n$ velkých a počet pokusů $k = O(\\sqrt{n})$ dosáhne pravděpodobnost shody dvou prvků zhruba 50 %. Klasický příklad: ve skupině 23 osob je pravděpodobnost společných narozenin už $0{,}507$. U hašovací funkce stačí cca $2^{n/2}$ náhodných zpráv ke kolizi s pravděpodobností $\\approx 50\\,\\%$ — proto SHA-1 (160 b) poskytuje jen $2^{80}$ bezpečnosti proti kolizím a SHA-256 (256 b) jen $2^{128}$.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-5-9-3',
+          number: '5.9.3',
+          title: 'Konstrukce moderních hašovacích funkcí',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Zarovnání vstupní zprávy (padding):</strong> zpráva libovolné délky se musí doplnit na násobek velikosti bloku (např. 512 b u SHA-1/SHA-256). Postup: připojí se bit <code>1</code>, doplní se potřebný počet bitů <code>0</code> a nakonec se přidá pevný počet bitů (typicky 64) s <strong>původní délkou zprávy</strong>. Toto doplnění se nazývá <strong>Damgård-Merklovo zesílení</strong> a je klíčové pro bezpečnost: znemožňuje útoky pomocí prodloužení zprávy a útoky na shodný padding různě dlouhých zpráv.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Damgård-Merklova konstrukce</strong> staví celou hašovací funkci z menší <em>kompresní funkce</em> $f$, která má dva vstupy (kontext $H_{i-1}$ a blok zprávy $M_i$) a jeden výstup velikosti kontextu. Zpráva se po zarovnání rozdělí na bloky $M_1, \\dots, M_N$ a iterativně se počítá:',
+        },
+        {
+          kind: 'math',
+          tex: 'H_0 = \\mathrm{IV}, \\qquad H_i = f(H_{i-1}, M_i) \\quad \\text{pro } i = 1, \\dots, N, \\qquad h(M) = H_N',
+        },
+        {
+          kind: 'p',
+          html: 'Hodnota $H_i$ se nazývá <em>kontext</em>, $\\mathrm{IV}$ je pevný počáteční vektor. Klíčová vlastnost: <strong>je-li kompresní funkce $f$ bezkolizní, je bezkolizní i celá iterovaná hašovací funkce</strong>. Konstrukci používají MD5, SHA-1 i celá rodina SHA-2.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Davies-Meyerova konstrukce</strong> umožňuje postavit kompresní funkci z libovolné <em>blokové šifry</em> $E$. Blok zprávy $M_i$ se použije jako <em>klíč</em> a šifruje se s ním kontext $H_{i-1}$, výsledek je ještě XOR-ován se vstupním kontextem:',
+        },
+        {
+          kind: 'math',
+          tex: 'H_i = E_{M_i}(H_{i-1}) \\oplus H_{i-1}',
+        },
+        {
+          kind: 'p',
+          html: 'XOR se vstupem maskuje výstup a posiluje jednosměrnost — bez něj by šlo kompresní funkci snadno invertovat pomocí dešifrování blokové šifry. Tato konstrukce je základem kompresních funkcí v SHA-1 i SHA-2.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-5-9-4',
+          number: '5.9.4',
+          title: 'SHA-1 a SHA-256 — základní charakteristika',
+        },
+        {
+          kind: 'p',
+          html: '<strong>SHA-1</strong> (FIPS 180-1, 1995) produkuje 160-bitový haš, zpracovává bloky 512 b a zprávy do $2^{64}-1$ b. Kontext: pět 32-bitových slov $A, B, C, D, E$. Kompresní funkce má <strong>80 rund</strong> rozdělených do 4 skupin po 20, každá skupina používá jinou nelineární funkci $F_t$ (výběr, XOR, majorita) a jinou konstantu $K_t$. Z 16 slov bloku se expanzí získá 80 slov $W_t$ pro jednotlivé rundy. V každé rundě se kontext cyklicky posune a do nového $A$ se namixuje $W_t$ a $K_t$. SHA-1 je dnes <strong>prolomena</strong> (kolize 1. řádu publikována 2017, útok SHAttered) a nepoužívá se pro nové aplikace.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>SHA-256</strong> (FIPS 180-2, součást rodiny SHA-2) má 256-bitový haš, blok 512 b, slovo 32 b a <strong>64 rund</strong>. Kontext tvoří osm 32-bitových slov $A, \\dots, H$. Bezpečnost proti kolizím je $2^{128}$. Pro každý blok se nejprve expanduje 16 slov vstupu na 64 slov $W_t$ pomocí funkcí $\\sigma_0, \\sigma_1$ (XOR rotací a posunů), pak se v každé rundě aplikují pomocné funkce $Ch$ (volba), $Ma$ (majorita) a $\\Sigma_0, \\Sigma_1$ (XOR tří rotací). Slova kontextu se cyklicky posunou a po 64 rundách se výstup XOR-uje s vstupním kontextem (Davies-Meyer).',
+        },
+        {
+          kind: 'p',
+          html: 'Společné rysy zpracování bloku: zarovnání zprávy → rozdělení na bloky → pro každý blok expanze a iterativní mixování v rundách → kombinace s předchozím kontextem (DM) → výstupem posledního bloku je výsledný haš.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-5-9-5',
+          number: '5.9.5',
+          title: 'HMAC',
+        },
+        {
+          kind: 'p',
+          html: '<strong>HMAC</strong> (FIPS PUB 198) je <em>klíčovaný autentizační kód</em> postavený nad libovolnou hašovací funkcí $h$. Slouží k <strong>integritě</strong> i <strong>autentizaci původu</strong> zprávy. Klíč $K$ se zleva doplní nulami na $K^+$ o délce bloku $b$ kompresní funkce (např. 512 b pro SHA-256). Definujeme konstanty $ipad = \\texttt{0x36}^{\\,b/8}$ a $opad = \\texttt{0x5C}^{\\,b/8}$. Pak:',
+        },
+        {
+          kind: 'math',
+          tex: '\\mathrm{HMAC}_K(M) = h\\bigl((K^+ \\oplus opad) \\,\\|\\, h((K^+ \\oplus ipad) \\,\\|\\, M)\\bigr)',
+        },
+        {
+          kind: 'p',
+          html: 'Výpočet probíhá <strong>dvojím průchodem</strong> hašovací funkce (vnitřní a vnější), což jednak zabraňuje útokům prodloužením zprávy (length-extension attack) na DM konstrukci, jednak umožňuje formální důkaz bezpečnosti za rozumných předpokladů o kompresní funkci. Bez znalosti $K$ útočník HMAC nemůže přepočítat — proto se HMAC používá v TLS, IPsec i v podpisech API požadavků.',
+        },
+      ],
+    },
   ],
 }

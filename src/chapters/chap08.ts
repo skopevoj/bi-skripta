@@ -327,5 +327,199 @@ export const chap08: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-8-5',
+      number: '8.5',
+      title: 'Otázky k ústní zkoušce',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Tato otázka se může vyskytnout u ústní zkoušky — níže je shrnutí všech bodů, na které je dobré umět odpovědět.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Hodnocení odolnosti šifry vůči útokům, pojmy jako teoretická bezpečnost, nepodmíněná bezpečnost, podmíněná bezpečnost, prokazatelná bezpečnost, výpočetní bezpečnost, Kerckhoffsův princip. Teorie informace: entropie, obsažnost jazyka, nadbytečnost jazyka, vzdálenost jednoznačnosti a jeho význam pro luštění šifer. Teorie složitosti a její vztah k bezpečnosti šifrovacích algoritmů.</strong>',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-8-5-1',
+          number: '8.5.1',
+          title: 'Hodnocení odolnosti šifry vůči útokům',
+        },
+        {
+          kind: 'p',
+          html: 'Odolnost šifry posuzujeme z několika hledisek: <strong>vnitřní struktury</strong> algoritmu (konfúze a difúze, počet rund), <strong>velikosti a kvality klíče</strong> (entropie, způsob generování), <strong>složitosti matematického problému</strong>, na němž šifra stojí (faktorizace, PDL), a <strong>délky zprávy</strong> ve vztahu k vzdálenosti jednoznačnosti. Útočník je hodnocen podle toho, co má k dispozici (jen ŠT, dvojice OT–ŠT, zvolený OT, zvolený ŠT) a kolik výpočetní síly mu přiznáváme.',
+        },
+        {
+          kind: 'p',
+          html: 'Podle míry odolnosti dělíme bezpečnost na <strong>teoretickou</strong> (odpověď dává teorie informace — co je v principu možné, bez ohledu na čas) a <strong>praktickou</strong> (odpověď dává teorie složitosti — co je proveditelné v rozumném čase).',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-8-5-2',
+          number: '8.5.2',
+          title: 'Nepodmíněná (teoretická, absolutní) bezpečnost',
+        },
+        {
+          kind: 'p',
+          html: 'Kryptosystém je <strong>nepodmíněně bezpečný</strong>, pokud jej nelze prolomit <em>bez ohledu na výpočetní prostředky</em> útočníka — ani s nekonečným časem a pamětí. Útočník po obdržení ŠT nezíská žádnou novou informaci o OT, formálně $H(P \\mid C) = H(P)$. Pokud tato vlastnost platí i při opakovaném použití systému, mluvíme o <strong>absolutní bezpečnosti</strong>.',
+        },
+        {
+          kind: 'p',
+          html: 'Jediným prakticky známým absolutně bezpečným kryptosystémem je <strong>Vernamova šifra (one-time pad)</strong> — pokud je heslo skutečně náhodné, stejně dlouhé jako OT a použité jen jednou. Pak je ŠT rovnoměrně rozdělen na všech možných OT a útočník nemá jak rozhodnout, který OT je správný. Asymetrické šifry <em>nemohou</em> být nepodmíněně bezpečné: veřejný klíč jednoznačně určuje klíč soukromý, takže útočník s dostatečnou silou jej dopočítá.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-8-5-3',
+          number: '8.5.3',
+          title: 'Podmíněná bezpečnost: prokazatelná a výpočetní',
+        },
+        {
+          kind: 'p',
+          html: 'Kryptosystém je <strong>podmíněně bezpečný</strong>, pokud jeho prolomení sice teoreticky možné je, ale vyžaduje prostředky, které útočník nemá. Rozlišujeme dva podtypy:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Prokazatelná bezpečnost</strong> — existuje matematický důkaz redukce: pokud útočník dokáže šifru prolomit, dokáže zároveň vyřešit nějakou obecně považovanou těžkou (typicky NP-těžkou) úlohu, např. faktorizaci velkého čísla nebo problém diskrétního logaritmu. Příkladem je RSA (faktorizace) nebo ElGamal (PDL).',
+            '<strong>Výpočetní bezpečnost</strong> — odhad obtížnosti je založen na <em>předpokládaných</em> limitech známých útoků a hardwaru. Důkaz redukce není znám, ale nejlepší známý útok je výpočetně neproveditelný (typicky brute-force klíče). Příkladem je AES, kde $2^{128}$ klíčů je v dnešním měřítku za hranicí proveditelnosti.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Pro praxi obvykle stačí výpočetní bezpečnost: cena prolomení musí být řádově vyšší než hodnota chráněné informace po dobu její životnosti.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-8-5-4',
+          number: '8.5.4',
+          title: 'Kerckhoffsův princip',
+        },
+        {
+          kind: 'p',
+          html: 'Auguste Kerckhoffs formuloval roku 1883 zásadu, že <strong>bezpečnost kryptografického systému nesmí záviset na utajení algoritmu, pouze na utajení klíče</strong>. Předpokládáme, že útočník zná úplný popis systému (algoritmus, parametry, formát zpráv); jediným tajemstvím je klíč. Shannon to později přeformuloval jako „nepřítel zná systém“.',
+        },
+        {
+          kind: 'p',
+          html: 'Důvodem je praktická realita: algoritmy nelze trvale utajit (reverzní inženýrství, úniky, publikace). „<em>Security through obscurity</em>“ jako jediná obrana je nedostatečná. Standardizované a veřejně analyzované šifry (AES, RSA) jsou proto považovány za bezpečnější než tajné proprietární řešení.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-8-5-5',
+          number: '8.5.5',
+          title: 'Teorie informace: entropie',
+        },
+        {
+          kind: 'p',
+          html: 'Teorie informace (Shannon, 1948) zavádí pojem <strong>entropie</strong> jako míry neurčitosti zdroje. Pro diskrétní náhodnou veličinu $X$ s pravděpodobnostmi $p_1, \\dots, p_n$ je entropie definována jako:',
+        },
+        {
+          kind: 'math',
+          tex: 'H(X) = -\\sum_{i=1}^{n} p_i \\log_2 p_i \\quad [\\text{bit}].',
+        },
+        {
+          kind: 'p',
+          html: 'Entropie udává průměrný počet bitů potřebných k optimálnímu zakódování zprávy ze zdroje. Maximum $H(X) = \\log_2 n$ nastává při rovnoměrném rozdělení, minimum $H(X) = 0$ při degenerovaném rozdělení (jediná zpráva s $p = 1$). V kryptografii nás zajímá zejména <strong>entropie klíče $H(K)$</strong> — čím vyšší, tím nepředvídatelnější je klíč a tím obtížnější je jeho uhodnutí.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-8-5-6',
+          number: '8.5.6',
+          title: 'Obsažnost a nadbytečnost (redundance) jazyka',
+        },
+        {
+          kind: 'p',
+          html: 'Pro zdroj generující zprávy délky $N$ definujeme:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Obsažnost jazyka</strong> (rate) $R_N = H(X)/N$ — průměrný počet bitů informace na jeden znak. Limitou $r = \\lim_{N \\to \\infty} R_N$ získáme skutečnou obsažnost daného jazyka.',
+            '<strong>Absolutní obsažnost</strong> $R = \\log_2 L$ — maximum, kterého by zdroj nad abecedou velikosti $L$ mohl dosáhnout při rovnoměrném výběru znaků.',
+            '<strong>Nadbytečnost (redundance)</strong> $D = R - r$ — rozdíl mezi tím, co by jazyk mohl nést, a tím, co reálně nese.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Pro angličtinu je $R = \\log_2 26 \\approx 4{,}7$ b/znak, $r \\approx 1{,}5$ b/znak, tedy $D \\approx 3{,}2$ b/znak (asi 68 % redundance). Vysoká redundance je důvodem, proč lze přirozený text dobře komprimovat a proč klasická frekvenční analýza funguje — útočník využívá statistických zákonitostí jazyka.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-8-5-7',
+          number: '8.5.7',
+          title: 'Vzdálenost jednoznačnosti a její význam',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Vzdálenost jednoznačnosti</strong> $\\delta_U$ je minimální délka ŠT (v počtu znaků), při níž v průměru zbývá pouze <em>jediný smysluplný</em> kandidát na OT — útočník tedy může klíč jednoznačně určit (pokud má dostatečný výpočetní výkon). Definuje se vztahem:',
+        },
+        {
+          kind: 'math',
+          tex: '\\delta_U = \\frac{H(K)}{D},',
+        },
+        {
+          kind: 'p',
+          html: 'kde $H(K)$ je entropie klíče a $D = R - r$ je redundance jazyka. Pro jednoduchou substituci v angličtině ($H(K) = \\log_2(26!) \\approx 88{,}4$ bitů, $D \\approx 3{,}2$) vychází $\\delta_U \\approx 27{,}6$ znaků.',
+        },
+        {
+          kind: 'p',
+          html: 'Význam pro luštění šifer:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            'Pokud je délka ŠT <em>menší</em> než $\\delta_U$, existuje více klíčů, které šifrový text dešifrují na smysluplný (gramaticky správný) otevřený text. Útočník nemá jak rozhodnout, který je správný — i bez ohledu na výpočetní sílu je úloha nejednoznačná.',
+            'Pokud je délka ŠT <em>větší nebo rovna</em> $\\delta_U$, zbývá v průměru jediný klíč a jediný smysluplný OT. Šifra je v principu prolomitelná (potřebná je „jen“ dostatečná výpočetní síla).',
+            'Vzdálenost jednoznačnosti tedy odděluje úlohy nepodmíněně bezpečné od úloh prolomitelných (alespoň informačně). Pro one-time pad je $H(K) = \\infty$ vzhledem k délce zprávy a $\\delta_U = \\infty$ — proto je absolutně bezpečný.',
+            'Pro zvýšení $\\delta_U$ pomáhá: větší klíč ($H(K) \\uparrow$), <strong>komprese OT před šifrováním</strong> ($r \\uparrow$, tedy $D \\downarrow$), případně doplnění OT náhodnými znaky.',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'sec-8-5-8',
+          number: '8.5.8',
+          title: 'Teorie složitosti a její vztah k bezpečnosti',
+        },
+        {
+          kind: 'p',
+          html: 'Zatímco teorie informace říká, <em>zda</em> lze šifru v principu prolomit, <strong>teorie složitosti</strong> řeší, <em>jak náročné</em> to je. Hodnotí algoritmy podle časové $T(n)$ a prostorové $S(n)$ náročnosti vzhledem k velikosti vstupu $n$, obvykle pomocí asymptotického zápisu $O(\\cdot)$.',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>P</strong> — problémy řešitelné v polynomiálním čase deterministickým Turingovým strojem ($O(n^k)$ pro nějaké $k$).',
+            '<strong>NP</strong> — problémy, jejichž řešení lze v polynomiálním čase <em>ověřit</em> (ekvivalentně: vyřešit nedeterministickým TS).',
+            '<strong>NP-úplné</strong> — nejtěžší problémy v NP; každý problém z NP se na ně dá polynomiálně redukovat (např. SAT, faktorizace se mezi NP-úplnými neřadí, ale leží v NP $\\cap$ coNP).',
+            '<strong>NP-těžké</strong> — alespoň tak těžké jako NP-úplné, nemusejí být v NP.',
+            '<strong>EXPTIME</strong> — exponenciální čas $O(2^{p(n)})$ pro polynom $p$.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Otevřená otázka <strong>P vs. NP</strong> je pro kryptografii zásadní: kdyby platilo $\\text{P} = \\text{NP}$, většina dnešních šifer (jak symetrických, tak asymetrických) by byla luštitelná polynomiálně — útočník hledá klíč nedeterministicky a v polynomiálním čase ověří shodu se ŠT, takže úloha luštění je v NP. Obecně se věří, že $\\text{P} \\neq \\text{NP}$, a kryptografie staví právě na předpokládané existenci tzv. <strong>jednosměrných funkcí</strong> — funkcí snadno vyčíslitelných, ale prakticky neinvertovatelných.',
+        },
+        {
+          kind: 'p',
+          html: 'Konkrétní příklady „těžkých“ problémů, na nichž stojí moderní šifry:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Faktorizace</strong> velkého čísla $n = p \\cdot q$ — základ RSA. Nejlepší známý algoritmus (GNFS) má subexponenciální složitost $\\exp(O((\\log n)^{1/3} (\\log\\log n)^{2/3}))$.',
+            '<strong>Problém diskrétního logaritmu (PDL)</strong> — základ Diffie–Hellmana, ElGamala. Pro multiplikativní grupu modulo prvočíslo je nejlepší algoritmus opět GNFS, pro eliptické křivky pouze $O(\\sqrt{n})$.',
+            '<strong>Hledání klíče u symetrické šifry</strong> — brute-force má složitost $O(2^k)$ pro $k$-bitový klíč. Pro $k = 128$ a více je úloha výpočetně neproveditelná.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Vztah mezi teorií složitosti a bezpečností je tedy přímý: <strong>výpočetní bezpečnost</strong> šifry znamená, že nejlepší známý útok má superpolynomiální složitost a pro reálné délky klíčů jej není možné v rozumném čase provést. <strong>Prokazatelná bezpečnost</strong> jde dále — formálně redukuje prolomení šifry na předpokládaně těžký problém, takže by jeho vyřešení (např. faktorizace) bylo důkazem prolomení šifry a obráceně.',
+        },
+      ],
+    },
   ],
 }

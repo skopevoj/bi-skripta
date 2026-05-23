@@ -226,5 +226,148 @@ export const chap02: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-2-4',
+      number: '2.4',
+      title: 'Otázky k ústní zkoušce',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Tato otázka se může vyskytnout u ústní zkoušky — níže je shrnutí všech bodů, na které je dobré umět odpovědět.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Exponenciální šifra, vztah dešifrovacího a šifrovacího klíče, důkaz správnosti dešifrování, bezpečnost této šifry. Pojem problému diskrétního logaritmu. Zřízení společného klíče s použitím Diffie–Hellmanova kryptografického algoritmu.</strong>',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-2-4-1',
+          number: '2.4.1',
+          title: 'Exponenciální šifra',
+        },
+        {
+          kind: 'p',
+          html: 'Exponenciální (Pohlig–Hellmanova) šifra z roku 1978 je symetrická bloková šifra pracující nad konečným tělesem $\\mathbb{Z}_m$, kde $m$ je velké prvočíslo. Otevřený text je rozdělen na bloky $p$ splňující $0 \\le p < m$ (typicky se kóduje skupina písmen jako jedno číslo v bázi velikosti abecedy). Klíčem je dvojice $(m, e)$, kde šifrovací exponent $e$ musí splňovat podmínku $\\gcd(e, m-1) = 1$ — tato podmínka zaručuje, že $e$ má v grupě $\\mathbb{Z}_{m-1}^*$ inverzi.',
+        },
+        {
+          kind: 'p',
+          html: 'Šifrování bloku $p$ je dáno modulárním umocněním $c = |p^e|_m$, dešifrování pak $p = |c^d|_m$, kde $d$ je dešifrovací klíč. Mocnění se počítá efektivně algoritmem <strong>Square &amp; Multiply</strong> se složitostí $O(k^3)$ bitových operací pro $k = \\lceil \\log_2 m \\rceil$.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-2-4-2',
+          number: '2.4.2',
+          title: 'Vztah dešifrovacího a šifrovacího klíče',
+        },
+        {
+          kind: 'p',
+          html: 'Dešifrovací klíč $d$ je <strong>multiplikativní inverzí šifrovacího klíče $e$ modulo $m-1$</strong>, tedy $d = |e^{-1}|_{m-1}$, ekvivalentně $e \\cdot d \\equiv 1 \\pmod{m-1}$. Inverze se počítá <strong>rozšířeným Eukleidovým algoritmem</strong> — najdou se koeficienty $u, v$ tak, aby $u \\cdot e + v \\cdot (m-1) = 1$, a pak $d = |u|_{m-1}$. Existence $d$ je zaručena právě podmínkou $\\gcd(e, m-1) = 1$.',
+        },
+        {
+          kind: 'p',
+          html: 'Šifrovací i dešifrovací klíč jsou tedy navzájem provázané — kdo zná jeden a parametr $m$, snadno dopočítá druhý. Proto jde o <strong>symetrickou</strong> šifru a oba klíče musí zůstat utajeny.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-2-4-3',
+          number: '2.4.3',
+          title: 'Důkaz správnosti dešifrování',
+        },
+        {
+          kind: 'p',
+          html: 'Chceme ukázat, že pro libovolný blok $p$ platí $|c^d|_m = p$, kde $c = |p^e|_m$ a $ed \\equiv 1 \\pmod{m-1}$.',
+        },
+        {
+          kind: 'p',
+          html: 'Z rovnosti $ed \\equiv 1 \\pmod{m-1}$ existuje celé číslo $k \\ge 0$ tak, že $ed = k(m-1) + 1$. Pak',
+        },
+        {
+          kind: 'math',
+          tex: '|c^d|_m = |(p^e)^d|_m = |p^{ed}|_m = |p^{k(m-1)+1}|_m = |(p^{m-1})^k \\cdot p|_m.',
+        },
+        {
+          kind: 'p',
+          html: 'Nyní použijeme <strong>malou Fermatovu větu</strong>: pro prvočíslo $m$ a $p$ nesoudělné s $m$ platí $p^{m-1} \\equiv 1 \\pmod{m}$. Dostaneme $|(p^{m-1})^k \\cdot p|_m = |1^k \\cdot p|_m = |p|_m = p$, protože $0 \\le p < m$.',
+        },
+        {
+          kind: 'p',
+          html: 'Případ $p \\equiv 0 \\pmod m$ (tj. $p = 0$) je triviální: $0^e = 0$ a $0^d = 0$, takže $|c^d|_m = 0 = p$. Obecněji platí věta i v Eulerově podobě: pro modul $n$ (nemusí být prvočíslo) a $\\gcd(p,n)=1$ je $p^{\\varphi(n)} \\equiv 1 \\pmod n$ a stačí $ed \\equiv 1 \\pmod{\\varphi(n)}$ — to je princip pozdější RSA šifry.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-2-4-4',
+          number: '2.4.4',
+          title: 'Bezpečnost exponenciální šifry',
+        },
+        {
+          kind: 'p',
+          html: 'Útočník zná pouze veřejně přenášený šifrový text $c$ (a v útoku se známým otevřeným textem i $p$) a chce zjistit klíč. Z dvojice $(p, c)$ splňující $c = |p^e|_m$ je nalezení $e$ úloha <strong>diskrétního logaritmu</strong>: $e = \\log_p c$ v grupě $\\mathbb{Z}_m^*$. Bezpečnost šifry tedy stojí na obtížnosti PDL.',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            'Modul $m$ musí být dostatečně velké prvočíslo (typicky $m \\approx 2^{2048}$ a více).',
+            'Doporučují se <strong>silná prvočísla</strong> tvaru $m = 2q + 1$, kde $q$ je rovněž prvočíslo, aby $m-1$ nemělo pouze malé prvočinitele (jinak je útok Pohlig–Hellman rychlý).',
+            'Šifra je symetrická — klíč $e$ (i $d$) musí být přenesen zabezpečeným kanálem nebo dohodnut zvlášť (např. právě Diffie–Hellmanem).',
+            'Stejný blok $p$ se vždy zašifruje na stejné $c$ (ECB-like vlastnost), což může v praxi unikat informace o struktuře zprávy.',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'sec-2-4-5',
+          number: '2.4.5',
+          title: 'Problém diskrétního logaritmu (PDL)',
+        },
+        {
+          kind: 'p',
+          html: 'V cyklické grupě $G$ řádu $n$ s generátorem $g$ je <strong>diskrétní logaritmus</strong> prvku $y \\in G$ o základu $g$ takové celé číslo $k$, $0 \\le k < n$, že $g^k = y$. Značíme $k = \\log_g y$. V multiplikativní grupě $\\mathbb{Z}_m^*$ tedy hledáme $k$ takové, že $|g^k|_m = y$.',
+        },
+        {
+          kind: 'p',
+          html: 'Klíčová asymetrie: zatímco modulární umocnění $g^k \\bmod m$ se dá počítat rychle (Square &amp; Multiply, $O(\\log k)$ násobení), zpětná úloha — najít $k$ — je výpočetně náročná. Pro náhodně volené prvočíslo $m$ je nejlepší známý algoritmus (<strong>funkční síto</strong>, NFS) subexponenciální se složitostí přibližně $\\exp(c \\cdot (\\log m)^{1/3} (\\log \\log m)^{2/3})$. Další algoritmy: <strong>Baby-step giant-step</strong> ($O(\\sqrt{n})$ čas i paměť), <strong>Pollardovo $\\rho$</strong> ($O(\\sqrt{n})$ čas, konstantní paměť), <strong>Pohlig–Hellman</strong> (rychlé, pokud $n$ má pouze malé prvočinitele).',
+        },
+        {
+          kind: 'p',
+          html: 'Na předpokládané obtížnosti PDL stojí bezpečnost exponenciální šifry, Diffie–Hellmanova protokolu i ElGamalovy šifry a podpisu.',
+        },
+        {
+          kind: 'h3',
+          id: 'sec-2-4-6',
+          number: '2.4.6',
+          title: 'Diffie–Hellmanův protokol zřízení společného klíče',
+        },
+        {
+          kind: 'p',
+          html: 'Diffie a Hellman v roce 1976 navrhli protokol, který umožňuje dvěma stranám (Alici a Bobovi) dohodnout se na <strong>společném tajném klíči</strong> přes nezabezpečený kanál, aniž by si jej musely předem vyměnit. Sleduje-li komunikaci pasivní odposlech, není schopen klíč zrekonstruovat — pokud platí předpoklad těžkosti PDL.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Veřejné parametry</strong> (dohodnuté předem, mohou být sdíleny celou skupinou uživatelů): velké prvočíslo $m$ (doporučeno $m = 2q+1$, $q$ prvočíslo) a generátor $a$ grupy $\\mathbb{Z}_m^*$ (nebo její dostatečně velké cyklické podgrupy).',
+        },
+        {
+          kind: 'list',
+          ordered: true,
+          items: [
+            'Alice zvolí náhodný soukromý klíč $k_A$, $1 < k_A < m-1$, vypočte $y_A = |a^{k_A}|_m$ a pošle $y_A$ Bobovi.',
+            'Bob zvolí náhodný soukromý klíč $k_B$, vypočte $y_B = |a^{k_B}|_m$ a pošle $y_B$ Alici.',
+            'Alice spočítá $K = |y_B^{k_A}|_m$, Bob spočítá $K = |y_A^{k_B}|_m$.',
+            'Oba dostanou stejnou hodnotu $K = |a^{k_A k_B}|_m$, která je jejich společným tajným klíčem.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Korektnost vyplývá z asociativity mocnění v grupě: $|y_B^{k_A}|_m = |(a^{k_B})^{k_A}|_m = |a^{k_A k_B}|_m = |(a^{k_A})^{k_B}|_m = |y_A^{k_B}|_m$.',
+        },
+        {
+          kind: 'p',
+          html: 'Odposlech získá $m, a, y_A, y_B$, ale nikoli $k_A$ ani $k_B$. Pro výpočet $K$ by potřeboval vyřešit PDL (najít $k_A$ z $y_A = a^{k_A}$) nebo přímo tzv. <strong>Diffie–Hellmanův problém</strong> (CDH): z $a, a^{k_A}, a^{k_B}$ spočítat $a^{k_A k_B}$. Oba problémy jsou považovány za výpočetně neřešitelné pro vhodně velké $m$.',
+        },
+        {
+          kind: 'p',
+          html: 'Protokol se přirozeně rozšiřuje na $n$ účastníků — výsledný klíč má tvar $K = |a^{k_1 k_2 \\cdots k_n}|_m$ a získá se postupným umocňováním předaných mezivýsledků. <strong>Slabinou</strong> základní verze je, že protokol neautentizuje strany: aktivní útočník uprostřed (man-in-the-middle) může s každou stranou ustavit jiný klíč. V praxi se proto kombinuje s digitálními podpisy nebo certifikáty (např. station-to-station protocol, TLS).',
+        },
+      ],
+    },
   ],
 }

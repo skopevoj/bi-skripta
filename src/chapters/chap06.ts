@@ -274,5 +274,202 @@ export const chap06: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-6-6',
+      number: '6.6',
+      title: 'Otázky k ústní zkoušce',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Tato otázka se může vyskytnout u ústní zkoušky — níže je shrnutí všech bodů, na které je dobré umět odpovědět.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Asymetrické šifrovací systémy veřejného klíče. RSA: matematický princip, důkaz správnosti dešifrování, vztah šifrovacího a dešifrovacího klíče. Generování klíčů pro RSA, bezpečnost a problém faktorizace. Šifrování a autentizace pomocí RSA, jednoduchý digitální podpis. RSA–CRT, popis generování klíčů a urychlení dešifrování. Srovnání symetrických kryptografických systémů a asymetrických kryptografických systémů. Digitální podpis a jeho vlastnosti. Šifra El Gamal, vzájemný vztah s Diffie-Hellmanem.</strong>',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-1',
+          number: '6.6.1',
+          title: 'Asymetrické šifrovací systémy veřejného klíče',
+        },
+        {
+          kind: 'p',
+          html: 'Asymetrická (též <strong>veřejnoklíčová</strong>) kryptografie přiřazuje každému subjektu dvojici klíčů — <strong>veřejný klíč</strong> $VK$ (publikovaný, slouží k šifrování nebo k ověření podpisu) a <strong>soukromý klíč</strong> $SK$ (utajený, slouží k dešifrování nebo k podpisu). Z $VK$ nelze v rozumném čase odvodit $SK$ — bezpečnost se opírá o předpokládanou výpočetní obtížnost vybraného matematického problému (faktorizace, diskrétní logaritmus, problém eliptické křivky). Hlavní motivací je řešení <em>problému distribuce klíčů</em>: dvě strany mohou bezpečně komunikovat bez předem sdíleného tajemství.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-2',
+          number: '6.6.2',
+          title: 'RSA — matematický princip a vztah klíčů',
+        },
+        {
+          kind: 'p',
+          html: 'RSA (Rivest, Shamir, Adleman, 1977) pracuje v okruhu $\\mathbb{Z}_n$, kde $n = pq$ je součin dvou velkých prvočísel. Eulerova funkce modulu je $\\varphi(n) = (p-1)(q-1)$. Volíme <strong>šifrovací exponent</strong> $e$ s $\\gcd(e, \\varphi(n)) = 1$ a dopočítáme <strong>dešifrovací exponent</strong> $d$ jako jeho multiplikativní inverzi modulo $\\varphi(n)$, tedy $ed \\equiv 1 \\pmod{\\varphi(n)}$. Šifrování: $c = |m^e|_n$; dešifrování: $m = |c^d|_n$. Veřejný klíč je $(n, e)$, soukromý $(n, d)$.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-3',
+          number: '6.6.3',
+          title: 'Důkaz správnosti dešifrování',
+        },
+        {
+          kind: 'p',
+          html: 'Z definice $ed \\equiv 1 \\pmod{\\varphi(n)}$ existuje $k \\in \\mathbb{Z}$ takové, že $ed = k\\varphi(n) + 1$. Pak pro $\\gcd(m, n) = 1$ platí podle <strong>Eulerovy věty</strong> $m^{\\varphi(n)} \\equiv 1 \\pmod n$, a tedy:',
+        },
+        {
+          kind: 'math',
+          tex: '|c^d|_n = |m^{ed}|_n = |m^{k\\varphi(n)+1}|_n = |(m^{\\varphi(n)})^k \\cdot m|_n = |1^k \\cdot m|_n = m.',
+        },
+        {
+          kind: 'p',
+          html: 'Pro $\\gcd(m, n) > 1$ (zpráva dělitelná $p$ nebo $q$) lze rovnost dokázat zvlášť modulo $p$ a modulo $q$ pomocí Malé Fermatovy věty a složit Čínskou větou o zbytcích — výsledek platí pro každé $m \\in \\mathbb{Z}_n$.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-4',
+          number: '6.6.4',
+          title: 'Generování klíčů pro RSA',
+        },
+        {
+          kind: 'list',
+          ordered: true,
+          items: [
+            'Vyber dvě velká náhodná prvočísla $p, q$ podobné bitové délky (typicky 1024 b při $n$ o 2048 b). Generuj náhodný kandidát a otestuj Miller–Rabinovým testem prvočíselnosti.',
+            'Spočítej $n = pq$ a $\\varphi(n) = (p-1)(q-1)$.',
+            'Zvol veřejný exponent $e$ s $\\gcd(e, \\varphi(n)) = 1$. V praxi $e = 65537 = 2^{16}+1$ (rychlé šifrování, dostatečně velké).',
+            'Spočítej $d = e^{-1} \\bmod \\varphi(n)$ rozšířeným Euklidovým algoritmem.',
+            'Zveřejni $(n, e)$, $d$ udrž v tajnosti. Prvočísla $p, q$ je vhodné po vygenerování bezpečně smazat (pokud nepoužíváme CRT).',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-5',
+          number: '6.6.5',
+          title: 'Bezpečnost a problém faktorizace',
+        },
+        {
+          kind: 'p',
+          html: 'Znalost dvojice $(p, q)$ umožňuje útočníkovi spočítat $\\varphi(n)$ a tím i $d = e^{-1} \\bmod \\varphi(n)$ — tedy úplný rozbití systému. Naopak je <strong>dokázáno</strong>, že znalost $\\varphi(n)$ je výpočetně ekvivalentní faktorizaci $n$. Bezpečnost RSA proto stojí na <strong>problému faktorizace</strong>: pro dostatečně velká $n$ (dnes $\\ge 2048$ b) není znám klasický algoritmus, který by jej rozložil v polynomiálním čase. Nejlepší známé metody jsou GNFS (General Number Field Sieve) se subexponenciální složitostí. Pozor: <em>není dokázáno</em>, že prolomení RSA <em>vyžaduje</em> faktorizaci — jen že ji umožňuje.',
+        },
+        {
+          kind: 'p',
+          html: 'Doporučení pro výběr $p, q$ (FIPS 186-4): $|p-q|$ dostatečně velké (aby selhala Fermatova faktorizace), $p-1, q-1$ mají velký prvočinitel (proti Pollardově $p-1$ metodě), $\\gcd(p-1, q-1)$ malé. Kvantový <strong>Shorův algoritmus</strong> faktorizuje v polynomiálním čase — RSA tedy není postkvantově bezpečné.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-6',
+          number: '6.6.6',
+          title: 'Šifrování, autentizace a jednoduchý digitální podpis',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Šifrování</strong> (důvěrnost): odesílatel B šifruje veřejným klíčem příjemce A — $c = |m^{e_A}|_{n_A}$. Pouze A se svým $d_A$ dešifruje. <strong>Podpis / autentizace</strong>: odesílatel A „šifruje“ svým <em>soukromým</em> klíčem — $S = |m^{d_A}|_{n_A}$. Kdokoli pomocí $VK_A$ ověří $m \\stackrel{?}{=} |S^{e_A}|_{n_A}$. Jelikož $d_A$ zná pouze A, je dvojice $(m, S)$ důkazem původu zprávy. <strong>Kombinace</strong>: pro důvěrné <em>a</em> autentizované zaslání A nejprve podepíše svým $SK$ a poté zašifruje veřejným klíčem B: $c = |S^{e_B}|_{n_B}$, kde $S = |m^{d_A}|_{n_A}$.',
+        },
+        {
+          kind: 'p',
+          html: 'V praxi se nepodepisuje přímo zpráva (drahé a otevřené existenciálnímu padělání), ale její <strong>haš</strong>: $S = |H(m)^{d_A}|_{n_A}$ s vhodným paddingem (PKCS#1 v1.5, PSS).',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-7',
+          number: '6.6.7',
+          title: 'RSA-CRT — generování klíčů a urychlení dešifrování',
+        },
+        {
+          kind: 'p',
+          html: 'RSA-CRT využívá Čínskou větu o zbytcích k urychlení dešifrování (a podepisování). Vlastník soukromého klíče zná $p, q$ a předpočítá:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '$d_p = d \\bmod (p-1)$',
+            '$d_q = d \\bmod (q-1)$',
+            '$q_{\\text{inv}} = q^{-1} \\bmod p$',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Dešifrování probíhá ve třech krocích: (1) $m_1 = |c^{d_p}|_p$, $m_2 = |c^{d_q}|_q$; (2) $h = |q_{\\text{inv}}(m_1 - m_2)|_p$; (3) $m = m_2 + h\\cdot q$. Místo jednoho umocňování modulo $n$ ($\\sim 2048$ b) provádíme dvě umocňování modulo $p$ a $q$ (po $\\sim 1024$ b). Složitost modulárního umocňování je $O(\\log^3 n)$, takže poloviční čísla dávají osminové náklady na operaci, dvě operace ale = <strong>čtyřnásobné</strong> zrychlení v praxi (typicky 3–4×).',
+        },
+        {
+          kind: 'p',
+          html: 'Pozor: RSA-CRT je citlivé na <strong>chybové útoky</strong> (Bellcoreův útok) — vzniknou-li během výpočtu hardwarové chyby v $m_1$ nebo $m_2$, lze z výsledku spočítat $\\gcd(m^e - c, n)$ a faktorizovat $n$. Implementace proto výsledek kontrolují.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-8',
+          number: '6.6.8',
+          title: 'Srovnání symetrických a asymetrických kryptosystémů',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Klíče</strong>: symetrické sdílejí jeden tajný klíč mezi stranami; asymetrické pracují s veřejně-soukromou dvojicí.',
+            '<strong>Distribuce klíčů</strong>: symetrické vyžadují bezpečný kanál (nebo PKI/KDC); asymetrické řeší distribuci přirozeně.',
+            '<strong>Počet klíčů v síti $N$ uživatelů</strong>: symetrické $\\binom{N}{2} = O(N^2)$; asymetrické $O(N)$.',
+            '<strong>Rychlost</strong>: symetrické (AES, ChaCha20) jsou o 2–3 řády rychlejší než asymetrické (RSA, ECC); typicky stovky MB/s vs. jednotky tisíc operací/s.',
+            '<strong>Délka klíče</strong> pro srovnatelnou bezpečnost: AES 128 b ≈ RSA 3072 b ≈ ECC 256 b.',
+            '<strong>Použití</strong>: symetrické šifrují velký objem dat; asymetrické se používají pro distribuci sezónních klíčů, digitální podpis a autentizaci.',
+            '<strong>Hybridní schémata</strong> (TLS, PGP) kombinují obojí: asymetricky se vymění symetrický klíč, ten pak šifruje vlastní obsah.',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-9',
+          number: '6.6.9',
+          title: 'Digitální podpis a jeho vlastnosti',
+        },
+        {
+          kind: 'p',
+          html: 'Digitální podpis je kryptografický mechanismus, který ke zprávě připojuje data umožňující ověřit její původ a integritu. Standardně se počítá z haše zprávy a vyžaduje soukromý klíč podepisujícího. Hlavní vlastnosti:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Autentizace (nezfalšovatelnost)</strong> — podpis dokáže vytvořit jen ten, kdo zná příslušný soukromý klíč.',
+            '<strong>Integrita</strong> — jakákoli změna zprávy zneplatní podpis (podepisuje se haš zprávy).',
+            '<strong>Nepopiratelnost</strong> — podepisující nemůže později popřít, že zprávu podepsal; zásadní rozdíl oproti symetrickým MAC, které tuto vlastnost nemají (MAC umí ověřit obě strany, takže žádná nemá průkazný důkaz vůči třetí straně).',
+            '<strong>Ověřitelnost</strong> — kdokoli s veřejným klíčem může podpis ověřit.',
+            '<strong>Vázanost na zprávu</strong> — podpis $S$ je platný pouze pro konkrétní $m$; nelze ho odpojit a přilepit k jiné zprávě.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Konkrétní algoritmy: RSA (PKCS#1, PSS), DSA, ECDSA, EdDSA. V právním smyslu se rozlišuje <em>elektronický podpis</em>, <em>zaručený elektronický podpis</em> a <em>kvalifikovaný elektronický podpis</em> (eIDAS) — poslední vyžaduje certifikát vydaný kvalifikovaným poskytovatelem a kvalifikovaný prostředek (QSCD).',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-6-6-10',
+          number: '6.6.10',
+          title: 'ElGamal a vztah k Diffie–Hellmanovi',
+        },
+        {
+          kind: 'p',
+          html: 'ElGamalovo šifrování pracuje v cyklické grupě $\\mathbb{Z}_m^{*}$ (typicky $m$ velké prvočíslo) s generátorem $g$. Alice má soukromý klíč $k_A \\in \\{1, \\dots, m-2\\}$ a veřejný $y_A = |g^{k_A}|_m$, $VK_A = (m, g, y_A)$. Bob při šifrování zprávy $p$:',
+        },
+        {
+          kind: 'list',
+          ordered: true,
+          items: [
+            'Zvolí náhodné <strong>jednorázové</strong> $k_B$ (efemérní klíč).',
+            'Spočítá $c_1 = |g^{k_B}|_m$ a sdílený klíč $K = |y_A^{k_B}|_m = |g^{k_A k_B}|_m$.',
+            'Šifruje $c_2 = |p \\cdot K|_m$ a posílá dvojici $(c_1, c_2)$.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Alice dešifruje výpočtem $K = |c_1^{k_A}|_m = |g^{k_B k_A}|_m$ a $p = |c_2 \\cdot K^{-1}|_m$. Bezpečnost stojí na <strong>výpočetním Diffie–Hellmanově problému (CDH)</strong>: z $g^{k_A}$ a $g^{k_B}$ nelze efektivně spočítat $g^{k_A k_B}$ (potažmo na problému diskrétního logaritmu, PDL).',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Vztah k Diffie–Hellmanovi</strong>: ElGamalovo šifrování je v podstatě „Diffie–Hellman provedený v rámci jedné zprávy“ — Alice má statickou DH polovinu $y_A$, Bob pro každou zprávu vytvoří efemérní DH polovinu $c_1 = g^{k_B}$, vypočte sdílené tajemství $K = g^{k_A k_B}$ a tím <em>maskuje</em> zprávu vynásobením modulo $m$. Pokud bychom v DH protokolu nahradili interaktivní výměnu zveřejněním Aliciny statické poloviny, dostaneme přesně ElGamal. Z toho plynou i důsledky: <em>$k_B$ se nikdy nesmí opakovat</em> (jinak ze dvou ŠT $c_2, c_2\'$ pro různá $p, p\'$ útočník spočítá poměr $p/p\'$); šifrový text je dvojnásobně delší než zpráva (přibývá $c_1$); ElGamal je <em>multiplikativně homomorfní</em> ($\\text{Enc}(p_1) \\cdot \\text{Enc}(p_2) = \\text{Enc}(p_1 p_2)$), což je užitečné, ale i nebezpečné (malleability útoky). Z ElGamalova podpisového schématu pak vychází standard <strong>DSA/DSS</strong>.',
+        },
+      ],
+    },
   ],
 }
+

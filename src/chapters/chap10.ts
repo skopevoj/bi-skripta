@@ -403,5 +403,199 @@ export const chap10: Chapter = {
         },
       ],
     },
+    {
+      id: 'sec-10-10',
+      number: '10.10',
+      title: 'Otázky k ústní zkoušce',
+      blocks: [
+        {
+          kind: 'p',
+          html: 'Tato otázka se může vyskytnout u ústní zkoušky — níže je shrnutí všech bodů, na které je dobré umět odpovědět.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Čínská věta o zbytcích, kvadratická rezidua, generátor multiplikativní grupy. Rabinův-Millerův test prvočíselnosti. Náhodná čísla v kryptografii, pseudonáhodné generátory, lineární kongruenční generátor, Blum-Blum-Shub, požadavky na kryptograficky bezpečné pseudonáhodné generátory. Skutečně náhodné generátory, zdroje entropie. Post processing a jeho funkce. Testování náhodných generátorů: frekvenční test, Runs test, test hodnosti matic, spektrální test, Maurerův univerzální test.</strong>',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-1',
+          number: '10.10.1',
+          title: 'Čínská věta o zbytcích',
+        },
+        {
+          kind: 'p',
+          html: 'Nechť $n_1, \\dots, n_r$ jsou po dvou nesoudělné kladné moduly a $N = n_1 \\cdots n_r$. Pak soustava kongruencí $x \\equiv a_i \\pmod{n_i}$ pro $i = 1, \\dots, r$ má právě jedno řešení modulo $N$. Konstruktivně: $N_i = N/n_i$, $y_i = N_i^{-1} \\bmod n_i$ a hledané $x = \\sum_i a_i N_i y_i \\bmod N$.',
+        },
+        {
+          kind: 'p',
+          html: 'V kryptografii se CRT používá například k <strong>urychlení RSA dešifrování</strong> (počítá se zvlášť mod $p$ a mod $q$ a výsledky se složí — přibližně 4× rychlejší než přímý výpočet mod $n$), dále v sdílení tajemství a v důkazu existence izomorfismu $\\mathbb{Z}_N \\cong \\mathbb{Z}_{n_1} \\times \\cdots \\times \\mathbb{Z}_{n_r}$.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-2',
+          number: '10.10.2',
+          title: 'Kvadratická rezidua',
+        },
+        {
+          kind: 'p',
+          html: 'Číslo $a$ nesoudělné s $m$ je <strong>kvadratickým reziduem</strong> modulo $m$, pokud existuje $x$ s $x^2 \\equiv a \\pmod m$. Pro liché prvočíslo $p$ je polovina nenulových zbytkových tříd rezidui (počet $(p-1)/2$). <strong>Legendreův symbol</strong> $\\left(\\dfrac{a}{p}\\right)$ je $+1$ pro reziduum, $-1$ pro nereziduum a $0$ pro $p \\mid a$; lze ho spočítat <em>Eulerovým kritériem</em> $\\left(\\dfrac{a}{p}\\right) \\equiv a^{(p-1)/2} \\pmod p$.',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Jacobiho symbol</strong> $\\left[\\dfrac{a}{n}\\right]$ rozšiřuje Legendre na liché složené $n = p_1^{\\alpha_1} \\cdots p_k^{\\alpha_k}$ jako součin $\\prod_i \\left(\\dfrac{a}{p_i}\\right)^{\\alpha_i}$. Lze ho spočítat rychle (kvadratickou reciprocitou) <em>bez znalosti rozkladu</em> $n$, což je důležité pro Solovay–Strassenův test prvočíselnosti.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-3',
+          number: '10.10.3',
+          title: 'Generátor multiplikativní grupy',
+        },
+        {
+          kind: 'p',
+          html: 'Grupa $\\mathbb{Z}_p^*$ (lichého prvočísla $p$) je cyklická řádu $p - 1$. Prvek $g$ je <strong>generátor</strong> (primitivní kořen), pokud jeho mocniny $g^0, g^1, \\dots, g^{p-2}$ probíhají všech $p - 1$ nenulových zbytkových tříd. Generátorů je celkem $\\varphi(p - 1)$.',
+        },
+        {
+          kind: 'p',
+          html: 'Test, zda je dané $g$ generátor: rozložíme $p - 1 = p_1^{\\alpha_1} \\cdots p_k^{\\alpha_k}$ a ověříme, že pro každý prvočinitel $p_i$ platí $g^{(p-1)/p_i} \\not\\equiv 1 \\pmod p$. Generátory jsou základem schémat <strong>Diffie–Hellman, ElGamal a DSA</strong>, jejichž bezpečnost stojí na obtížnosti diskrétního logaritmu v $\\langle g \\rangle$.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-4',
+          number: '10.10.4',
+          title: 'Rabinův–Millerův test prvočíselnosti',
+        },
+        {
+          kind: 'p',
+          html: 'Pravděpodobnostní (Monte Carlo) test prvočíselnosti. Pro testované liché $n$ rozložíme $n - 1 = 2^s d$, kde $d$ je liché. Vybereme náhodnou <strong>bázi</strong> $a \\in \\{2, \\dots, n-2\\}$ a spočteme posloupnost $a^d, a^{2d}, a^{4d}, \\dots, a^{2^{s-1} d} \\pmod n$. Pokud platí $a^d \\equiv 1 \\pmod n$ nebo existuje $0 \\le i < s$ s $a^{2^i d} \\equiv -1 \\pmod n$, test projde — $n$ je <em>pravděpodobně prvočíslo</em>. Jinak je $a$ <strong>silný svědek složenosti</strong> a $n$ je s jistotou složené.',
+        },
+        {
+          kind: 'p',
+          html: 'Pravděpodobnost, že složené $n$ projde jediným kolem, je $\\le 1/4$; po $t$ nezávislých kolech klesá na $4^{-t}$. Po cca $20$ kolech je chyba menší než pravděpodobnost hardwarové poruchy. Miller–Rabin je dnes <strong>standardní test pro generování RSA prvočísel</strong> — rychlý ($O(k \\log^3 n)$), jednoduchý a se silnější zárukou než Solovay–Strassen.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-5',
+          number: '10.10.5',
+          title: 'Náhodná čísla v kryptografii',
+        },
+        {
+          kind: 'p',
+          html: 'Náhodná data jsou potřeba na generování klíčů, nonces, IV, soli, výplní a jednorázových bloků (Vernam). Slabý generátor je jednou z nejčastějších příčin reálných průlomů — viz Debian OpenSSL 2008 (omezený seed), Sony PS3 (opakovaný nonce v ECDSA) či RNG selhání u některých čipových karet.',
+        },
+        {
+          kind: 'p',
+          html: 'Rozlišujeme <strong>PRNG</strong> (deterministický algoritmus produkující dlouhý pseudonáhodný proud z krátkého seedu) a <strong>TRNG</strong> (fyzický zdroj entropie, jehož výstup nelze předpovědět). V praxi se kombinují: TRNG dodává seed kryptografickému PRNG, který produkuje výstup vysokou rychlostí.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-6',
+          number: '10.10.6',
+          title: 'Pseudonáhodné generátory a LCG',
+        },
+        {
+          kind: 'p',
+          html: '<strong>Lineární kongruenční generátor</strong> má rekurenci $x_{i+1} = (a \\cdot x_i + c) \\bmod m$. Maximální periody $m$ dosáhneme za Hull–Dobellových podmínek: $\\gcd(c, m) = 1$, každý prvočinitel $m$ dělí $a - 1$ a navíc $4 \\mid a - 1$, pokud $4 \\mid m$. LCG je rychlý a vhodný pro simulace, ale <strong>není kryptograficky bezpečný</strong> — z několika výstupů lze rekonstruovat parametry $(a, c, m)$ a předpovídat zbytek (body $(x_n, x_{n+1}, \\dots)$ leží v málo hyperrovinách).',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-7',
+          number: '10.10.7',
+          title: 'Blum–Blum–Shub',
+        },
+        {
+          kind: 'p',
+          html: 'Generátor BBS: zvolíme $n = pq$, kde $p, q$ jsou prvočísla splňující $p \\equiv q \\equiv 3 \\pmod 4$ (tzv. Blumova prvočísla). Rekurence $x_{i+1} = x_i^2 \\bmod n$; výstupem je nejnižší bit (nebo $O(\\log \\log n)$ nejnižších bitů) každého $x_i$. Bezpečnost (next-bit nepředvídatelnost) se redukuje na obtížnost <strong>problému kvadratické residuosity</strong> mod $n$, který je nejméně tak těžký jako faktorizace $n$. BBS je tedy <em>provably secure</em>, ale výpočetně pomalý — v praxi se používá zřídka.',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-8',
+          number: '10.10.8',
+          title: 'Požadavky na kryptograficky bezpečný PRNG (CSPRNG)',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Next-bit test:</strong> z $k$ vygenerovaných bitů nelze žádným polynomiálním algoritmem uhodnout $(k+1)$-tý bit s pravděpodobností výrazně lepší než $1/2$.',
+            '<strong>Statistická nerozlišitelnost</strong> výstupu od skutečně náhodné posloupnosti pro polynomiální rozlišovač.',
+            '<strong>Forward security:</strong> kompromitace vnitřního stavu nesmí umožnit rekonstrukci dříve vygenerovaných bitů.',
+            '<strong>Backward security (post-compromise recovery):</strong> po přiměřeném dotoku nové entropie se generátor zotaví — útočník nemůže předpovídat budoucí výstup.',
+            'Výstup nesmí být <strong>periodický</strong> v dosažitelném časovém rámci.',
+            'Generátor nemůže <strong>zvyšovat entropii</strong> — entropie výstupu je shora omezena entropií seedu.',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-9',
+          number: '10.10.9',
+          title: 'Skutečně náhodné generátory a zdroje entropie',
+        },
+        {
+          kind: 'p',
+          html: '<strong>TRNG</strong> čerpá náhodnost z fyzikálních jevů, jejichž chování je nepředvídatelné i při znalosti všech parametrů. Typické zdroje:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Tepelný (Johnsonův) šum</strong> na rezistoru či polovodičovém přechodu.',
+            '<strong>Výstřelový (shot) šum</strong> diody v lavinovém režimu.',
+            '<strong>Jitter</strong> mezi nezávislými oscilátory (časté v RNG na FPGA a SoC).',
+            '<strong>Metastabilita</strong> klopných obvodů.',
+            '<strong>Kvantové jevy</strong>: fotonová detekce, radioaktivní rozpad.',
+            'Uživatelské zdroje na PC: časování stisků kláves, pohyby myši, prodlevy přerušení disku/sítě.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Výstup TRNG má typicky <em>horší statistické vlastnosti</em> (zaujetí, korelace mezi bity, kolísání zdroje s teplotou). Proto je nutný post-processing a průběžné <strong>online testování zdroje</strong> (health tests dle NIST SP 800-90B).',
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-10',
+          number: '10.10.10',
+          title: 'Post-processing a jeho funkce',
+        },
+        {
+          kind: 'p',
+          html: 'Cílem post-processingu (whitening) je z částečně zaujatého proudu vyrobit proud, který je statisticky nerozlišitelný od rovnoměrného. <strong>Nesnižuje entropii</strong>, jen ji koncentruje do méně bitů. Typické techniky:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Von Neumannův dekorelátor:</strong> bity se odebírají po dvou — $00$ a $11$ se zahodí, $01 \\to 0$, $10 \\to 1$. Eliminuje zaujetí, ale snižuje rychlost (faktorem $\\ge 4$).',
+            '<strong>XOR několika nezávislých zdrojů</strong> — zaujetí každého zdroje se exponenciálně tlumí.',
+            '<strong>Hešování</strong> dlouhého bloku surové entropie kvalitní hašovací funkcí (SHA-2/3) — produkuje rovnoměrný výstup, pokud má vstup dostatek entropie (<em>extraktor entropie</em>).',
+            '<strong>Kombinace TRNG + kryptografický PRNG</strong> (např. DRBG dle NIST SP 800-90A): TRNG poskytuje seed, PRNG produkuje rychlý whitenovaný proud.',
+          ],
+        },
+        {
+          kind: 'h3',
+          id: 'subsec-10-10-11',
+          number: '10.10.11',
+          title: 'Testování náhodných generátorů',
+        },
+        {
+          kind: 'p',
+          html: 'Statistické testy mohou <strong>vyvrátit</strong> kvalitu generátoru, ale nikdy ji neprokáží. Pracují s p-hodnotou: pokud je nižší než hladina významnosti (typicky $\\alpha = 0{,}01$), test zamítne hypotézu náhodnosti. Standardní balík je NIST SP 800-22, dále Diehard/Dieharder. Hlavní testy:',
+        },
+        {
+          kind: 'list',
+          ordered: false,
+          items: [
+            '<strong>Frekvenční test (monobit, block frequency):</strong> ověřuje, že počet jedniček v posloupnosti je blízký $n/2$ (resp. v blocích). Detekuje hrubé zaujetí.',
+            '<strong>Runs test:</strong> počítá počet a délku „runů“ — maximálních úseků stejných bitů. Pro náhodnou posloupnost je očekávaný počet runů známý; odchylka odhalí přílišnou regularitu nebo naopak shlukování.',
+            '<strong>Test hodnosti matic (binary matrix rank):</strong> z posloupnosti se sestaví matice nad $\\mathrm{GF}(2)$ (typicky $32 \\times 32$). Ověřuje se rozdělení hodností — odhaluje lineární závislosti mezi podposloupnostmi (slabost LFSR-podobných generátorů).',
+            '<strong>Spektrální test (DFT):</strong> aplikuje diskrétní Fourierovu transformaci na posloupnost převedenou na $\\pm 1$ a kontroluje, že žádná frekvenční složka výrazně nevyčnívá. Detekuje periodicitu a skryté oscilace.',
+            '<strong>Maurerův univerzální test:</strong> měří průměrnou vzdálenost mezi opakováními bloků — funguje jako odhad <em>komprimovatelnosti</em>. Pokud lze posloupnost komprimovat, není dostatečně náhodná. Univerzální v tom smyslu, že detekuje širokou třídu vad jediným testem.',
+          ],
+        },
+        {
+          kind: 'p',
+          html: 'Pro TRNG je navíc nutné navrhnout <strong>specifické testy pro daný zdroj entropie</strong> (např. monitoring napětí, frekvence oscilátoru, počtu zákmitů). Samotné statistické testy nad whitenovaným výstupem nestačí — kvalitní whitening dokáže „přebít“ i špatný zdroj a vady by se neprojevily.',
+        },
+      ],
+    },
   ],
 }
