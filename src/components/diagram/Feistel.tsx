@@ -46,7 +46,7 @@ export function Feistel() {
 
       {/* Round 1 wires from L0 / R0 down */}
       <line x1={cxL} y1={yLabel + 8} x2={cxL} y2={yX1} stroke={svg.stroke} strokeWidth="1.2" />
-      <line x1={cxR} y1={yLabel + 8} x2={cxR} y2={ySwap1 + 30} stroke={svg.stroke} strokeWidth="1.2" />
+      <line x1={cxR} y1={yLabel + 8} x2={cxR} y2={ySwap1 - 20} stroke={svg.stroke} strokeWidth="1.2" />
 
       {/* Tap from R0 → F1 */}
       <line x1={cxR} y1={yF1 - 18} x2={cxR - 50} y2={yF1 - 18} stroke={svg.stroke} strokeWidth="1.2" />
@@ -94,7 +94,7 @@ export function Feistel() {
       <line x1={cxL - 7} y1={yX1} x2={cxL + 7} y2={yX1} stroke={svg.stroke} strokeWidth="1.2" />
       <line x1={cxL} y1={yX1 - 7} x2={cxL} y2={yX1 + 7} stroke={svg.stroke} strokeWidth="1.2" />
 
-      {/* Crossover (swap) */}
+      {/* Crossover (swap): R0 becomes L1, XOR output becomes R1. */}
       <line x1={cxL} y1={yX1 + 10} x2={cxR} y2={ySwap1 + 30} stroke={svg.stroke} strokeWidth="1.2" />
       <line x1={cxR} y1={ySwap1 - 20} x2={cxL} y2={ySwap1 + 30} stroke={svg.stroke} strokeWidth="1.2" />
 
