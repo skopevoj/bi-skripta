@@ -17,6 +17,12 @@ export type Block =
   | { kind: 'math'; tex: string } // standalone display math
   | { kind: 'list'; ordered: boolean; items: string[] }
   | {
+      kind: 'table'
+      caption?: string
+      headers: string[]
+      rows: string[][]
+    }
+  | {
       kind: 'callout'
       type: CalloutKind
       number: string // "5.5", "8.6"

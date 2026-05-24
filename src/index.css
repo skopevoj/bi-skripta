@@ -75,6 +75,34 @@
     @apply my-4 overflow-x-auto overflow-y-hidden;
   }
 
+  .skripta-table-wrap {
+    @apply my-6 font-sans;
+  }
+  .skripta-table-wrap figcaption {
+    @apply mb-2 text-[11px] tracking-[0.18em] uppercase text-ink-500 font-semibold;
+  }
+  .skripta-table-scroll {
+    @apply overflow-x-auto rounded-md border border-ink-800 bg-ink-900/30;
+  }
+  .skripta-table {
+    @apply w-full min-w-[720px] border-collapse text-left text-[13px];
+  }
+  .skripta-table th {
+    @apply sticky top-0 bg-ink-950 text-ink-100 font-semibold px-3 py-2 border-b border-ink-800 align-bottom;
+  }
+  .skripta-table td {
+    @apply px-3 py-2.5 border-b border-ink-800/70 align-top text-ink-300 leading-relaxed;
+  }
+  .skripta-table tr:last-child td {
+    @apply border-b-0;
+  }
+  .skripta-table td:first-child {
+    @apply text-ink-100 font-semibold;
+  }
+  .skripta-table code {
+    @apply bg-ink-950 text-ink-100 px-1.5 py-0.5 rounded text-[0.9em] font-mono border border-ink-800;
+  }
+
   /* Search result snippet — highlight matched terms with a subtle amber wash. */
   .search-snippet mark {
     background: rgba(217, 119, 6, 0.22);

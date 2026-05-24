@@ -12,6 +12,7 @@ import { chap08 } from './chapters/chap08'
 import { chap09 } from './chapters/chap09'
 import { chap10 } from './chapters/chap10'
 import { chap11 } from './chapters/chap11'
+import { chap12 } from './chapters/chap12'
 
 export const skripta: Skripta = {
   subtitle: 'Kryptografie a bezpečnost',
@@ -28,6 +29,7 @@ export const skripta: Skripta = {
     chap09,
     chap10,
     chap11,
+    chap12,
     chap00,
   ],
 }

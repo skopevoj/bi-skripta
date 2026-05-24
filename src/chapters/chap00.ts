@@ -2,7 +2,7 @@ import type { Chapter } from '../types'
 
 export const chap00: Chapter = {
   id: 'chap-glossary',
-  number: '12',
+  number: '13',
   title: 'Přehled pojmů',
   intro: [
     {

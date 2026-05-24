@@ -39,6 +39,17 @@ function blockText(block: Block): { text: string; label: string; anchor?: string
       return { text: block.tex, label: 'Vzorec' }
     case 'list':
       return { text: block.items.map(stripHtml).join(' · '), label: 'Seznam' }
+    case 'table':
+      return {
+        text: [
+          block.caption,
+          block.headers.join(' '),
+          ...block.rows.map((row) => row.map(stripHtml).join(' ')),
+        ]
+          .filter(Boolean)
+          .join(' '),
+        label: 'Tabulka',
+      }
     case 'callout': {
       const parts = [block.title, stripHtml(block.html)]
       if (block.plain) parts.push(block.plain)

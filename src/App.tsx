@@ -33,6 +33,8 @@ function BlockRenderer({ block }: { block: Block }) {
       const html = block.ordered ? `<ol>${inner}</ol>` : `<ul>${inner}</ul>`
       return <MathHTML className="skripta-prose" html={html} />
     }
+    case 'table':
+      return <DataTable caption={block.caption} headers={block.headers} rows={block.rows} />
     case 'callout':
       return (
         <Callout
@@ -70,6 +72,46 @@ function BlockRenderer({ block }: { block: Block }) {
         />
       )
   }
+}
+
+function DataTable({
+  caption,
+  headers,
+  rows,
+}: {
+  caption?: string
+  headers: string[]
+  rows: string[][]
+}) {
+  return (
+    <figure className="skripta-table-wrap">
+      {caption && <figcaption>{caption}</figcaption>}
+      <div className="skripta-table-scroll sidebar-scroll">
+        <table className="skripta-table">
+          <thead>
+            <tr>
+              {headers.map((header) => (
+                <th key={header}>
+                  <MathHTML as="span" html={header} noGloss />
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, rowIdx) => (
+              <tr key={rowIdx}>
+                {headers.map((_, colIdx) => (
+                  <td key={colIdx}>
+                    <MathHTML as="span" html={row[colIdx] ?? ''} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </figure>
+  )
 }
 
 function ChapterLanding({ chapter }: { chapter: Chapter }) {
