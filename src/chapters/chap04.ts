@@ -147,6 +147,12 @@ export const chap04: Chapter = {
           ],
         },
         {
+          kind: 'interactive',
+          component: 'aes-round',
+          title: 'AES Round Explorer',
+          hint: 'Projděte si AES-128 po rundách: matice stavu ukazuje aktuální bajty, přepínač kroků zvýrazní SubBytes, ShiftRows, MixColumns a AddRoundKey.',
+        },
+        {
           kind: 'callout',
           type: 'definice',
           number: '4.4',

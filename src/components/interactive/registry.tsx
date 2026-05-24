@@ -47,6 +47,9 @@ const components: Record<InteractiveName, ReturnType<typeof lazy>> = {
   'mode-ctr': lazy(() =>
     import('./ModeFlow').then((m) => ({ default: m.ModeCTR })),
   ),
+  'aes-round': lazy(() =>
+    import('./AESRound').then((m) => ({ default: m.AESRound })),
+  ),
   avalanche: lazy(() =>
     import('./Avalanche').then((m) => ({ default: m.Avalanche })),
   ),

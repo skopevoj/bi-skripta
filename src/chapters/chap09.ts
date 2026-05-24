@@ -54,7 +54,7 @@ export const chap09: Chapter = {
           kind: 'interactive',
           component: 'ec-add',
           title: 'Sčítání bodů na eliptické křivce',
-          hint: 'Klikněte na dva body na křivce; sledujte konstrukci tečny/sečny.',
+          hint: 'Klikněte na dva body na křivce; jeden součet má jeden odraz −R → R. Pro násobek kP si níže projděte více odrazů v algoritmu double-and-add.',
         },
       ],
     },

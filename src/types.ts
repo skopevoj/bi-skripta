@@ -100,6 +100,7 @@ export type InteractiveName =
   | 'mode-cfb'
   | 'mode-ofb'
   | 'mode-ctr'
+  | 'aes-round'
   | 'avalanche'
   | 'birthday'
   | 'sha1'
