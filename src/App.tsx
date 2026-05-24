@@ -203,8 +203,17 @@ export default function App() {
     }
   }, [route, chapters])
 
-  // Scroll to top on every route change.
+  // Scroll to top on every route change — or to the #anchor target if one
+  // is set in the URL (e.g. when search results link to a specific heading).
   useEffect(() => {
+    const hash = window.location.hash.slice(1)
+    if (hash) {
+      const el = document.getElementById(hash)
+      if (el) {
+        el.scrollIntoView({ block: 'start' })
+        return
+      }
+    }
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
   }, [route])
 

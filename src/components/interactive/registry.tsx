@@ -60,6 +60,9 @@ const components: Record<InteractiveName, ReturnType<typeof lazy>> = {
   rsa: lazy(() => import('./RSA').then((m) => ({ default: m.RSA }))),
   'ec-add': lazy(() => import('./ECAdd').then((m) => ({ default: m.ECAdd }))),
   bb84: lazy(() => import('./BB84').then((m) => ({ default: m.BB84 }))),
+  'miller-rabin': lazy(() =>
+    import('./MillerRabin').then((m) => ({ default: m.MillerRabin })),
+  ),
 }
 
 export function InteractiveWidget({ name }: { name: InteractiveName }) {

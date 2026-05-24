@@ -1,5 +1,6 @@
 import type { Chapter } from '../types'
 import { Link, pathFor } from '../router'
+import { SearchBar } from './SearchBar'
 
 export function Sidebar({
   chapters,
@@ -12,8 +13,9 @@ export function Sidebar({
 }) {
   return (
     <aside className="lg:sticky lg:top-0 self-start lg:h-screen lg:overflow-y-auto sidebar-scroll border-r border-ink-800 bg-ink-900/60">
-      <div className="px-4 py-5">
-        <div className="mt-1 text-lg font-sans font-bold text-ink-100">BI-KAB</div>
+      <div className="px-4 pt-5 pb-3">
+        <div className="text-lg font-sans font-bold text-ink-100 mb-3">BI-KAB</div>
+        <SearchBar chapters={chapters} />
       </div>
 
       <nav className="pb-8 font-sans">

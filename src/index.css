@@ -75,6 +75,14 @@
     @apply my-4 overflow-x-auto overflow-y-hidden;
   }
 
+  /* Search result snippet — highlight matched terms with a subtle amber wash. */
+  .search-snippet mark {
+    background: rgba(217, 119, 6, 0.22);
+    color: theme('colors.ink.100');
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+
   /* Inline glossary terms — hover or focus reveals an explanation popover. */
   .gloss {
     position: relative;

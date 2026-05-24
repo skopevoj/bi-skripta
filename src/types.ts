@@ -105,6 +105,7 @@ export type InteractiveName =
   | 'birthday'
   | 'sha1'
   | 'rsa'
+  | 'miller-rabin'
   | 'ec-add'
   | 'bb84'
 

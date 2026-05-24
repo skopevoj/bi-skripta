@@ -144,6 +144,12 @@ export const chap10: Chapter = {
             'Dnes standardní test prvočíselnosti — pravděpodobnost falešného úspěchu je 1/4 na test, takže po 5-10 testech je jistota dostatečná. Bez něj by RSA neuměla rychle vygenerovat klíče: nikdo nemá čas hledat prvočíslo deterministicky.',
         },
         {
+          kind: 'interactive',
+          component: 'miller-rabin',
+          title: 'Fermat vs. Rabin–Miller na stejném čísle',
+          hint: 'Oba testy sdílí stejný řetězec $z_0 = a^m, z_1 = z_0^2, \\dots, z_b = a^{n-1} \\pmod n$. Fermat se dívá jen na poslední buňku, Rabin–Miller sleduje celou trajektorii. Zkuste preset $n = 561$ (Carmichaelovo číslo) — uvidíte, kde Fermat selhává a MR ne.',
+        },
+        {
           kind: 'callout',
           type: 'poznamka',
           number: '10.1',
