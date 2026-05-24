@@ -425,7 +425,7 @@ export const chap04: Chapter = {
               },
               {
                 text: 'Obsahuje S-boxy, které jsou jediným nelineárním prvkem šifry.',
-                correct: false,
+                correct: true,
               },
             ],
           },

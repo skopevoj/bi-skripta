@@ -7,13 +7,16 @@ import { useState } from 'react'
 
 type Mode = 'ecb' | 'cbc' | 'cfb' | 'ofb' | 'ctr'
 
-const W = 360
-const H_NORMAL = 200
-const H_OFB = 170
+const W = 720
+const H_ECB = 230
+const H_NORMAL = 300
+const H_CBC = 340
+const H_CFB = 300
+const H_OFB = 270
 
-const COL_X = [60, 180, 300]
-const BOX_W = 64
-const BOX_H = 22
+const COL_X = [130, 360, 590]
+const BOX_W = 86
+const BOX_H = 30
 
 // --- Shared SVG primitives --------------------------------------------------
 
@@ -23,30 +26,32 @@ function Box({
   label,
   kind = 'data',
   dim = false,
+  width = BOX_W,
 }: {
   cx: number
   cy: number
   label: string
   kind?: 'data' | 'op' | 'iv'
   dim?: boolean
+  width?: number
 }) {
-  const x = cx - BOX_W / 2
+  const x = cx - width / 2
   const y = cy - BOX_H / 2
   const fill = kind === 'op' ? '#28282a' : kind === 'iv' ? 'transparent' : '#f4f2ec'
   const stroke = kind === 'iv' ? '#9c9a91' : '#c4c2b8'
   const textFill = kind === 'op' ? '#fbfaf7' : '#28282a'
-  const opacity = dim ? 0.35 : 1
+  const opacity = dim ? 0.32 : 1
   return (
     <g opacity={opacity}>
       <rect
         x={x}
         y={y}
-        width={BOX_W}
+        width={width}
         height={BOX_H}
         rx={3}
         fill={fill}
         stroke={stroke}
-        strokeWidth={1}
+        strokeWidth={dim ? 1 : 1.6}
         strokeDasharray={kind === 'iv' ? '3 2' : undefined}
       />
       <text
@@ -54,7 +59,7 @@ function Box({
         y={cy + 4}
         textAnchor="middle"
         fontFamily="ui-monospace, monospace"
-        fontSize={11}
+        fontSize={15}
         fill={textFill}
       >
         {label}
@@ -65,14 +70,21 @@ function Box({
 
 function Xor({ cx, cy, dim = false }: { cx: number; cy: number; dim?: boolean }) {
   return (
-    <g opacity={dim ? 0.35 : 1}>
-      <circle cx={cx} cy={cy} r={9} fill="#fbfaf7" stroke="#9c9a91" strokeWidth={1} />
+    <g opacity={dim ? 0.32 : 1}>
+      <circle
+        cx={cx}
+        cy={cy}
+        r={14}
+        fill="#fbfaf7"
+        stroke="#9c9a91"
+        strokeWidth={dim ? 1 : 1.8}
+      />
       <text
         x={cx}
-        y={cy + 4}
+        y={cy + 5}
         textAnchor="middle"
         fontFamily="ui-monospace, monospace"
-        fontSize={12}
+        fontSize={17}
         fill="#52524d"
       >
         ⊕
@@ -96,9 +108,9 @@ function Wire({
     <path
       d={d}
       fill="none"
-      stroke="#9c9a91"
-      strokeWidth={1.25}
-      opacity={dim ? 0.3 : 1}
+      stroke={dim ? '#c9c6bc' : '#78766c'}
+      strokeWidth={dim ? 1.25 : 2.25}
+      opacity={dim ? 0.22 : 1}
       markerEnd={arrow ? `url(#${markerId})` : undefined}
     />
   )
@@ -116,9 +128,67 @@ function ArrowDefs({ id }: { id: string }) {
         markerHeight="6"
         orient="auto-start-reverse"
       >
-        <path d="M0,0 L10,5 L0,10 z" fill="#9c9a91" />
+        <path d="M0,0 L10,5 L0,10 z" fill="#78766c" />
       </marker>
     </defs>
+  )
+}
+
+function Lane({ cx, height }: { cx: number; height: number }) {
+  return (
+    <rect
+      x={cx - 74}
+      y={8}
+      width={148}
+      height={height - 16}
+      rx={8}
+      fill="#f4f2ec"
+      stroke="#d8d5ca"
+      strokeWidth={1}
+      opacity={0.42}
+    />
+  )
+}
+
+function StepDot({
+  x,
+  y,
+  n,
+  label,
+  dim = false,
+}: {
+  x: number
+  y: number
+  n: number
+  label?: string
+  dim?: boolean
+}) {
+  if (dim) return null
+  return (
+    <g>
+      <circle cx={x} cy={y} r={10} fill="#28282a" stroke="#fbfaf7" strokeWidth={1.5} />
+      <text
+        x={x}
+        y={y + 4}
+        textAnchor="middle"
+        fontFamily="ui-monospace, monospace"
+        fontSize={11}
+        fill="#fbfaf7"
+      >
+        {n}
+      </text>
+      {label && (
+        <text
+          x={x + 15}
+          y={y + 4}
+          fontFamily="ui-sans-serif, system-ui, sans-serif"
+          fontSize={11}
+          fill="#52524d"
+        >
+          {label}
+        </text>
+      )}
+    </g>
   )
 }
 
@@ -149,7 +219,7 @@ function Frame({
         <div className="font-mono text-[12px] text-ink-300">{formula}</div>
         <div className="flex items-center gap-1">
           <span className="text-[10px] tracking-[0.18em] uppercase text-ink-500 font-sans mr-1">
-            Krok
+            Blok
           </span>
           {[1, 2, 3].map((n) => (
             <button
@@ -162,7 +232,8 @@ function Frame({
                   ? 'bg-ink-200 text-ink-950 border-ink-200'
                   : 'bg-transparent text-ink-400 border-ink-800 hover:border-ink-600')
               }
-              aria-label={`Krok ${n}`}
+              aria-label={`Blok ${n}`}
+              aria-pressed={active === n}
             >
               {n}
             </button>
@@ -174,7 +245,7 @@ function Frame({
         <svg
           viewBox={`0 0 ${W} ${height}`}
           width="100%"
-          style={{ maxWidth: 480, display: 'block', margin: '0 auto' }}
+          style={{ maxWidth: 760, minWidth: 620, display: 'block', margin: '0 auto' }}
           aria-label={title}
         >
           <ArrowDefs id={arrowId} />
@@ -194,16 +265,20 @@ function Frame({
 function ECBDiagram({ active, arrowId }: { active: number; arrowId: string }) {
   return (
     <>
+      <Lane cx={COL_X[active - 1]!} height={H_ECB} />
       {COL_X.map((x, i) => {
         const dim = active !== i + 1
         const sub = String.fromCharCode(0x2080 + i + 1) // ₁ ₂ ₃
         return (
           <g key={i}>
-            <Box cx={x} cy={20} label={`OT${sub}`} dim={dim} />
-            <Wire d={`M${x},32 L${x},58`} dim={dim} markerId={arrowId} />
-            <Box cx={x} cy={70} label="Eₖ" kind="op" dim={dim} />
-            <Wire d={`M${x},82 L${x},108`} dim={dim} markerId={arrowId} />
-            <Box cx={x} cy={120} label={`ŠT${sub}`} dim={dim} />
+            <Box cx={x} cy={34} label={`OT${sub}`} dim={dim} />
+            <Wire d={`M${x},50 L${x},87`} dim={dim} markerId={arrowId} />
+            <StepDot x={x + 30} y={68} n={1} label="vstup" dim={dim} />
+            <Box cx={x} cy={104} label="Eₖ" kind="op" dim={dim} />
+            <Wire d={`M${x},120 L${x},157`} dim={dim} markerId={arrowId} />
+            <StepDot x={x + 30} y={139} n={2} label="šifra" dim={dim} />
+            <Box cx={x} cy={176} label={`ŠT${sub}`} dim={dim} />
+            <StepDot x={x + 30} y={202} n={3} label="výstup" dim={dim} />
           </g>
         )
       })}
@@ -214,37 +289,41 @@ function ECBDiagram({ active, arrowId }: { active: number; arrowId: string }) {
 // --- CBC --------------------------------------------------------------------
 
 function CBCDiagram({ active, arrowId }: { active: number; arrowId: string }) {
-  // Layout (per col): OT (y=20) → XOR (y=58) → Eₖ (y=88) → ŠT (y=140)
+  // Layout (per col): OT → XOR → Eₖ → ŠT.
   // Chain: ŠT_{i-1} loops up to XOR_i. IV → XOR_1.
   return (
     <>
+      <Lane cx={COL_X[active - 1]!} height={H_CBC} />
       {COL_X.map((x, i) => {
         const dim = active !== i + 1
         const sub = String.fromCharCode(0x2080 + i + 1)
         return (
           <g key={i}>
-            <Box cx={x} cy={20} label={`OT${sub}`} dim={dim} />
-            <Wire d={`M${x},32 L${x},49`} dim={dim} markerId={arrowId} />
-            <Xor cx={x} cy={58} dim={dim} />
-            <Wire d={`M${x},67 L${x},77`} dim={dim} markerId={arrowId} />
-            <Box cx={x} cy={88} label="Eₖ" kind="op" dim={dim} />
-            <Wire d={`M${x},100 L${x},168`} dim={dim} markerId={arrowId} />
-            <Box cx={x} cy={180} label={`ŠT${sub}`} dim={dim} />
+            <Box cx={x} cy={34} label={`OT${sub}`} dim={dim} />
+            <Wire d={`M${x},50 L${x},86`} dim={dim} markerId={arrowId} />
+            <Xor cx={x} cy={104} dim={dim} />
+            <StepDot x={x + 32} y={104} n={1} label="XOR" dim={dim} />
+            <Wire d={`M${x},118 L${x},154`} dim={dim} markerId={arrowId} />
+            <Box cx={x} cy={172} label="Eₖ" kind="op" dim={dim} />
+            <StepDot x={x + 32} y={144} n={2} label="šifra" dim={dim} />
+            <Wire d={`M${x},188 L${x},244`} dim={dim} markerId={arrowId} />
+            <Box cx={x} cy={264} label={`ŠT${sub}`} dim={dim} />
+            <StepDot x={x + 32} y={222} n={3} label="ŠT" dim={dim} />
           </g>
         )
       })}
       {/* IV → XOR_1 */}
-      <Box cx={20} cy={58} label="IV" kind="iv" dim={active !== 1} />
-      <Wire d={`M40,58 L${COL_X[0] - 9},58`} dim={active !== 1} markerId={arrowId} />
+      <Box cx={44} cy={104} label="IV" kind="iv" dim={active !== 1} width={54} />
+      <Wire d={`M72,104 L${COL_X[0] - 15},104`} dim={active !== 1} markerId={arrowId} />
       {/* ŠT_1 → XOR_2 (chain) */}
       <Wire
-        d={`M${COL_X[0]},192 L${COL_X[0]},200 Q${COL_X[0]},210 ${COL_X[0] + 10},210 L${COL_X[1] - 10},210 Q${COL_X[1]},210 ${COL_X[1]},200 L${COL_X[1]},67`}
+        d={`M${COL_X[0]},280 L${COL_X[0]},306 Q${COL_X[0]},322 ${COL_X[0] + 16},322 L${COL_X[1] - 58},322 Q${COL_X[1] - 74},322 ${COL_X[1] - 74},306 L${COL_X[1] - 74},104 L${COL_X[1] - 15},104`}
         dim={active !== 2}
         markerId={arrowId}
       />
       {/* ŠT_2 → XOR_3 */}
       <Wire
-        d={`M${COL_X[1]},192 L${COL_X[1]},200 Q${COL_X[1]},210 ${COL_X[1] + 10},210 L${COL_X[2] - 10},210 Q${COL_X[2]},210 ${COL_X[2]},200 L${COL_X[2]},67`}
+        d={`M${COL_X[1]},280 L${COL_X[1]},306 Q${COL_X[1]},322 ${COL_X[1] + 16},322 L${COL_X[2] - 58},322 Q${COL_X[2] - 74},322 ${COL_X[2] - 74},306 L${COL_X[2] - 74},104 L${COL_X[2] - 15},104`}
         dim={active !== 3}
         markerId={arrowId}
       />
@@ -255,40 +334,42 @@ function CBCDiagram({ active, arrowId }: { active: number; arrowId: string }) {
 // --- CFB --------------------------------------------------------------------
 
 function CFBDiagram({ active, arrowId }: { active: number; arrowId: string }) {
-  // Per col: Eₖ at top (y=30), XOR at y=88, OT into XOR from side, ŠT at y=140
+  // Per col: Eₖ at top, XOR below, OT into XOR from the right, ŠT at bottom.
   // Chain: ŠT_{i-1} → Eₖ_i input. IV → Eₖ_1 input.
   return (
     <>
+      <Lane cx={COL_X[active - 1]!} height={H_CFB} />
       {COL_X.map((x, i) => {
         const dim = active !== i + 1
         const sub = String.fromCharCode(0x2080 + i + 1)
         return (
           <g key={i}>
-            {/* small input-feed tick above Eₖ */}
-            <Wire d={`M${x},10 L${x},19`} dim={dim} markerId={arrowId} />
-            <Box cx={x} cy={30} label="Eₖ" kind="op" dim={dim} />
-            <Wire d={`M${x},42 L${x},79`} dim={dim} markerId={arrowId} />
-            <Xor cx={x} cy={88} dim={dim} />
-            {/* OT_i comes in from the right */}
-            <Box cx={x + 60} cy={88} label={`OT${sub}`} dim={dim} />
-            <Wire d={`M${x + 28},88 L${x + 9},88`} dim={dim} markerId={arrowId} />
-            <Wire d={`M${x},97 L${x},128`} dim={dim} markerId={arrowId} />
-            <Box cx={x} cy={140} label={`ŠT${sub}`} dim={dim} />
+            <Box cx={x} cy={78} label="Eₖ" kind="op" dim={dim} />
+            <StepDot x={x + 58} y={78} n={1} label="vstup" dim={dim} />
+            <Wire d={`M${x},94 L${x},142`} dim={dim} markerId={arrowId} />
+            <StepDot x={x + 32} y={122} n={2} label="šifra" dim={dim} />
+            <Xor cx={x} cy={160} dim={dim} />
+            <Box cx={x + 84} cy={160} label={`OT${sub}`} dim={dim} />
+            <Wire d={`M${x + 41},160 L${x + 15},160`} dim={dim} markerId={arrowId} />
+            <StepDot x={x + 32} y={184} n={3} label="XOR" dim={dim} />
+            <Wire d={`M${x},174 L${x},226`} dim={dim} markerId={arrowId} />
+            <Box cx={x} cy={246} label={`ŠT${sub}`} dim={dim} />
+            <StepDot x={x + 32} y={218} n={4} label="ŠT" dim={dim} />
           </g>
         )
       })}
       {/* IV → Eₖ_1 */}
-      <Box cx={20} cy={30} label="IV" kind="iv" dim={active !== 1} />
-      <Wire d={`M40,30 L${COL_X[0] - 32},30`} dim={active !== 1} markerId={arrowId} />
+      <Box cx={44} cy={78} label="IV" kind="iv" dim={active !== 1} width={54} />
+      <Wire d={`M72,78 L${COL_X[0] - 43},78`} dim={active !== 1} markerId={arrowId} />
       {/* ŠT_1 → Eₖ_2 */}
       <Wire
-        d={`M${COL_X[0]},152 L${COL_X[0]},162 Q${COL_X[0]},172 ${COL_X[0] + 10},172 L${COL_X[1] - 10},172 Q${COL_X[1]},172 ${COL_X[1]},162 L${COL_X[1]},10`}
+        d={`M${COL_X[0]},262 L${COL_X[0]},286 Q${COL_X[0]},294 ${COL_X[0] + 16},294 L${COL_X[1] - 74},294 L${COL_X[1] - 74},78 L${COL_X[1] - 43},78`}
         dim={active !== 2}
         markerId={arrowId}
       />
       {/* ŠT_2 → Eₖ_3 */}
       <Wire
-        d={`M${COL_X[1]},152 L${COL_X[1]},162 Q${COL_X[1]},172 ${COL_X[1] + 10},172 L${COL_X[2] - 10},172 Q${COL_X[2]},172 ${COL_X[2]},162 L${COL_X[2]},10`}
+        d={`M${COL_X[1]},262 L${COL_X[1]},286 Q${COL_X[1]},294 ${COL_X[1] + 16},294 L${COL_X[2] - 74},294 L${COL_X[2] - 74},78 L${COL_X[2] - 43},78`}
         dim={active !== 3}
         markerId={arrowId}
       />
@@ -305,34 +386,37 @@ function OFBDiagram({ active, arrowId }: { active: number; arrowId: string }) {
   // Below each Eₖ: XOR at y=80, OT comes from right, ŠT at y=128.
   return (
     <>
+      <Lane cx={COL_X[active - 1]!} height={H_OFB} />
       {COL_X.map((x, i) => {
         const dim = active !== i + 1
         const sub = String.fromCharCode(0x2080 + i + 1)
         return (
           <g key={i}>
-            <Box cx={x} cy={30} label="Eₖ" kind="op" dim={dim} />
-            {/* down from Eₖ to XOR */}
-            <Wire d={`M${x},42 L${x},71`} dim={dim} markerId={arrowId} />
-            <Xor cx={x} cy={80} dim={dim} />
-            <Box cx={x + 60} cy={80} label={`OT${sub}`} dim={dim} />
-            <Wire d={`M${x + 28},80 L${x + 9},80`} dim={dim} markerId={arrowId} />
-            <Wire d={`M${x},89 L${x},118`} dim={dim} markerId={arrowId} />
-            <Box cx={x} cy={130} label={`ŠT${sub}`} dim={dim} />
+            <Box cx={x} cy={48} label="Eₖ" kind="op" dim={dim} />
+            <StepDot x={x + 32} y={26} n={1} label="Hᵢ" dim={dim} />
+            <Wire d={`M${x},64 L${x},124`} dim={dim} markerId={arrowId} />
+            <Xor cx={x} cy={142} dim={dim} />
+            <Box cx={x + 84} cy={142} label={`OT${sub}`} dim={dim} />
+            <Wire d={`M${x + 41},142 L${x + 15},142`} dim={dim} markerId={arrowId} />
+            <StepDot x={x + 32} y={166} n={2} label="XOR" dim={dim} />
+            <Wire d={`M${x},156 L${x},208`} dim={dim} markerId={arrowId} />
+            <Box cx={x} cy={228} label={`ŠT${sub}`} dim={dim} />
+            <StepDot x={x + 32} y={200} n={3} label="ŠT" dim={dim} />
           </g>
         )
       })}
       {/* IV → Eₖ_1 (from left) */}
-      <Box cx={20} cy={30} label="IV" kind="iv" dim={active !== 1} />
-      <Wire d={`M40,30 L${COL_X[0] - 32},30`} dim={active !== 1} markerId={arrowId} />
+      <Box cx={44} cy={48} label="IV" kind="iv" dim={active !== 1} width={54} />
+      <Wire d={`M72,48 L${COL_X[0] - 43},48`} dim={active !== 1} markerId={arrowId} />
       {/* Eₖ_1 → Eₖ_2 (horizontal key stream) */}
       <Wire
-        d={`M${COL_X[0] + 32},30 L${COL_X[1] - 32},30`}
+        d={`M${COL_X[0] + 43},48 L${COL_X[1] - 43},48`}
         dim={active < 2}
         markerId={arrowId}
       />
       {/* Eₖ_2 → Eₖ_3 */}
       <Wire
-        d={`M${COL_X[1] + 32},30 L${COL_X[2] - 32},30`}
+        d={`M${COL_X[1] + 43},48 L${COL_X[2] - 43},48`}
         dim={active < 3}
         markerId={arrowId}
       />
@@ -346,21 +430,26 @@ function CTRDiagram({ active, arrowId }: { active: number; arrowId: string }) {
   // Per col: counter at top, Eₖ, XOR with OT from right, ŠT.
   return (
     <>
+      <Lane cx={COL_X[active - 1]!} height={H_NORMAL} />
       {COL_X.map((x, i) => {
         const dim = active !== i + 1
         const sub = String.fromCharCode(0x2080 + i + 1)
         const ctr = i === 0 ? 'IV' : `IV+${i}`
         return (
           <g key={i}>
-            <Box cx={x} cy={20} label={ctr} kind="iv" dim={dim} />
-            <Wire d={`M${x},32 L${x},58`} dim={dim} markerId={arrowId} />
-            <Box cx={x} cy={70} label="Eₖ" kind="op" dim={dim} />
-            <Wire d={`M${x},82 L${x},111`} dim={dim} markerId={arrowId} />
-            <Xor cx={x} cy={120} dim={dim} />
-            <Box cx={x + 60} cy={120} label={`OT${sub}`} dim={dim} />
-            <Wire d={`M${x + 28},120 L${x + 9},120`} dim={dim} markerId={arrowId} />
-            <Wire d={`M${x},129 L${x},158`} dim={dim} markerId={arrowId} />
-            <Box cx={x} cy={170} label={`ŠT${sub}`} dim={dim} />
+            <Box cx={x} cy={34} label={ctr} kind="iv" dim={dim} />
+            <Wire d={`M${x},50 L${x},86`} dim={dim} markerId={arrowId} />
+            <StepDot x={x + 32} y={68} n={1} label="čítač" dim={dim} />
+            <Box cx={x} cy={104} label="Eₖ" kind="op" dim={dim} />
+            <Wire d={`M${x},120 L${x},166`} dim={dim} markerId={arrowId} />
+            <StepDot x={x + 32} y={144} n={2} label="šifra" dim={dim} />
+            <Xor cx={x} cy={184} dim={dim} />
+            <Box cx={x + 84} cy={184} label={`OT${sub}`} dim={dim} />
+            <Wire d={`M${x + 41},184 L${x + 15},184`} dim={dim} markerId={arrowId} />
+            <StepDot x={x + 32} y={208} n={3} label="XOR" dim={dim} />
+            <Wire d={`M${x},198 L${x},250`} dim={dim} markerId={arrowId} />
+            <Box cx={x} cy={270} label={`ŠT${sub}`} dim={dim} />
+            <StepDot x={x + 32} y={242} n={4} label="ŠT" dim={dim} />
           </g>
         )
       })}
@@ -379,21 +468,21 @@ const CONFIG: Record<
     formula: 'ŠTᵢ = Eₖ(OTᵢ)',
     caption:
       'Bloky se šifrují nezávisle. Stejný OT blok dvakrát → vždy stejný ŠT. Paralelizovatelné, ale odhaluje vzory.',
-    height: 150,
+    height: H_ECB,
   },
   cbc: {
     title: 'CBC',
     formula: 'ŠTᵢ = Eₖ(OTᵢ ⊕ ŠTᵢ₋₁),  ŠT₀ = IV',
     caption:
       'Před šifrováním se OT XORuje s předchozím ŠT (první s IV). Šifrování je sériové — nelze paralelizovat.',
-    height: 230,
+    height: H_CBC,
   },
   cfb: {
     title: 'CFB',
     formula: 'ŠTᵢ = OTᵢ ⊕ Eₖ(ŠTᵢ₋₁),  ŠT₀ = IV',
     caption:
       'Eₖ se aplikuje na předchozí ŠT a výsledek se XORuje s OT. Samosynchronizující — chyba se po jednom bloku „vyhojí“.',
-    height: 190,
+    height: H_CFB,
   },
   ofb: {
     title: 'OFB',
