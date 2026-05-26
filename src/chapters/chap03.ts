@@ -136,6 +136,18 @@ export const chap03: Chapter = {
           kind: 'p',
           html: '<strong>ChaCha</strong> (Bernstein, 2008) je úprava Salsa20 s lepším rozptylem v jedné rundě. QR aktualizuje každé slovo 2× (Salsa pouze 1×). Rotace 16, 12, 8, 7. Liché rundy na sloupce, sudé na diagonály. Používá ji <strong>ChaCha20-Poly1305</strong> v QUIC, TLS a OpenSSH.',
         },
+        {
+          kind: 'diagram',
+          component: 'salsa-chacha-flow',
+          caption:
+            'Salsa20/ChaCha jako synchronní proudová šifra: klíč, nonce a čítač určují blok hesla; ten se XORuje s otevřeným textem.',
+        },
+        {
+          kind: 'interactive',
+          component: 'salsa-chacha',
+          title: 'Salsa20 a ChaCha krok za krokem',
+          hint: 'Co se děje uvnitř generátoru hesla: animovaný průchod quarter-roundem ukazuje, která slova se v ARX kroku mění a jak se změna šíří přes matici.',
+        },
       ],
     },
     {

@@ -12,6 +12,9 @@ const components: Record<DiagramName, ReturnType<typeof lazy>> = {
   'stream-sync': lazy(() =>
     import('./StreamSync').then((m) => ({ default: m.StreamSync })),
   ),
+  'salsa-chacha-flow': lazy(() =>
+    import('./SalsaChaChaFlow').then((m) => ({ default: m.SalsaChaChaFlow })),
+  ),
   'apdu-frame': lazy(() =>
     import('./ApduFrame').then((m) => ({ default: m.ApduFrame })),
   ),
