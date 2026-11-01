@@ -100,8 +100,9 @@ export function TestRunner({ test, questions }: { test: MockTest; questions: Que
             type="button"
             className="btn"
             onClick={() => {
-              setNow(Date.now())
-              persist({ startedAt: Date.now(), answers: questions.map(() => emptyAnswer()), flags: questions.map(() => false), submittedAt: null, score: null })
+              const t = Date.now()
+              setNow(t)
+              persist({ startedAt: t, answers: questions.map(() => emptyAnswer()), flags: questions.map(() => false), submittedAt: null, score: null })
               setCur(0)
             }}
           >

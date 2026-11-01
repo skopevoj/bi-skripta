@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import type { Question as Q } from '@content/types'
 import { emptyAnswer, grade, isAnswered } from '@/lib/grade'
 import { clearAnswer, recordAnswer, useProgress, type AnswerState } from '@/lib/progress'
@@ -59,7 +59,7 @@ function expectedText(q: Q): React.ReactNode {
   }
   if (q.kind === 'mc') {
     const letters = q.correct.map((i) => String.fromCharCode(65 + i)).join(', ')
-    return <>Správně: {letters}.</>
+    return <>Odpověď: {letters}.</>
   }
   return null
 }
@@ -246,17 +246,15 @@ export function QuestionCard({ q, n, id }: { q: Q; n?: string; id?: string }) {
   const saved = prog.answers[q.id]
   const [st, setSt] = useState<AnswerState>(emptyAnswer)
   const [checked, setChecked] = useState(false)
-  const [hydrated, setHydrated] = useState(false)
+  const restored = useRef(false)
 
-  // restore the last answer once (after hydration)
+  // restore the last answer once — `saved` only shows up after hydration (server snapshot is empty)
   useEffect(() => {
-    if (hydrated) return
-    setHydrated(true)
-    if (saved) {
-      setSt(saved.st)
-      setChecked(true)
-    }
-  }, [saved, hydrated])
+    if (restored.current || !saved) return
+    restored.current = true
+    setSt(saved.st)
+    setChecked(true)
+  }, [saved])
 
   const ok = q.kind === 'open' ? st.self : grade(q, st)
 
