@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Question } from '@content/types'
-import { Blocks, tocEntries } from '@/components/Blocks'
+import { Blocks, countCallouts, tocEntries } from '@/components/Blocks'
 import { Toc } from '@/components/Toc'
 import { ReadMarker } from '@/components/ReadMarker'
 import { chapterByNum, chapters, getQuestions, readingMinutes, sectionQuestionIds } from '@/lib/content'
@@ -47,6 +47,7 @@ export default async function SectionPage({ params }: P) {
         : { href: '/testy', title: 'Testy nanečisto' }
 
   const toc = tocEntries(sec.id, sec.blocks)
+  const calloutStart = c.sections.slice(0, si).reduce((n, x) => n + countCallouts(x.blocks), 0)
 
   return (
     <>
@@ -67,7 +68,7 @@ export default async function SectionPage({ params }: P) {
           </p>
           {si === 0 && <p className="lede">{c.summary}</p>}
 
-          <Blocks secId={sec.id} blocks={sec.blocks} qmap={qmap} />
+          <Blocks secId={sec.id} blocks={sec.blocks} qmap={qmap} chapter={c.number} calloutStart={calloutStart} />
 
           <ReadMarker sectionId={sec.id} />
           <nav className="next" aria-label="Sekce">

@@ -6,14 +6,17 @@ import { Sources } from './Sources'
 import { Interactive } from './labs/Interactive'
 import { CompareDiagrams, OntoDiagram } from './onto/OntoDiagram'
 
-export const CALLOUT: Record<CalloutKind, { cls: string; icon: IconName; label: string }> = {
-  definice: { cls: 'def', icon: 'book', label: 'Definice' },
-  pravidlo: { cls: 'rul', icon: 'steps', label: 'Pravidlo' },
-  past: { cls: 'pst', icon: 'warn', label: 'Past' },
-  priklad: { cls: 'qt', icon: 'bulb', label: 'Příklad' },
-  poznamka: { cls: 'qt', icon: 'note', label: 'Poznámka' },
-  shrnuti: { cls: 'qt', icon: 'sum', label: 'Shrnutí' },
+export const CALLOUT: Record<CalloutKind, { icon: IconName; label: string }> = {
+  definice: { icon: 'book', label: 'Definice' },
+  pravidlo: { icon: 'steps', label: 'Pravidlo' },
+  past: { icon: 'warn', label: 'Pozor' },
+  priklad: { icon: 'bulb', label: 'Příklad' },
+  poznamka: { icon: 'note', label: 'Poznámka' },
+  shrnuti: { icon: 'sum', label: 'Shrnutí' },
 }
+
+/** Callouts are numbered per chapter (Definice 3.4, Příklad 3.5 …), one counter for all kinds. */
+export const countCallouts = (blocks: Block[]) => blocks.filter((b) => b.kind === 'callout').length
 
 const hasBlockHtml = (html: string) => /<(ul|ol|p|div|table|pre)\b/i.test(html)
 
@@ -24,7 +27,7 @@ export function tocEntries(secId: string, blocks: Block[]): { id: string; title:
   const out: { id: string; title: string }[] = []
   blocks.forEach((b, i) => {
     if (b.kind === 'callout' && (b.type === 'definice' || b.type === 'pravidlo' || b.type === 'past'))
-      out.push({ id: blockId(secId, i), title: b.type === 'past' ? `Past: ${b.title}` : b.title })
+      out.push({ id: blockId(secId, i), title: b.type === "past" ? `Pozor: ${b.title}` : b.title })
     else if (b.kind === 'interactive') out.push({ id: blockId(secId, i), title: b.title || 'Interaktivně' })
     else if ((b.kind === 'diagram' || b.kind === 'compare') && b.title) out.push({ id: blockId(secId, i), title: b.title })
     else if (b.kind === 'quiz') out.push({ id: blockId(secId, i), title: b.title || 'Procvičení' })
@@ -32,7 +35,20 @@ export function tocEntries(secId: string, blocks: Block[]): { id: string; title:
   return out
 }
 
-export function Blocks({ secId, blocks, qmap }: { secId: string; blocks: Block[]; qmap: Record<string, Question> }) {
+export function Blocks({
+  secId,
+  blocks,
+  qmap,
+  chapter,
+  calloutStart = 0,
+}: {
+  secId: string
+  blocks: Block[]
+  qmap: Record<string, Question>
+  chapter?: string
+  calloutStart?: number
+}) {
+  let calloutN = calloutStart
   return (
     <>
       {blocks.map((b, i) => {
@@ -84,30 +100,38 @@ export function Blocks({ secId, blocks, qmap }: { secId: string; blocks: Block[]
           case 'callout': {
             const c = CALLOUT[b.type]
             const block = hasBlockHtml(b.html)
+            calloutN++
             return (
-              <div key={i} id={id} className={`box ${c.cls}`}>
+              <div key={i} id={id} className="box" data-k={b.type}>
                 <div className="box-h">
+                  <span className="box-t">
+                    <b>
+                      {c.label}
+                      {chapter ? ` ${chapter}.${calloutN}` : ''}
+                    </b>
+                    {b.title && <span> ({b.title})</span>}
+                  </span>
                   <Icon name={c.icon} />
-                  <b>{c.label}</b>
-                  <span>{b.title}</span>
                 </div>
-                {block ? (
-                  <>
-                    <div className="bh" dangerouslySetInnerHTML={{ __html: b.html }} />
-                    {!b.code && <Sources refs={b.sources} block />}
-                  </>
-                ) : (
-                  <p>
-                    <span dangerouslySetInnerHTML={{ __html: b.html }} />
-                    {!b.code && <Sources refs={b.sources} />}
-                  </p>
-                )}
-                {b.code && (
-                  <>
-                    <CodeBlock code={b.code} lang={b.lang ?? 'ocl'} />
-                    <Sources refs={b.sources} block />
-                  </>
-                )}
+                <div className="box-b">
+                  {block ? (
+                    <>
+                      <div className="bh" dangerouslySetInnerHTML={{ __html: b.html }} />
+                      {!b.code && <Sources refs={b.sources} block />}
+                    </>
+                  ) : (
+                    <p>
+                      <span dangerouslySetInnerHTML={{ __html: b.html }} />
+                      {!b.code && <Sources refs={b.sources} />}
+                    </p>
+                  )}
+                  {b.code && (
+                    <>
+                      <CodeBlock code={b.code} lang={b.lang ?? 'ocl'} />
+                      <Sources refs={b.sources} block />
+                    </>
+                  )}
+                </div>
               </div>
             )
           }
