@@ -70,13 +70,17 @@ export function OntoDiagram({
   caption,
   compact,
   toolbar = true,
+  big,
 }: {
   diagram: Diagram
   title?: string
   caption?: string
   compact?: boolean
   toolbar?: boolean
+  big?: boolean
 }) {
+  const dlg = useRef<HTMLDialogElement>(null)
+  const [zoomed, setZoomed] = useState(false)
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '')
   const style = useDiagramStyle()
   const g = useMemo(() => layout(diagram), [diagram])
@@ -144,7 +148,7 @@ export function OntoDiagram({
   }
 
   return (
-    <figure className={`od${compact ? ' od-compact' : ''}`} data-style={style}>
+    <figure className={`od${compact ? ' od-compact' : ''}${big ? ' od-big' : ''}`} data-style={style}>
       {toolbar && (
         <div className="od-bar">
           {title && <span className="od-title">{title}</span>}
@@ -167,6 +171,20 @@ export function OntoDiagram({
           </div>
           <span className="od-sp" />
           {!compact && <StyleSwitch />}
+          {!big && (
+            <button
+              type="button"
+              className="icon-btn od-zoom"
+              aria-label="Zvětšit diagram"
+              title="Zvětšit"
+              onClick={() => {
+                setZoomed(true)
+                requestAnimationFrame(() => dlg.current?.showModal())
+              }}
+            >
+              <Icon name="expand" />
+            </button>
+          )}
         </div>
       )}
       <div
@@ -178,7 +196,7 @@ export function OntoDiagram({
         onBlur={() => place(null)}
       >
         <div className="od-scroll">
-          <div style={{ minWidth: Math.min(g.view.w, Math.max(320, g.view.w * 0.62)) }}>
+          <div style={big ? { width: Math.min(g.view.w * 1.35, 1500), maxWidth: '100%', margin: '0 auto' } : { minWidth: Math.min(g.view.w, Math.max(320, g.view.w * 0.62)) }}>
             <DiagramSvg g={g} style={style} uid={uid} state={{ visible, hover, related, famFocus: focus }} title={title} />
           </div>
         </div>
@@ -218,6 +236,19 @@ export function OntoDiagram({
         </div>
       )}
       {caption && <figcaption dangerouslySetInnerHTML={{ __html: caption }} />}
+      {zoomed && (
+        <dialog
+          ref={dlg}
+          className="od-dlg"
+          onClose={() => setZoomed(false)}
+          onClick={(e) => e.target === dlg.current && dlg.current?.close()}
+        >
+          <button type="button" className="icon-btn od-dlg-x" aria-label="Zavřít" onClick={() => dlg.current?.close()}>
+            <Icon name="x" />
+          </button>
+          <OntoDiagram diagram={diagram} title={title} caption={caption} big />
+        </dialog>
+      )}
     </figure>
   )
 }

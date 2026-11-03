@@ -260,8 +260,8 @@ const dEnrollment: Diagram = {
   classes: [
     { id: 'person', name: 'Person', st: 'kind', x: 0, y: 0 },
     { id: 'student', name: 'Student', st: 'role', x: 0, y: 1, note: 'Studentem je Person jen díky zápisu — relační závislost splněna povinnou mediací.' },
-    { id: 'enr', name: 'Enrollment', st: 'relator', x: 1, y: 1, attrs: ['since: Date'], mark: 'focus', note: 'Zápis ke studiu: má vlastní identitu i vlastnosti (od kdy, číslo studenta…).' },
-    { id: 'uni', name: 'University', st: 'kind', x: 2, y: 1 },
+    { id: 'enr', name: 'Enrollment', st: 'relator', x: 1.5, y: 1, attrs: ['since: Date'], mark: 'focus', note: 'Zápis ke studiu: má vlastní identitu i vlastnosti (od kdy, číslo studenta…).' },
+    { id: 'uni', name: 'University', st: 'kind', x: 3, y: 1 },
   ],
   gens: [{ general: 'person', specifics: ['student'] }],
   assocs: [
@@ -317,8 +317,8 @@ function assignment(roleMult: string, matSup: string): Diagram {
 const dRelRigBad: Diagram = {
   classes: [
     { id: 'man', name: 'Man', st: 'kind', x: 0, y: 0, mark: 'bad', note: 'Povinná mediace na rigidním typu: každý muž by musel být nutně ženatý.' },
-    { id: 'marriage', name: 'Marriage', st: 'relator', x: 1, y: 0 },
-    { id: 'woman', name: 'Woman', st: 'kind', x: 2, y: 0, mark: 'bad' },
+    { id: 'marriage', name: 'Marriage', st: 'relator', x: 1.5, y: 0 },
+    { id: 'woman', name: 'Woman', st: 'kind', x: 3, y: 0, mark: 'bad' },
   ],
   assocs: [
     { from: 'marriage', to: 'man', st: 'mediation', fromMult: '1..*', toMult: '1', mark: 'bad' },
@@ -329,10 +329,10 @@ const dRelRigBad: Diagram = {
 const dRelRigGood: Diagram = {
   classes: [
     { id: 'man', name: 'Man', st: 'kind', x: 0, y: 0 },
-    { id: 'woman', name: 'Woman', st: 'kind', x: 2, y: 0 },
+    { id: 'woman', name: 'Woman', st: 'kind', x: 3, y: 0 },
     { id: 'husband', name: 'Husband', st: 'role', x: 0, y: 1, mark: 'good' },
-    { id: 'marriage', name: 'Marriage', st: 'relator', x: 1, y: 1 },
-    { id: 'wife', name: 'Wife', st: 'role', x: 2, y: 1, mark: 'good' },
+    { id: 'marriage', name: 'Marriage', st: 'relator', x: 1.5, y: 1 },
+    { id: 'wife', name: 'Wife', st: 'role', x: 3, y: 1, mark: 'good' },
   ],
   gens: [
     { general: 'man', specifics: ['husband'] },

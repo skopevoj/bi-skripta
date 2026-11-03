@@ -212,3 +212,11 @@ figure.od > figcaption{ padding: 0 16px 12px; font-size: 14px; color: var(--ink-
 .od-cmp-i .od{ flex: 1; display: flex; flex-direction: column; justify-content: center; }
 .od-cmp-n{ margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
 .od-cmp-i .od-stage .od-bg, figure.od .od-bg{ fill: transparent; }
+.od-zoom{ width: 28px; height: 28px; }
+.od-compact .od-zoom{ margin-left: auto; }
+.od-dlg{ width: min(96vw, 1560px); max-height: 92dvh; padding: 0; border: 0; border-radius: 16px; background: var(--bg); color: var(--ink); box-shadow: 0 24px 80px oklch(0 0 0 / .35); overflow: auto; }
+.od-dlg::backdrop{ background: oklch(0.15 0.01 250 / .55); backdrop-filter: blur(3px); }
+.od-dlg figure.od{ margin: 0; box-shadow: none; border-radius: 0; }
+.od-dlg .od-bar{ padding-right: 52px; position: sticky; top: 0; z-index: 2; }
+.od-dlg-x{ position: absolute; top: 9px; right: 10px; z-index: 3; }
+.od-big .od-stage{ padding: 24px; }

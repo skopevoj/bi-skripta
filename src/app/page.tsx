@@ -11,8 +11,8 @@ const HERO: Diagram = {
     { id: 'child', name: 'Child', st: 'phase', x: 0.4, y: 1.25, note: 'Fáze: Jan jí projde a přestane v ní být (anti-rigidní, podle vnitřní vlastnosti — věku).' },
     { id: 'adult', name: 'Adult', st: 'phase', x: 1.6, y: 1.25, note: 'Fáze: spolu s Child tvoří disjunktní a úplný rozklad.' },
     { id: 'student', name: 'Student', st: 'role', x: 2.75, y: 1.25, note: 'Role: studentem je Jan jen díky vztahu k univerzitě (relační závislost).' },
-    { id: 'enr', name: 'Enrollment', st: 'relator', x: 3.9, y: 1.25, attrs: ['since: Date'], note: 'Relátor: zápis je „věc“, která drží vztah studenta a univerzity pohromadě.' },
-    { id: 'uni', name: 'University', st: 'kind', x: 3.9, y: 0 },
+    { id: 'enr', name: 'Enrollment', st: 'relator', x: 4.35, y: 1.25, attrs: ['since: Date'], note: 'Relátor: zápis je „věc“, která drží vztah studenta a univerzity pohromadě.' },
+    { id: 'uni', name: 'University', st: 'kind', x: 4.35, y: 0 },
   ],
   gens: [
     { general: 'person', specifics: ['child', 'adult'], set: { name: 'age', disjoint: true, complete: true } },
