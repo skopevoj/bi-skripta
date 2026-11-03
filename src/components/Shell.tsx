@@ -130,7 +130,7 @@ export function Shell({
         <Link className="brand" href="/">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="mark-logo" src="/icon.svg" alt="" width={26} height={26} />
-          BI-KOM <small>skripta</small>
+          BI-KOM
         </Link>
         {crumbs.length > 0 && (
           <nav className="crumbs" aria-label="Drobečková navigace">
