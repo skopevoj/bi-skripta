@@ -147,7 +147,7 @@ function unit(a: Pt, b: Pt): Pt {
 // ---------------------------------------------------------------------------
 // generalizations
 
-function layoutGen(g: DGen, gi: number, byId: Map<string, Box>, slots: SlotTracker, nth: number): Edge | null {
+function layoutGen(g: DGen, gi: number, byId: Map<string, Box>, slots: SlotTracker, nth: number, spans: Map<string, [number, number]>): Edge | null {
   const sup = byId.get(g.general)
   const subs = g.specifics.map((id) => byId.get(id)).filter((b): b is Box => !!b)
   if (!sup || subs.length === 0) return null
@@ -158,7 +158,37 @@ function layoutGen(g: DGen, gi: number, byId: Map<string, Box>, slots: SlotTrack
   const below = subs.filter((s) => s.y0 >= sup.y1 + 24)
   const other = subs.filter((s) => !below.includes(s))
 
+  const prev = spans.get(sup.id)
+  const cxs = below.map((s) => s.cx)
+  let sideComb = !!prev && below.length > 0 && (Math.min(...cxs) > prev[1] || Math.max(...cxs) < prev[0])
+  if (sideComb) {
+    // only if the horizontal run from the supertype's side is free of other boxes
+    const toR = Math.min(...cxs) > prev![1]
+    const far = toR ? Math.max(...cxs) : Math.min(...cxs)
+    const p0: Pt = [toR ? sup.x1 : sup.x0, sup.cy]
+    const p1: Pt = [far, sup.cy]
+    const others = [...byId.values()].filter((b) => b !== sup && !below.includes(b))
+    if (others.some((o) => segHitsBox(p0, p1, o) || below.some((s) => segHitsBox([s.cx, sup.cy], [s.cx, s.y0], o)))) sideComb = false
+  }
   if (below.length) {
+    const span: [number, number] = [Math.min(...cxs, sup.cx), Math.max(...cxs, sup.cx)]
+    spans.set(sup.id, prev ? [Math.min(prev[0], span[0]), Math.max(prev[1], span[1])] : span)
+  }
+  if (sideComb) {
+    // another generalization set beside an existing tree: leave the supertype from its side so the trees don't cross
+    const toRight = Math.min(...cxs) > prev![1]
+    const ex = toRight ? sup.x1 : sup.x0
+    const ey = slots.side(sup, toRight ? 'r' : 'l', sup.cy)
+    const dir = toRight ? 1 : -1
+    glyphs.push({ kind: 'triangle', pts: triangle([ex, ey], [-dir, 0]) })
+    const far = toRight ? Math.max(...cxs) : Math.min(...cxs)
+    paths.push([[ex + dir * 15, ey], [far, ey]])
+    for (const s of below) paths.push([[s.cx, ey], [s.cx, s.y0]])
+    const t = g.set && (g.set.disjoint || g.set.complete || g.set.name)
+      ? [g.set.name, [g.set.disjoint ? 'disjoint' : '', g.set.complete ? 'complete' : ''].filter(Boolean).join(', ')].filter(Boolean).map((x, i) => (i === 1 || !g.set!.name ? `{${x}}` : x)).join(' ')
+      : ''
+    if (t) labels.push({ x: (ex + far) / 2, y: ey - 8, text: t, anchor: 'middle', kind: 'gs' })
+  } else if (below.length) {
     const ax = slots.bottom(sup, key, below)
     const top = Math.min(...below.map((s) => s.y0))
     // several generalization sets under one supertype: stagger their bars so they don't merge
@@ -448,12 +478,13 @@ export function layout(d: Diagram): Geometry {
   const slots = new SlotTracker()
   const edges: Edge[] = []
   const genCount = new Map<string, number>()
+  const genSpans = new Map<string, [number, number]>()
   ;(d.gens ?? []).forEach((g, i) => {
     const sup = byId.get(g.general)
     const hasBelow = !!sup && g.specifics.some((id) => (byId.get(id)?.y0 ?? -Infinity) >= sup.y1 + 24)
     const nth = hasBelow ? genCount.get(g.general) ?? 0 : 0
     if (hasBelow) genCount.set(g.general, nth + 1)
-    const e = layoutGen(g, i, byId, slots, nth)
+    const e = layoutGen(g, i, byId, slots, nth, genSpans)
     if (e) edges.push(e)
   })
   const pairCount = new Map<string, number>()
