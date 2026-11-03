@@ -1138,7 +1138,6 @@ export const wiki: Question[] = [
       ex(56),
       WIKI,
       sl('P09', 6, 'BPMN je spravováno a rozvíjeno konsorciem OMG (Object Management Group)'),
-      sl('P09', 6, 'Navrženo jako business-friendly'),
       sl('P09', 7, 'Specifikace selhává v rozlišení elementů pro konceptuální modelování a vykonání'),
     ],
   },

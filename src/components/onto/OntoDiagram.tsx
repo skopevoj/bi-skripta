@@ -6,27 +6,22 @@ import { CLASS_INFO } from '@/lib/onto/info'
 import { DiagramSvg, STYLES, type DiagramStyle } from './DiagramSvg'
 import { Icon } from '../Icon'
 
-// ---- shared style preference (all diagrams switch together) ----
-const KEY = 'kom-dstyle'
+// ---- shared style preference: one cookie for all diagrams, chosen in Settings (gear in the top bar) ----
+export const DSTYLE_COOKIE = 'kom-dstyle'
+export const DEFAULT_DSTYLE: DiagramStyle = 'klasik'
 const subs = new Set<() => void>()
 let cur: DiagramStyle | null = null
+function readCookie(): DiagramStyle {
+  const m = typeof document !== 'undefined' ? document.cookie.match(new RegExp(`(?:^|; )${DSTYLE_COOKIE}=([^;]+)`)) : null
+  const v = m?.[1] as DiagramStyle | undefined
+  return v && STYLES.some((s) => s.id === v) ? v : DEFAULT_DSTYLE
+}
 function getStyle(): DiagramStyle {
-  if (cur) return cur
-  try {
-    const v = localStorage.getItem(KEY) as DiagramStyle | null
-    cur = v && STYLES.some((s) => s.id === v) ? v : 'moderni'
-  } catch {
-    cur = 'moderni'
-  }
-  return cur
+  return (cur ??= readCookie())
 }
 export function setDiagramStyle(s: DiagramStyle) {
   cur = s
-  try {
-    localStorage.setItem(KEY, s)
-  } catch {
-    /* ignore */
-  }
+  document.cookie = `${DSTYLE_COOKIE}=${s}; path=/; max-age=31536000; samesite=lax`
   subs.forEach((f) => f())
 }
 export function useDiagramStyle(): DiagramStyle {
@@ -36,20 +31,7 @@ export function useDiagramStyle(): DiagramStyle {
       return () => subs.delete(f)
     },
     getStyle,
-    () => 'moderni',
-  )
-}
-
-export function StyleSwitch() {
-  const style = useDiagramStyle()
-  return (
-    <div className="od-seg" role="group" aria-label="Styl diagramů">
-      {STYLES.map((s) => (
-        <button key={s.id} type="button" aria-pressed={style === s.id} onClick={() => setDiagramStyle(s.id)} title={`Styl diagramů: ${s.label}`}>
-          {s.label}
-        </button>
-      ))}
-    </div>
+    () => DEFAULT_DSTYLE,
   )
 }
 
@@ -124,7 +106,10 @@ export function OntoDiagram({
       const yTop = r.top - host.top + (b.y0 - g.view.y) * k
       const yBot = r.top - host.top + (b.y1 - g.view.y) * k
       const below = yTop < 150
-      setTip({ x, y: below ? yBot + 8 : yTop - 8, below })
+      // keep the tooltip (max 280 px wide) inside the diagram frame
+      const half = Math.min(150, host.width / 2 - 8)
+      const cx = Math.min(Math.max(x, half + 8), host.width - half - 8)
+      setTip({ x: cx, y: below ? yBot + 8 : yTop - 8, below })
     },
     [g],
   )
@@ -170,7 +155,6 @@ export function OntoDiagram({
             ))}
           </div>
           <span className="od-sp" />
-          {!compact && <StyleSwitch />}
           {!big && (
             <button
               type="button"
@@ -265,7 +249,6 @@ export function CompareDiagrams({
       {title && (
         <div className="od-cmp-h">
           <span>{title}</span>
-          <StyleSwitch />
         </div>
       )}
       <div className="od-cmp-g">

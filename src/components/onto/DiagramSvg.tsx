@@ -5,11 +5,11 @@ import { CLASS_INFO } from '../../lib/onto/info'
 
 export type DiagramStyle = 'klasik' | 'moderni' | 'tisk' | 'vyrazny'
 
-export const STYLES: { id: DiagramStyle; label: string }[] = [
-  { id: 'moderni', label: 'Moderní' },
-  { id: 'klasik', label: 'Klasik' },
-  { id: 'vyrazny', label: 'Výrazný' },
-  { id: 'tisk', label: 'Tisk' },
+export const STYLES: { id: DiagramStyle; label: string; desc: string }[] = [
+  { id: 'klasik', label: 'Klasik', desc: 'Barevné výplně jako v OntoUML pluginu' },
+  { id: 'vyrazny', label: 'Výrazný', desc: 'Sytá hlavička, bílé tělo' },
+  { id: 'tisk', label: 'Tisk', desc: 'Černobílé jako na slajdech' },
+  { id: 'moderni', label: 'Moderní', desc: 'Pastelové s barevným proužkem' },
 ]
 
 const STYLE_CFG: Record<DiagramStyle, { r: number; er: number }> = {

@@ -6,6 +6,7 @@ import type { NavChapter } from '@/lib/content'
 import { useProgress } from '@/lib/progress'
 import { Icon } from './Icon'
 import { Search, type SearchItem } from './Search'
+import { Settings } from './Settings'
 import { Workbench } from './workbench/Workbench'
 import { useWorkbench } from './workbench/WorkbenchProvider'
 
@@ -151,6 +152,7 @@ export function Shell({
             <Icon name="moon" className="t-moon" />
             <Icon name="sun" className="t-sun" />
           </button>
+          <Settings />
         </div>
       </header>
       <div className="layout">

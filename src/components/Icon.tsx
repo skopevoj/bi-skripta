@@ -1,7 +1,7 @@
 export type IconName =
   | 'sun' | 'moon' | 'search' | 'menu' | 'play' | 'l' | 'r' | 'x' | 'check' | 'copy' | 'book' | 'steps'
   | 'warn' | 'file' | 'slides' | 'code' | 'chev' | 'dot' | 'flag' | 'list' | 'clock' | 'ext' | 'bulb' | 'note' | 'sum' | 'lab' | 'img'
-  | 'expand'
+  | 'expand' | 'gear'
 
 export function Icon({ name, className }: { name: IconName; className?: string }) {
   return (
@@ -40,6 +40,7 @@ export function IconSprite() {
       <symbol id="i-note" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M12 11v5M12 7.9v.1" /></symbol>
       <symbol id="i-sum" viewBox="0 0 24 24"><path d="M17 5.5H7l5 6.5-5 6.5h10" /></symbol>
       <symbol id="i-lab" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10 3.5v6l-5 8.5a1.5 1.5 0 0 0 1.3 2.5h11.4a1.5 1.5 0 0 0 1.3-2.5L14 9.5v-6M7.5 15h9" /></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34H9a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V9c.26.6.85 1 1.51 1H21a2 2 0 1 1 0 4h-.09c-.66 0-1.25.4-1.51 1z" /></symbol>
       <symbol id="i-expand" viewBox="0 0 24 24"><path d="M14.5 4.5h5v5M9.5 19.5h-5v-5M19.5 4.5l-6 6M4.5 19.5l6-6" /></symbol>
       <symbol id="i-img" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="M20.5 16l-5-5-8 8.5" /></symbol>
     </svg>
