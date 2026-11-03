@@ -217,7 +217,7 @@ export const ch02: Question[] = [
     id: 'ch02-12',
     kind: 'mc',
     topic: 'uml',
-    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki)'] },
+    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki)', 'Zkouška (FIT Wiki), úloha 27'] },
     prompt: 'Násobnost vztahu 1..* v OntoUML modelu pro danou entitu znamená:',
     options: [
       'Vztah je pro entitu vždy povinný.',
@@ -231,6 +231,8 @@ export const ch02: Question[] = [
       'Spodní mez určuje povinnost: 1 znamená, že entita musí být ve vztahu s alespoň jednou entitou – <strong>vždy</strong>, bez výjimek. Horní mez * jen říká, že maximum není omezeno.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/mid22-09.png', label: 'Midterm 2022 (FIT Wiki), úloha 9' },
+      { kind: 'image', src: '/sources/wiki/ex-27.png', label: 'Zkouška (FIT Wiki), úloha 27' },
       P02(29, 'spodní mez – typicky určuje povinnost ve vztahu:'),
       C02(11, 'x..* = nejméně x, maximum bez omezení'),
       { kind: 'wiki', label: 'FIT Wiki: BI-KOM midterm 2022 (screenshot)' },

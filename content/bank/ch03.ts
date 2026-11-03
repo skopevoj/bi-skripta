@@ -30,7 +30,7 @@ export const ch03: Question[] = [
     id: 'ch03-01',
     topic: 'sortaly',
     kind: 'mc',
-    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), otázka 8'] },
+    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), otázka 8', 'Zkouška (FIT Wiki), úloha 93'] },
     prompt: 'IDENTITA entity v OntoUML:',
     options: [
       'Identita je dána kognitivním mechanismem – naším vnímáním objektu v realitě.',
@@ -43,6 +43,8 @@ export const ch03: Question[] = [
       'Princip identity v OntoUML je otázka <strong>našeho vnímání</strong> (intersubjektivní, „dohodnutá konceptualizace“) – podle čeho věc poznáme jako „tu samou“. <br>b, d: identita slouží k referenci a kvantifikaci (odlišit a spočítat), ne k „manipulaci“ ani k propojování – to je implementační pohled. <br>c: OID/UUID je technický identifikátor záznamu, ne princip identity; na začátku úvah není důležité, jak jedince technicky rozlišíme.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/mid22-08.png', label: 'Midterm 2022 (FIT Wiki), úloha 8' },
+      { kind: 'image', src: '/sources/wiki/ex-93.png', label: 'Zkouška (FIT Wiki), úloha 93' },
       midterm22,
       s('P02', 58, 'Jedná se opět o identitu z hlediska našeho vnímání'),
       s('P02', 39, 'Princip identity umožňuje referenci (tj. "ukázání na") a'),
@@ -81,11 +83,7 @@ export const ch03: Question[] = [
     id: 'ch03-04',
     topic: 'sortaly',
     kind: 'mc',
-    origin: {
-      type: 'original',
-      inspiredBy: 'P02 slidy 52–55 (modální logika, rigidita)',
-      why: 'Definice rigidity přes možné světy je základ pro všechny otázky „je rigidní / anti-rigidní“.',
-    },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 96 (zde upravená verze)'] },
     prompt: 'Typ <em>T</em> je <strong>rigidní</strong>, právě když…',
     options: [
       '…každá jeho instance je jeho instancí nutně, tj. ve všech možných světech, ve kterých existuje.',
@@ -98,7 +96,9 @@ export const ch03: Question[] = [
     explanation:
       'a) R+(T) = □(∀x: T(x) ⇒ □T(x)) – přesně rigidita. <br>b) je definice <strong>anti-rigidity</strong>. <br>c) je <strong>non-rigidita</strong> (negace rigidity). <br>d) rigidita se týká příslušnosti k typu, ne neměnnosti atributů – osoba stárne, a přesto je rigidně Person. <br>e) povinný vztah = relační závislost (role), s rigiditou nesouvisí.',
     verified: 'slides',
-    sources: [s('P02', 54), s('P02', 55), s('P03', 18, 'je logickou negací rigidity.')],
+    sources: [
+      { kind: 'image', src: '/sources/wiki/ex-96.png', label: 'Zkouška (FIT Wiki), úloha 96' },
+      s('P02', 54), s('P02', 55), s('P03', 18, 'je logickou negací rigidity.')],
   },
   {
     id: 'ch03-05',
@@ -144,24 +144,22 @@ export const ch03: Question[] = [
     id: 'ch03-07',
     topic: 'sortaly',
     kind: 'mc',
-    origin: {
-      type: 'original',
-      inspiredBy: 'Midterm 2022, otázka 10 („Vyberte správné charakteristiky pro CATEGORY“)',
-      why: 'Stejný formát otázky jako v reálném midtermu, ale pro KIND.',
-    },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 19'] },
     prompt: 'Vyberte správné charakteristiky pro KIND:',
     options: ['Poskytuje identitu', 'Je rigidní', 'Je relačně závislý', 'Je semi-rigidní', 'Má identitu', 'Je anti-rigidní', 'Je existenčně závislý'],
     correct: [0, 1, 4],
     explanation:
       'Kind je rigidní sortál, který identitu <strong>poskytuje</strong> (a tedy ji i má/nese). Relačně závislý není (v tabulce sortálů „−“; vztahy mít může, ale nemusí). Semi-/anti-rigidní není. Existenční závislost se týká aspektů (mode, quality), ne kindu.',
     verified: 'slides',
-    sources: [s('P02', 79), s('C03', 9, 'Kind (druh) je rigidní sortál poskytující identitu'), wKind],
+    sources: [
+      { kind: 'image', src: '/sources/wiki/ex-19.png', label: 'Zkouška (FIT Wiki), úloha 19' },
+      s('P02', 79), s('C03', 9, 'Kind (druh) je rigidní sortál poskytující identitu'), wKind],
   },
   {
     id: 'ch03-08',
     topic: 'sortaly',
     kind: 'mc',
-    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), otázka 2'] },
+    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), otázka 2', 'Zkouška (FIT Wiki), úloha 15'] },
     prompt: 'Nadtypem typu entity v OntoUML označené stereotypem <strong>Kind</strong> může být typ se stereotypem:',
     options: ['Role', 'Subkind', 'Relator', 'Phase', 'Mixin', 'RoleMixin', 'Category', 'Mode'],
     correct: [4, 6],
@@ -169,6 +167,8 @@ export const ch03: Question[] = [
       'Kind <strong>nemůže být podtypem jiného sortálu</strong> → vypadá Subkind, Role, Phase, Relator, Mode (sortály / poskytovatelé identity). Role, Phase a RoleMixin jsou navíc anti-rigidní, a anti-rigidní typ nemůže být nadtypem rigidního. Zbývají rigidní / semi-rigidní ne-sortály <strong>Category</strong> a <strong>Mixin</strong>.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/mid22-02.png', label: 'Midterm 2022 (FIT Wiki), úloha 2' },
+      { kind: 'image', src: '/sources/wiki/ex-15.png', label: 'Zkouška (FIT Wiki), úloha 15' },
       midterm22,
       s('P02', 59, 'Kind poskytuje identitu a nemůže být podtypem jiného sortálu.'),
       s('P02', 59, 'Anti-rigidní typ nemůže být nadtypem rigidního typu.'),
@@ -179,7 +179,7 @@ export const ch03: Question[] = [
     id: 'ch03-09',
     topic: 'sortaly',
     kind: 'mc',
-    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), otázka 3'] },
+    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), otázka 3', 'Zkouška (FIT Wiki), úloha 26'] },
     prompt: 'Podtypem typu entity v OntoUML označené stereotypem <strong>Role</strong> může být typ se stereotypem:',
     options: ['Role', 'Subkind', 'Relator', 'Category', 'RoleMixin', 'Mixin', 'Mode', 'Quality'],
     correct: [0],
@@ -187,6 +187,8 @@ export const ch03: Question[] = [
       'Role je anti-rigidní → pod ní nesmí být rigidní typ (Subkind, Category; ani poskytovatelé identity Relator, Mode, Quality, kteří navíc nesmí být podtypem sortálu). Role je sortál → pod ní nesmí být ne-sortál (Category, RoleMixin, Mixin). Zbývá jen <strong>Role</strong> (např. Student → GraduateStudent).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/mid22-03.png', label: 'Midterm 2022 (FIT Wiki), úloha 3' },
+      { kind: 'image', src: '/sources/wiki/ex-26.png', label: 'Zkouška (FIT Wiki), úloha 26' },
       midterm22,
       s('P02', 59, 'Anti-rigidní typ nemůže být nadtypem rigidního typu.'),
       s('P02', 59, 'Non-Sortal nemůže být podtypem sortálu.'),
@@ -197,11 +199,7 @@ export const ch03: Question[] = [
     id: 'ch03-10',
     topic: 'sortaly',
     kind: 'mc',
-    origin: {
-      type: 'original',
-      inspiredBy: 'Midterm 2022, otázky 2–3 (nadtyp/podtyp)',
-      why: 'Obrácená varianta reálné otázky – kdo smí stát NAD rolí.',
-    },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 106 (zde upravená verze)'] },
     prompt: 'Nadtypem typu se stereotypem <strong>Role</strong> může být typ se stereotypem:',
     options: ['Kind', 'Subkind', 'Role', 'Phase', 'RoleMixin', 'Žádný – role nadtyp nepotřebuje, stojí samostatně.'],
     correct: [0, 1, 2, 3, 4],
@@ -209,6 +207,7 @@ export const ch03: Question[] = [
       'Role identitu neposkytuje, musí ji zdědit od (právě jednoho) poskytovatele identity – takže nadtyp mít <strong>musí</strong>. Anti-rigidní typ smí být pod rigidním (Kind, Subkind) i pod jiným anti-rigidním (Role, Phase – např. Adult → Voter). RoleMixin je ne-sortál, nad sortálem stát smí (kap. 4). Samostatná role je chyba ze slidu „časté chyby“.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-106.png', label: 'Zkouška (FIT Wiki), úloha 106' },
       s('P02', 59, 'SubKind, Role a Phase dědí identitu přímo či nepřímo od právě jednoho poskytovatele'),
       s('P02', 73),
       s('C03', 11, 'Musí být podtypem rigidního sortálu (aby mohly vznikat instance)'),
@@ -219,11 +218,7 @@ export const ch03: Question[] = [
     id: 'ch03-11',
     topic: 'sortaly',
     kind: 'mc',
-    origin: {
-      type: 'original',
-      inspiredBy: 'Midterm 2022, otázka 10 (formát „charakteristiky pro …“)',
-      why: 'Reálný formát otázky aplikovaný na PHASE.',
-    },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 72 (zde upravená verze)'] },
     prompt: 'Vyberte správné charakteristiky pro PHASE:',
     options: [
       'Poskytuje identitu',
@@ -240,6 +235,7 @@ export const ch03: Question[] = [
       'Phase je anti-rigidní sortál: identitu <strong>má</strong> (dědí), ale neposkytuje. Podmínka je vnitřní (věk, živý/mrtvý), proto <strong>není</strong> relačně závislá – to je rozdíl oproti roli. Fáze vždy tvoří phase partition {disjoint, complete}.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-72.png', label: 'Zkouška (FIT Wiki), úloha 72' },
       s('P02', 61, 'Anti-rigidní specializace taková, že podmínka specializace je intrinsická'),
       s('P02', 61, 'Nad fázemi vždy existuje rozdělení: Phase Partition.'),
       s('P02', 79),
@@ -250,11 +246,7 @@ export const ch03: Question[] = [
     id: 'ch03-12',
     topic: 'sortaly',
     kind: 'mc',
-    origin: {
-      type: 'original',
-      inspiredBy: 'Midterm 2022, otázka 10 (formát „charakteristiky pro …“)',
-      why: 'Reálný formát otázky aplikovaný na ROLE.',
-    },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 101 (zde upravená verze)'] },
     prompt: 'Vyberte správné charakteristiky pro ROLE:',
     options: ['Poskytuje identitu', 'Je rigidní', 'Je relačně závislá', 'Je semi-rigidní', 'Má identitu', 'Je anti-rigidní', 'Podmínka specializace je intrinsická (vnitřní)'],
     correct: [2, 4, 5],
@@ -262,6 +254,7 @@ export const ch03: Question[] = [
       'Role je anti-rigidní sortál: identitu má (dědí od kindu), neposkytuje ji. Podmínka je <strong>vnější</strong> – role je relačně závislá (povinný vztah, min ≥ 1). Intrinsická podmínka je znak fáze.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-101.png', label: 'Zkouška (FIT Wiki), úloha 101' },
       s('P02', 69, 'Anti-rigidní specializace taková, že podmínka specializace je vnější.'),
       s('P02', 69, 'Role podléhá relační závislosti (musí mít povinný vztah).'),
       s('P02', 79),

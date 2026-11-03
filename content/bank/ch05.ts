@@ -60,7 +60,7 @@ export const ch05: Question[] = [
     id: 'ch05-03',
     kind: 'mc',
     topic: 'celek-cast',
-    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), úloha 6'] },
+    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), úloha 6', 'Zkouška (FIT Wiki), úloha 42'] },
     prompt: 'Pro vztahy Celek–Část:',
     options: [
       'existuje několik typů „povinnosti“ z hlediska Celku.',
@@ -73,6 +73,8 @@ export const ch05: Question[] = [
       'Vše platí. Z hlediska celku: volitelná, povinná a esenciální část. Z hlediska části: nepovinný celek, povinný celek a neoddělitelná část. Proto se musí analyzovat oba směry (Celek → Část i Část → Celek).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/mid22-06.png', label: 'Midterm 2022 (FIT Wiki), úloha 6' },
+      { kind: 'image', src: '/sources/wiki/ex-42.png', label: 'Zkouška (FIT Wiki), úloha 42' },
       { kind: 'slide', doc: 'P04', page: 31, quote: 'Směrem od Celku k Částem (optional, mandatory, essential).' },
       { kind: 'slide', doc: 'P04', page: 31, quote: 'Směrem od Části k Celku (optional, mandatory, inseparable part)' },
       { kind: 'image', src: '/sources/wiki/kom_midterm_2022.png', label: 'Midterm 2022 (FIT Wiki)' },
@@ -159,7 +161,7 @@ export const ch05: Question[] = [
     id: 'ch05-07',
     kind: 'mc',
     topic: 'celek-cast',
-    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), úloha 4'] },
+    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), úloha 4', 'Zkouška (FIT Wiki), úloha 68'] },
     prompt: 'Nadtypem typu entity v OntoUML označené stereotypem <strong>Quantity</strong> může být typ se stereotypem:',
     options: ['Quality', 'Category', 'Quantity', 'Kind', 'Relator', 'Collective', 'Mixin', 'Phase'],
     correct: [1, 6],
@@ -167,6 +169,8 @@ export const ch05: Question[] = [
       '«quantity» je rigidní sortál, který poskytuje identitu (stejně jako kind). Nad sebou proto může mít jen ne-sortály, které nedávají identitu a nejsou anti-rigidní: <strong>Category</strong> a <strong>Mixin</strong>. Jiný poskytovatel identity (Kind, Quantity, Collective, Relator, Quality) by znamenal dvě identity, Phase je anti-rigidní a navíc sortál.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/mid22-04.png', label: 'Midterm 2022 (FIT Wiki), úloha 4' },
+      { kind: 'image', src: '/sources/wiki/ex-68.png', label: 'Zkouška (FIT Wiki), úloha 68' },
       { kind: 'slide', doc: 'P04', page: 53, quote: 'Quantity a Collective jsou stejně jako Kind a Relator rigidní sortály poskytující' },
       { kind: 'web', label: 'OntoUML docs: Quantity', url: 'https://ontouml.readthedocs.io/en/latest/classes/sortals/quantity/index.html' },
       { kind: 'image', src: '/sources/wiki/kom_midterm_2022.png', label: 'Midterm 2022 (FIT Wiki)' },
@@ -358,13 +362,15 @@ export const ch05: Question[] = [
     id: 'ch05-14',
     kind: 'tf',
     topic: 'aspekty',
-    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), úloha 1'] },
+    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki), úloha 1', 'Zkouška (FIT Wiki), úloha 82'] },
     prompt: 'KVALITA je intrinsický aspekt.',
     answer: true,
     explanation:
       'Pravda. Aspekty se dělí na intrinsické («quality», «mode»: závisí na jediném nositeli) a relační («relator»). Kvalita je intrinsický aspekt se strukturovaným prostorem hodnot.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/mid22-01.png', label: 'Midterm 2022 (FIT Wiki), úloha 1' },
+      { kind: 'image', src: '/sources/wiki/ex-82.png', label: 'Zkouška (FIT Wiki), úloha 82' },
       { kind: 'slide', doc: 'P04', page: 61 },
       { kind: 'slide', doc: 'P04', page: 62, quote: 'Intrinsické aspekty se strukturovaným prostorem hodnot' },
       { kind: 'image', src: '/sources/wiki/kom_midterm_2022.png', label: 'Midterm 2022 (FIT Wiki)' },

@@ -25,6 +25,7 @@ export const ch09: Question[] = [
       'RDF popisuje zdroje <strong>trojicemi</strong> subject–predicate–object (podmět–přísudek–předmět). Specifikuje ho <strong>W3C</strong> (ne OMG), původně jako model metadat. Sémantický web pracuje s <strong>otevřeným světem</strong>: nevyřčené tvrzení je neznámé, ne nepravdivé. S přirozeným jazykem a větným rozborem RDF nepracuje (c).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-04.png', label: 'Zkouška (FIT Wiki), úloha 4' },
       { kind: 'slide', doc: 'P08', page: 9 },
       { kind: 'slide', doc: 'P08', page: 15, quote: 'Specifikován W3C původně jako model metadat' },
       { kind: 'slide', doc: 'P08', page: 13, quote: 'Typické pro sémantický web (RDF, OWL, ...) ale i reálný svět' },
@@ -64,7 +65,7 @@ export const ch09: Question[] = [
     id: 'ch09-03',
     kind: 'mc',
     topic: 'rdf',
-    origin: { type: 'real', seen: [`${EXAM}, úloha mezi 91–100 (Vyberte pravdivá tvrzení o RDF – URI)`] },
+    origin: { type: 'real', seen: [`${EXAM}, úloha 97`] },
     prompt: 'Vyberte pravdivá tvrzení o RDF.',
     options: [
       'Každý zdroj v RDF je identifikován pomocí UUID (Universally Unique Identifier), pomocí kterého se na něj odkazuje.',
@@ -79,6 +80,7 @@ export const ch09: Question[] = [
       'Zdroje se identifikují <strong>URI / IRI</strong>, ne UUID (a). Výjimkou jsou <strong>prázdné uzly</strong> pro pomocné zdroje, ty IRI nemají (f špatně). URI spojuje URL a URN, tedy i cestu, a dovoluje jen omezenou sadu znaků (+ percent-encoding). Libovolné Unicode znaky povoluje až <strong>IRI</strong> (d). „Název bez cesty“ je URN (e).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-97.png', label: 'Zkouška (FIT Wiki), úloha 97' },
       { kind: 'slide', doc: 'P08', page: 16, quote: 'URI = spojení URL a URN pro přesnou specifikaci zdroje' },
       { kind: 'slide', doc: 'P08', page: 16, quote: 'IRI = rozšiřuje povolené znaky dle RFC3987 nad rámec URI' },
       { kind: 'slide', doc: 'P08', page: 17, quote: 'Někdy chceme dělat ale tvrzení o nějakém pomocném zdroji' },
@@ -127,6 +129,7 @@ export const ch09: Question[] = [
       'RDF je nezávislé na syntaxi a má víc textových formátů: Turtle je podmnožina N3, TriG rozšiřuje Turtle o grafy, N-Triples je podmnožina Turtle. RDF/XML není „jediný podporovaný“ (b). JSON-LD je samostatný formát nad JSON, ne rozšíření Turtle (e). Čtveřice zapisuje <strong>TriG</strong> nebo <strong>N-Quads</strong>, ne Turtle (f).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-40.png', label: 'Zkouška (FIT Wiki), úloha 40' },
       { kind: 'slide', doc: 'P08', page: 18, quote: 'Tudíž je specifikace RDF nezávislá na syntaxi' },
       { kind: 'slide', doc: 'P08', page: 20, quote: 'Jeho zjednodušená podmnožina (pro běžné RDF) se nazývá Turtle' },
       { kind: 'slide', doc: 'P08', page: 21, quote: 'TriG je rozšířením Turtle pro reprezentaci datasetů / grafů' },
@@ -173,6 +176,7 @@ export const ch09: Question[] = [
       'RDFS je jednoduchý ontologický jazyk z rodiny RDF pro třídy a vlastnosti. Na multiplicitu, ekvivalenci nebo disjoint/complete nestačí, proto <strong>OWL</strong>, postavený na RDF a RDFS, je výrazově silnější (c je obráceně). Čtveřice řeší pojmenované grafy (TriG, N-Quads), ne RDFS (b). RDFS není kreslicí notace (e).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-81.png', label: 'Zkouška (FIT Wiki), úloha 81' },
       { kind: 'slide', doc: 'P08', page: 25, quote: 'RDFS je jednoduchý ontologický jazyk patřící do rodiny RDF' },
       { kind: 'slide', doc: 'P08', page: 30, quote: 'Jazyky OWL jsou postaveny na RDF a RDFS' },
     ],
@@ -227,6 +231,7 @@ export const ch09: Question[] = [
       'OWL je rodina jazyků pro ontologie postavená na RDF/RDFS (ne na UML, d). <strong>DL</strong> = Description Logic, je rozhodnutelný. <strong>Full</strong> je nadmnožina DL i Lite, dovoluje meta-modelování, a proto rozhodnutelnost zaručena není (b špatně). OWL Full není „verze 2“: OWL 2 se dělí na profily EL, QL, RL. „Data Layer“ (e) je nesmysl.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-52.png', label: 'Zkouška (FIT Wiki), úloha 52' },
       { kind: 'slide', doc: 'P08', page: 30 },
       { kind: 'slide', doc: 'P08', page: 32, quote: 'Název se odkazuje na Description Logic, z něhož čerpá své formální základy' },
       { kind: 'slide', doc: 'P08', page: 33, quote: 'Každá platná OWL DL ontologie je také platnou OWL Full ontologií' },
@@ -281,6 +286,7 @@ export const ch09: Question[] = [
       'SPARQL je sémantický dotazovací jazyk pro RDF. Syntaxí <em>připomíná</em> SQL, ale není s ním totožný (a) ani není jeho rozšířením (f). Umí i úpravy dat (<code>INSERT</code>, <code>DELETE</code>, <code>CREATE</code>, <code>DROP</code>…), a to včetně čtveřic / pojmenovaných grafů, takže e) neplatí.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-10.png', label: 'Zkouška (FIT Wiki), úloha 10' },
       { kind: 'slide', doc: 'P08', page: 41, quote: 'Sémantický dotazovací jazyk pro data uchovaná ve formátu RDF' },
       { kind: 'slide', doc: 'P08', page: 41, quote: 'Na první pohled podstatná podobnost s SQL' },
       { kind: 'slide', doc: 'P08', page: 46, quote: 'SPARQL umožňuje i úpravy dat a to včetně čtveřic (pojmenovaných grafů)' },
@@ -360,6 +366,7 @@ export const ch09: Question[] = [
       'FAIR = Findable, Accessible, Interoperable, Re-usable (f je vymyšlený výklad). V 5★ schématu je XLS teprve ★★ (strukturovaná data), RDF / URI ★★★★ a pátou hvězdu dá až <strong>propojení s jinými daty</strong> (Linked Data), takže b) a e) neplatí. Sémantický web stojí na XML, RDF a URI a konceptualizuje data ontologiemi.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-54.png', label: 'Zkouška (FIT Wiki), úloha 54' },
       { kind: 'slide', doc: 'P08', page: 55, quote: 'Sémantický web je postavený na XML, RDF a URI' },
       { kind: 'slide', doc: 'P08', page: 56 },
       { kind: 'slide', doc: 'P08', page: 57 },

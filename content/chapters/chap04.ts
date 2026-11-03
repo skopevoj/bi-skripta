@@ -597,14 +597,14 @@ export const chap04: Chapter = {
             ['<span class="st">«roleMixin»</span>', 'Category, Mixin, RoleMixin, PhaseMixin', 'Role, RoleMixin'],
             ['<span class="st">«phaseMixin»</span>', 'Category, Mixin, PhaseMixin', 'Phase, PhaseMixin, Role, RoleMixin'],
           ],
-          caption: 'Podle tabulek „Allowed supertypes / subtypes“ v OntoUML docs. * Midterm 2022 ale u „Podtypem «Category» může být“ uznal jen rigidní typy (Subkind, Kind, Relator, Collective, Category, Quality) — viz past níže.',
+          caption: 'Podle tabulek „Allowed supertypes / subtypes“ v OntoUML docs. * Midterm 2022 u „Podtypem «Category» může být“ uznal jen rigidní typy, zkouška už všech 8 — viz past níže.',
           sources: [DOC_KIND, DOC_QUANTITY, DOC_RELATOR, DOC_SUBKIND, DOC_PHASE, DOC_ROLE, DOC_CATEGORY, DOC_MIXIN, DOC_ROLEMIXIN, DOC_PHASEMIXIN],
         },
         {
           kind: 'callout',
           type: 'past',
           title: 'Midterm 2022: podtypy «category»',
-          html: 'Na otázku „Podtypem «Category» může být…“ uznal Moodle jako správné <strong>Subkind, Kind, Relator, Collective, Category, Quality</strong> a Phase i Role označil jako chybné — odpovídá to cvičení („«Category» = rigidní non-sortál, pro rigidní podtypy“). Přednáška i OntoUML docs přitom připouštějí pod category i anti-rigidní typy. <strong>Na testu vol rigidní typy.</strong> Nad <span class="st">«kind»</span> a <span class="st">«quantity»</span> byla správně <strong>Category, Mixin</strong>.',
+          html: 'Na otázku „Podtypem «Category» může být…“ uznal Moodle v midtermu 2022 jen <strong>Subkind, Kind, Relator, Collective, Category, Quality</strong> a Phase i Role označil jako chybné (odpovídá zjednodušení na cvičení: „«Category» = rigidní non-sortál, pro rigidní podtypy“). Ve zkouškové verzi téže otázky ale prošlo všech 8 možností a přednáška i OntoUML docs pod category připouštějí i anti-rigidní typy. <strong>Odpovídej podle přednášky (i Phase a Role)</strong>, jen počítej s tím, že starší klíč to bral jinak. Nad <span class="st">«kind»</span> a <span class="st">«quantity»</span> byla správně <strong>Category, Mixin</strong>.',
           sources: [
             MIDTERM_2022,
             { kind: 'slide', doc: 'C06', page: 7, quote: '«Category» = rigidní non-sortál, pro rigidní podtypy' },

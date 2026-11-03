@@ -61,6 +61,7 @@ export const ch08: Question[] = [
       'OCL je <strong>deklarativní</strong> (množina definic) a <strong>pouze dotazovací</strong>: nemá vedlejší efekty, nemůže měnit model ani instance (a, f špatně). Není imperativní (e) ani jazykem pro generování kódu (b), slouží k vyjádření omezení.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-47.png', label: 'Zkouška (FIT Wiki), úloha 47' },
       { kind: 'slide', doc: 'P07', page: 6, quote: 'Deklarativní jazyk = množina definic' },
       { kind: 'slide', doc: 'P07', page: 6, quote: 'Pouze dotazovací = nemůže měnit model a jeho instance (side-effect free)' },
     ],
@@ -84,6 +85,7 @@ export const ch08: Question[] = [
       'OCL se používá i v dalších jazycích OMG (např. QVT), a). Základem je <strong>assertion</strong> s hodnotou true/false, která kontroluje, že model je well-formed a instance validní, f). Nejde o kontrolu syntaxe notace (b) ani o číselné hodnocení (d). OCL funguje pro UML modely i metamodely a díky profilu i pro OntoUML, ne „pouze“ pro jedno z nich (c, e).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-121.png', label: 'Zkouška (FIT Wiki), úloha 121' },
       { kind: 'slide', doc: 'P07', page: 7, quote: 'Slouží pro kontrolu, že model je well-formed (dobře postavený).' },
       { kind: 'slide', doc: 'P07', page: 7, quote: 'Používán v dalších OMG jazycích (např. QVT).' },
     ],
@@ -109,6 +111,7 @@ export const ch08: Question[] = [
       'Kontextový objekt je <code>self</code> (ne <code>this</code> ani <code>it</code>). Kontext je <strong>povinný</strong>: každé omezení se k něčemu vztahuje (e špatně). Jméno (<code>inv jmeno:</code>) je volitelné, doporučené kvůli identifikaci, ale není povinné ani nemusí být unikátní (f).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-79.png', label: 'Zkouška (FIT Wiki), úloha 79' },
       { kind: 'slide', doc: 'P07', page: 9, quote: 'Omezení se vždy vztahuje k určitému context (např. třída, metoda, atribut).' },
       { kind: 'slide', doc: 'P07', page: 11 },
       { kind: 'slide', doc: 'P07', page: 12, quote: 'self ukazuje na objekt, ze kterého je constraint vyhodnocován, lze implicitně:' },
@@ -211,6 +214,7 @@ export const ch08: Question[] = [
       '<code>init</code> = hodnota při vytvoření objektu (pouze tehdy), <code>derive</code> = odvozený atribut/asociace, <code>pre</code>/<code>post</code> = před/po operaci, <code>inv</code> = vždy. Invariant neplatí „jen pro nové objekty“, ale stále (f). <code>init</code> nemá s operacemi nic společného (g). <code>let</code> je jen lokální proměnná v jednom výrazu (h).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-122.png', label: 'Zkouška (FIT Wiki), úloha 122' },
       { kind: 'slide', doc: 'P07', page: 30, quote: 'Specifikace hodnoty, která musí platit při vytvoření objektu (pouze).' },
       { kind: 'slide', doc: 'P07', page: 29 },
       { kind: 'slide', doc: 'P07', page: 13 },
@@ -237,6 +241,7 @@ export const ch08: Question[] = [
       'Pozor na prohozené dvojice: <code>def</code> přidá do kontextu nový atribut/operaci <strong>pro opakované použití</strong> ve více omezeních. <code>let … in</code> je lokální (neměnná) proměnná <strong>jen v jednom</strong> omezení. f) a g) mají tyto významy prohozené. Strukturovat omezení lze balíčky <code>package … endpackage</code> (b, d špatně).',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-69.png', label: 'Zkouška (FIT Wiki), úloha 69' },
       { kind: 'slide', doc: 'P07', page: 31, quote: 'Definice lokální proměnné (neměnná, immutable)' },
       { kind: 'slide', doc: 'P07', page: 32, quote: 'Přidávání nových atributů a operací do modelu pro opakované použití' },
       { kind: 'slide', doc: 'P07', page: 34 },
@@ -318,6 +323,7 @@ export const ch08: Question[] = [
       '<code>select</code> vybere prvky splňující podmínku, <code>reject</code> naopak ty, které ji <em>nesplňují</em>. <code>any</code> vrátí jeden vyhovující prvek. <code>exists</code> = aspoň jeden, <code>forAll</code> = všechny. <code>collect</code> aplikuje výraz na každý prvek a vrátí kolekci výsledků.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-86.png', label: 'Zkouška (FIT Wiki), úloha 86' },
       { kind: 'slide', doc: 'P07', page: 20 },
       { kind: 'slide', doc: 'P07', page: 23, quote: 'Vrátí true pokud všechny elementy splní podmínku, jinak false .' },
       { kind: 'slide', doc: 'P07', page: 24, quote: 'Vrátí kolekci se všemi elementy, které splní podmínku.' },

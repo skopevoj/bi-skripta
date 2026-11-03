@@ -51,7 +51,7 @@ export const ch01: Question[] = [
     id: 'ch01-03',
     kind: 'mc',
     topic: 'km',
-    origin: { type: 'original', inspiredBy: 'FIT Wiki souhrn: pořadí činností; P01 slide 4', why: 'Souhrn ze zkoušky uvádí pořadí činností jako zapamatovatelný fakt.' },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 31 (zde upravená verze)'] },
     prompt: 'Jaké je správné pořadí činností při vytváření business informačního systému?',
     options: [
       'analýza business dat, procesů a uživatelů → konceptuální model → implementační model → implementace',
@@ -63,7 +63,9 @@ export const ch01: Question[] = [
     explanation:
       'Nejdřív porozumíme doméně (analýza), z ní vznikne <strong>konceptuální</strong> model (nezávislý na technologii), ten se transformuje na <strong>implementační</strong> model (relační, objektový…) a teprve pak se implementuje.',
     verified: 'slides',
-    sources: [W(1, 'Pořadí činností při vytváření business informačního systému'), P01(4)],
+    sources: [
+      { kind: 'image', src: '/sources/wiki/ex-31.png', label: 'Zkouška (FIT Wiki), úloha 31' },
+      W(1, 'Pořadí činností při vytváření business informačního systému'), P01(4)],
   },
   {
     id: 'ch01-04',
@@ -103,7 +105,7 @@ export const ch01: Question[] = [
     id: 'ch01-06',
     kind: 'mc',
     topic: 'km',
-    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki)'] },
+    origin: { type: 'real', seen: ['Midterm 2022 (FIT Wiki)', 'Zkouška (FIT Wiki), úloha 32'] },
     prompt: 'MODULARIZACI DOMÉNY využíváme, abychom:',
     options: [
       'zjednodušili doménu.',
@@ -118,6 +120,8 @@ export const ch01: Question[] = [
       'Modularizace se použije, když je doména <strong>příliš komplexní</strong>: vytvoříme více subontologií pro různé (ideálně ortogonální) aspekty. Doménu nezjednodušujeme (modelujeme ji celou), nejde o softwarové moduly a subontologie nejsou nezávislé – stojí na společném základu a navzájem se používají. Mezeru business ↔ software překlenuje konceptuální model obecně, ne modularizace.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/mid22-05.png', label: 'Midterm 2022 (FIT Wiki), úloha 5' },
+      { kind: 'image', src: '/sources/wiki/ex-32.png', label: 'Zkouška (FIT Wiki), úloha 32' },
       P02(7, 'Pokud je doména příliš komplexní, použijeme techniku modularizace domény: vytvoříme'),
       P02(8),
       W(1, 'Modularizaci domény využíváme abychom se vypořádali se složitostí a komplexností domény.'),

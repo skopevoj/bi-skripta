@@ -5,7 +5,7 @@ export const ch07: Question[] = [
     id: 'ch07-01',
     topic: 'transformace',
     kind: 'mc',
-    origin: { type: 'original', inspiredBy: 'P06 s. 7, 56 (Obecné principy transformace)', why: 'Základní fakt, na kterém stojí celá transformace.' },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 61 (zde upravená verze)'] },
     prompt: 'Na které konstrukty „degeneruje“ OntoUML model při převodu na čistý objektový model?',
     options: [
       'třída s atributy (a metodami)',
@@ -19,7 +19,9 @@ export const ch07: Question[] = [
     explanation:
       'Čistý objektový model nabízí jen třídu s atributy a metodami, skládání objektů a dědění. Relátor se stane obyčejnou třídou, generalization sety se promítnou do abstraktních tříd / kombinací a fáze do skládání nebo atributu.',
     verified: 'slides',
-    sources: [{ kind: 'slide', doc: 'P06', page: 7, quote: 'Objektový model obsahuje méně konstruktů než OntoUML' }, { kind: 'slide', doc: 'P06', page: 56 }],
+    sources: [
+      { kind: 'image', src: '/sources/wiki/ex-61.png', label: 'Zkouška (FIT Wiki), úloha 61' },
+      { kind: 'slide', doc: 'P06', page: 7, quote: 'Objektový model obsahuje méně konstruktů než OntoUML' }, { kind: 'slide', doc: 'P06', page: 56 }],
   },
   {
     id: 'ch07-02',

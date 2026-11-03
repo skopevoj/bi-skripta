@@ -7,27 +7,32 @@ export const ch06: Question[] = [
     id: 'ch06-01',
     topic: 'sortaly',
     kind: 'mc',
-    origin: { type: 'original', inspiredBy: 'P05 s. 5 (Páteř identity)', why: 'Midterm se ptá, které stereotypy poskytují identitu – typicky chybí relator, mode a quality.' },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 22 (zde upravená verze)'] },
     prompt: 'Které stereotypy OntoUML jsou <strong>poskytovateli identity</strong> (identity provider)?',
     options: ['«Kind»', '«Subkind»', '«Collective»', '«Quantity»', '«Relator»', '«Role»', '«Mode» a «Quality»', '«Category»'],
     correct: [0, 2, 3, 4, 6],
     explanation:
       'Přednáška vyjmenovává poskytovatele identity: Kind, Collective, Quantity, Relator, Mode a Quality. Subkind a Role identitu jen <em>dědí</em>; Category je non-sortál, identitu nemá (agreguje typy s různou identitou).',
     verified: 'slides',
-    sources: [{ kind: 'slide', doc: 'P05', page: 5 }],
+    sources: [
+      { kind: 'image', src: '/sources/wiki/image_1_.png', label: 'FIT Wiki – screenshot otázky (Moodle zpětná vazba)' },
+      { kind: 'image', src: '/sources/wiki/ex-22.png', label: 'Zkouška (FIT Wiki), úloha 22' },
+      { kind: 'slide', doc: 'P05', page: 5 }],
   },
   {
     id: 'ch06-02',
     topic: 'nesortaly',
     kind: 'mc',
-    origin: { type: 'original', inspiredBy: 'Midterm 2022: „Vyberte správné charakteristiky pro CATEGORY“; C06 s. 7', why: 'Stejný formát otázky, jiný non-sortál.' },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 50 (zde upravená verze)'] },
     prompt: 'Vyberte správné charakteristiky pro <strong>ROLEMIXIN</strong>:',
     options: ['Poskytuje identitu', 'Je rigidní', 'Je relačně závislý', 'Je semi-rigidní', 'Je anti-rigidní', 'Je non-sortál'],
     correct: [2, 4, 5],
     explanation:
       '«RoleMixin» je anti-rigidní, relačně závislý non-sortál – nadtyp rolí různých druhů (např. Customer nad PersonalCustomer a CorporateCustomer). Identitu neposkytuje ani nemá; semi-rigidní je «Mixin», rigidní «Category».',
     verified: 'slides',
-    sources: [{ kind: 'slide', doc: 'C06', page: 7, quote: '«RoleMixin» = anti-rigidní non-sortál, relačně závislý, pro «Role» různých druhů' }],
+    sources: [
+      { kind: 'image', src: '/sources/wiki/ex-50.png', label: 'Zkouška (FIT Wiki), úloha 50' },
+      { kind: 'slide', doc: 'C06', page: 7, quote: '«RoleMixin» = anti-rigidní non-sortál, relačně závislý, pro «Role» různých druhů' }],
   },
   {
     id: 'ch06-03',

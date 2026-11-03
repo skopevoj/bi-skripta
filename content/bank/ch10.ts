@@ -28,7 +28,7 @@ export const ch10: Question[] = [
     id: 'ch10-02',
     topic: 'bpmn',
     kind: 'mc',
-    origin: { type: 'original', inspiredBy: 'P09 s. 25 (BPMN: Tasks)', why: 'Typy tasků jsou snadný testový chyták (manual × user, service × script).' },
+    origin: { type: 'real', seen: ['Zkouška (FIT Wiki), úloha 18 (zde upravená verze)'] },
     prompt: 'Které přiřazení typu tasku a jeho významu je <strong>správné</strong>?',
     options: [
       'Manual Task – člověk ho vykoná bez jakéhokoli spojení s procesním strojem.',
@@ -42,6 +42,7 @@ export const ch10: Question[] = [
       'Manual = člověk bez workflow enginu; User/Human = člověk přes engine (formulář); Service = automaticky, volá jinou službu; Script = automaticky, vykoná přímo procesní stroj. „Script“ ani „Service“ tedy nejsou lidské činnosti.',
     verified: 'slides',
     sources: [
+      { kind: 'image', src: '/sources/wiki/ex-18.png', label: 'Zkouška (FIT Wiki), úloha 18' },
       { kind: 'slide', doc: 'P09', page: 25, quote: 'vykonán člověkem ale pomocí workflow engine (např. formulář)' },
       { kind: 'slide', doc: 'P09', page: 25, quote: 'automatizovaná aktivita vykonaná přímo procesním strojem samotným' },
     ],
