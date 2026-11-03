@@ -258,7 +258,7 @@
 .obj.miss{ opacity: .5; }
 .obj.dec{ background: var(--link-bg); box-shadow: inset 0 0 0 1.5px var(--link); }
 .obj.other{ opacity: .6; border: 1px dashed var(--line); }
-.exprs{ display: grid; gap: 4px; max-height: 330px; overflow: auto; padding: 2px; }
+.exprs{ display: grid; gap: 2px; max-height: 470px; align-content: start; overflow: auto; padding: 2px; }
 .expr{ display: grid; gap: 1px; padding: 7px 10px; border-radius: 8px; text-align: left; font-size: 13.5px; color: var(--ink-2); transition: background .15s, color .15s; }
 .expr:hover{ background: var(--bg-2); color: var(--ink); }
 .expr[aria-pressed="true"]{ background: var(--link-bg); color: var(--ink); }
@@ -280,7 +280,7 @@
 .val small{ font-family: var(--sans); font-size: 12.5px; color: var(--ink-3); }
 
 /* ---------------- RDF graph ---------------- */
-.rdfGrid{ display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 14px; align-items: start; }
+.rdfGrid{ display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
 @media (max-width: 820px){ .rdfGrid{ grid-template-columns: 1fr; } }
 .ttl{ margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--bg-2); font-family: var(--mono); font-size: 12.5px; line-height: 1.65; color: var(--ink); white-space: pre; overflow-x: auto; }
 .ttl .tok{ border-radius: 4px; transition: background .15s, box-shadow .15s; }
@@ -360,3 +360,11 @@
 
 /* inside .stack, plain <p> elements must not get page margins */
 .stack p.p, .stack p.h, .stack p.small, .stack p.qHelp, .stack p.bpMsg{ margin: 0; }
+.optBad[aria-pressed="true"]{ box-shadow: inset 0 0 0 1.5px var(--bad); }
+.vIco{ width: 13px; height: 13px; flex: none; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.opt .vIco{ width: 13px; height: 13px; stroke-width: 2.2; color: var(--ok); }
+.optBad .vIco{ color: var(--bad); }
+.side.sideStack{ grid-template-columns: 1fr; }
+.side.sideStack .sideArrow{ justify-self: center; transform: rotate(90deg); }
+/* grid items must be allowed to shrink below their content (wide SVGs scroll inside) */
+.stack > *, .panel > *, .vennWrap > *, .oclGrid > *, .rdfGrid > *, .side > *{ min-width: 0; }

@@ -13,20 +13,148 @@ const RELS: Rel[] = ['componentOf', 'memberOf', 'subCollectionOf', 'subQuantityO
 type Pair = { part: string; partSt: ClassSt; whole: string; wholeSt: ClassSt; rel: Rel; cz: string; why: string; meta?: string[]; mult: [string, string] }
 
 const PAIRS: Pair[] = [
-  { part: 'Engine', partSt: 'kind', whole: 'Car', wholeSt: 'kind', rel: 'componentOf', cz: 'motor – auto', why: 'Auto je funkční celek: motor v něm má svou specifickou funkci.', mult: ['1', '1'] },
-  { part: 'Heart', partSt: 'kind', whole: 'Person', wholeSt: 'kind', rel: 'componentOf', cz: 'srdce – člověk', why: 'Člověk je funkční celek, srdce plní konkrétní funkci (povinná, ale vyměnitelná část).', mult: ['1', '1'] },
-  { part: 'Director', partSt: 'role', whole: 'Company', wholeSt: 'kind', rel: 'componentOf', cz: 'ředitel – firma', why: 'Firma je funkční celek; ředitel má v ní jinou funkci než ostatní části.', mult: ['1', '1'] },
-  { part: 'Tree', partSt: 'kind', whole: 'Forest', wholeSt: 'collective', rel: 'memberOf', cz: 'strom – les', why: 'Les je kolektiv: všechny stromy v něm hrají stejnou roli. Kolektiv má alespoň 2 členy.', mult: ['1', '2..*'] },
-  { part: 'Student', partSt: 'role', whole: 'Class Group', wholeSt: 'collective', rel: 'memberOf', cz: 'student – paralelka', why: 'Paralelka je kolektiv rovnocenných členů (studentů).', mult: ['1..*', '2..*'] },
-  { part: 'Bird', partSt: 'kind', whole: 'Flock', wholeSt: 'collective', rel: 'memberOf', cz: 'pták – hejno', why: 'Hejno je kolektiv; jednotlivý pták je jeho člen (atom).', mult: ['1', '2..*'] },
-  { part: 'Club', partSt: 'collective', whole: 'Federation', wholeSt: 'collective', rel: 'memberOf', cz: 'klub – federace', why: 'Z pohledu federace je klub nedělitelný člen — i když sám je kolektivem. memberOf není tranzitivní.', mult: ['1..*', '2..*'] },
-  { part: 'North Part', partSt: 'collective', whole: 'Forest', wholeSt: 'collective', rel: 'subCollectionOf', cz: 'severní cíp lesa – les', why: 'Část je opět kolektiv (skupina stromů) — vztah mezi dvěma plurálními entitami. Tranzitivní.', mult: ['1', '1'] },
-  { part: 'Young Birds', partSt: 'collective', whole: 'Flock', wholeSt: 'collective', rel: 'subCollectionOf', cz: 'mladí ptáci – hejno', why: 'Mladí ptáci tvoří podkolektiv hejna: všichni jeho členové jsou i členy hejna.', mult: ['1', '1'] },
-  { part: 'Modelling Group', partSt: 'collective', whole: 'Research Group', wholeSt: 'collective', rel: 'subCollectionOf', cz: 'modelovací podskupina – výzkumná skupina', why: 'Podskupina je kolektiv uvnitř kolektivu; člen podskupiny je i členem celé skupiny.', mult: ['1', '1'] },
-  { part: 'Alcohol', partSt: 'quantity', whole: 'Wine', wholeSt: 'quantity', rel: 'subQuantityOf', cz: 'alkohol – víno', why: 'Obojí jsou kvantity (látky). Podkvantita je vždy esenciální, na straně části právě 1.', meta: ['essential'], mult: ['1', '1'] },
-  { part: 'Sand', partSt: 'quantity', whole: 'Mortar', wholeSt: 'quantity', rel: 'subQuantityOf', cz: 'písek – malta', why: 'Malta je kvantita složená z dalších kvantit (písku) → subQuantityOf.', meta: ['essential'], mult: ['1', '1'] },
-  { part: 'Wine', partSt: 'quantity', whole: 'Bottle', wholeSt: 'kind', rel: 'containment', cz: 'víno – láhev', why: 'Láhev není ze stejné látky — je to kontejner, který kvantitu vína obsahuje.', mult: ['1', '1'] },
-  { part: 'Clay', partSt: 'quantity', whole: 'Statue', wholeSt: 'kind', rel: 'containment', cz: 'jíl – socha', why: 'Socha je objekt vyrobený z kvantity jílu → containment (kvantita → kontejner).', mult: ['1', '1'] },
+  {
+    part: 'Engine',
+    partSt: 'kind',
+    whole: 'Car',
+    wholeSt: 'kind',
+    rel: 'componentOf',
+    cz: 'motor – auto',
+    why: 'Auto je funkční celek: motor v něm má svou specifickou funkci.',
+    mult: ['1', '1'],
+  },
+  {
+    part: 'Heart',
+    partSt: 'kind',
+    whole: 'Person',
+    wholeSt: 'kind',
+    rel: 'componentOf',
+    cz: 'srdce – člověk',
+    why: 'Člověk je funkční celek, srdce plní konkrétní funkci (povinná, ale vyměnitelná část).',
+    mult: ['1', '1'],
+  },
+  {
+    part: 'Director',
+    partSt: 'role',
+    whole: 'Company',
+    wholeSt: 'kind',
+    rel: 'componentOf',
+    cz: 'ředitel – firma',
+    why: 'Firma je funkční celek; ředitel má v ní jinou funkci než ostatní části.',
+    mult: ['1', '1'],
+  },
+  {
+    part: 'Tree',
+    partSt: 'kind',
+    whole: 'Forest',
+    wholeSt: 'collective',
+    rel: 'memberOf',
+    cz: 'strom – les',
+    why: 'Les je kolektiv: všechny stromy v něm hrají stejnou roli. Kolektiv má alespoň 2 členy.',
+    mult: ['1', '2..*'],
+  },
+  {
+    part: 'Student',
+    partSt: 'role',
+    whole: 'Class Group',
+    wholeSt: 'collective',
+    rel: 'memberOf',
+    cz: 'student – paralelka',
+    why: 'Paralelka je kolektiv rovnocenných členů (studentů).',
+    mult: ['1..*', '2..*'],
+  },
+  {
+    part: 'Bird',
+    partSt: 'kind',
+    whole: 'Flock',
+    wholeSt: 'collective',
+    rel: 'memberOf',
+    cz: 'pták – hejno',
+    why: 'Hejno je kolektiv; jednotlivý pták je jeho člen (atom).',
+    mult: ['1', '2..*'],
+  },
+  {
+    part: 'Club',
+    partSt: 'collective',
+    whole: 'Federation',
+    wholeSt: 'collective',
+    rel: 'memberOf',
+    cz: 'klub – federace',
+    why: 'Z pohledu federace je klub nedělitelný člen — i když sám je kolektivem. memberOf není tranzitivní.',
+    mult: ['1..*', '2..*'],
+  },
+  {
+    part: 'North Part',
+    partSt: 'collective',
+    whole: 'Forest',
+    wholeSt: 'collective',
+    rel: 'subCollectionOf',
+    cz: 'severní cíp lesa – les',
+    why: 'Část je opět kolektiv (skupina stromů) — vztah mezi dvěma plurálními entitami. Tranzitivní.',
+    mult: ['1', '1'],
+  },
+  {
+    part: 'Young Birds',
+    partSt: 'collective',
+    whole: 'Flock',
+    wholeSt: 'collective',
+    rel: 'subCollectionOf',
+    cz: 'mladí ptáci – hejno',
+    why: 'Mladí ptáci tvoří podkolektiv hejna: všichni jeho členové jsou i členy hejna.',
+    mult: ['1', '1'],
+  },
+  {
+    part: 'Modelling Group',
+    partSt: 'collective',
+    whole: 'Research Group',
+    wholeSt: 'collective',
+    rel: 'subCollectionOf',
+    cz: 'modelovací podskupina – výzkumná skupina',
+    why: 'Podskupina je kolektiv uvnitř kolektivu; člen podskupiny je i členem celé skupiny.',
+    mult: ['1', '1'],
+  },
+  {
+    part: 'Alcohol',
+    partSt: 'quantity',
+    whole: 'Wine',
+    wholeSt: 'quantity',
+    rel: 'subQuantityOf',
+    cz: 'alkohol – víno',
+    why: 'Obojí jsou kvantity (látky). Podkvantita je vždy esenciální, na straně části právě 1.',
+    meta: ['essential'],
+    mult: ['1', '1'],
+  },
+  {
+    part: 'Sand',
+    partSt: 'quantity',
+    whole: 'Mortar',
+    wholeSt: 'quantity',
+    rel: 'subQuantityOf',
+    cz: 'písek – malta',
+    why: 'Malta je kvantita složená z dalších kvantit (písku) → subQuantityOf.',
+    meta: ['essential'],
+    mult: ['1', '1'],
+  },
+  {
+    part: 'Wine',
+    partSt: 'quantity',
+    whole: 'Bottle',
+    wholeSt: 'kind',
+    rel: 'containment',
+    cz: 'víno – láhev',
+    why: 'Láhev není ze stejné látky — je to kontejner, který kvantitu vína obsahuje.',
+    mult: ['1', '1'],
+  },
+  {
+    part: 'Clay',
+    partSt: 'quantity',
+    whole: 'Statue',
+    wholeSt: 'kind',
+    rel: 'containment',
+    cz: 'jíl – socha',
+    why: 'Socha je objekt vyrobený z kvantity jílu → containment (kvantita → kontejner).',
+    mult: ['1', '1'],
+  },
 ]
 
 const WHOLE: Record<Rel, string> = {
@@ -51,7 +179,18 @@ function diagramFor(p: Pair): Diagram {
       { id: 'w', name: p.whole, st: p.wholeSt, x: 0, y: 0 },
       { id: 'p', name: p.part, st: p.partSt, x: 1.75, y: 0, mark: 'focus' },
     ],
-    assocs: [{ from: 'w', to: 'p', st: p.rel, whole: p.rel === 'containment' ? undefined : 'from', shareable: p.mult[0] !== '1', fromMult: p.mult[0], toMult: p.mult[1], meta: p.meta }],
+    assocs: [
+      {
+        from: 'w',
+        to: 'p',
+        st: p.rel,
+        whole: p.rel === 'containment' ? undefined : 'from',
+        shareable: p.mult[0] !== '1',
+        fromMult: p.mult[0],
+        toMult: p.mult[1],
+        meta: p.meta,
+      },
+    ],
   }
 }
 
@@ -149,7 +288,13 @@ export default function PartWhole() {
             </tbody>
           </table>
         </div>
-        <Sources block refs={[{ kind: 'slide', doc: 'P04', page: 54 }, { kind: 'slide', doc: 'P04', page: 33 }]} />
+        <Sources
+          block
+          refs={[
+            { kind: 'slide', doc: 'P04', page: 54 },
+            { kind: 'slide', doc: 'P04', page: 33 },
+          ]}
+        />
       </details>
     </div>
   )

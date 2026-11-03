@@ -45,7 +45,18 @@ export default function OclPlayground() {
           <span className={s.objGrpH}>self = costy : TaxiCompany — drivers</span>
           <div className={s.objRow}>
             {DRIVERS.filter((d) => d.firm === 'costy').map((d) => (
-              <Obj key={d.id} id={d.id} mark={marks[d.id]} title={`${d.name} : Driver`} lines={[`age = ${d.age}`, `rides = {${ridesOf(d).map((r) => r.id).join(', ')}}`]} />
+              <Obj
+                key={d.id}
+                id={d.id}
+                mark={marks[d.id]}
+                title={`${d.name} : Driver`}
+                lines={[
+                  `age = ${d.age}`,
+                  `rides = {${ridesOf(d)
+                    .map((r) => r.id)
+                    .join(', ')}}`,
+                ]}
+              />
             ))}
             <Obj id="emil" mark={marks.emil} other title="Emil : Driver" lines={['age = 29', 'rides = {}', 'firma Rychlík']} />
           </div>
@@ -54,7 +65,13 @@ export default function OclPlayground() {
           <span className={s.objGrpH}>rides</span>
           <div className={s.objRow}>
             {RIDES.map((r) => (
-              <Obj key={r.id} id={r.id} mark={marks[r.id]} title={`${r.id} : Ride`} lines={[`price = ${r.price}`, `km = ${r.km}`, `driver = ${dName(r.driver)}, car = ${r.car}`]} />
+              <Obj
+                key={r.id}
+                id={r.id}
+                mark={marks[r.id]}
+                title={`${r.id} : Ride`}
+                lines={[`price = ${r.price}`, `km = ${r.km}`, `driver = ${dName(r.driver)}, car = ${r.car}`]}
+              />
             ))}
           </div>
         </div>
@@ -146,7 +163,8 @@ export default function OclPlayground() {
         </div>
       </div>
       <p className={s.small}>
-        Pozn.: množina (Set) nemá pořadí — prvky tu procházíme v pořadí, v jakém jsou nakreslené. <code>-&gt;</code> volá operaci nad kolekcí, <code>.</code> naviguje / čte atribut.
+        Pozn.: množina (Set) nemá pořadí — prvky tu procházíme v pořadí, v jakém jsou nakreslené. <code>-&gt;</code> volá operaci nad kolekcí, <code>.</code>{' '}
+        naviguje / čte atribut.
       </p>
     </div>
   )

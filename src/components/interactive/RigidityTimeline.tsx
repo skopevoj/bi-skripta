@@ -33,8 +33,18 @@ const QUIZ: { q: string; a: boolean; why: string; w: number }[] = [
   { q: 'Může Jan přestat být Man a dál existovat?', a: false, why: '«subkind» je rigidní stejně jako kind — Man je Jan ve všech světech.', w: 0 },
   { q: 'Může Jan přestat být Student?', a: true, why: '«role» je anti-rigidní: ve 25 letech Jan studentem není, a pořád existuje.', w: 4 },
   { q: 'Může Jan přestat být Child?', a: true, why: '«phase» je anti-rigidní: Child platí jen v prvních světech.', w: 2 },
-  { q: 'Existuje svět, ve kterém Jan existuje, ale není Adult?', a: true, why: 'Ano — v dětství. Adult je «phase», tedy anti-rigidní (ne každý svět, kde Jan existuje, je dospělý).', w: 1 },
-  { q: 'Může být Jan v jednom světě zároveň Child i Adult?', a: false, why: 'Fáze tvoří {disjoint, complete} rozklad: v každém světě je Jan právě v jedné fázi.', w: 3 },
+  {
+    q: 'Existuje svět, ve kterém Jan existuje, ale není Adult?',
+    a: true,
+    why: 'Ano — v dětství. Adult je «phase», tedy anti-rigidní (ne každý svět, kde Jan existuje, je dospělý).',
+    w: 1,
+  },
+  {
+    q: 'Může být Jan v jednom světě zároveň Child i Adult?',
+    a: false,
+    why: 'Fáze tvoří {disjoint, complete} rozklad: v každém světě je Jan právě v jedné fázi.',
+    w: 3,
+  },
   { q: 'Může být Jan zároveň Student i Employee?', a: true, why: 'Role se nevylučují — ve 40 letech je Jan obojí.', w: 5 },
   { q: 'Mění se při přechodu Child → Adult identita Jana?', a: false, why: 'Phase i role identitu jen nesou (dědí od Person). Je to pořád tentýž Jan.', w: 3 },
 ]
@@ -73,7 +83,14 @@ export default function RigidityTimeline() {
         <div className={s.tlGrid} style={{ '--n': n } as CSSProperties}>
           <span />
           {WORLDS.map((x, i) => (
-            <button key={i} type="button" className={cx(s.tlHead, i === w && s.cur)} onClick={() => setW(i)} aria-pressed={i === w} aria-label={`Svět ${i + 1}: ${x.age} let, ${x.label}`}>
+            <button
+              key={i}
+              type="button"
+              className={cx(s.tlHead, i === w && s.cur)}
+              onClick={() => setW(i)}
+              aria-pressed={i === w}
+              aria-label={`Svět ${i + 1}: ${x.age} let, ${x.label}`}
+            >
               <b style={{ fontWeight: 650 }}>{x.age}</b>
               <br />
               {x.label}
@@ -114,10 +131,7 @@ export default function RigidityTimeline() {
 
       <div className={cx(s.panel, s.panelSoft)} key={w}>
         <p className={s.p}>
-          <b>
-            {WORLDS[w].age} let:
-          </b>{' '}
-          {WORLDS[w].text} Jan je teď instancí{' '}
+          <b>{WORLDS[w].age} let:</b> {WORLDS[w].text} Jan je teď instancí{' '}
           {now.map((r, i) => (
             <span key={r.name}>
               <b>{r.name}</b>
@@ -126,7 +140,8 @@ export default function RigidityTimeline() {
           ))}
         </p>
         <p className={s.small}>
-          Person a Man se nemění nikdy (rigidní). Fáze se střídají podle věku — v každém světě právě jedna. Role přicházejí a odcházejí se vztahy (škola, zaměstnavatel).
+          Person a Man se nemění nikdy (rigidní). Fáze se střídají podle věku — v každém světě právě jedna. Role přicházejí a odcházejí se vztahy (škola,
+          zaměstnavatel).
         </p>
       </div>
 

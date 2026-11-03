@@ -59,12 +59,7 @@ function Tree({ path, setPath }: { path: Step[]; setPath: (p: Step[]) => void })
             <span className={s.crumbSep} aria-hidden="true">
               ›
             </span>
-            <button
-              type="button"
-              className={s.crumb}
-              title={`Vrátit se k otázce: ${TREE[st.node].q}`}
-              onClick={() => setPath(path.slice(0, i))}
-            >
+            <button type="button" className={s.crumb} title={`Vrátit se k otázce: ${TREE[st.node].q}`} onClick={() => setPath(path.slice(0, i))}>
               {TREE[st.node].short} <b>{TREE[st.node].opts[st.opt].short}</b>
             </button>
           </span>

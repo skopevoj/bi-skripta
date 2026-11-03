@@ -140,9 +140,9 @@ export default function GsVenn() {
       </div>
 
       <p className={s.small}>
-        V implementaci: <b>{'{complete}'}</b> → nadtřída je abstraktní; <b>{'{disjoint}'}</b> je standardní chování OO — <b>non-disjoint</b> (jedna
-        instance ve více podtřídách) OO přímo neumí a musí se emulovat. U «subkind» Man / Woman se v OntoUML obvykle používá{' '}
-        <code>{'{disjoint, complete}'}</code>; ostatní kombinace tu slouží k pochopení sémantiky.
+        V implementaci: <b>{'{complete}'}</b> → nadtřída je abstraktní; <b>{'{disjoint}'}</b> je standardní chování OO — <b>non-disjoint</b> (jedna instance ve
+        více podtřídách) OO přímo neumí a musí se emulovat. U «subkind» Man / Woman se v OntoUML obvykle používá <code>{'{disjoint, complete}'}</code>; ostatní
+        kombinace tu slouží k pochopení sémantiky.
       </p>
       <Sources
         block

@@ -92,12 +92,30 @@ export const EXPRS: Expr[] = [
     code: (p) => `self.drivers->select(d | d.age > ${p.n})`,
     params: [{ key: 'n', kind: 'num', label: 'N', min: 18, max: 60, step: 1, def: 30 }],
     run: (p) => {
-      const r = iterate('select', selfDrivers, (d) => d.name, (d) => [d.age > n(p), `${d.age} > ${p.n}`])
+      const r = iterate(
+        'select',
+        selfDrivers,
+        (d) => d.name,
+        (d) => [d.age > n(p), `${d.age} > ${p.n}`],
+      )
       return {
-        steps: [srcStep('self.drivers', selfDrivers.map((d) => d.name)), { code: `->select(d | d.age > ${p.n})`, items: r.items }],
+        steps: [
+          srcStep(
+            'self.drivers',
+            selfDrivers.map((d) => d.name),
+          ),
+          { code: `->select(d | d.age > ${p.n})`, items: r.items },
+        ],
         value: set(r.kept.map((d) => d.name)),
         type: 'Set(Driver)',
-        marks: mk(r.kept.map((d) => d.id), 'hit', mk(selfDrivers.map((d) => d.id), 'miss')),
+        marks: mk(
+          r.kept.map((d) => d.id),
+          'hit',
+          mk(
+            selfDrivers.map((d) => d.id),
+            'miss',
+          ),
+        ),
       }
     },
   },
@@ -109,12 +127,30 @@ export const EXPRS: Expr[] = [
     code: () => `self.drivers->reject(d | d.rides->isEmpty())`,
     tip: 'reject = select s negovanou podmínkou: vyhodí prvky, pro které podmínka platí.',
     run: () => {
-      const r = iterate('reject', selfDrivers, (d) => d.name, (d) => [ridesOf(d).length === 0, `isEmpty() = ${ridesOf(d).length === 0}`])
+      const r = iterate(
+        'reject',
+        selfDrivers,
+        (d) => d.name,
+        (d) => [ridesOf(d).length === 0, `isEmpty() = ${ridesOf(d).length === 0}`],
+      )
       return {
-        steps: [srcStep('self.drivers', selfDrivers.map((d) => d.name)), { code: '->reject(d | d.rides->isEmpty())', note: 'Vyhodí ty, kde podmínka platí (✓).', items: r.items }],
+        steps: [
+          srcStep(
+            'self.drivers',
+            selfDrivers.map((d) => d.name),
+          ),
+          { code: '->reject(d | d.rides->isEmpty())', note: 'Vyhodí ty, kde podmínka platí (✓).', items: r.items },
+        ],
         value: set(r.kept.map((d) => d.name)),
         type: 'Set(Driver)',
-        marks: mk(r.kept.map((d) => d.id), 'hit', mk(selfDrivers.map((d) => d.id), 'miss')),
+        marks: mk(
+          r.kept.map((d) => d.id),
+          'hit',
+          mk(
+            selfDrivers.map((d) => d.id),
+            'miss',
+          ),
+        ),
       }
     },
   },
@@ -124,16 +160,33 @@ export const EXPRS: Expr[] = [
     title: 'Věky řidičů',
     ctx: 'TaxiCompany',
     code: (p) => (p.form === 'dot' ? 'self.drivers.age' : 'self.drivers->collect(d | d.age)'),
-    params: [{ key: 'form', kind: 'choice', label: 'Zápis', opts: [{ v: 'arrow', label: '->collect' }, { v: 'dot', label: 'tečka' }], def: 'arrow' }],
+    params: [
+      {
+        key: 'form',
+        kind: 'choice',
+        label: 'Zápis',
+        opts: [
+          { v: 'arrow', label: '->collect' },
+          { v: 'dot', label: 'tečka' },
+        ],
+        def: 'arrow',
+      },
+    ],
     tip: 'Tečka za kolekcí je zkratka za collect. collect nad Set vrací Bag — hodnoty se mohou opakovat (34 je tam dvakrát).',
     run: () => ({
       steps: [
-        srcStep('self.drivers', selfDrivers.map((d) => d.name)),
+        srcStep(
+          'self.drivers',
+          selfDrivers.map((d) => d.name),
+        ),
         { code: 'collect: d ↦ d.age', items: selfDrivers.map((d) => ({ label: `${d.name} ↦ ${d.age}` })) },
       ],
       value: bag(selfDrivers.map((d) => d.age)),
       type: 'Bag(Integer)',
-      marks: mk(selfDrivers.map((d) => d.id), 'hit'),
+      marks: mk(
+        selfDrivers.map((d) => d.id),
+        'hit',
+      ),
     }),
   },
   {
@@ -145,13 +198,30 @@ export const EXPRS: Expr[] = [
     tip: 'Navigace přes kolekci vytvoří kolekci kolekcí — OCL ji automaticky zploští (flatten).',
     run: () => ({
       steps: [
-        srcStep('self.drivers', selfDrivers.map((d) => d.name)),
-        { code: '.rides  (pro každého řidiče)', items: selfDrivers.map((d) => ({ label: `${d.name} ↦ {${ridesOf(d).map((r) => r.id).join(', ')}}` })) },
+        srcStep(
+          'self.drivers',
+          selfDrivers.map((d) => d.name),
+        ),
+        {
+          code: '.rides  (pro každého řidiče)',
+          items: selfDrivers.map((d) => ({
+            label: `${d.name} ↦ {${ridesOf(d)
+              .map((r) => r.id)
+              .join(', ')}}`,
+          })),
+        },
         { code: 'zploštění', note: 'Kolekce kolekcí jízd → jedna kolekce jízd.' },
       ],
       value: `{${RIDES.map((r) => r.id).join(', ')}}`,
       type: 'kolekce Ride (zploštěná)',
-      marks: mk(RIDES.map((r) => r.id), 'hit', mk(selfDrivers.map((d) => d.id), 'in')),
+      marks: mk(
+        RIDES.map((r) => r.id),
+        'hit',
+        mk(
+          selfDrivers.map((d) => d.id),
+          'in',
+        ),
+      ),
     }),
   },
   {
@@ -168,7 +238,10 @@ export const EXPRS: Expr[] = [
       ],
       value: String(RIDES.reduce((a, r) => a + r.price, 0)),
       type: 'Integer',
-      marks: mk(RIDES.map((r) => r.id), 'hit'),
+      marks: mk(
+        RIDES.map((r) => r.id),
+        'hit',
+      ),
     }),
   },
   {
@@ -180,12 +253,35 @@ export const EXPRS: Expr[] = [
     params: [{ key: 'n', kind: 'num', label: 'N', min: 18, max: 60, step: 1, def: 25 }],
     tip: 'forAll rozhodne první prvek, který podmínku nesplní (protipříklad).',
     run: (p) => {
-      const r = iterate('forAll', selfDrivers, (d) => d.name, (d) => [d.age >= n(p), `${d.age} >= ${p.n}`])
+      const r = iterate(
+        'forAll',
+        selfDrivers,
+        (d) => d.name,
+        (d) => [d.age >= n(p), `${d.age} >= ${p.n}`],
+      )
       return {
-        steps: [srcStep('self.drivers', selfDrivers.map((d) => d.name)), { code: `->forAll(d | d.age >= ${p.n})`, items: r.items, note: r.decided ? `Protipříklad: ${r.decided.name}.` : 'Všichni podmínku splňují.' }],
+        steps: [
+          srcStep(
+            'self.drivers',
+            selfDrivers.map((d) => d.name),
+          ),
+          { code: `->forAll(d | d.age >= ${p.n})`, items: r.items, note: r.decided ? `Protipříklad: ${r.decided.name}.` : 'Všichni podmínku splňují.' },
+        ],
         value: String(!r.decided),
         type: 'Boolean',
-        marks: r.decided ? mk([r.decided.id], 'dec', mk(selfDrivers.map((d) => d.id), 'in')) : mk(selfDrivers.map((d) => d.id), 'hit'),
+        marks: r.decided
+          ? mk(
+              [r.decided.id],
+              'dec',
+              mk(
+                selfDrivers.map((d) => d.id),
+                'in',
+              ),
+            )
+          : mk(
+              selfDrivers.map((d) => d.id),
+              'hit',
+            ),
       }
     },
   },
@@ -198,12 +294,32 @@ export const EXPRS: Expr[] = [
     params: [{ key: 'n', kind: 'num', label: 'N', min: 0, max: 1500, step: 50, def: 1000 }],
     tip: 'exists rozhodne první prvek, který podmínku splní (svědek).',
     run: (p) => {
-      const r = iterate('exists', RIDES, (x) => x.id, (x) => [x.price > n(p), `${x.price} > ${p.n}`])
+      const r = iterate(
+        'exists',
+        RIDES,
+        (x) => x.id,
+        (x) => [x.price > n(p), `${x.price} > ${p.n}`],
+      )
       return {
-        steps: [{ code: 'self.rides', value: set(RIDES.map((x) => x.id)) }, { code: `->exists(r | r.price > ${p.n})`, items: r.items, note: r.decided ? `Svědek: ${r.decided.id}.` : 'Žádná jízda podmínku nesplňuje.' }],
+        steps: [
+          { code: 'self.rides', value: set(RIDES.map((x) => x.id)) },
+          { code: `->exists(r | r.price > ${p.n})`, items: r.items, note: r.decided ? `Svědek: ${r.decided.id}.` : 'Žádná jízda podmínku nesplňuje.' },
+        ],
         value: String(!!r.decided),
         type: 'Boolean',
-        marks: r.decided ? mk([r.decided.id], 'dec', mk(RIDES.map((x) => x.id), 'in')) : mk(RIDES.map((x) => x.id), 'miss'),
+        marks: r.decided
+          ? mk(
+              [r.decided.id],
+              'dec',
+              mk(
+                RIDES.map((x) => x.id),
+                'in',
+              ),
+            )
+          : mk(
+              RIDES.map((x) => x.id),
+              'miss',
+            ),
       }
     },
   },
@@ -215,12 +331,28 @@ export const EXPRS: Expr[] = [
     code: (p) => `self.rides->select(r | r.km > ${p.n})->size()`,
     params: [{ key: 'n', kind: 'num', label: 'N', min: 0, max: 45, step: 1, def: 10 }],
     run: (p) => {
-      const r = iterate('select', RIDES, (x) => x.id, (x) => [x.km > n(p), `${x.km} > ${p.n}`])
+      const r = iterate(
+        'select',
+        RIDES,
+        (x) => x.id,
+        (x) => [x.km > n(p), `${x.km} > ${p.n}`],
+      )
       return {
-        steps: [{ code: 'self.rides', value: set(RIDES.map((x) => x.id)) }, { code: `->select(r | r.km > ${p.n})`, items: r.items, value: set(r.kept.map((x) => x.id)) }, { code: '->size()' }],
+        steps: [
+          { code: 'self.rides', value: set(RIDES.map((x) => x.id)) },
+          { code: `->select(r | r.km > ${p.n})`, items: r.items, value: set(r.kept.map((x) => x.id)) },
+          { code: '->size()' },
+        ],
         value: String(r.kept.length),
         type: 'Integer',
-        marks: mk(r.kept.map((x) => x.id), 'hit', mk(RIDES.map((x) => x.id), 'miss')),
+        marks: mk(
+          r.kept.map((x) => x.id),
+          'hit',
+          mk(
+            RIDES.map((x) => x.id),
+            'miss',
+          ),
+        ),
       }
     },
   },
@@ -232,12 +364,31 @@ export const EXPRS: Expr[] = [
     code: (p) => `self.drivers->select(d | d.age < ${p.n})->isEmpty()`,
     params: [{ key: 'n', kind: 'num', label: 'N', min: 18, max: 60, step: 1, def: 21 }],
     run: (p) => {
-      const r = iterate('select', selfDrivers, (d) => d.name, (d) => [d.age < n(p), `${d.age} < ${p.n}`])
+      const r = iterate(
+        'select',
+        selfDrivers,
+        (d) => d.name,
+        (d) => [d.age < n(p), `${d.age} < ${p.n}`],
+      )
       return {
-        steps: [srcStep('self.drivers', selfDrivers.map((d) => d.name)), { code: `->select(d | d.age < ${p.n})`, items: r.items, value: set(r.kept.map((d) => d.name)) }, { code: '->isEmpty()' }],
+        steps: [
+          srcStep(
+            'self.drivers',
+            selfDrivers.map((d) => d.name),
+          ),
+          { code: `->select(d | d.age < ${p.n})`, items: r.items, value: set(r.kept.map((d) => d.name)) },
+          { code: '->isEmpty()' },
+        ],
         value: String(r.kept.length === 0),
         type: 'Boolean',
-        marks: mk(r.kept.map((d) => d.id), 'dec', mk(selfDrivers.map((d) => d.id), 'in')),
+        marks: mk(
+          r.kept.map((d) => d.id),
+          'dec',
+          mk(
+            selfDrivers.map((d) => d.id),
+            'in',
+          ),
+        ),
       }
     },
   },
@@ -252,10 +403,23 @@ export const EXPRS: Expr[] = [
       const d = DRIVERS.find((x) => x.id === p.x)!
       const yes = d.firm === 'costy'
       return {
-        steps: [srcStep('self.drivers', selfDrivers.map((x) => x.name)), { code: `->includes(${p.x})`, note: yes ? `${d.name} v množině je.` : `${d.name} jezdí pro jinou firmu — v self.drivers není.` }],
+        steps: [
+          srcStep(
+            'self.drivers',
+            selfDrivers.map((x) => x.name),
+          ),
+          { code: `->includes(${p.x})`, note: yes ? `${d.name} v množině je.` : `${d.name} jezdí pro jinou firmu — v self.drivers není.` },
+        ],
         value: String(yes),
         type: 'Boolean',
-        marks: mk([d.id], yes ? 'hit' : 'dec', mk(selfDrivers.map((x) => x.id), 'in')),
+        marks: mk(
+          [d.id],
+          yes ? 'hit' : 'dec',
+          mk(
+            selfDrivers.map((x) => x.id),
+            'in',
+          ),
+        ),
       }
     },
   },
@@ -265,16 +429,45 @@ export const EXPRS: Expr[] = [
     title: 'Řidiči bez jízd: všichni vs. jen naši',
     ctx: 'TaxiCompany',
     code: (p) => `${p.src === 'all' ? 'Driver.allInstances()' : 'self.drivers'}->select(d | d.rides->isEmpty())`,
-    params: [{ key: 'src', kind: 'choice', label: 'Zdroj', opts: [{ v: 'all', label: 'Driver.allInstances()' }, { v: 'self', label: 'self.drivers' }], def: 'all' }],
+    params: [
+      {
+        key: 'src',
+        kind: 'choice',
+        label: 'Zdroj',
+        opts: [
+          { v: 'all', label: 'Driver.allInstances()' },
+          { v: 'self', label: 'self.drivers' },
+        ],
+        def: 'all',
+      },
+    ],
     tip: 'allInstances() vrátí všechny existující instance třídy — i ty, které se k self nijak neváží.',
     run: (p) => {
       const src = p.src === 'all' ? DRIVERS : selfDrivers
-      const r = iterate('select', src, (d) => d.name, (d) => [ridesOf(d).length === 0, `isEmpty() = ${ridesOf(d).length === 0}`])
+      const r = iterate(
+        'select',
+        src,
+        (d) => d.name,
+        (d) => [ridesOf(d).length === 0, `isEmpty() = ${ridesOf(d).length === 0}`],
+      )
       return {
-        steps: [srcStep(p.src === 'all' ? 'Driver.allInstances()' : 'self.drivers', src.map((d) => d.name)), { code: '->select(d | d.rides->isEmpty())', items: r.items }],
+        steps: [
+          srcStep(
+            p.src === 'all' ? 'Driver.allInstances()' : 'self.drivers',
+            src.map((d) => d.name),
+          ),
+          { code: '->select(d | d.rides->isEmpty())', items: r.items },
+        ],
         value: set(r.kept.map((d) => d.name)),
         type: 'Set(Driver)',
-        marks: mk(r.kept.map((d) => d.id), 'hit', mk(src.map((d) => d.id), 'miss')),
+        marks: mk(
+          r.kept.map((d) => d.id),
+          'hit',
+          mk(
+            src.map((d) => d.id),
+            'miss',
+          ),
+        ),
       }
     },
   },
@@ -286,15 +479,33 @@ export const EXPRS: Expr[] = [
     code: (p) => `self.drivers->select(d |\n  d.rides->exists(r | r.price > ${p.n}))`,
     params: [{ key: 'n', kind: 'num', label: 'N', min: 0, max: 1500, step: 50, def: 400 }],
     run: (p) => {
-      const r = iterate('select', selfDrivers, (d) => d.name, (d) => {
-        const w = ridesOf(d).find((x) => x.price > n(p))
-        return [!!w, w ? `svědek ${w.id} (${w.price})` : ridesOf(d).length ? 'žádná' : 'nemá jízdy']
-      })
+      const r = iterate(
+        'select',
+        selfDrivers,
+        (d) => d.name,
+        (d) => {
+          const w = ridesOf(d).find((x) => x.price > n(p))
+          return [!!w, w ? `svědek ${w.id} (${w.price})` : ridesOf(d).length ? 'žádná' : 'nemá jízdy']
+        },
+      )
       return {
-        steps: [srcStep('self.drivers', selfDrivers.map((d) => d.name)), { code: `->select(d | d.rides->exists(r | r.price > ${p.n}))`, items: r.items }],
+        steps: [
+          srcStep(
+            'self.drivers',
+            selfDrivers.map((d) => d.name),
+          ),
+          { code: `->select(d | d.rides->exists(r | r.price > ${p.n}))`, items: r.items },
+        ],
         value: set(r.kept.map((d) => d.name)),
         type: 'Set(Driver)',
-        marks: mk(r.kept.map((d) => d.id), 'hit', mk(selfDrivers.map((d) => d.id), 'miss')),
+        marks: mk(
+          r.kept.map((d) => d.id),
+          'hit',
+          mk(
+            selfDrivers.map((d) => d.id),
+            'miss',
+          ),
+        ),
       }
     },
   },
@@ -309,10 +520,22 @@ export const EXPRS: Expr[] = [
     run: (p) => {
       const bad = RIDES.filter((r) => !(r.price > n(p)))
       return {
-        steps: [{ code: 'pro každou jízdu (self : Ride)', items: RIDES.map((r) => ({ label: `${r.id}: ${r.price} > ${p.n} ${r.price > n(p) ? '✓' : '✗'}`, cls: r.price > n(p) ? 'y' : 'n' })) }],
+        steps: [
+          {
+            code: 'pro každou jízdu (self : Ride)',
+            items: RIDES.map((r) => ({ label: `${r.id}: ${r.price} > ${p.n} ${r.price > n(p) ? '✓' : '✗'}`, cls: r.price > n(p) ? 'y' : 'n' })),
+          },
+        ],
         value: bad.length ? `porušen (${bad.map((r) => r.id).join(', ')})` : 'splněn',
         type: 'invariant',
-        marks: mk(bad.map((r) => r.id), 'dec', mk(RIDES.map((r) => r.id), 'hit')),
+        marks: mk(
+          bad.map((r) => r.id),
+          'dec',
+          mk(
+            RIDES.map((r) => r.id),
+            'hit',
+          ),
+        ),
       }
     },
   },

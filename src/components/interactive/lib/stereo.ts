@@ -123,20 +123,31 @@ export const RESULTS: Record<ResultSt, ResultInfo> = {
     what: 'Rigidní sortál, který instancím poskytuje princip identity.',
     example: 'Person, Car, Organisation',
     props: ['sortál', 'rigidní', 'poskytuje identitu'],
-    diagram: { classes: [k('p', 'Person', 'kind', 1, 0, { mark: 'focus' }), k('m', 'Man', 'subkind', 0.5, 1), k('w', 'Woman', 'subkind', 1.5, 1)], gens: [{ general: 'p', specifics: ['m', 'w'], set: { disjoint: true, complete: true } }] },
+    diagram: {
+      classes: [k('p', 'Person', 'kind', 1, 0, { mark: 'focus' }), k('m', 'Man', 'subkind', 0.5, 1), k('w', 'Woman', 'subkind', 1.5, 1)],
+      gens: [{ general: 'p', specifics: ['m', 'w'], set: { disjoint: true, complete: true } }],
+    },
   },
   subkind: {
     what: 'Rigidní podtyp sortálu — identitu dědí od svého kindu.',
     example: 'Man, Woman (podtypy Person)',
     props: ['sortál', 'rigidní', 'nese identitu'],
-    diagram: { classes: [k('p', 'Person', 'kind', 1, 0), k('m', 'Man', 'subkind', 0.5, 1, { mark: 'focus' }), k('w', 'Woman', 'subkind', 1.5, 1)], gens: [{ general: 'p', specifics: ['m', 'w'], set: { disjoint: true, complete: true } }] },
+    diagram: {
+      classes: [k('p', 'Person', 'kind', 1, 0), k('m', 'Man', 'subkind', 0.5, 1, { mark: 'focus' }), k('w', 'Woman', 'subkind', 1.5, 1)],
+      gens: [{ general: 'p', specifics: ['m', 'w'], set: { disjoint: true, complete: true } }],
+    },
   },
   role: {
     what: 'Anti-rigidní sortál, jehož instance jím jsou díky vztahu (relační závislost).',
     example: 'Student, Employee, Husband',
     props: ['sortál', 'anti-rigidní', 'relačně závislý'],
     diagram: {
-      classes: [k('p', 'Person', 'kind', 0, 0), k('s', 'Student', 'role', 0, 1, { mark: 'focus' }), k('e', 'Enrollment', 'relator', 1.35, 1), k('u', 'University', 'kind', 2.7, 1)],
+      classes: [
+        k('p', 'Person', 'kind', 0, 0),
+        k('s', 'Student', 'role', 0, 1, { mark: 'focus' }),
+        k('e', 'Enrollment', 'relator', 1.35, 1),
+        k('u', 'University', 'kind', 2.7, 1),
+      ],
       gens: [{ general: 'p', specifics: ['s'] }],
       assocs: [
         { from: 's', to: 'e', st: 'mediation', fromMult: '1', toMult: '1..*' },
@@ -148,19 +159,28 @@ export const RESULTS: Record<ResultSt, ResultInfo> = {
     what: 'Anti-rigidní sortál podle vnitřní vlastnosti; fáze tvoří {disjoint, complete} rozklad.',
     example: 'Child / Teenager / Adult, Living / Deceased',
     props: ['sortál', 'anti-rigidní', 'relačně nezávislý'],
-    diagram: { classes: [k('p', 'Person', 'kind', 1, 0), k('c', 'Child', 'phase', 0.5, 1, { mark: 'focus' }), k('a', 'Adult', 'phase', 1.5, 1)], gens: [{ general: 'p', specifics: ['c', 'a'], set: { disjoint: true, complete: true } }] },
+    diagram: {
+      classes: [k('p', 'Person', 'kind', 1, 0), k('c', 'Child', 'phase', 0.5, 1, { mark: 'focus' }), k('a', 'Adult', 'phase', 1.5, 1)],
+      gens: [{ general: 'p', specifics: ['c', 'a'], set: { disjoint: true, complete: true } }],
+    },
   },
   collective: {
     what: 'Poskytovatel identity pro celek z rovnocenných členů (memberOf).',
     example: 'Forest, Crowd, Research Group',
     props: ['sortál', 'rigidní', 'poskytuje identitu'],
-    diagram: { classes: [k('f', 'Forest', 'collective', 0, 0, { mark: 'focus' }), k('t', 'Tree', 'kind', 1.6, 0)], assocs: [{ from: 'f', to: 't', st: 'memberOf', whole: 'from', shareable: false, fromMult: '1', toMult: '2..*' }] },
+    diagram: {
+      classes: [k('f', 'Forest', 'collective', 0, 0, { mark: 'focus' }), k('t', 'Tree', 'kind', 1.6, 0)],
+      assocs: [{ from: 'f', to: 't', st: 'memberOf', whole: 'from', shareable: false, fromMult: '1', toMult: '2..*' }],
+    },
   },
   quantity: {
     what: 'Poskytovatel identity pro množství látky — maximální spojitá část, nepočitatelná.',
     example: 'Wine, Water, Clay',
     props: ['sortál', 'rigidní', 'poskytuje identitu'],
-    diagram: { classes: [k('b', 'Bottle', 'kind', 0, 0), k('w', 'Wine', 'quantity', 1.6, 0, { mark: 'focus' })], assocs: [{ from: 'b', to: 'w', st: 'containment', fromMult: '1', toMult: '1' }] },
+    diagram: {
+      classes: [k('b', 'Bottle', 'kind', 0, 0), k('w', 'Wine', 'quantity', 1.6, 0, { mark: 'focus' })],
+      assocs: [{ from: 'b', to: 'w', st: 'containment', fromMult: '1', toMult: '1' }],
+    },
   },
   relator: {
     what: 'Zhmotněný vztah: existenčně závisí na ≥ 2 entitách, které spojuje (mediation).',
@@ -178,26 +198,41 @@ export const RESULTS: Record<ResultSt, ResultInfo> = {
     what: 'Intrinsický aspekt se strukturovaným prostorem hodnot; s nositelem ho spojuje characterization.',
     example: 'Color, Weight, Speed',
     props: ['aspekt', 'existenčně závislý na nositeli'],
-    diagram: { classes: [k('c', 'Car', 'kind', 0, 0), k('q', 'Color', 'quality', 1.6, 0, { mark: 'focus', attrs: ['red: integer', 'green: integer', 'blue: integer'] })], assocs: [{ from: 'c', to: 'q', st: 'characterization', fromMult: '1', toMult: '1' }] },
+    diagram: {
+      classes: [k('c', 'Car', 'kind', 0, 0), k('q', 'Color', 'quality', 1.6, 0, { mark: 'focus', attrs: ['red: integer', 'green: integer', 'blue: integer'] })],
+      assocs: [{ from: 'c', to: 'q', st: 'characterization', fromMult: '1', toMult: '1' }],
+    },
   },
   mode: {
     what: 'Intrinsický aspekt bez strukturovaného prostoru hodnot (dovednost, nemoc).',
     example: 'Headache, Skill, Book Version',
     props: ['aspekt', 'existenčně závislý na nositeli'],
-    diagram: { classes: [k('p', 'Person', 'kind', 0, 0), k('h', 'Headache', 'mode', 1.6, 0, { mark: 'focus' })], assocs: [{ from: 'p', to: 'h', st: 'characterization', fromMult: '1', toMult: '0..*' }] },
+    diagram: {
+      classes: [k('p', 'Person', 'kind', 0, 0), k('h', 'Headache', 'mode', 1.6, 0, { mark: 'focus' })],
+      assocs: [{ from: 'p', to: 'h', st: 'characterization', fromMult: '1', toMult: '0..*' }],
+    },
   },
   category: {
     what: 'Rigidní ne-sortál: nutná vlastnost společná instancím různých kindů. Abstraktní.',
     example: 'Living Being, Physical Object',
     props: ['ne-sortál', 'rigidní', 'bez vlastní identity'],
-    diagram: { classes: [k('l', 'Living Being', 'category', 1, 0, { mark: 'focus', abstract: true }), k('p', 'Person', 'kind', 0.5, 1), k('d', 'Dog', 'kind', 1.5, 1)], gens: [{ general: 'l', specifics: ['p', 'd'], set: { disjoint: true } }] },
+    diagram: {
+      classes: [k('l', 'Living Being', 'category', 1, 0, { mark: 'focus', abstract: true }), k('p', 'Person', 'kind', 0.5, 1), k('d', 'Dog', 'kind', 1.5, 1)],
+      gens: [{ general: 'l', specifics: ['p', 'd'], set: { disjoint: true } }],
+    },
   },
   mixin: {
     what: 'Semi-rigidní ne-sortál: pro některé instance nutný, pro jiné jen možný.',
     example: 'Seatable, Insured Item',
     props: ['ne-sortál', 'semi-rigidní', 'bez vlastní identity'],
     diagram: {
-      classes: [k('s', 'Seatable', 'mixin', 0.5, 0, { mark: 'focus', abstract: true }), k('k', 'Crate', 'kind', 1.5, 0), k('c', 'Chair', 'kind', 0, 1), k('sc', 'Solid Crate', 'phase', 1, 1), k('bc', 'Broken Crate', 'phase', 2, 1)],
+      classes: [
+        k('s', 'Seatable', 'mixin', 0.5, 0, { mark: 'focus', abstract: true }),
+        k('k', 'Crate', 'kind', 1.5, 0),
+        k('c', 'Chair', 'kind', 0, 1),
+        k('sc', 'Solid Crate', 'phase', 1, 1),
+        k('bc', 'Broken Crate', 'phase', 2, 1),
+      ],
       gens: [
         { general: 's', specifics: ['c', 'sc'], set: { disjoint: true } },
         { general: 'k', specifics: ['sc', 'bc'], set: { disjoint: true, complete: true } },
@@ -209,7 +244,13 @@ export const RESULTS: Record<ResultSt, ResultInfo> = {
     example: 'Customer (osoba i organizace)',
     props: ['ne-sortál', 'anti-rigidní', 'relačně závislý'],
     diagram: {
-      classes: [k('p', 'Person', 'kind', 0, 0), k('c', 'Customer', 'roleMixin', 1, 0, { mark: 'focus', abstract: true }), k('o', 'Organisation', 'kind', 2, 0), k('pc', 'PersonalCustomer', 'role', 0.5, 1), k('cc', 'CorporateCustomer', 'role', 1.5, 1)],
+      classes: [
+        k('p', 'Person', 'kind', 0, 0),
+        k('c', 'Customer', 'roleMixin', 1, 0, { mark: 'focus', abstract: true }),
+        k('o', 'Organisation', 'kind', 2, 0),
+        k('pc', 'PersonalCustomer', 'role', 0.5, 1),
+        k('cc', 'CorporateCustomer', 'role', 1.5, 1),
+      ],
       gens: [
         { general: 'p', specifics: ['pc'] },
         { general: 'o', specifics: ['cc'] },
@@ -222,7 +263,13 @@ export const RESULTS: Record<ResultSt, ResultInfo> = {
     example: 'Young Being, Mature Being',
     props: ['ne-sortál', 'anti-rigidní', 'relačně nezávislý'],
     diagram: {
-      classes: [k('p', 'Person', 'kind', 0, 0), k('y', 'Young Being', 'phaseMixin', 1, 0, { mark: 'focus', abstract: true }), k('d', 'Dog', 'kind', 2, 0), k('c', 'Child', 'phase', 0.5, 1), k('pu', 'Puppy', 'phase', 1.5, 1)],
+      classes: [
+        k('p', 'Person', 'kind', 0, 0),
+        k('y', 'Young Being', 'phaseMixin', 1, 0, { mark: 'focus', abstract: true }),
+        k('d', 'Dog', 'kind', 2, 0),
+        k('c', 'Child', 'phase', 0.5, 1),
+        k('pu', 'Puppy', 'phase', 1.5, 1),
+      ],
       gens: [
         { general: 'p', specifics: ['c'] },
         { general: 'd', specifics: ['pu'] },
@@ -232,7 +279,21 @@ export const RESULTS: Record<ResultSt, ResultInfo> = {
   },
 }
 
-export const ALL_ST: ResultSt[] = ['kind', 'subkind', 'role', 'phase', 'collective', 'quantity', 'relator', 'category', 'mixin', 'roleMixin', 'phaseMixin', 'mode', 'quality']
+export const ALL_ST: ResultSt[] = [
+  'kind',
+  'subkind',
+  'role',
+  'phase',
+  'collective',
+  'quantity',
+  'relator',
+  'category',
+  'mixin',
+  'roleMixin',
+  'phaseMixin',
+  'mode',
+  'quality',
+]
 
 export const CONCEPTS: { name: string; st: ResultSt; why: string }[] = [
   { name: 'Person', st: 'kind', why: 'Osoba existuje samostatně, je rigidní a sama poskytuje princip identity.' },

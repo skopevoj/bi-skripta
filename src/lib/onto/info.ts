@@ -23,7 +23,7 @@ export const CLASS_INFO: Record<ClassSt, StInfo> = {
   category: { label: 'category', family: 'object', sortal: false, rigidity: 'rigidní', identity: 'nemá vlastní identitu', desc: 'Rigidní ne-sortál: spojuje instance různých kindů se společnou vlastností (Physical Object).' },
   mixin: { label: 'mixin', family: 'object', sortal: false, rigidity: 'semi-rigidní', identity: 'nemá vlastní identitu', desc: 'Semi-rigidní ne-sortál: pro některé instance podstatný, pro jiné ne (Seatable).' },
   roleMixin: { label: 'roleMixin', family: 'object', sortal: false, rigidity: 'anti-rigidní', identity: 'nemá vlastní identitu', dependence: 'relační závislost', desc: 'Role společná instancím různých kindů (Customer jako osoba nebo firma).' },
-  phaseMixin: { label: 'phaseMixin', family: 'object', sortal: false, rigidity: 'anti-rigidní', identity: 'nemá vlastní identitu', desc: 'Fáze společná instancím různých kindů (Living Being: Alive / Dead).' },
+  phaseMixin: { label: 'phaseMixin', family: 'object', sortal: false, rigidity: 'anti-rigidní', identity: 'nemá vlastní identitu', desc: 'Fáze společná instancím různých kindů (Alive / Dead u lidí i zvířat).' },
   mode: { label: 'mode', family: 'aspect', rigidity: 'rigidní', dependence: 'existenční závislost na nositeli', desc: 'Intrinsický aspekt bez hodnotové struktury (Headache, Skill).' },
   quality: { label: 'quality', family: 'aspect', rigidity: 'rigidní', dependence: 'existenční závislost na nositeli', desc: 'Intrinsický aspekt měřitelný v hodnotové struktuře (Color, Weight).' },
   event: { label: 'event', family: 'event', desc: 'Událost — děje se v čase (Wedding, Crash).' },
