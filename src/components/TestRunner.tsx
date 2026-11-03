@@ -8,7 +8,6 @@ import { KIND_LABEL } from '@/lib/meta'
 import { AnswerInputs, OriginBadges, QuestionPrompt, Result } from './Question'
 import { Icon } from './Icon'
 
-const LIMIT_MS = 45 * 60 * 1000
 
 export type TestRun = {
   startedAt: number
@@ -24,11 +23,22 @@ function fmt(ms: number) {
   return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`
 }
 
-/** Open questions on a test are graded strictly as "self-graded"; treated as wrong until marked. */
+/** Points like Moodle: 1 per question; multi-answer gets partial credit (each right pick +1/k, each wrong pick −1/k, min 0). */
+function pointsOf(q: Question, st: AnswerState): number {
+  if (q.kind === 'mc' && q.correct.length > 1) {
+    const k = q.correct.length
+    const hits = st.sel.filter((i) => q.correct.includes(i)).length
+    const wrong = st.sel.length - hits
+    return Math.max(0, Math.round(((hits - wrong) / k) * 100) / 100)
+  }
+  return grade(q, st) ? 1 : 0
+}
 function scoreOf(qs: Question[], ans: AnswerState[]): { pts: number; ok: boolean[] } {
   const ok = qs.map((q, i) => !!grade(q, ans[i] ?? emptyAnswer()))
-  return { pts: ok.filter(Boolean).length * 2, ok }
+  const pts = qs.reduce((s, q, i) => s + pointsOf(q, ans[i] ?? emptyAnswer()), 0)
+  return { pts: Math.round(pts * 100) / 100, ok }
 }
+const fmtPts = (x: number) => String(x).replace('.', ',')
 
 export function TestRunner({ test, questions }: { test: MockTest; questions: Question[] }) {
   const [run, setRun] = useState<TestRun | null>(null)
@@ -37,6 +47,8 @@ export function TestRunner({ test, questions }: { test: MockTest; questions: Que
   const [now, setNow] = useState(() => Date.now())
   const [confirm, setConfirm] = useState(false)
   const n = questions.length
+  const LIMIT_MS = test.minutes * 60 * 1000
+  const pass = Math.ceil(n / 2)
 
   useEffect(() => {
     setRun(loadJSON<TestRun>(runKey(test.id)))
@@ -85,15 +97,15 @@ export function TestRunner({ test, questions }: { test: MockTest; questions: Que
             <b>{n}</b> otázek
           </li>
           <li>
-            <b>{n * 2}</b> bodů, na projití <b>{n}</b>
+            <b>{n}</b> bodů, na projití <b>{pass}</b>
           </li>
           <li>
-            <b>45</b> minut
+            <b>{test.minutes}</b> minut
           </li>
         </ul>
         <p style={{ color: 'var(--ink-2)', fontSize: 15.5 }}>
-          Každá otázka za 2 body, bez částečných bodů – stejně jako na skutečném testu. Odpovědi se ukážou až po odevzdání. Editor ani slajdy během
-          testu nepoužívej.
+          Jako v Moodle: každá otázka za 1 bod, u otázek s více správnými odpověďmi dostaneš část bodu (špatně zaškrtnutá možnost body ubírá).
+          Odpovědi se ukážou až po odevzdání. Slajdy během testu nepoužívej.
         </p>
         <div className="actions" style={{ marginTop: 24 }}>
           <button
@@ -128,15 +140,15 @@ export function TestRunner({ test, questions }: { test: MockTest; questions: Que
 
   // ---------------- review
   if (run.submittedAt && result) {
-    const passed = result.pts >= n
+    const passed = result.pts >= pass
     return (
       <>
         <p className="score">
-          {result.pts}
-          <small> / {n * 2}</small>
+          {fmtPts(result.pts)}
+          <small> / {n}</small>
         </p>
         <p className="meta" style={{ marginBottom: 20 }}>
-          {passed ? 'Prošel/prošla bys (min. 10 bodů).' : 'Na projití je potřeba 10 bodů.'} <i>·</i> čas {fmt(Math.min(LIMIT_MS, run.submittedAt - run.startedAt))}
+          {passed ? `Prošel/prošla bys (min. ${pass} bodů).` : `Na projití je potřeba ${pass} bodů.`} <i>·</i> čas {fmt(Math.min(LIMIT_MS, run.submittedAt - run.startedAt))}
         </p>
         <div className="actions" style={{ marginBottom: 28 }}>
           <button
