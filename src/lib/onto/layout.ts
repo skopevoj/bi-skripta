@@ -244,6 +244,13 @@ function segLen(a: Pt, b: Pt) {
 
 function routeAssoc(a: Box, b: Box, as: DAssoc, boxes: Box[], slots: SlotTracker, offset: number): Pt[] {
   const route = as.route ?? 'auto'
+  if (a === b) {
+    // self-association: a loop on the right side of the box
+    const x = a.x1
+    const y0 = a.cy - Math.min(14, a.h / 4)
+    const y1 = a.cy + Math.min(14, a.h / 4)
+    return [[x, y0], [x + 48, y0], [x + 48, y1], [x, y1]]
+  }
   const ox0 = Math.max(a.x0, b.x0)
   const ox1 = Math.min(a.x1, b.x1)
   const oy0 = Math.max(a.y0, b.y0)
