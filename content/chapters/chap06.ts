@@ -60,13 +60,13 @@ export const chap06: Chapter = {
           diagram: {
             classes: [
               { id: 'height', name: 'Height', st: 'quality', x: 0, y: 0, note: 'Quality: měřitelná veličina, existenčně závislá na osobě.' },
-              { id: 'person', name: 'Person', st: 'kind', x: 1, y: 0, attrs: ['birthDate: Date'], note: 'Kind: rigidní, poskytuje identitu. Atribut birthDate definuje fáze.' },
-              { id: 'child', name: 'Child', st: 'phase', x: 0, y: 1, note: 'Phase: anti-rigidní, mění se podle vnitřní vlastnosti (věku).' },
-              { id: 'adult', name: 'Adult', st: 'phase', x: 2, y: 1, note: 'Phase: z Child se stane Adult bez jakéhokoli vztahu.' },
-              { id: 'group', name: 'StudyGroup', st: 'collective', x: 1, y: 2, note: 'Collective: celek ze stejnorodých členů.' },
-              { id: 'student', name: 'Student', st: 'role', x: 2, y: 2, note: 'Role: anti-rigidní, relačně závislá – Studentem je jen díky zápisu.' },
-              { id: 'enr', name: 'Enrollment', st: 'relator', x: 3, y: 3, note: 'Relator: truthmaker vztahu studies at.' },
-              { id: 'uni', name: 'University', st: 'kind', x: 4, y: 2 },
+              { id: 'person', name: 'Person', st: 'kind', x: 1.5, y: 0, attrs: ['birthDate: Date'], note: 'Kind: rigidní, poskytuje identitu. Atribut birthDate definuje fáze.' },
+              { id: 'child', name: 'Child', st: 'phase', x: 0.5, y: 1, note: 'Phase: anti-rigidní, mění se podle vnitřní vlastnosti (věku).' },
+              { id: 'adult', name: 'Adult', st: 'phase', x: 2.5, y: 1, note: 'Phase: z Child se stane Adult bez jakéhokoli vztahu.' },
+              { id: 'group', name: 'StudyGroup', st: 'collective', x: 0.5, y: 2, note: 'Collective: celek ze stejnorodých členů.' },
+              { id: 'student', name: 'Student', st: 'role', x: 2.5, y: 2, note: 'Role: anti-rigidní, relačně závislá – Studentem je jen díky zápisu.' },
+              { id: 'enr', name: 'Enrollment', st: 'relator', x: 3.5, y: 3, note: 'Relator: truthmaker vztahu studies at.' },
+              { id: 'uni', name: 'University', st: 'kind', x: 4.5, y: 2 },
             ],
             gens: [{ general: 'person', specifics: ['child', 'adult'], set: { name: 'age', disjoint: true, complete: true } }, { general: 'adult', specifics: ['student'] }],
             assocs: [
@@ -326,8 +326,8 @@ export const chap06: Chapter = {
                 classes: [
                   { id: 'p', name: 'Person', st: 'kind', x: 0, y: 0 },
                   { id: 'c', name: 'Customer', st: 'role', x: 0, y: 1 },
-                  { id: 'o', name: 'Food order', st: 'relator', x: 1, y: 1 },
-                  { id: 'r', name: 'Restaurant', st: 'kind', x: 2, y: 1, mark: 'bad', note: 'Rigidní kind mediovaný relátorem.' },
+                  { id: 'o', name: 'Food order', st: 'relator', x: 1.5, y: 1 },
+                  { id: 'r', name: 'Restaurant', st: 'kind', x: 3, y: 1, mark: 'bad', note: 'Rigidní kind mediovaný relátorem.' },
                 ],
                 gens: [{ general: 'p', specifics: ['c'] }],
                 assocs: [
@@ -342,10 +342,10 @@ export const chap06: Chapter = {
               diagram: {
                 classes: [
                   { id: 'p', name: 'Person', st: 'kind', x: 0, y: 0 },
-                  { id: 'co', name: 'Company', st: 'kind', x: 2, y: 0 },
+                  { id: 'co', name: 'Company', st: 'kind', x: 3, y: 0 },
                   { id: 'c', name: 'Customer', st: 'role', x: 0, y: 1 },
-                  { id: 'o', name: 'Food order', st: 'relator', x: 1, y: 1 },
-                  { id: 'r', name: 'Restaurant', st: 'role', x: 2, y: 1, mark: 'good', note: 'Company je Restaurací, dokud přijímá objednávky.' },
+                  { id: 'o', name: 'Food order', st: 'relator', x: 1.5, y: 1 },
+                  { id: 'r', name: 'Restaurant', st: 'role', x: 3, y: 1, mark: 'good', note: 'Company je Restaurací, dokud přijímá objednávky.' },
                 ],
                 gens: [{ general: 'p', specifics: ['c'] }, { general: 'co', specifics: ['r'] }],
                 assocs: [
@@ -380,11 +380,11 @@ export const chap06: Chapter = {
               diagram: {
                 classes: [
                   { id: 'ca', name: 'Certification authority', st: 'kind', x: 0, y: 0 },
-                  { id: 'car', name: 'Car', st: 'kind', x: 1, y: 0 },
-                  { id: 'co', name: 'Company', st: 'kind', x: 2, y: 0 },
+                  { id: 'car', name: 'Car', st: 'kind', x: 1.5, y: 0 },
+                  { id: 'co', name: 'Company', st: 'kind', x: 3, y: 0 },
                   { id: 'mot', name: 'MOT', st: 'relator', x: 0, y: 1 },
-                  { id: 'rc', name: 'Rented car', st: 'role', x: 1, y: 1, mark: 'bad', note: 'Jedna role závisí na dvou nesouvisejících relátorech.' },
-                  { id: 'rent', name: 'Rental contract', st: 'relator', x: 2, y: 1 },
+                  { id: 'rc', name: 'Rented car', st: 'role', x: 1.5, y: 1, mark: 'bad', note: 'Jedna role závisí na dvou nesouvisejících relátorech.' },
+                  { id: 'rent', name: 'Rental contract', st: 'relator', x: 3, y: 1 },
                 ],
                 gens: [{ general: 'car', specifics: ['rc'] }],
                 assocs: [
@@ -401,12 +401,12 @@ export const chap06: Chapter = {
               diagram: {
                 classes: [
                   { id: 'ca', name: 'Certification authority', st: 'kind', x: 0, y: 0 },
-                  { id: 'car', name: 'Car', st: 'kind', x: 1.5, y: 0 },
-                  { id: 'co', name: 'Company', st: 'kind', x: 3, y: 0 },
+                  { id: 'car', name: 'Car', st: 'kind', x: 2, y: 0 },
+                  { id: 'co', name: 'Company', st: 'kind', x: 4, y: 0 },
                   { id: 'mot', name: 'MOT', st: 'relator', x: 0, y: 1 },
-                  { id: 'op', name: 'Operational car', st: 'role', x: 1, y: 1, mark: 'good' },
-                  { id: 'rc', name: 'Rented car', st: 'role', x: 2, y: 1, mark: 'good' },
-                  { id: 'rent', name: 'Rental contract', st: 'relator', x: 3, y: 1 },
+                  { id: 'op', name: 'Operational car', st: 'role', x: 1.5, y: 1, mark: 'good' },
+                  { id: 'rc', name: 'Rented car', st: 'role', x: 2.5, y: 1, mark: 'good' },
+                  { id: 'rent', name: 'Rental contract', st: 'relator', x: 4, y: 1 },
                 ],
                 gens: [{ general: 'car', specifics: ['op', 'rc'] }],
                 assocs: [
@@ -440,11 +440,11 @@ export const chap06: Chapter = {
               verdict: 'bad',
               diagram: {
                 classes: [
-                  { id: 'p', name: 'Person', st: 'kind', x: 1, y: 0 },
+                  { id: 'p', name: 'Person', st: 'kind', x: 1.5, y: 0 },
                   { id: 'pat', name: 'Patient', st: 'role', x: 0, y: 1 },
-                  { id: 'mc', name: 'Medical checkup', st: 'relator', x: 1, y: 1 },
-                  { id: 'doc', name: 'Doctor', st: 'role', x: 2, y: 1 },
-                  { id: 'xo', name: 'X-ray operator', st: 'role', x: 2, y: 2, mark: 'bad', note: 'Volná role: nic neříká, kdy se Doctor stane X-ray operatorem.' },
+                  { id: 'mc', name: 'Medical checkup', st: 'relator', x: 1.5, y: 1 },
+                  { id: 'doc', name: 'Doctor', st: 'role', x: 3, y: 1 },
+                  { id: 'xo', name: 'X-ray operator', st: 'role', x: 3, y: 2, mark: 'bad', note: 'Volná role: nic neříká, kdy se Doctor stane X-ray operatorem.' },
                 ],
                 gens: [{ general: 'p', specifics: ['pat', 'doc'] }, { general: 'doc', specifics: ['xo'], mark: 'bad' }],
                 assocs: [
@@ -458,12 +458,12 @@ export const chap06: Chapter = {
               verdict: 'good',
               diagram: {
                 classes: [
-                  { id: 'p', name: 'Person', st: 'kind', x: 1, y: 0 },
+                  { id: 'p', name: 'Person', st: 'kind', x: 1.5, y: 0 },
                   { id: 'pat', name: 'Patient', st: 'role', x: 0, y: 1 },
-                  { id: 'mc', name: 'Medical checkup', st: 'relator', x: 1, y: 1 },
-                  { id: 'doc', name: 'Doctor', st: 'role', x: 2, y: 1 },
-                  { id: 'xc', name: 'X-ray checkup', st: 'subkind', x: 1, y: 2, mark: 'good', note: 'Subkind relátoru Medical checkup.' },
-                  { id: 'xo', name: 'X-ray operator', st: 'role', x: 2, y: 2 },
+                  { id: 'mc', name: 'Medical checkup', st: 'relator', x: 1.5, y: 1 },
+                  { id: 'doc', name: 'Doctor', st: 'role', x: 3, y: 1 },
+                  { id: 'xc', name: 'X-ray checkup', st: 'subkind', x: 1.5, y: 2, mark: 'good', note: 'Subkind relátoru Medical checkup.' },
+                  { id: 'xo', name: 'X-ray operator', st: 'role', x: 3, y: 2 },
                 ],
                 gens: [{ general: 'p', specifics: ['pat', 'doc'] }, { general: 'doc', specifics: ['xo'] }, { general: 'mc', specifics: ['xc'] }],
                 assocs: [
@@ -662,9 +662,9 @@ export const chap06: Chapter = {
               diagram: {
                 classes: [
                   { id: 'o', name: 'Orchestra', st: 'collective', x: 1, y: 0, mark: 'bad' },
-                  { id: 'c', name: 'Conductor', st: 'kind', x: 0, y: 1 },
-                  { id: 's', name: 'Soloist', st: 'kind', x: 1, y: 1 },
-                  { id: 'v', name: 'Violinist', st: 'kind', x: 2, y: 1 },
+                  { id: 'c', name: 'Conductor', st: 'kind', x: 0, y: 1.4 },
+                  { id: 's', name: 'Soloist', st: 'kind', x: 1, y: 1.4 },
+                  { id: 'v', name: 'Violinist', st: 'kind', x: 2, y: 1.4 },
                 ],
                 assocs: [
                   { from: 'o', to: 'c', st: 'memberOf', whole: 'from', fromMult: '1', toMult: '1', mark: 'bad' },
@@ -683,7 +683,7 @@ export const chap06: Chapter = {
                   { id: 'c', name: 'Conductor', st: 'role', x: 0, y: 1 },
                   { id: 's', name: 'Soloist', st: 'role', x: 1, y: 1 },
                   { id: 'v', name: 'Violinist', st: 'role', x: 2, y: 1 },
-                  { id: 'o', name: 'Orchestra', st: 'kind', x: 1, y: 2, mark: 'good' },
+                  { id: 'o', name: 'Orchestra', st: 'kind', x: 1, y: 2.4, mark: 'good' },
                 ],
                 gens: [{ general: 'p', specifics: ['c', 's', 'v'] }],
                 assocs: [
@@ -750,13 +750,13 @@ export const chap06: Chapter = {
               diagram: {
                 classes: [
                   { id: 'co', name: 'Courier', st: 'role', x: 0, y: 0 },
-                  { id: 'dr', name: 'Delivery receipt', st: 'relator', x: 1, y: 0 },
+                  { id: 'dr', name: 'Delivery receipt', st: 'relator', x: 1.5, y: 0 },
                   { id: 'cu', name: 'Customer', st: 'roleMixin', x: 0, y: 1, abstract: true },
-                  { id: 'o', name: 'Order', st: 'relator', x: 1, y: 1, attrs: ['paidAt: Date [0..1]', 'deliveredAt: Date [0..1]'], mark: 'good' },
-                  { id: 'ea', name: 'Expedition assistant', st: 'role', x: 2, y: 1 },
+                  { id: 'o', name: 'Order', st: 'relator', x: 1.5, y: 1, attrs: ['paidAt: Date [0..1]', 'deliveredAt: Date [0..1]'], mark: 'good' },
+                  { id: 'ea', name: 'Expedition assistant', st: 'role', x: 3, y: 1 },
                   { id: 'up', name: 'Unpaid', st: 'phase', x: 0, y: 2 },
-                  { id: 'pd', name: 'Paid', st: 'phase', x: 1, y: 2 },
-                  { id: 'dl', name: 'Delivered', st: 'phase', x: 2, y: 2 },
+                  { id: 'pd', name: 'Paid', st: 'phase', x: 1.5, y: 2 },
+                  { id: 'dl', name: 'Delivered', st: 'phase', x: 3, y: 2 },
                 ],
                 gens: [{ general: 'o', specifics: ['up', 'pd', 'dl'], set: { disjoint: true, complete: true } }],
                 assocs: [

@@ -147,7 +147,7 @@ function unit(a: Pt, b: Pt): Pt {
 // ---------------------------------------------------------------------------
 // generalizations
 
-function layoutGen(g: DGen, gi: number, byId: Map<string, Box>, slots: SlotTracker): Edge | null {
+function layoutGen(g: DGen, gi: number, byId: Map<string, Box>, slots: SlotTracker, nth: number): Edge | null {
   const sup = byId.get(g.general)
   const subs = g.specifics.map((id) => byId.get(id)).filter((b): b is Box => !!b)
   if (!sup || subs.length === 0) return null
@@ -161,7 +161,8 @@ function layoutGen(g: DGen, gi: number, byId: Map<string, Box>, slots: SlotTrack
   if (below.length) {
     const ax = slots.bottom(sup, key, below)
     const top = Math.min(...below.map((s) => s.y0))
-    const barY = Math.round(sup.y1 + Math.max(22, (top - sup.y1) / 2))
+    // several generalization sets under one supertype: stagger their bars so they don't merge
+    const barY = Math.round(sup.y1 + Math.max(22, (top - sup.y1) / 2) + nth * 18 - (nth ? 9 : 0))
     const drops = below.map((s) => [slots.top(s, key, ax), s.y0] as Pt)
     const xs = [ax, ...drops.map((d) => d[0])]
     const minX = Math.min(...xs)
@@ -182,13 +183,51 @@ function layoutGen(g: DGen, gi: number, byId: Map<string, Box>, slots: SlotTrack
       labels.push({ x: ax + 8, y: barY - 7, text: txt, anchor: 'start', kind: 'gs' })
     }
   }
-  for (const s of other) {
-    // side or upward generalization: straight line from sub to sup
-    const a = clip(s, [sup.cx, sup.cy])
-    const b = clip(sup, [s.cx, s.cy])
-    const d = unit(a, b)
-    glyphs.push({ kind: 'triangle', pts: triangle(b, d) })
-    paths.push([a, [b[0] - d[0] * 15, b[1] - d[1] * 15]])
+  const setText = () => {
+    if (!g.set || !(g.set.disjoint || g.set.complete || g.set.name)) return ''
+    const flags = [g.set.disjoint ? 'disjoint' : '', g.set.complete ? 'complete' : ''].filter(Boolean).join(', ')
+    return [g.set.name, flags ? `{${flags}}` : ''].filter(Boolean).join(' ')
+  }
+  const left = other.filter((s) => s.x1 <= sup.x0 - 24)
+  const right = other.filter((s) => s.x0 >= sup.x1 + 24)
+  const sideTree = !below.length && other.length >= 2 && (left.length === other.length || right.length === other.length)
+  if (sideTree) {
+    // horizontal tree: trunk out of the supertype's side, vertical bar, branches into the subtypes
+    const toLeft = left.length === other.length
+    const ex = toLeft ? sup.x0 : sup.x1
+    const ey = sup.cy
+    const near = toLeft ? Math.max(...other.map((s) => s.x1)) : Math.min(...other.map((s) => s.x0))
+    const barX = Math.round((ex + near) / 2)
+    const dir = toLeft ? -1 : 1
+    glyphs.push({ kind: 'triangle', pts: triangle([ex, ey], [-dir, 0]) })
+    paths.push([[ex + dir * 15, ey], [barX, ey]])
+    const ys = [ey, ...other.map((s) => s.cy)]
+    paths.push([[barX, Math.min(...ys)], [barX, Math.max(...ys)]])
+    for (const s of other) paths.push([[barX, s.cy], [toLeft ? s.x1 : s.x0, s.cy]])
+    const t = setText()
+    if (t) {
+      const inner = textW(t, 11.5) <= Math.abs(ex - barX) - 22
+      if (inner) labels.push({ x: barX + (toLeft ? 7 : -7), y: ey + 17, text: t, anchor: toLeft ? 'start' : 'end', kind: 'gs' })
+      else labels.push({ x: barX + (toLeft ? -7 : 7), y: ey + 4, text: t, anchor: toLeft ? 'end' : 'start', kind: 'gs' })
+    }
+  } else {
+    if (other.length && !below.length) {
+      const t = setText()
+      if (t) {
+        const s0 = other[0]
+        const a = clip(s0, [sup.cx, sup.cy])
+        const b = clip(sup, [s0.cx, s0.cy])
+        labels.push({ x: (a[0] + b[0]) / 2, y: (a[1] + b[1]) / 2 - 8, text: t, anchor: 'middle', kind: 'gs' })
+      }
+    }
+    for (const s of other) {
+      // side or upward generalization: straight line from sub to sup
+      const a = clip(s, [sup.cx, sup.cy])
+      const b = clip(sup, [s.cx, s.cy])
+      const d = unit(a, b)
+      glyphs.push({ kind: 'triangle', pts: triangle(b, d) })
+      paths.push([a, [b[0] - d[0] * 15, b[1] - d[1] * 15]])
+    }
   }
   return { key, kind: 'gen', ends: [sup.id, ...subs.map((s) => s.id)], paths, glyphs, labels, mark: g.mark }
 }
@@ -408,8 +447,13 @@ export function layout(d: Diagram): Geometry {
   const byId = new Map(boxes.map((b) => [b.id, b]))
   const slots = new SlotTracker()
   const edges: Edge[] = []
+  const genCount = new Map<string, number>()
   ;(d.gens ?? []).forEach((g, i) => {
-    const e = layoutGen(g, i, byId, slots)
+    const sup = byId.get(g.general)
+    const hasBelow = !!sup && g.specifics.some((id) => (byId.get(id)?.y0 ?? -Infinity) >= sup.y1 + 24)
+    const nth = hasBelow ? genCount.get(g.general) ?? 0 : 0
+    if (hasBelow) genCount.set(g.general, nth + 1)
+    const e = layoutGen(g, i, byId, slots, nth)
     if (e) edges.push(e)
   })
   const pairCount = new Map<string, number>()

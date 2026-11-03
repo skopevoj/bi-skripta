@@ -628,7 +628,7 @@ export const chap07: Chapter = {
               note: 'Fruit i Meat dědí ze dvou nadtypů – Food a Gluten Free.',
               diagram: {
                 classes: [
-                  { id: 'gf', name: 'Gluten Free', st: 'category', x: 0, y: 0, abstract: true, mark: 'focus' },
+                  { id: 'gf', name: 'Gluten Free', st: 'category', x: 0, y: 0.35, abstract: true, mark: 'focus' },
                   { id: 'f', name: 'Food', st: 'kind', x: 1.5, y: 0 },
                   { id: 'fr', name: 'Fruit', st: 'subkind', x: 0.5, y: 1 },
                   { id: 'm', name: 'Meat', st: 'subkind', x: 1.5, y: 1 },
@@ -666,12 +666,12 @@ export const chap07: Chapter = {
               verdict: 'neutral',
               diagram: {
                 classes: [
-                  { id: 'o', name: 'Order', st: 'none', x: 1, y: 0 },
+                  { id: 'o', name: 'Order', st: 'none', x: 1.5, y: 0 },
                   { id: 'p', name: 'Person', st: 'kind', x: 0, y: 1 },
-                  { id: 'c', name: 'Customer', st: 'roleMixin', x: 1, y: 1, abstract: true },
-                  { id: 'org', name: 'Organisation', st: 'kind', x: 2, y: 1 },
-                  { id: 'pc', name: 'PersonalCustomer', st: 'role', x: 0, y: 2, mark: 'focus' },
-                  { id: 'cc', name: 'CorporateCustomer', st: 'role', x: 2, y: 2, mark: 'focus' },
+                  { id: 'c', name: 'Customer', st: 'roleMixin', x: 1.5, y: 1, abstract: true },
+                  { id: 'org', name: 'Organisation', st: 'kind', x: 3, y: 1 },
+                  { id: 'pc', name: 'PersonalCustomer', st: 'role', x: 0.5, y: 2, mark: 'focus' },
+                  { id: 'cc', name: 'CorporateCustomer', st: 'role', x: 2.5, y: 2, mark: 'focus' },
                 ],
                 gens: [{ general: 'c', specifics: ['pc', 'cc'] }, { general: 'p', specifics: ['pc'], mark: 'focus' }, { general: 'org', specifics: ['cc'], mark: 'focus' }],
                 assocs: [{ from: 'o', to: 'c', fromMult: '1..*', toMult: '1' }],
@@ -714,7 +714,7 @@ export const chap07: Chapter = {
                   { id: 'h', name: 'House', st: 'kind', x: 1.5, y: 0 },
                   { id: 'car', name: 'Car', st: 'kind', x: 0, y: 1 },
                   { id: 'ih', name: 'Insured House', st: 'role', x: 1, y: 1, mark: 'focus' },
-                  { id: 'ins', name: 'Insurance', st: 'relator', x: 2, y: 1 },
+                  { id: 'ins', name: 'Insurance', st: 'relator', x: 2.5, y: 1 },
                 ],
                 gens: [{ general: 'ii', specifics: ['car', 'ih'], set: { disjoint: true } }, { general: 'h', specifics: ['ih'], mark: 'focus' }],
                 assocs: [{ from: 'ins', to: 'ih', st: 'mediation', fromMult: '1..*', toMult: '1' }],
@@ -761,8 +761,8 @@ export const chap07: Chapter = {
               diagram: {
                 classes: [
                   { id: 'b', name: 'Bottle', st: 'kind', x: 0, y: 0 },
-                  { id: 'w', name: 'Wine', st: 'quantity', x: 1, y: 0 },
-                  { id: 'a', name: 'Alcohol', st: 'quantity', x: 2, y: 0 },
+                  { id: 'w', name: 'Wine', st: 'quantity', x: 1.5, y: 0 },
+                  { id: 'a', name: 'Alcohol', st: 'quantity', x: 3, y: 0 },
                 ],
                 assocs: [
                   { from: 'b', to: 'w', st: 'containment', fromMult: '1', toMult: '1' },
@@ -777,8 +777,8 @@ export const chap07: Chapter = {
               diagram: {
                 classes: [
                   { id: 'b', name: 'Bottle', st: 'none', x: 0, y: 0, attrs: ['colour: Color', 'maxVolume_ml: Float', 'content: Wine'] },
-                  { id: 'w', name: 'Wine', st: 'none', x: 1, y: 0, attrs: ['name: String', 'year: Integer', 'volume_ml: Float', 'alcoholSubQuantity: Alcohol'] },
-                  { id: 'a', name: 'Alcohol', st: 'none', x: 2, y: 0, attrs: ['percent: Float', 'purity: Float'] },
+                  { id: 'w', name: 'Wine', st: 'none', x: 1.5, y: 0, attrs: ['name: String', 'year: Integer', 'volume_ml: Float', 'alcoholSubQuantity: Alcohol'] },
+                  { id: 'a', name: 'Alcohol', st: 'none', x: 3, y: 0, attrs: ['percent: Float', 'purity: Float'] },
                 ],
                 assocs: [
                   { from: 'b', to: 'w', st: 'none', toRole: 'content', fromMult: '1', toMult: '1' },
@@ -802,7 +802,7 @@ export const chap07: Chapter = {
               diagram: {
                 classes: [
                   { id: 'f', name: 'Friends', st: 'collective', x: 0, y: 0 },
-                  { id: 'p', name: 'Person', st: 'kind', x: 1, y: 0 },
+                  { id: 'p', name: 'Person', st: 'kind', x: 1.5, y: 0 },
                 ],
                 assocs: [{ from: 'f', to: 'p', st: 'memberOf', whole: 'from', shareable: true, fromMult: '0..*', toMult: '2..*' }],
               },
@@ -876,7 +876,7 @@ export const chap07: Chapter = {
               diagram: {
                 classes: [
                   { id: 'p', name: 'Person', st: 'kind', x: 0, y: 0 },
-                  { id: 'b', name: 'Brain', st: 'kind', x: 1, y: 0 },
+                  { id: 'b', name: 'Brain', st: 'kind', x: 1.5, y: 0 },
                 ],
                 assocs: [{ from: 'p', to: 'b', st: 'componentOf', whole: 'from', fromMult: '1', toMult: '1', meta: ['essential'], mark: 'focus' }],
               },
@@ -887,7 +887,7 @@ export const chap07: Chapter = {
               diagram: {
                 classes: [
                   { id: 'p', name: 'Person', st: 'none', x: 0, y: 0, attrs: ['brain: Brain {readOnly}', '«create» Person(brain: Brain)'], mark: 'focus', note: 'Brain se předá v konstruktoru a nemá setter.' },
-                  { id: 'b', name: 'Brain', st: 'none', x: 1, y: 0 },
+                  { id: 'b', name: 'Brain', st: 'none', x: 1.7, y: 0 },
                 ],
                 assocs: [{ from: 'p', to: 'b', st: 'none', toRole: 'brain', fromMult: '1', toMult: '1', meta: ['readOnly'] }],
               },
@@ -905,10 +905,10 @@ export const chap07: Chapter = {
               diagram: {
                 classes: [
                   { id: 'h', name: 'Height', st: 'quality', x: 0, y: 0 },
-                  { id: 'p', name: 'Person', st: 'kind', x: 1, y: 0 },
-                  { id: 'e', name: 'Enrollment', st: 'relator', x: 2, y: 0, attrs: ['since: Date'] },
-                  { id: 'u', name: 'University', st: 'kind', x: 3, y: 0 },
-                  { id: 's', name: 'Skill', st: 'mode', x: 1, y: 1 },
+                  { id: 'p', name: 'Person', st: 'kind', x: 1.5, y: 0 },
+                  { id: 'e', name: 'Enrollment', st: 'relator', x: 3, y: 0, attrs: ['since: Date'] },
+                  { id: 'u', name: 'University', st: 'kind', x: 4.5, y: 0 },
+                  { id: 's', name: 'Skill', st: 'mode', x: 1.5, y: 1 },
                 ],
                 assocs: [
                   { from: 'p', to: 'h', st: 'characterization', fromMult: '1', toMult: '1' },
@@ -924,10 +924,10 @@ export const chap07: Chapter = {
               note: 'Relátor = obyčejná třída (řešíš jen směry vazeb). Quality se zoptimalizovala na atribut, mode zůstal třídou (má vlastní strukturu).',
               diagram: {
                 classes: [
-                  { id: 'p', name: 'Person', st: 'none', x: 1, y: 0, attrs: ['height: Float'], mark: 'focus' },
-                  { id: 'e', name: 'Enrollment', st: 'none', x: 2, y: 0, attrs: ['since: Date'] },
+                  { id: 'p', name: 'Person', st: 'none', x: 0, y: 0, attrs: ['height: Float'], mark: 'focus' },
+                  { id: 'e', name: 'Enrollment', st: 'none', x: 1.5, y: 0, attrs: ['since: Date'] },
                   { id: 'u', name: 'University', st: 'none', x: 3, y: 0 },
-                  { id: 's', name: 'Skill', st: 'none', x: 1, y: 1, attrs: ['level: Integer'] },
+                  { id: 's', name: 'Skill', st: 'none', x: 0, y: 1, attrs: ['level: Integer'] },
                 ],
                 assocs: [
                   { from: 'p', to: 's', st: 'none', toRole: 'skills', fromMult: '1', toMult: '0..*' },

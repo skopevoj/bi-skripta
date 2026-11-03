@@ -50,12 +50,15 @@ for (const f of found) {
   const base = join(outdir, `${String(n).padStart(2, '0')}-${f.name.replace(/[^a-zA-Z0-9]+/g, '_').slice(0, 80)}`)
   writeFileSync(`${base}.svg`, wrapped)
   // render with headless Chrome (supports oklch / color-mix like the real app)
-  const html = `<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:#fcfcfd}body{display:flex;justify-content:center;padding:20px}</style>${wrapped}`
+  const html = `<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:#fcfcfd}body{padding:20px}.od-svg{max-width:none!important}</style>${wrapped}`
   writeFileSync(`${base}.html`, html)
-  const W = Math.max(640, Math.ceil(g.view.w) + 40)
-  const H = Math.ceil(g.view.h) + 40
+  const W = Math.max(800, Math.ceil(g.view.w) + 240)
+  const H = Math.ceil(g.view.h) + 240
   try {
-    execFileSync(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--force-device-scale-factor=1.5', `--window-size=${W},${H}`, `--screenshot=${base}.png`, pathToFileURL(`${base}.html`).href], { stdio: 'ignore', timeout: 30000 })
+    execFileSync(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', `--user-data-dir=${base}.chrome`, '--force-device-scale-factor=1.5', `--window-size=${W},${H}`, `--screenshot=${base}.png`, pathToFileURL(`${base}.html`).href], { stdio: 'ignore', timeout: 30000 })
+    // trim the empty page around the diagram, keep a small border
+    execFileSync('magick', [`${base}.png`, '-trim', '+repage', '-bordercolor', '#fcfcfd', '-border', '24', `${base}.png`])
+    execFileSync('rm', ['-rf', `${base}.chrome`])
     console.log(`${base}.png`)
   } catch (e) {
     console.error(`chrome failed for ${base}.html`, e)

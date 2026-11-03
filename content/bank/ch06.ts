@@ -114,8 +114,8 @@ export const ch06: Question[] = [
       classes: [
         { id: 'p', name: 'Person', st: 'kind', x: 0, y: 0 },
         { id: 'c', name: 'Customer', st: 'role', x: 0, y: 1 },
-        { id: 'o', name: 'Food order', st: 'relator', x: 1, y: 1 },
-        { id: 'r', name: 'Restaurant', st: 'kind', x: 2, y: 1 },
+        { id: 'o', name: 'Food order', st: 'relator', x: 1.5, y: 1 },
+        { id: 'r', name: 'Restaurant', st: 'kind', x: 3, y: 1 },
       ],
       gens: [{ general: 'p', specifics: ['c'] }],
       assocs: [

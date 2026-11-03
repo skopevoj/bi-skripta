@@ -397,6 +397,13 @@ export const chap03: Chapter = {
           sources: [s('P02', 62), s('P02', 63), s('P02', 64)],
         },
         {
+          kind: 'figure',
+          src: '/figures/ch03-phase-worlds.png',
+          alt: 'Dva světy W a W′: množina PERSON rozdělená čarou na LivingPerson a DeceasedPerson; žlutá osoba je ve W živá, ve W′ zemřelá, zelená je v obou živá.',
+          caption: 'Svět W vs. W′: žlutá osoba přešla z fáze LivingPerson do DeceasedPerson – je to stále tatáž Person. Každá osoba je v každém světě právě v jedné fázi.',
+          sources: [s('P02', 62), s('P02', 63)],
+        },
+        {
           kind: 'diagram',
           title: 'Návrhový vzor «phase»: Person → Child / Teenager / Adult',
           diagram: {
@@ -528,6 +535,13 @@ export const chap03: Chapter = {
           sources: [s('P02', 70), s('P02', 71), s('P02', 72)],
         },
         {
+          kind: 'figure',
+          src: '/figures/ch03-role-worlds.png',
+          alt: 'Dva světy W a W′: PERSON obsahuje podmnožinu STUDENT, vedle je SCHOOL. Ve W je žlutá osoba ve STUDENT a šipka ji spojuje se školou; ve W′ je mimo STUDENT a šipka chybí.',
+          caption: 'Svět W vs. W′: žlutá osoba je studentem jen díky vztahu enrolled-at ke škole. Když vztah zanikne, přestane být Student, ale zůstane Person.',
+          sources: [s('P02', 70), s('P02', 71)],
+        },
+        {
           kind: 'compare',
           title: 'Role – časté chyby (slide 73)',
           items: [
@@ -657,6 +671,13 @@ export const chap03: Chapter = {
           html:
             'Obrazově (slidy 75–77): kindy rozřežou svět na disjunktní oblasti K1…K5. <strong>Role a fáze</strong> jsou „ostrůvky“ <strong>uvnitř jednoho kindu</strong> – instance do nich vstupují a zase je opouštějí, ale nikdy nepřekročí hranici svého kindu.',
           sources: [s('P02', 75), s('P02', 76), s('P02', 77)],
+        },
+        {
+          kind: 'figure',
+          src: '/figures/ch03-kinds-partition.png',
+          alt: 'Obdélník rozdělený čarami na oblasti K1 až K5 s černými tečkami (individuály); v K2 je červeně a v K5 zeleně přerušovaně ohraničená skupinka teček.',
+          caption: 'Kindy K1…K5 rozdělují svět disjunktně. Přerušované „ostrůvky“ jsou role/fáze – vždy uvnitř jednoho kindu a jejich obsazení se v čase mění.',
+          sources: [s('P02', 75), s('P02', 77)],
         },
         {
           kind: 'diagram',

@@ -136,7 +136,7 @@ export const RESULTS: Record<ResultSt, ResultInfo> = {
     example: 'Student, Employee, Husband',
     props: ['sortál', 'anti-rigidní', 'relačně závislý'],
     diagram: {
-      classes: [k('p', 'Person', 'kind', 0, 0), k('s', 'Student', 'role', 0, 1, { mark: 'focus' }), k('e', 'Enrollment', 'relator', 1, 1), k('u', 'University', 'kind', 2, 1)],
+      classes: [k('p', 'Person', 'kind', 0, 0), k('s', 'Student', 'role', 0, 1, { mark: 'focus' }), k('e', 'Enrollment', 'relator', 1.35, 1), k('u', 'University', 'kind', 2.7, 1)],
       gens: [{ general: 'p', specifics: ['s'] }],
       assocs: [
         { from: 's', to: 'e', st: 'mediation', fromMult: '1', toMult: '1..*' },
@@ -154,20 +154,20 @@ export const RESULTS: Record<ResultSt, ResultInfo> = {
     what: 'Poskytovatel identity pro celek z rovnocenných členů (memberOf).',
     example: 'Forest, Crowd, Research Group',
     props: ['sortál', 'rigidní', 'poskytuje identitu'],
-    diagram: { classes: [k('f', 'Forest', 'collective', 0, 0, { mark: 'focus' }), k('t', 'Tree', 'kind', 1.4, 0)], assocs: [{ from: 'f', to: 't', st: 'memberOf', whole: 'from', shareable: false, fromMult: '1', toMult: '2..*' }] },
+    diagram: { classes: [k('f', 'Forest', 'collective', 0, 0, { mark: 'focus' }), k('t', 'Tree', 'kind', 1.6, 0)], assocs: [{ from: 'f', to: 't', st: 'memberOf', whole: 'from', shareable: false, fromMult: '1', toMult: '2..*' }] },
   },
   quantity: {
     what: 'Poskytovatel identity pro množství látky — maximální spojitá část, nepočitatelná.',
     example: 'Wine, Water, Clay',
     props: ['sortál', 'rigidní', 'poskytuje identitu'],
-    diagram: { classes: [k('b', 'Bottle', 'kind', 0, 0), k('w', 'Wine', 'quantity', 1.4, 0, { mark: 'focus' })], assocs: [{ from: 'b', to: 'w', st: 'containment', fromMult: '1', toMult: '1' }] },
+    diagram: { classes: [k('b', 'Bottle', 'kind', 0, 0), k('w', 'Wine', 'quantity', 1.6, 0, { mark: 'focus' })], assocs: [{ from: 'b', to: 'w', st: 'containment', fromMult: '1', toMult: '1' }] },
   },
   relator: {
     what: 'Zhmotněný vztah: existenčně závisí na ≥ 2 entitách, které spojuje (mediation).',
     example: 'Marriage, Enrollment, Contract',
     props: ['aspekt', 'rigidní', 'poskytuje identitu'],
     diagram: {
-      classes: [k('h', 'Husband', 'role', 0, 0), k('m', 'Marriage', 'relator', 1, 0, { mark: 'focus' }), k('w', 'Wife', 'role', 2, 0)],
+      classes: [k('h', 'Husband', 'role', 0, 0), k('m', 'Marriage', 'relator', 1.35, 0, { mark: 'focus' }), k('w', 'Wife', 'role', 2.7, 0)],
       assocs: [
         { from: 'h', to: 'm', st: 'mediation', fromMult: '1', toMult: '1' },
         { from: 'm', to: 'w', st: 'mediation', fromMult: '1', toMult: '1' },
@@ -178,13 +178,13 @@ export const RESULTS: Record<ResultSt, ResultInfo> = {
     what: 'Intrinsický aspekt se strukturovaným prostorem hodnot; s nositelem ho spojuje characterization.',
     example: 'Color, Weight, Speed',
     props: ['aspekt', 'existenčně závislý na nositeli'],
-    diagram: { classes: [k('c', 'Car', 'kind', 0, 0), k('q', 'Color', 'quality', 1.4, 0, { mark: 'focus', attrs: ['red: integer', 'green: integer', 'blue: integer'] })], assocs: [{ from: 'c', to: 'q', st: 'characterization', fromMult: '1', toMult: '1' }] },
+    diagram: { classes: [k('c', 'Car', 'kind', 0, 0), k('q', 'Color', 'quality', 1.6, 0, { mark: 'focus', attrs: ['red: integer', 'green: integer', 'blue: integer'] })], assocs: [{ from: 'c', to: 'q', st: 'characterization', fromMult: '1', toMult: '1' }] },
   },
   mode: {
     what: 'Intrinsický aspekt bez strukturovaného prostoru hodnot (dovednost, nemoc).',
     example: 'Headache, Skill, Book Version',
     props: ['aspekt', 'existenčně závislý na nositeli'],
-    diagram: { classes: [k('p', 'Person', 'kind', 0, 0), k('h', 'Headache', 'mode', 1.4, 0, { mark: 'focus' })], assocs: [{ from: 'p', to: 'h', st: 'characterization', fromMult: '1', toMult: '0..*' }] },
+    diagram: { classes: [k('p', 'Person', 'kind', 0, 0), k('h', 'Headache', 'mode', 1.6, 0, { mark: 'focus' })], assocs: [{ from: 'p', to: 'h', st: 'characterization', fromMult: '1', toMult: '0..*' }] },
   },
   category: {
     what: 'Rigidní ne-sortál: nutná vlastnost společná instancím různých kindů. Abstraktní.',
