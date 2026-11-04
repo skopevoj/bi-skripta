@@ -1,11 +1,7 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import type { Question } from '@content/types'
-import { Blocks, countCallouts, tocEntries } from '@/components/Blocks'
-import { Toc } from '@/components/Toc'
-import { ReadMarker } from '@/components/ReadMarker'
-import { chapterByNum, chapters, getQuestions, readingMinutes, sectionQuestionIds } from '@/lib/content'
+import { Blocks, DocHeader, Page, PrevNext, ReadMarker, Toc, calloutStart, plural, prevNext, readingMinutes, tocEntries, type QuestionLike } from '@skripta/ui'
+import { chapterByNum, chapters, getQuestions, sectionQuestionIds } from '@/lib/content'
 import { docShort } from '@/lib/meta'
 
 type P = { params: Promise<{ n: string; s: string }> }
@@ -29,65 +25,31 @@ export default async function SectionPage({ params }: P) {
   if (!c || !sec) notFound()
 
   const qs = getQuestions(sectionQuestionIds(sec.blocks))
-  const qmap: Record<string, Question> = Object.fromEntries(qs.map((q) => [q.id, q]))
-
-  // prev / next across chapters
-  const ci = chapters.indexOf(c)
-  const prev =
-    si > 0
-      ? { href: `/kapitola/${c.number}/${si}`, title: c.sections[si - 1].title }
-      : ci > 0
-        ? { href: `/kapitola/${chapters[ci - 1].number}/${chapters[ci - 1].sections.length}`, title: chapters[ci - 1].sections.at(-1)!.title }
-        : null
-  const next =
-    si < c.sections.length - 1
-      ? { href: `/kapitola/${c.number}/${si + 2}`, title: c.sections[si + 1].title }
-      : ci < chapters.length - 1
-        ? { href: `/kapitola/${chapters[ci + 1].number}/1`, title: `${chapters[ci + 1].number}. ${chapters[ci + 1].title}` }
-        : { href: '/testy', title: 'Testy nanečisto' }
-
-  const toc = tocEntries(sec.id, sec.blocks)
-  const calloutStart = c.sections.slice(0, si).reduce((n, x) => n + countCallouts(x.blocks), 0)
+  const qmap: Record<string, QuestionLike> = Object.fromEntries(qs.map((q) => [q.id, q]))
+  const { prev, next } = prevNext(chapters, chapters.indexOf(c), si, { end: { href: '/testy', title: 'Testy nanečisto' } })
 
   return (
     <>
-      <main className="content">
-        <article className="doc" id="top">
-          <h1>
-            <span className="sn">{sec.number}</span>
-            {sec.title}
-          </h1>
-          <p className="meta">
-            {c.docs.map(docShort).join(', ')} <i>·</i>{' '}
-            {qs.length > 0 && (
-              <>
-                {qs.length === 1 ? '1 otázka' : qs.length <= 4 ? `${qs.length} otázky` : `${qs.length} otázek`} <i>·</i>{' '}
-              </>
-            )}
-            {readingMinutes(sec.blocks)} min
-          </p>
-          {si === 0 && <p className="lede">{c.summary}</p>}
+      <Page>
+        <DocHeader
+          eyebrow={`Kapitola ${c.number} · ${c.title}`}
+          number={sec.number}
+          title={sec.title}
+          meta={[
+            { icon: 'slides', label: c.docs.map(docShort).join(', ') },
+            ...(qs.length > 0 ? [{ icon: 'list' as const, label: plural(qs.length, ['otázka', 'otázky', 'otázek']) }] : []),
+            { icon: 'clock', label: `${readingMinutes(sec.blocks)} min čtení` },
+          ]}
+        >
+          {si === 0 && <p className="sk-lede">{c.summary}</p>}
+        </DocHeader>
 
-          <Blocks secId={sec.id} blocks={sec.blocks} qmap={qmap} chapter={c.number} calloutStart={calloutStart} />
+        <Blocks secId={sec.id} blocks={sec.blocks} questions={qmap} chapter={c.number} calloutStart={calloutStart(c, si)} />
 
-          <ReadMarker sectionId={sec.id} />
-          <nav className="next" aria-label="Sekce">
-            {prev ? (
-              <Link href={prev.href}>
-                <small>← Předchozí</small>
-                {prev.title}
-              </Link>
-            ) : (
-              <span />
-            )}
-            <Link href={next.href}>
-              <small>Další →</small>
-              {next.title}
-            </Link>
-          </nav>
-        </article>
-      </main>
-      <Toc entries={toc} docs={c.docs} />
+        <ReadMarker sectionId={sec.id} />
+        <PrevNext prev={prev} next={next} />
+      </Page>
+      <Toc entries={tocEntries(sec.id, sec.blocks)} docs={c.docs} />
     </>
   )
 }

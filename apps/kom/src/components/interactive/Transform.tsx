@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { OntoDiagram } from '@/components/onto/OntoDiagram'
-import { Sources } from '@/components/Sources'
-import { Icon } from '@/components/Icon'
+import { Sources } from '@skripta/ui'
+import { Icon } from '@skripta/ui'
 import { Seg, cx } from './ui'
 import { PATTERNS } from './lib/transform'
 import s from './ix.module.css'

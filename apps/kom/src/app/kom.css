@@ -1,0 +1,59 @@
+/* BI-KOM — only course-specific CSS on top of @skripta/ui/styles.css:
+   legacy token aliases + global button classes still used by the OntoUML diagrams (onto.css)
+   and the interactive labs (components/interactive/*), diagram block layout, diagram-style setting. */
+
+:root{
+  /* aliases for onto.css / ix.module.css (written against the old KOM tokens) */
+  --link: var(--acc);
+  --link-bg: var(--acc-bg);
+  --paper: #ffffff;
+  --pst-tt: var(--warn);
+  --pst-bg: var(--warn-bg);
+  --rul-tt: var(--ok);
+}
+
+/* ---------- global classes used inside labs / diagrams ---------- */
+.btn{ display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2); height: 36px; padding: 0 var(--s-4); border-radius: var(--r-2);
+  background: var(--acc); color: var(--on-acc); font-size: 14px; line-height: 20px; font-weight: 600; white-space: nowrap; --ic: 14px; transition: filter .15s, opacity .15s; }
+.btn:hover{ filter: brightness(1.08); } .btn:active{ filter: brightness(.92); }
+.btn:disabled{ opacity: .4; filter: none; cursor: default; }
+.btn.sm{ height: 32px; padding: 0 var(--s-3); }
+.btn.ghost{ background: var(--bg); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); filter: none; }
+.btn.ghost:hover{ background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--ink-3); }
+.btn.ghost:active{ background: var(--bg-3); }
+.lnk{ display: inline-flex; align-items: center; gap: 6px; color: var(--acc); font-size: 14px; line-height: 20px; font-weight: 500; }
+.lnk:hover{ text-decoration: underline; text-underline-offset: 3px; }
+.lnk:disabled{ opacity: .4; text-decoration: none; }
+.icon-btn{ display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: var(--r-2); color: var(--ink-2); --ic: 16px; transition: background-color .15s, color .15s; }
+.icon-btn:hover{ background: var(--bg-3); color: var(--ink); }
+.icon-btn:active{ background: var(--line); }
+.icon-btn:disabled{ opacity: .35; cursor: default; background: none; }
+.seg{ display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: var(--r-2); overflow: hidden; }
+.seg button{ height: 30px; padding: 0 var(--s-3); font: 500 13px/1 var(--mono); color: var(--ink-2); transition: background-color .15s, color .15s; }
+.seg button.sans{ font-family: var(--sans); }
+.seg button + button{ border-left: 1px solid var(--line); }
+.seg button:hover{ background: var(--bg-2); color: var(--ink); }
+.seg button[aria-pressed="true"]{ background: var(--acc-bg); color: var(--acc); }
+
+/* ---------- diagram blocks ---------- */
+.sk-fig-w{ margin: var(--s-8) -40px; }
+.sk-fig-w > figure.od, .sk-fig-w > .od-compare{ margin: 0; }
+.sk-fig-w > .sk-srcs{ margin: var(--s-2) 40px 0; }
+.sk-app[data-panel] .sk-fig-w{ margin-left: 0; margin-right: 0; }
+.sk-app[data-panel] .sk-fig-w > .sk-srcs{ margin-left: 0; margin-right: 0; }
+@media (max-width: 1280px){ .sk-fig-w{ margin-left: 0; margin-right: 0; } .sk-fig-w > .sk-srcs{ margin-left: 0; margin-right: 0; } }
+.sk-fig-w.sk-src-anchor{ box-shadow: none; }
+.sk-fig-w.sk-src-anchor figure.od{ box-shadow: 0 0 0 2px var(--acc); }
+.sk-q-x figure.od{ margin: 0; }
+
+/* ---------- settings popover: diagram style ---------- */
+.sk-pop:has(.set-styles){ width: 320px; }
+.set-styles{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); }
+.set-style{ display: flex; flex-direction: column; align-items: stretch; gap: var(--s-1); padding: var(--s-1) var(--s-1) var(--s-2); border-radius: var(--r-2); text-align: left;
+  background: var(--bg); box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow .15s, background-color .15s; }
+.set-style:hover{ background: var(--bg-2); }
+.set-style[aria-checked="true"]{ box-shadow: inset 0 0 0 2px var(--acc); }
+.set-style b{ padding: 0 var(--s-1); font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink); }
+.set-prev{ display: block; height: 64px; border-radius: var(--r-1); background: var(--bg-2); padding: var(--s-1); }
+.set-prev svg{ width: 100%; height: 100%; }
+@media (max-width: 820px){ .sk-pop:has(.set-styles){ width: min(320px, calc(100vw - var(--s-4))); } }

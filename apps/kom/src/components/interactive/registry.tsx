@@ -8,7 +8,7 @@ function Loading() {
   return <div className="ix-loading" aria-busy="true" style={{ minHeight: 160 }} />
 }
 
-const WIDGETS: Record<InteractiveName, ComponentType> = {
+export const WIDGETS: Record<InteractiveName, ComponentType> = {
   'stereotype-tree': dynamic(() => import('./StereotypeTree'), { ssr: false, loading: Loading }),
   'gs-venn': dynamic(() => import('./GsVenn'), { ssr: false, loading: Loading }),
   'rigidity-timeline': dynamic(() => import('./RigidityTimeline'), { ssr: false, loading: Loading }),

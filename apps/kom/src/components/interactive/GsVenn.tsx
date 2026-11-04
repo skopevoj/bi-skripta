@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react'
 import type { Diagram } from '@content/types'
 import { OntoDiagram } from '@/components/onto/OntoDiagram'
-import { Sources } from '@/components/Sources'
+import { Sources } from '@skripta/ui'
 import { cx } from './ui'
 import s from './ix.module.css'
 

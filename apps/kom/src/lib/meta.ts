@@ -1,4 +1,7 @@
-import type { DocId, Question, SourceRef, Topic } from '@content/types'
+import type { DocInfo as UiDoc } from '@skripta/ui'
+import type { DocId, Question, Topic } from '@content/types'
+
+// Course metadata shared by server pages and the client provider (plain data — no 'server-only').
 
 export type DocInfo = { id: DocId; group: 'P' | 'C' | 'W'; n?: number; title: string; pages: number }
 
@@ -44,6 +47,9 @@ export function docLong(id: DocId): string {
   return `${d.group === 'P' ? 'Přednáška' : 'Cvičení'} ${d.n}`
 }
 
+/** Docs in the shape @skripta/ui expects (citations, TOC buttons, source panel). */
+export const UI_DOCS: UiDoc[] = DOCS.map((d) => ({ id: d.id, short: docShort(d.id), long: docLong(d.id), title: d.title, file: docPdf(d.id), pages: d.pages, group: d.group }))
+
 export const TOPICS: Record<Topic, string> = {
   km: 'Konceptuální modelování',
   uml: 'UML základy',
@@ -75,26 +81,13 @@ export function sourceGroup(q: Question): SourceGroup {
   return 'slidy'
 }
 
+export const VERIFIED = {
+  slides: { label: 'Slajdy', badge: 'Podloženo slajdy' },
+  reasoning: { label: 'Jen úvahou' },
+} as const
+
 export const KIND_LABEL: Record<Question['kind'], string> = {
   mc: 'Vyber správné',
   tf: 'Pravda, nebo ne?',
   open: 'Otevřená otázka',
-}
-
-export function slideLabel(s: Extract<SourceRef, { kind: 'slide' }>) {
-  return `${docShort(s.doc)} · ${s.page}`
-}
-
-/** Strip HTML tags (for search / previews). */
-export function plain(html: string): string {
-  return html
-    .replace(/<br\s*\/?>/g, ' ')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
 }

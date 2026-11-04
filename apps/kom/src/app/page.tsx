@@ -1,9 +1,8 @@
-import Link from 'next/link'
+import { ChapterList, Comics, Facts, Icon, Link, Page } from '@skripta/ui'
 import type { Diagram } from '@content/types'
-import { HomeChapters } from '@/components/HomeChapters'
-import { Icon } from '@/components/Icon'
 import { OntoDiagram } from '@/components/onto/OntoDiagram'
-import { chapters, navChapters, questions, tests } from '@/lib/content'
+import { navChapters, questions, tests } from '@/lib/content'
+import { XKCD } from '@/lib/xkcd'
 
 const HERO: Diagram = {
   classes: [
@@ -25,58 +24,62 @@ const HERO: Diagram = {
 }
 
 export default function Home() {
-  const nav = navChapters()
   return (
-    <main className="content">
-      <div className="doc home">
-        <h1 className="home-h">Konceptuální modelování, ať tomu rozumíš.</h1>
-        <p className="lede">
+    <Page>
+      <Comics items={XKCD} label="xkcd" credit={
+          <>
+            Komiksy <a href="https://xkcd.com/">xkcd</a> od Randalla Munroea, licence{' '}
+            <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>.
+          </>
+        } />
+      <header className="sk-doc-h">
+        <p className="sk-eyebrow">BI-KOM · FIT ČVUT</p>
+        <h1>Konceptuální modelování, ať tomu rozumíš.</h1>
+        <p className="sk-lede" style={{ marginTop: 'var(--s-5)' }}>
           Skripta z BI-KOM: OntoUML, OCL, RDF a BPMN. Krátce, s diagramy, na které můžeš najet myší, a s otázkami přímo v textu. Každé tvrzení vede na
           konkrétní slajd.
         </p>
-        <OntoDiagram diagram={HERO} title="Najeď myší na třídu" />
-
-        <h2>Testy</h2>
-        <ul className="facts">
-          <li>
-            <b>Midterm</b> v Moodle: <b>10</b> otázek, <b>15+5</b> min, min. <b>5</b> z 10 b — OntoUML
-          </li>
-          <li>
-            <b>Zkouška</b>: <b>40</b> b — celý předmět
-          </li>
-        </ul>
-        <div className="actions">
-          <Link className="btn" href="/kapitola/1/1">
+        <div className="sk-actions" style={{ margin: 0 }}>
+          <Link className="sk-btn" href="/kapitola/1/1">
             Začít číst
           </Link>
           {tests.length > 0 && (
-            <Link className="btn ghost" href="/testy">
-              <Icon name="clock" />
+            <Link className="sk-btn ghost" href="/testy">
+              <Icon name="timer" />
               Testy nanečisto
             </Link>
           )}
-          <Link className="btn ghost" href="/otazky">
-            <Icon name="list" />
+          <Link className="sk-btn ghost" href="/otazky">
+            <Icon name="bank" />
             Banka otázek · {questions.length}
           </Link>
-          <Link className="btn ghost" href="/prednasky">
-            <Icon name="file" />
+          <Link className="sk-btn ghost" href="/prednasky">
+            <Icon name="slides" />
             Slajdy
           </Link>
         </div>
+      </header>
 
-        <h2>Kapitoly</h2>
-        <HomeChapters
-          chapters={nav.map((c) => ({
-            ...c,
-            summary: chapters.find((x) => x.number === c.number)!.summary,
-          }))}
-        />
-        <p className="fine">
-          Obsah vygenerovala AI ze slajdů přednášek a cvičení, z oficiální dokumentace OntoUML a ze studentských materiálů na FIT Wiki. Můžou tu být chyby. Když
-          si nejsi jistý, klikni na odkaz na slajd.
-        </p>
+      <div className="sk-fig-w dg-w">
+        <OntoDiagram diagram={HERO} title="Najeď myší na třídu" />
       </div>
-    </main>
+
+      <h2>Testy</h2>
+      <Facts>
+        <li>
+          <b>Midterm</b> v Moodle: <b>10</b> otázek, <b>15+5</b> min, min. <b>5</b> z 10 b — OntoUML
+        </li>
+        <li>
+          <b>Zkouška</b>: <b>40</b> b — celý předmět
+        </li>
+      </Facts>
+
+      <h2>Kapitoly</h2>
+      <ChapterList chapters={navChapters()} />
+      <p className="sk-fine">
+        Obsah vygenerovala AI ze slajdů přednášek a cvičení, z oficiální dokumentace OntoUML a ze studentských materiálů na FIT Wiki. Můžou tu být chyby. Když si
+        nejsi jistý, klikni na odkaz na slajd.
+      </p>
+    </Page>
   )
 }

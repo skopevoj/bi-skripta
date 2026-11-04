@@ -4,7 +4,7 @@ import type { ClassSt, Diagram } from '@content/types'
 import { layout, visibleAt } from '@/lib/onto/layout'
 import { CLASS_INFO } from '@/lib/onto/info'
 import { DiagramSvg, STYLES, type DiagramStyle } from './DiagramSvg'
-import { Icon } from '../Icon'
+import { Icon } from '@skripta/ui'
 
 // ---- shared style preference: one cookie for all diagrams, chosen in Settings (gear in the top bar) ----
 export const DSTYLE_COOKIE = 'kom-dstyle'

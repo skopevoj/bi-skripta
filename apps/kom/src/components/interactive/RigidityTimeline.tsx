@@ -3,7 +3,7 @@
 import { useMemo, useState, type CSSProperties } from 'react'
 import type { ClassSt } from '@content/types'
 import { CLASS_INFO } from '@/lib/onto/info'
-import { Icon } from '@/components/Icon'
+import { Icon } from '@skripta/ui'
 import { YesNo, cx, useScore } from './ui'
 import s from './ix.module.css'
 

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
-import { PdfViewer } from '@/components/pdf/PdfViewer'
+import { DocHeader, Page } from '@skripta/ui'
+import { PdfViewer } from '@skripta/ui/workbench'
 import { DOCS, docLong, docPdf } from '@/lib/meta'
 
 type P = { params: Promise<{ doc: string }> }
@@ -21,16 +22,11 @@ export default async function LecturePage({ params }: P) {
   const d = DOCS.find((x) => x.id === doc)
   if (!d) notFound()
   return (
-    <main className="content">
-      <div className="doc wide">
-        <h1>
-          <span className="sn">{d.group === 'W' ? 'W' : `${d.group}${d.n}`}</span>
-          {d.title}
-        </h1>
-        <Suspense>
-          <PdfViewer file={docPdf(d.id)} pages={d.pages} />
-        </Suspense>
-      </div>
-    </main>
+    <Page wide>
+      <DocHeader eyebrow={docLong(d.id)} number={d.group === 'W' ? 'W' : `${d.group}${d.n}`} title={d.title} />
+      <Suspense>
+        <PdfViewer file={docPdf(d.id)} pages={d.pages} />
+      </Suspense>
+    </Page>
   )
 }
