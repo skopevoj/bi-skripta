@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "oop-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/vojta/Desktop/cvut/BI-OOP/app", "run", "dev", "--", "-p", "3123"],
+      "port": 3123
+    },
+    {
+      "name": "oop-design",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "3124", "-d", "/Users/vojta/Desktop/cvut/BI-OOP/design"],
+      "port": 3124
+    }
+  ]
+}
