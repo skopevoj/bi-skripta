@@ -1,0 +1,44 @@
+/* Vlastní styly widgetů skupiny B (Birthday, ECAdd). Jen tokeny z @skripta/ui, prefix ix-<widget>-. */
+
+/* ---------- Narozeninový paradox: graf ---------- */
+.ix-birthday-plot{ min-width: 0; max-width: 100%; overflow: hidden; }
+.ix-birthday-plot svg{ display: block; max-width: 100%; height: auto; }
+.ix-birthday-grid{ stroke: var(--dg-grid); stroke-width: 1; }
+.ix-birthday-half{ stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 4 4; }
+.ix-birthday-ax{ fill: var(--ink-3); font: 400 11px/1 var(--mono); }
+.ix-birthday-p1{ fill: none; stroke: var(--acc); stroke-width: 2.5; stroke-linejoin: round; }
+.ix-birthday-p2{ fill: none; stroke: var(--ink-3); stroke-width: 2; stroke-dasharray: 6 4; }
+.ix-birthday-k{ stroke: var(--ink-2); stroke-width: 1; }
+.ix-birthday-dot{ fill: var(--acc); stroke: var(--bg); stroke-width: 2; }
+.ix-birthday-val{ fill: var(--ink); font: 600 13px/1 var(--mono); paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+.ix-birthday-legend{ display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); margin-top: var(--s-2); font-size: 13px; line-height: 20px; color: var(--ink-3); }
+.ix-birthday-legend span{ display: inline-flex; align-items: center; gap: var(--s-2); }
+.ix-birthday-key{ display: inline-block; width: 16px; height: 0; border-top: 3px solid var(--acc); }
+.ix-birthday-key-2{ border-top: 2px dashed var(--ink-3); }
+
+/* ---------- Eliptická křivka nad GF(p): mřížka bodů ---------- */
+.ix-ecadd-plot{ min-width: 0; max-width: 100%; overflow: hidden; }
+.ix-ecadd-plot svg{ display: block; max-width: 100%; height: auto; margin: 0 auto; touch-action: manipulation; }
+.ix-ecadd-grid{ stroke: var(--dg-grid); stroke-width: 1; }
+.ix-ecadd-mirror{ stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 4 4; }
+.ix-ecadd-ax{ fill: var(--ink-3); font: 400 11px/1 var(--mono); }
+.ix-ecadd-line{ fill: var(--acc); opacity: .16; }
+.ix-ecadd-pt{ fill: var(--dg-node); stroke: var(--dg-edge); stroke-width: 1.5; cursor: pointer; transition: r .15s; }
+.ix-ecadd-hit{ fill: transparent; cursor: pointer; }
+.ix-ecadd-hit:hover + .ix-ecadd-pt, .ix-ecadd-g:focus-visible .ix-ecadd-pt{ stroke: var(--acc); stroke-width: 2.5; }
+.ix-ecadd-g{ outline: none; }
+.ix-ecadd-g:focus-visible .ix-ecadd-hit{ stroke: var(--acc); stroke-width: 2; }
+.ix-ecadd-pq{ fill: var(--acc); stroke: var(--acc); }
+.ix-ecadd-negr{ fill: var(--bg); stroke: var(--ink-2); stroke-width: 2; stroke-dasharray: 3 2; }
+.ix-ecadd-r{ fill: var(--ok); stroke: var(--ok); }
+.ix-ecadd-refl{ stroke: var(--ok); stroke-width: 1.5; stroke-dasharray: 3 3; fill: none; marker-end: url(#ix-ecadd-arrow); }
+.ix-ecadd-arrowhead{ fill: var(--ok); }
+.ix-ecadd-lbl{ fill: var(--ink); font: 600 13px/1 var(--sans); paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; pointer-events: none; }
+.ix-ecadd-lbl-r{ fill: var(--ok); }
+.ix-ecadd-legend{ display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); margin-top: var(--s-2); font-size: 13px; line-height: 20px; color: var(--ink-3); }
+.ix-ecadd-legend span{ display: inline-flex; align-items: center; gap: var(--s-2); }
+.ix-ecadd-key{ display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--acc); background: var(--acc); }
+.ix-ecadd-key-line{ border: 0; border-radius: 2px; background: var(--acc); opacity: .32; }
+.ix-ecadd-key-mirror{ width: 16px; height: 0; border: 0; border-top: 1px dashed var(--ink-3); border-radius: 0; background: none; }
+.ix-ecadd-key-negr{ background: var(--bg); border: 2px dashed var(--ink-2); }
+.ix-ecadd-key-r{ background: var(--ok); border-color: var(--ok); }

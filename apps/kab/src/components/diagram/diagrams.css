@@ -1,0 +1,85 @@
+/* Statické diagramy KAB (components/diagram/*). Vzhled b-reference: neutrální karta, 3px barevná
+   čepička podle role, tenké hrany. Jen tokeny z @skripta/ui (tokens.css, base.css), žádné hex barvy.
+
+   Role (barevné rodiny, stejné ve všech diagramech):
+     key   = klíče, rundovní klíče, heslo (keystream), SK/VK   → --f-event  (jantarová)
+     data  = OT/ŠT, bloky zprávy, poloviny L/R, datová pole    → --f-aspect (modrá)
+     param = veřejné parametry: IV, nonce, čítač                → --f-type   (fialová)
+     auth  = důvěryhodná autorita (Autorita, CA)                → --f-relator (zelená)
+     plain = účastníci, hardware                                → --f-plain  (šedá)
+   Operace (⊕, E, P, S, f, F, generátor) jsou neutrální s akcentovým obrysem (--acc).
+
+   Geometrie: rádius 4 (--r-1), obrys uzlu 1px, obrys operace 1.5px, hrana 1.25px,
+   šipka 8×8 (userSpaceOnUse), čepička 3px. Písmo: 13px (popisky, notace) a 11px (poznámky, šířky).
+*/
+
+.dg{
+  --dg-sw: 1.25px;
+  --dg-key-ink: color-mix(in oklab, var(--f-event) 62%, var(--ink));
+  --dg-data-ink: color-mix(in oklab, var(--f-aspect) 62%, var(--ink));
+  --dg-node-line: color-mix(in oklab, var(--ink-3) 70%, var(--dg-node));
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding: var(--s-5) var(--s-4);
+  background: var(--dg-bg);
+}
+.dg-svg{
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  overflow: visible;
+  font-family: var(--sans);
+  font-size: 13px;
+  fill: var(--ink);
+}
+@media (max-width: 480px){ .dg{ padding: var(--s-4) var(--s-3); } }
+
+/* ---------- uzly (karta s čepičkou) ---------- */
+.dg-n{ --fc: var(--f-plain); }
+.dg-n[data-r="key"]{ --fc: var(--f-event); }
+.dg-n[data-r="data"]{ --fc: var(--f-aspect); }
+.dg-n[data-r="param"]{ --fc: var(--f-type); }
+.dg-n[data-r="auth"]{ --fc: var(--f-relator); }
+.dg-n-body{ fill: var(--dg-node); stroke: var(--dg-node-line); stroke-width: 1px; }
+.dg-n[data-dash] .dg-n-body{ stroke-dasharray: 4 3; }
+.dg-n-cap{ fill: var(--fc); }
+
+/* ---------- operace ---------- */
+.dg-op{ fill: color-mix(in oklab, var(--acc) 7%, var(--dg-node)); stroke: var(--acc); stroke-width: 1.5px; }
+.dg-xor-x{ stroke: var(--acc); stroke-width: 1.5px; fill: none; }
+
+/* ---------- kontejner (čip, skupina) ---------- */
+.dg-group{ fill: var(--bg-2); stroke: var(--line); stroke-width: 1px; }
+
+/* ---------- hrany ---------- */
+.dg-w{ fill: none; stroke: var(--dg-edge); stroke-width: var(--dg-sw); stroke-linejoin: round; }
+.dg-w[data-r="key"]{ stroke: var(--f-event); }
+.dg-w[data-dash]{ stroke-dasharray: 4 3; }
+.dg-w[data-faint]{ stroke: var(--ink-3); }
+.dg-mk{ fill: var(--dg-edge); }
+.dg-mk-key{ fill: var(--f-event); }
+.dg-mk-faint{ fill: var(--ink-3); }
+.dg-dot{ fill: var(--dg-edge); }
+.dg-dot[data-r="key"]{ fill: var(--f-event); }
+.dg-life{ stroke: var(--line); stroke-width: 1px; stroke-dasharray: 3 3; }
+.dg-act{ fill: var(--bg-3); stroke: var(--dg-node-line); stroke-width: 1px; }
+.dg-bus{ stroke: var(--dg-edge); stroke-width: 3px; stroke-linecap: round; }
+
+/* ---------- text: dvě velikosti, 13 a 11 ---------- */
+.dg-t{ font-family: var(--sans); font-size: 13px; font-weight: 500; fill: var(--ink); }
+.dg-t-b{ font-weight: 600; }
+.dg-m{ font-family: var(--mono); font-size: 13px; font-weight: 500; fill: var(--ink); }
+.dg-s{ font-family: var(--sans); font-size: 11px; fill: var(--ink-2); }
+.dg-sm{ font-family: var(--mono); font-size: 11px; fill: var(--ink-2); }
+.dg-h{ font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; fill: var(--ink-3); }
+.dg-muted{ fill: var(--ink-3); }
+/* popisek na hraně — „halo“ v barvě plátna, aby přes čáru zůstal čitelný */
+.dg-halo{ paint-order: stroke; stroke: var(--dg-bg); stroke-width: 4px; stroke-linejoin: round; }
+/* zabarvená notace uvnitř textu (tspan) */
+.dg-k{ fill: var(--dg-key-ink); }
+.dg-d{ fill: var(--dg-data-ink); }

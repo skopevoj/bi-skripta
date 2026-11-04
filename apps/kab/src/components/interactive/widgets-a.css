@@ -1,0 +1,29 @@
+/* Widgety skupiny A (teorie čísel). Jen tokeny z @skripta/ui, prefix ix-<widget>-. */
+
+/* ---------- mod-clock ---------- */
+.ix-modclock-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: var(--s-5);
+  align-items: center;
+}
+@media (max-width: 640px) {
+  .ix-modclock-layout { grid-template-columns: minmax(0, 1fr); }
+}
+.ix-modclock { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto; }
+.ix-modclock-ring { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.ix-modclock-tick { fill: var(--ink-3); }
+.ix-modclock-num { font: 500 12px/1 var(--mono); fill: var(--ink-3); }
+.ix-modclock-zero .ix-modclock-tick { fill: var(--ink-2); }
+.ix-modclock-zero .ix-modclock-num { fill: var(--ink); font-weight: 700; }
+.ix-modclock-start .ix-modclock-tick { fill: var(--acc); }
+.ix-modclock-start .ix-modclock-num { fill: var(--acc); font-weight: 700; }
+.ix-modclock-res .ix-modclock-tick { fill: var(--ok-bg); stroke: var(--ok); stroke-width: 2.5; }
+.ix-modclock-res .ix-modclock-num { fill: var(--ok); font-weight: 700; font-size: 14px; }
+.ix-modclock-walk { fill: none; stroke: var(--acc); stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+.ix-modclock-head { fill: var(--acc); }
+.ix-modclock-hop { fill: var(--dg-node); stroke: var(--acc); stroke-width: 1.5; }
+.ix-modclock-from { fill: var(--acc); stroke: var(--dg-bg); stroke-width: 1.5; }
+.ix-modclock-c { font: 700 34px/1 var(--mono); fill: var(--ok); }
+.ix-modclock-csub { font: 500 12px/1 var(--sans); fill: var(--ink-3); }
+.ix-modclock-text { color: var(--ink-2); font-size: var(--ix-fs-2); line-height: 20px; margin: 0; }

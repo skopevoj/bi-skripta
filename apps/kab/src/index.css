@@ -1,0 +1,45 @@
+/* BI-KAB — only what the package does not cover. Tokens from @skripta/ui (tokens.css, base.css):
+   spacing --s-*, radii --r-*, colours --ink / --bg / --line / --ok / --bad …  Prefix kab-. */
+
+/* Fonts: <link> to Google Fonts in index.html; tokens read --font-sans / --font-mono. */
+:root{ --font-sans: "Instrument Sans"; --font-mono: "Source Code Pro"; }
+
+/* ---------- Příklad (exercise) ---------- */
+.kab-ex{ display: grid; gap: var(--s-4); min-width: 0; }
+.kab-ex-bar{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); }
+.kab-ex-src{ font-size: 13px; line-height: 20px; color: var(--ink-3); }
+.kab-ex-html{ min-width: 0; }
+.kab-ex-html > :first-child{ margin-top: 0; }
+.kab-ex-html > :last-child{ margin-bottom: 0; }
+.kab-ex-html p{ margin: 0 0 var(--s-3); }
+.kab-ex-html ul, .kab-ex-html ol{ margin: 0 0 var(--s-3); }
+.kab-ex-label{ font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.kab-ex-res{ display: grid; gap: var(--s-2); }
+.kab-ex-res .kab-ex-html{ font-weight: 600; color: var(--ink); }
+
+.kab-ex-check{ display: grid; gap: var(--s-3); padding: var(--s-4); border: 1px solid var(--line-2); border-radius: var(--r-2); background: var(--bg-2); }
+.kab-ex-open{ display: flex; align-items: flex-end; gap: var(--s-2); }
+.kab-ex-open > :first-child{ flex: 1; min-width: 0; }
+.kab-ex .kab-ex-opts{ display: grid; gap: var(--s-1); margin: 0; padding: 0; list-style: none; }
+.kab-ex .kab-ex-opt{ display: flex; align-items: center; gap: var(--s-3); margin: 0; padding: var(--s-1) var(--s-2); border-radius: var(--r-1); }
+.kab-ex-opt[data-res="ok"]{ background: var(--ok-bg); }
+.kab-ex-opt[data-res="bad"]{ background: var(--bad-bg); }
+.kab-ex-opt .ix-seg{ flex: none; }
+.kab-ex-opt-t{ flex: 1; min-width: 0; font-size: 15px; line-height: 22px; }
+.kab-ex-mark{ flex: none; font-weight: 700; }
+.kab-ex-opt[data-res="ok"] .kab-ex-mark{ color: var(--ok); }
+.kab-ex-opt[data-res="bad"] .kab-ex-mark{ color: var(--bad); }
+.kab-ex-fb{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+.kab-ex-fb > .ix-verdict{ flex: 1 1 240px; }
+@media (max-width: 480px){
+  .kab-ex-open{ flex-direction: column; align-items: stretch; }
+  .kab-ex .kab-ex-opt{ align-items: flex-start; }
+}
+
+/* ---------- Přehled pojmů (glossary chapter) ---------- */
+.kab-gl dl{ margin: 0; }
+.kab-gl-row{ display: grid; grid-template-columns: minmax(8rem, 14rem) minmax(0, 1fr); gap: var(--s-1) var(--s-6); padding: var(--s-3) 0; border-top: 1px solid var(--line-2); }
+.kab-gl-row dt{ font-weight: 600; color: var(--ink); }
+.kab-gl-row dd{ margin: 0; color: var(--ink-2); }
+.kab-gl-plain{ display: block; margin-top: var(--s-2); padding-left: var(--s-3); border-left: 2px solid var(--line); color: var(--ink-3); font-size: 14px; line-height: 22px; }
+@media (max-width: 640px){ .kab-gl-row{ grid-template-columns: minmax(0, 1fr); } }

@@ -1,0 +1,17 @@
+/* Widgety skupiny C (módy, ECB vs. CBC, AES, lavinový efekt, SHA-1, Salsa/ChaCha).
+   Jen tokeny z @skripta/ui (tokens.css), škála --s-* a --r-*; prefix ix-<widget>-. */
+
+/* ---------- ECB vs. CBC: obrázky po blocích ---------- */
+.ix-ecb-fig{ margin: 0; display: grid; gap: var(--s-2); justify-items: start; min-width: 0; }
+.ix-ecb-cap{ display: flex; flex-wrap: wrap; gap: 0 var(--s-2); align-items: baseline; font-size: var(--ix-fs-2); line-height: 20px; color: var(--ink-3); }
+.ix-ecb-cap b{ color: var(--ink); font-weight: 600; }
+.ix-ecb-cap span{ font-family: var(--mono); }
+/* počet sloupců (bloků) nastavuje widget; mezi bloky větší mezera, ať je vidět, co je jeden blok */
+.ix-ecb-img{ display: grid; gap: 1px 3px; width: 100%; max-width: 260px; padding: var(--s-1); border: 1px solid var(--line); border-radius: var(--r-2); background: var(--bg); }
+.ix-ecb-blk{ display: grid; gap: 1px; }
+.ix-ecb-px{ display: block; aspect-ratio: 1; border-radius: 1px; }
+.ix-ecb-canvas{ touch-action: none; user-select: none; cursor: crosshair; }
+.ix-ecb-btn{ appearance: none; padding: 0; margin: 0; border: 0; background: var(--bg-3); cursor: inherit; }
+.ix-ecb-btn[data-on]{ background: var(--ink); }
+.ix-ecb-btn:hover{ box-shadow: inset 0 0 0 1px var(--acc); }
+.ix-ecb-btn:focus-visible{ outline: 2px solid var(--acc); outline-offset: 1px; position: relative; z-index: 1; }
