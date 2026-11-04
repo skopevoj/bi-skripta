@@ -13,8 +13,8 @@ v `BI-KOM/app/src/app/globals.css` (`.box`, `.box-h`, `.box-b`, `data-k`).
 | `packages/ui` | tento balíček `@skripta/ui` (`~/Desktop/skripta-ui` je jen symlink sem) | TS zdroj bez buildu, čisté CSS |
 | `packages/ui/playground` | ukázka kitu, port 5180 | Vite |
 | `apps/kab` | KAB skripta (živě na kab.skopik.cz) | Vite 6, React 19, Tailwind 3 (na odchodu), KaTeX, single-file build |
-| `apps/kom` | KOM skripta (už běží na `@skripta/ui`) | Next 16, React 19 |
-| `apps/oop` | OOP skripta (oop.skopik.cz) | Next 16, React 19, CodeMirror, `/api/run` (Scala) |
+| `apps/kom` | KOM skripta | Next 16 (statický export), React 19 |
+| `apps/oop` | OOP skripta (oop.skopik.cz) | Next 16 (statický export), React 19, CodeMirror, Scala přes Scastie z prohlížeče |
 
 `/Users/vojta/Desktop/cvut/BI-KOM/app`, `cvut/BI-OOP/app`, `cvut/BI-KAB/zkouska/app` jsou **staré kopie — nesahat**.
 

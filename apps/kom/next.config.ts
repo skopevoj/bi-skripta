@@ -6,6 +6,8 @@ import type { NextConfig } from 'next'
 const root = path.resolve(__dirname, '../..')
 
 const nextConfig: NextConfig = {
+  // Static site (out/): no server needed, served by `serve` or any static host.
+  output: 'export',
   reactStrictMode: true,
   poweredByHeader: false,
   devIndicators: false,

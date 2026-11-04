@@ -33,6 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="cs" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript('kom') }} />
+        {/* Umami analytics (u.skopik.cz); data-domains keeps localhost visits out of the stats. */}
+        <script defer src="https://u.skopik.cz/script.js" data-website-id="465885fc-a89a-4519-a0b8-91ba54c65044" data-domains="kom.skopik.cz" />
       </head>
       <body>
         <KomProvider>

@@ -21,6 +21,18 @@ npm run playground   # ukázka komponent kitu, http://localhost:5180
 npm run typecheck
 ```
 
-Buildy: `npm run build:kab` (→ `apps/kab/dist/index.html`), `npm run build:kom`, `npm run build:oop`.
+## Nasazení
+
+Všechna tři skripta jsou statické weby (žádný server; OOP spouští Scalu na Scastie přímo z prohlížeče).
+Každé je samostatný projekt ze stejného repa; **kořen projektu = kořen repa** (kvůli sdílenému `packages/ui`).
+
+| Projekt | Build | Výstup | Sledované cesty |
+|---|---|---|---|
+| kab.skopik.cz | `npm ci && npm run build:kab` | `apps/kab/dist` | `apps/kab/**`, `packages/ui/**`, `package-lock.json` |
+| kom.skopik.cz | `npm ci && npm run build:kom` | `apps/kom/out` | `apps/kom/**`, `packages/ui/**`, `package-lock.json` |
+| oop.skopik.cz | `npm ci && npm run build:oop` | `apps/oop/out` | `apps/oop/**`, `packages/ui/**`, `package-lock.json` |
+
+Na statickém hostingu (Cloudflare Pages apod.) stačí build + výstupní složka, Node ≥ 20. Kde je potřeba proces
+(Railway), start je `npm start -w apps/<kab|kom|oop>` (`serve` na `$PORT`).
 
 API balíčku a pravidla pro interaktivní widgety jsou v [`packages/ui/README.md`](packages/ui/README.md).

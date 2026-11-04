@@ -1,10 +1,11 @@
 'use client'
-// „Editor“ tab of the workbench: CodeMirror (Scala 3) + console. Runs code through /api/run (Scastie proxy).
+// „Editor“ tab of the workbench: CodeMirror (Scala 3) + console. Runs code on Scastie straight from the browser (lib/scastie).
 // Code blocks / questions send code with `wb.openTab('editor', { code, autorun })` (see EditorPayload).
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Icon, useWorkbench } from '@skripta/ui'
 import type { WorkbenchTab } from '@skripta/ui/workbench'
+import { runOnScastie } from '@/lib/scastie'
 import { wrapForRun } from '@/lib/wrap'
 import type { EditorHandle } from './CodeEditor'
 
@@ -66,62 +67,25 @@ export function EditorPane() {
     let runtime: string | null = null
     let final: Pick<Con, 'status' | 'cls'> | null = null
     try {
-      const res = await fetch('/api/run', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: w.program }),
-        signal: ac.signal,
-      })
-      if (!res.ok || !res.body) {
-        let msg = `Scastie neodpovídá (HTTP ${res.status}).`
-        try {
-          const j = await res.json()
-          if (j?.error) msg = j.error
-        } catch {
-          /* ignore */
-        }
-        throw new Error(msg)
-      }
-      const reader = res.body.getReader()
-      const dec = new TextDecoder()
-      let buf = ''
-      for (;;) {
-        const { value, done } = await reader.read()
-        if (done) break
-        buf += dec.decode(value, { stream: true })
-        let nl: number
-        while ((nl = buf.indexOf('\n')) >= 0) {
-          const line = buf.slice(0, nl).trim()
-          buf = buf.slice(nl + 1)
-          if (!line) continue
-          let ev: { t: string; [k: string]: unknown }
-          try {
-            ev = JSON.parse(line)
-          } catch {
-            continue
-          }
-          if (ev.t === 'accepted') setCon((c) => ({ ...c, phase: 'compile', status: 'Kompiluji…' }))
-          else if (ev.t === 'running') setCon((c) => ({ ...c, phase: 'run', status: 'Spouštím…' }))
-          else if (ev.t === 'out') {
-            out += String(ev.line) + '\n'
-            setCon((c) => ({ ...c, phase: 'run', status: 'Spouštím…', out }))
-          } else if (ev.t === 'err') {
-            const pl = Number(ev.line) || 0
-            const mapped = w.lineMap ? (w.lineMap[pl - 1] ?? 0) : pl
-            errors.push({ line: mapped, col: Number(ev.col) || 0, msg: String(ev.msg) })
-            setCon((c) => ({ ...c, errors: [...errors] }))
-          } else if (ev.t === 'runtime') {
-            runtime = String(ev.msg)
-          } else if (ev.t === 'done') {
-            const secs = fmtSecs(performance.now() - t0)
-            if (ev.timeout) final = { status: 'Časový limit vypršel.', cls: 'bad' }
-            else if (errors.length) final = { status: 'Nezkompiluje se.', cls: 'bad' }
-            else if (runtime) final = { status: `Výjimka za běhu (${secs} s)`, cls: 'bad' }
-            else if (ev.sbtError) final = { status: 'Chyba sestavení na Scastie.', cls: 'bad' }
-            else final = { status: `Hotovo za ${secs} s`, cls: 'ok' }
-          } else if (ev.t === 'error') {
-            throw new Error(String(ev.msg))
-          }
+      for await (const ev of runOnScastie(w.program, ac.signal)) {
+        if (ev.t === 'accepted') setCon((c) => ({ ...c, phase: 'compile', status: 'Kompiluji…' }))
+        else if (ev.t === 'running') setCon((c) => ({ ...c, phase: 'run', status: 'Spouštím…' }))
+        else if (ev.t === 'out') {
+          out += ev.line + '\n'
+          setCon((c) => ({ ...c, phase: 'run', status: 'Spouštím…', out }))
+        } else if (ev.t === 'err') {
+          const mapped = w.lineMap ? (w.lineMap[ev.line - 1] ?? 0) : ev.line
+          errors.push({ line: mapped, col: ev.col, msg: ev.msg })
+          setCon((c) => ({ ...c, errors: [...errors] }))
+        } else if (ev.t === 'runtime') {
+          runtime = ev.msg
+        } else if (ev.t === 'done') {
+          const secs = fmtSecs(performance.now() - t0)
+          if (ev.timeout) final = { status: 'Časový limit vypršel.', cls: 'bad' }
+          else if (errors.length) final = { status: 'Nezkompiluje se.', cls: 'bad' }
+          else if (runtime) final = { status: `Výjimka za běhu (${secs} s)`, cls: 'bad' }
+          else if (ev.sbtError) final = { status: 'Chyba sestavení na Scastie.', cls: 'bad' }
+          else final = { status: `Hotovo za ${secs} s`, cls: 'ok' }
         }
       }
       if (!final) final = { status: 'Spojení se Scastie se přerušilo.', cls: 'bad' }

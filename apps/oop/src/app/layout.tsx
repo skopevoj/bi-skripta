@@ -33,6 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="cs" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript('oop') }} />
+        {/* Umami analytics (u.skopik.cz); data-domains keeps localhost visits out of the stats. */}
+        <script defer src="https://u.skopik.cz/script.js" data-website-id="8f639352-5041-42fa-9e8c-c30715ee4e5b" data-domains="oop.skopik.cz" />
       </head>
       <body>
         <OopProvider lectureTitles={lectureTitles}>
