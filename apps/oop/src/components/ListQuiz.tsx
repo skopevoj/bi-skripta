@@ -1,7 +1,8 @@
 'use client'
+// Home page teaser: one „exam question“ where every option is right.
 import { useState } from 'react'
+import { Icon } from '@skripta/ui'
 import { highlight } from '@/lib/highlight'
-import { Icon } from './Icon'
 
 // Every option verified with scala-cli 3.9: println(expr == List(1, 2, 3)) prints true.
 const LIST_OPTS: { code: string; looks: string }[] = [
@@ -19,39 +20,53 @@ export function ListQuiz() {
   const [sel, setSel] = useState<number[]>([])
   const [done, setDone] = useState(false)
   return (
-    <section className="mcard" aria-label="Zkoušková otázka">
-      <p className="mcard-k">Zkoušková otázka</p>
-      <p className="mcard-q">Jak ve Scale vytvoříš seznam 1, 2, 3? Označ všechny správné odpovědi.</p>
-      <ul className="opts lq">
+    <section className="sk-q oop-lq" aria-label="Zkoušková otázka">
+      <div className="sk-q-h">
+        <span className="sk-q-k">Zkoušková otázka</span>
+      </div>
+      <p className="sk-q-p">Jak ve Scale vytvoříš seznam 1, 2, 3? Označ všechny správné odpovědi.</p>
+      <ul className="sk-opts">
         {LIST_OPTS.map((o, i) => {
           const on = sel.includes(i)
           return (
             <li key={o.code}>
-              <label className={['opt', on && 'picked', done && 'right', done && 'locked'].filter(Boolean).join(' ')}>
-                <input type="checkbox" checked={on} disabled={done} onChange={() => setSel(on ? sel.filter((x) => x !== i) : [...sel, i])} />
-                <code dangerouslySetInnerHTML={{ __html: highlight(o.code) }} />
-                <span className="lq-l">{o.looks}</span>
-              </label>
+              <button
+                type="button"
+                className={done ? `sk-opt right ${on ? 'picked' : 'missed'}` : 'sk-opt'}
+                aria-pressed={on}
+                disabled={done}
+                onClick={() => setSel(on ? sel.filter((x) => x !== i) : [...sel, i])}
+              >
+                <span className="sk-chk">
+                  <Icon name="check" />
+                </span>
+                <code className="sk-ot oop-hl" dangerouslySetInnerHTML={{ __html: highlight(o.code) }} />
+                <span className="oop-lq-l">{o.looks}</span>
+              </button>
             </li>
           )
         })}
       </ul>
       {done ? (
-        <div className="lq-a">
-          <span className="verdict ok" style={{ margin: 0 }}>
-            <Icon name="check" />
-            Správně jsou všechny.
-          </span>
-          <span className="badge ok">
-            <Icon name="check" />
-            Ověřeno kompilátorem
-          </span>
-          <span className="lq-p">Ve Scale je na všechno 8 způsobů a na midtermu dostaneš ten devátý.</span>
+        <div className="sk-res on ok">
+          <div className="oop-lq-a">
+            <p className="sk-verdict">
+              <Icon name="check" />
+              <b>Správně jsou všechny.</b>
+            </p>
+            <span className="sk-badge ok">
+              <Icon name="check" />
+              Ověřeno kompilátorem
+            </span>
+          </div>
+          <p className="sk-expl">Ve Scale je na všechno 8 způsobů a na midtermu dostaneš ten devátý.</p>
         </div>
       ) : (
-        <button type="button" className="btn ghost sm" onClick={() => setDone(true)}>
-          Zkontrolovat
-        </button>
+        <div className="sk-q-f">
+          <button type="button" className="sk-btn ghost sm" onClick={() => setDone(true)}>
+            Zkontrolovat
+          </button>
+        </div>
       )}
     </section>
   )

@@ -31,8 +31,8 @@ class Sub extends Super:
       '<strong>(A)</strong> ✓ – <code>private</code> ve Scale znamená „uvnitř třídy (a companionu)“, ne „jen na <code>this</code>“. Metoda <code>Super</code> smí volat <code>g</code> na <em>jiné</em> instanci <code>Super</code>. <br><strong>(B)</strong> ✓ – protected člen na sobě v podtřídě. <br><strong>(C)</strong> ✓ – přes referenci typu <code>Sub</code> (nebo jeho podtypu) to jde. <br><strong>(D)</strong> ✗ – z <code>Sub</code> nesmíš volat protected člen přes referenci typu <code>Super</code> (scalac: „protected method f can only be accessed from class Sub or one of its subclasses“). <br><strong>(E)</strong> ✗ – private člen podtřída nevidí (<code>Not found: g</code>). <br><strong>(F)</strong> ✗ – protected zvenku nejde, ani přes podtřídu.',
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L5', page: 11, quote: 'Unlike Java, sharing a package does not grant access.' },
-      { kind: 'slide', lecture: 'L5', page: 13, quote: 'Private members are accessible only from' },
+      { kind: 'slide', doc: 'L5', page: 11, quote: 'Unlike Java, sharing a package does not grant access.' },
+      { kind: 'slide', doc: 'L5', page: 13, quote: 'Private members are accessible only from' },
     ],
   },
   {
@@ -59,7 +59,7 @@ class Premium extends Account:
     explanation:
       'Privátní metoda není v podtřídě vidět, takže ji nelze přepsat. <code>override</code> nemá co přepisovat → chyba <em>„method fee overrides nothing“</em> na řádku definice v <code>Premium</code>.',
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L5', page: 14, quote: 'it cannot override a private method!' }],
+    sources: [{ kind: 'slide', doc: 'L5', page: 14, quote: 'it cannot override a private method!' }],
   },
   {
     id: 'ch5-03',
@@ -87,7 +87,7 @@ class Premium extends Account:
     explanation:
       'Bez <code>override</code> se to zkompiluje: <code>Premium.fee</code> je <strong>nová</strong> veřejná metoda, která s privátní <code>Account.fee</code> nemá nic společného (privátní metoda se nepřepisuje). <br><code>p.fee()</code> → 0. <br><code>total</code> je definovaná v <code>Account</code> a volá <em>svou</em> privátní <code>fee</code> → 100 + 10 = 110. Kdyby <code>fee</code> v <code>Account</code> byla public a v <code>Premium</code> s <code>override</code>, vyšlo by 100.',
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L5', page: 14 }],
+    sources: [{ kind: 'slide', doc: 'L5', page: 14 }],
   },
   {
     id: 'ch5-04',
@@ -112,10 +112,10 @@ class Premium extends Account:
       'Produkt s <code>Option</code>/<code>Boolean</code> poli připouští všechny kombinace – i ty, které doména zakazuje (<code>Order("o1", None, Some("trk7"), false)</code> má tracking bez platby a typově je v pořádku). <br><strong>Sum</strong> (enum) vybírá stav a každý případ nese <em>přesně</em> fakta, která v něm platí: <code>Shipped</code> nemůže nemít platbu, <code>Cancelled</code> nemá tracking.',
     verified: 'slides',
     sources: [
-      { kind: 'slide', lecture: 'L5', page: 35, quote: 'The product permits combinations that the domain rules forbid.' },
+      { kind: 'slide', doc: 'L5', page: 35, quote: 'The product permits combinations that the domain rules forbid.' },
       {
         kind: 'slide',
-        lecture: 'L5',
+        doc: 'L5',
         page: 36,
         quote: 'The sum chooses the state; each product supplies the facts required in that state.',
       },
@@ -156,7 +156,7 @@ final class Team:
       '<code>roles</code> vrací <em>kopii</em> jako immutable <code>Vector</code>. <code>:+</code> vytvoří nový Vector, který se zahodí – tým má pořád 1 člena. <br>Ale prvky jsou tytéž objekty <code>Role</code> a ty jsou mutable: <code>team.roles.head.active = false</code> změní roli přímo v týmu → <code>false</code>. Immutable kontejner je jen <strong>mělká</strong> oprava; plná oprava = immutable <code>Role</code> (<code>val active</code>).',
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L5', page: 19, quote: 'The Vector cannot change. Its Role objects can still change.' },
+      { kind: 'slide', doc: 'L5', page: 19, quote: 'The Vector cannot change. Its Role objects can still change.' },
     ],
   },
   {
@@ -189,7 +189,7 @@ object Percentage:
       '<code>Percentage(n)</code> volá companion <code>apply</code> – to jde vždy; pro 150 se jen vrátí <code>None</code> (to je běh, ne překlad). <br><code>new Percentage(50)</code> ✗ – konstruktor je <code>private</code>, smí ho volat jen třída a companion. <br><code>val d: Percentage = Percentage(50)</code> ✗ – <code>apply</code> vrací <code>Option[Percentage]</code>, ne <code>Percentage</code> (type mismatch). <br><code>.map(p =&gt; p.value)</code> ✓ – <code>Some(25)</code>.',
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L5', page: 21, quote: 'A private constructor makes the validated factory the entry point.' },
+      { kind: 'slide', doc: 'L5', page: 21, quote: 'A private constructor makes the validated factory the entry point.' },
     ],
   },
   {
@@ -216,8 +216,8 @@ case class CPoint(x: Int, y: Int)
       'Obyčejná třída dědí <code>equals</code>/<code>hashCode</code> z <code>AnyRef</code> → porovnává identitu objektů → <code>false</code>, a v <code>Set</code> jsou dva různé prvky. <br>Case class generuje <code>equals</code>/<code>hashCode</code> podle polí → <code>true</code> a <code>Set</code> má jeden prvek. <br>Pozor: slajd 28 u obyčejné třídy <code>Payment</code> uvádí <code>a == b // true</code>, ale Scala 3 vypíše <code>false</code> – slajd tím ukazuje, jak by rovnost <em>měla</em> fungovat pro hodnotu.',
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L5', page: 28, quote: 'A plain class does not generate that API.' },
-      { kind: 'slide', lecture: 'L5', page: 29 },
+      { kind: 'slide', doc: 'L5', page: 28, quote: 'A plain class does not generate that API.' },
+      { kind: 'slide', doc: 'L5', page: 29 },
     ],
   },
   {
@@ -245,7 +245,7 @@ case class CPoint(x: Int, y: Int)
     explanation:
       'Vše generované (<code>equals</code>, <code>hashCode</code>, <code>toString</code>, <code>copy</code>, <code>unapply</code>) bere v úvahu jen <strong>parametry primárního konstruktoru</strong>. <br><code>copy()</code> zavolá konstruktor s <code>name = "eva"</code> → nový objekt má <code>logins = 0</code>. <br><code>a == b</code> porovná jen <code>name</code> → <code>true</code>, i když se <code>logins</code> liší. <br><code>toString</code> → <code>User(eva)</code> (řetězec bez uvozovek).',
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L5', page: 30 }],
+    sources: [{ kind: 'slide', doc: 'L5', page: 30 }],
   },
   {
     id: 'ch5-09',
@@ -268,7 +268,7 @@ case class TagList(xs: List[String])
     explanation:
       'Vygenerované <code>equals</code> porovná pole pomocí <code>==</code>. <code>Array</code> je Java pole s <strong>referenční</strong> rovností → dvě různá pole nejsou rovna → <code>false</code>. <code>List</code> má strukturální rovnost → <code>true</code>. Další důvod, proč do case class dávat immutable typy polí.',
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L5', page: 29, quote: 'copy creates a new value.' }],
+    sources: [{ kind: 'slide', doc: 'L5', page: 29, quote: 'copy creates a new value.' }],
   },
   {
     id: 'ch5-10',
@@ -295,7 +295,7 @@ case class TagList(xs: List[String])
     explanation:
       'Identifikátor začínající <strong>malým písmenem</strong> je v patternu <em>variable pattern</em>: chytí cokoli a zastíní vnější <code>expected</code>. <code>Some(expected)</code> tedy matchne každé <code>Some</code> a naváže <code>expected = 7</code> → <code>hit 7</code>. Druhý case je nedosažitelný (překladač hlásí warning „Unreachable case“). <br>Oprava: <code>case Some(`expected`)</code> (backticky) nebo pojmenovat konstantu velkým písmenem.',
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L5', page: 51, quote: 'case Some(A) => "has value 10"' }],
+    sources: [{ kind: 'slide', doc: 'L5', page: 51, quote: 'case Some(A) => "has value 10"' }],
   },
   {
     id: 'ch5-11',
@@ -328,7 +328,7 @@ def check2(n: Int, max: Int): String = n match
     explanation:
       '<code>Max</code> začíná velkým písmenem → <strong>stable identifier</strong>: case se porovná <code>n == Max</code>. 5 ≠ 3 → <code>other 5</code>. <br>V <code>check2</code> je <code>max</code> malým písmenem, ale v backticích → také stable identifier → 3 == 3 → <code>max</code>. Bez backticků by <code>case max</code> chytil vše.',
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L5', page: 51, quote: 'case Some(A) => "has value 10"' }],
+    sources: [{ kind: 'slide', doc: 'L5', page: 51, quote: 'case Some(A) => "has value 10"' }],
   },
   {
     id: 'ch5-12',
@@ -356,7 +356,7 @@ def m(a: A): String = a match
     explanation:
       'Case se zkouší <strong>shora dolů</strong> a vyhraje první, který pasuje. Type pattern <code>_: B</code> pasuje na <code>B</code> i všechny podtypy. <br><code>m(C())</code>: C je B → <code>"B"</code> (case <code>_: C</code> je nedosažitelný, překladač varuje). <code>m(A())</code>: není B ani C → <code>"A"</code>. <code>m(B())</code> → <code>"B"</code>. Výsledek <code>BAB</code>. Chceš-li rozlišit C, dej specifičtější case nahoru.',
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L5', page: 52 }, { kind: 'slide', lecture: 'L5', page: 72, quote: 'Cases run from top to bottom.' }],
+    sources: [{ kind: 'slide', doc: 'L5', page: 52 }, { kind: 'slide', doc: 'L5', page: 72, quote: 'Cases run from top to bottom.' }],
   },
   {
     id: 'ch5-13',
@@ -383,7 +383,7 @@ def m(a: A): String = a match
       'Kvůli <strong>type erasure</strong> za běhu neexistuje <code>List[String]</code>, jen <code>List</code>. Test se přeloží na „je to <code>List</code>?“ a překladač vypíše jen <em>unchecked</em> warning. <br><code>List(1, 2, 3)</code> je List → <code>strings</code> (!). <code>Vector("a")</code> není List, ale je Seq → <code>seq</code>. <code>Nil</code> je List → <code>strings</code>.',
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L4', page: 78, quote: 'Type erasure removes generic type arguments at runtime (Java, Scala).' },
+      { kind: 'slide', doc: 'L4', page: 78, quote: 'Type erasure removes generic type arguments at runtime (Java, Scala).' },
       { kind: 'wiki', label: 'Zkouška 23. 1. 2026', page: 'oop_zkouska_2026-01-23' },
     ],
   },
@@ -422,8 +422,8 @@ def area(s: Shape): Double = s match
       'Neúplný match je ve Scale <strong>warning</strong>, ne chyba: „match may not be exhaustive. It would fail on pattern case: Rect(_, _), Dot“. Guard <code>if w &gt; 0</code> nechává <code>Rect</code> s <code>w &lt;= 0</code> nepokrytý a <code>Dot</code> chybí úplně. <br>Za běhu: <code>Rect(2, 3)</code> → 6.0; <code>Rect(0, 3)</code> nepasuje na nic → <code>scala.MatchError</code>. <br>Kontrola exhaustivity funguje jen pro uzavřené hierarchie (<code>sealed</code>, <code>enum</code>, <code>Option</code>…); u obyčejného <code>trait</code> překladač nic nehlásí.',
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L5', page: 49, quote: 'match may not be exhaustive.' },
-      { kind: 'slide', lecture: 'L5', page: 72, quote: 'Guards can leave cases uncovered.' },
+      { kind: 'slide', doc: 'L5', page: 49, quote: 'match may not be exhaustive.' },
+      { kind: 'slide', doc: 'L5', page: 72, quote: 'Guards can leave cases uncovered.' },
     ],
   },
 ]

@@ -51,9 +51,9 @@ Takže: dynamicky podle prvního argumentu (příjemce), staticky podle zbytku �
     verified: 'slides',
     sources: [
       ...shots('quiz_10_0.png', 'quiz_10_3.png', 'quiz_10_4.png'),
-      { kind: 'slide', lecture: 'L2', page: 20, quote: 'Use the method name and static argument types to choose an overload' },
-      { kind: 'slide', lecture: 'L2', page: 20, quote: 'do not reconsider explicit argument types' },
-      { kind: 'slide', lecture: 'L2', page: 74 },
+      { kind: 'slide', doc: 'L2', page: 20, quote: 'Use the method name and static argument types to choose an overload' },
+      { kind: 'slide', doc: 'L2', page: 20, quote: 'do not reconsider explicit argument types' },
+      { kind: 'slide', doc: 'L2', page: 74 },
       // sloučeno z duplicit: anki-88
       { kind: 'wiki', label: 'FIT Wiki – Anki kartičky BI-OOP', url: 'https://fit-wiki.cz/škola/předměty/bi-oop' },
     ],
@@ -83,8 +83,8 @@ Takže: dynamicky podle prvního argumentu (příjemce), staticky podle zbytku �
     verified: 'slides',
     sources: [
       ...shots('quiz_10_3.png', 'quiz_10_6.png'),
-      { kind: 'slide', lecture: 'L2', page: 22, quote: 'On JVM, most dispatch is dynamic with some' },
-      { kind: 'slide', lecture: 'L2', page: 20, quote: 'for a virtual call, select the override for that signature' },
+      { kind: 'slide', doc: 'L2', page: 22, quote: 'On JVM, most dispatch is dynamic with some' },
+      { kind: 'slide', doc: 'L2', page: 20, quote: 'for a virtual call, select the override for that signature' },
       // sloučeno z duplicit: anki-85
       { kind: 'wiki', label: 'FIT Wiki – Anki kartičky BI-OOP', url: 'https://fit-wiki.cz/škola/předměty/bi-oop' },
     ],
@@ -113,9 +113,9 @@ Na screenshotu student označil i možnost se <code>super</code> v traitu a dost
     verified: 'slides',
     sources: [
       ...shots('quiz_10_5.png'),
-      { kind: 'slide', lecture: 'L2', page: 22, quote: 'On JVM, most dispatch is dynamic with some' },
-      { kind: 'slide', lecture: 'L6', page: 46, quote: 'the calls to super are resolved dynamically (unlike in a class where it is static)' },
-      { kind: 'slide', lecture: 'L6', page: 58, quote: 'In traits super uses late binding - dispatched dynamically' },
+      { kind: 'slide', doc: 'L2', page: 22, quote: 'On JVM, most dispatch is dynamic with some' },
+      { kind: 'slide', doc: 'L6', page: 46, quote: 'the calls to super are resolved dynamically (unlike in a class where it is static)' },
+      { kind: 'slide', doc: 'L6', page: 58, quote: 'In traits super uses late binding - dispatched dynamically' },
       // sloučeno z duplicit: wiki-marast_2021_2022_mix-05
       { kind: 'wiki', label: 'FIT Wiki – Marast 2021/22 (mix)', page: 'marast_2021_2022_mix', url: 'https://fit-wiki.cz/škola/předměty/bi-oop/marast_2021_2022_mix' },
       { kind: 'image', src: '/sources/wiki/bi-oop_21-22_quiz09.jpg', label: 'Marast 2021/22 – screenshot (static dispatch)' },
@@ -145,9 +145,9 @@ Na screenshotu student označil i možnost se <code>super</code> v traitu a dost
     verified: 'reasoning',
     sources: [
       ...shots('quiz_10_2.png', 'quiz_10_5.png'),
-      { kind: 'slide', lecture: 'L1', page: 96 },
-      { kind: 'slide', lecture: 'L2', page: 11, quote: 'In the class-based system, it is a runtime instance of some class' },
-      { kind: 'slide', lecture: 'L2', page: 12, quote: 'In this course we will focus primarily on class-based languages' },
+      { kind: 'slide', doc: 'L1', page: 96 },
+      { kind: 'slide', doc: 'L2', page: 11, quote: 'In the class-based system, it is a runtime instance of some class' },
+      { kind: 'slide', doc: 'L2', page: 12, quote: 'In this course we will focus primarily on class-based languages' },
     ],
   },
   {
@@ -174,8 +174,8 @@ Na screenshotu student označil i možnost se <code>super</code> v traitu a dost
     verified: 'reasoning',
     sources: [
       ...shots('quiz_10_6.png'),
-      { kind: 'slide', lecture: 'L1', page: 96 },
-      { kind: 'slide', lecture: 'L2', page: 12, quote: 'In this course we will focus primarily on class-based languages' },
+      { kind: 'slide', doc: 'L1', page: 96 },
+      { kind: 'slide', doc: 'L2', page: 12, quote: 'In this course we will focus primarily on class-based languages' },
     ],
   },
   {
@@ -206,10 +206,10 @@ Na screenshotu student označil i možnost se <code>super</code> v traitu a dost
     verified: 'reasoning',
     sources: [
       ...shots('quiz_10_0.png', 'quiz_10_1.png', 'quiz_10_4.png'),
-      { kind: 'slide', lecture: 'L1', page: 96 },
-      { kind: 'slide', lecture: 'L1', page: 65, quote: 'A class, here, is nothing but a function that returns a record.' },
-      { kind: 'slide', lecture: 'L1', page: 78, quote: 'The state is reachable only through the methods.' },
-      { kind: 'slide', lecture: 'L1', page: 78, quote: 'An object hides it with a scope, and there is nothing left to enforce' },
+      { kind: 'slide', doc: 'L1', page: 96 },
+      { kind: 'slide', doc: 'L1', page: 65, quote: 'A class, here, is nothing but a function that returns a record.' },
+      { kind: 'slide', doc: 'L1', page: 78, quote: 'The state is reachable only through the methods.' },
+      { kind: 'slide', doc: 'L1', page: 78, quote: 'An object hides it with a scope, and there is nothing left to enforce' },
     ],
   },
   {
@@ -233,7 +233,7 @@ Na screenshotu student označil i možnost se <code>super</code> v traitu a dost
     verified: 'reasoning',
     sources: [
       ...shots('quiz_10_2.png'),
-      { kind: 'slide', lecture: 'L1', page: 96 },
+      { kind: 'slide', doc: 'L1', page: 96 },
     ],
   },
   {
@@ -256,7 +256,7 @@ Prototyp je obyčejný objekt (mapa), takže do něj lze za běhu kdykoli přid�
     verified: 'reasoning',
     sources: [
       ...shots('quiz_10_1.png'),
-      { kind: 'slide', lecture: 'L1', page: 96 },
+      { kind: 'slide', doc: 'L1', page: 96 },
     ],
   },
 ]

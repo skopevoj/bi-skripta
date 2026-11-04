@@ -13,10 +13,13 @@
 // (Lecture 3 was a guest talk without slides and is not on the midterm.)
 export type LectureId = 'L1' | 'L2' | 'L4' | 'L5' | 'L6'
 
+// Documents the citations point at (library /prednasky/<DocId>): the lectures + the official sample midterm.
+export type DocId = LectureId | 'sample'
+
 export type SourceRef =
   | {
       kind: 'slide'
-      lecture: LectureId
+      doc: LectureId // which lecture PDF (field is `doc` — shared @skripta/ui schema)
       page: number // 1-based PDF page number
       // Short contiguous phrase (5–15 words) copied VERBATIM from that page as printed
       // by `pdftotext -f N -l N -layout`. The PDF viewer searches for it to highlight

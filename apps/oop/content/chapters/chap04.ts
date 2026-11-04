@@ -22,8 +22,8 @@ export const chap04: Chapter = {
           kind: 'p',
           html: 'Chceme jeden <code>List</code> pro <code>Int</code>, <code>String</code>… Copy-paste porušuje DRY, <code>List</code> s prvky typu <code>Any</code> zase ztrácí typovou kontrolu (casty, runtime chyby). Generika řeší obojí: jedna definice, plná statická typová kontrola.',
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 20, quote: 'Reduced help from the compiler' },
-            { kind: 'slide', lecture: 'L4', page: 22, quote: 'allows one to make functions and data types generic' },
+            { kind: 'slide', doc: 'L4', page: 20, quote: 'Reduced help from the compiler' },
+            { kind: 'slide', doc: 'L4', page: 22, quote: 'allows one to make functions and data types generic' },
           ],
         },
         {
@@ -37,8 +37,8 @@ export const chap04: Chapter = {
 <li>Typové parametry může mít <strong>třída</strong> (argument dodám při vytvoření typu) i <strong>metoda</strong> (argument se dodá při volání), i když třída žádné nemá. Často je odvodí compiler.</li>
 </ul>`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 22, quote: 'PList is a type constructor (constructing new types)' },
-            { kind: 'slide', lecture: 'L4', page: 23, quote: 'values are provided at call sites' },
+            { kind: 'slide', doc: 'L4', page: 22, quote: 'PList is a type constructor (constructing new types)' },
+            { kind: 'slide', doc: 'L4', page: 23, quote: 'values are provided at call sites' },
           ],
         },
         {
@@ -56,7 +56,7 @@ def firstOr[T](xs: PList[T], default: T): T =
   println(xs.head.toUpperCase)      // head má statický typ String → žádný cast
   println(firstOr(xs, "nic"))       // T odvozeno jako String
   println(firstOr[Int](null, 42))   // T zadáno explicitně`,
-          sources: [{ kind: 'slide', lecture: 'L4', page: 22 }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 22 }],
         },
         {
           kind: 'callout',
@@ -129,7 +129,7 @@ class Container[T]:
           type: 'past',
           title: 'Na neomezeném T nejde zavolat skoro nic',
           html: `Uvnitř <code>class Box[T]</code> o <code>x: T</code> compiler neví nic — <code>T</code> může být cokoli (i <code>Int</code>). Smíš volat jen metody z <code>Any</code> (<code>toString</code>, <code>==</code>, <code>hashCode</code>). <code>def accept(x: T): Int = x.m</code> je <strong>compile error</strong> <em>value m is not a member of T</em> — a to i když všechna reálná použití dosazují třídy, které <code>m</code> mají. Řešení je upper bound <code>[T <: A]</code> (sekce 4.2).`,
-          sources: [{ kind: 'slide', lecture: 'L4', page: 47, quote: 'It also tells the compiler which operations on T are available.' }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 47, quote: 'It also tells the compiler which operations on T are available.' }],
         },
         { kind: 'quiz', ids: ['ch4-01', 'ch4-02', 'ch4-03'], title: 'Generika: statický typ výsledku' },
       ],
@@ -151,8 +151,8 @@ class Container[T]:
 <li>Bound se dá napsat na typový parametr třídy, metody, nebo na wildcard v typu: <code>Collection[? <: T]</code> (na slidech je starší zápis <code>[_ <: T]</code>, ve Scale 3 je <code>_</code> deprecated, píše se <code>?</code>).</li>
 </ul>`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 33, quote: 'means that the src collection may have elements of any type' },
-            { kind: 'slide', lecture: 'L4', page: 37, quote: 'the target collection may have elements of any type' },
+            { kind: 'slide', doc: 'L4', page: 33, quote: 'means that the src collection may have elements of any type' },
+            { kind: 'slide', doc: 'L4', page: 37, quote: 'the target collection may have elements of any type' },
           ],
         },
         {
@@ -166,7 +166,7 @@ class Container[T]:
 <li><code>[R >: T]</code> → zase jen metody <code>Any</code>. Lower bound <strong>nepřidává žádné metody</strong>, i kdyby <code>T</code> samo mělo upper bound.</li>
 <li>Kombinace <code>[R >: C <: A]</code> → metody <code>A</code> (rozhoduje upper bound).</li>
 </ul>`,
-          sources: [{ kind: 'slide', lecture: 'L4', page: 47, quote: 'It also tells the compiler which operations on T are available.' }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 47, quote: 'It also tells the compiler which operations on T are available.' }],
         },
         {
           kind: 'callout',
@@ -237,9 +237,9 @@ class Processor[T <: B]:
           kind: 'p',
           html: '<strong>Bounds ve wildcardu.</strong> <code>ArrayList</code> je mutable, tedy invariantní: <code>animals.addAll(cats)</code> s parametrem <code>Collection[T]</code> neprojde. Řešení <code>addAll(src: Collection[? <: T])</code> — ze <code>src</code> jen čteme. Opačně <code>popAll(dst: Collection[? >: T])</code> — do <code>dst</code> jen zapisujeme.',
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 32 },
-            { kind: 'slide', lecture: 'L4', page: 33 },
-            { kind: 'slide', lecture: 'L4', page: 37 },
+            { kind: 'slide', doc: 'L4', page: 32 },
+            { kind: 'slide', doc: 'L4', page: 33 },
+            { kind: 'slide', doc: 'L4', page: 37 },
           ],
         },
         {
@@ -252,10 +252,10 @@ class Processor[T <: B]:
 <li>Čtu i zapisuju → <strong>žádný bound</strong>.</li>
 </ul>`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 38, quote: 'use upper bound when you only get values out of a structure,' },
-            { kind: 'slide', lecture: 'L4', page: 38, quote: "don't use type bounds when you both get and put." },
-            { kind: 'slide', lecture: 'L4', page: 76, quote: 'Upper bounds (<: T): read values safely from a producer.' },
-            { kind: 'slide', lecture: 'L4', page: 76, quote: 'Lower bounds (>: T): write values safely to a consumer.' },
+            { kind: 'slide', doc: 'L4', page: 38, quote: 'use upper bound when you only get values out of a structure,' },
+            { kind: 'slide', doc: 'L4', page: 38, quote: "don't use type bounds when you both get and put." },
+            { kind: 'slide', doc: 'L4', page: 76, quote: 'Upper bounds (<: T): read values safely from a producer.' },
+            { kind: 'slide', doc: 'L4', page: 76, quote: 'Lower bounds (>: T): write values safely to a consumer.' },
           ],
         },
         {
@@ -281,7 +281,7 @@ def copy[T](src: ArrayBuffer[? <: T], dst: ArrayBuffer[? >: T]): Unit =
   val view: ArrayBuffer[? <: Animal] = cats   // pohled jen pro čtení
   println(view(0).name)                       // čtení OK
   // view += Dog("Odie")                      // CE: Found: Dog, Required: Nothing & Animal`,
-          sources: [{ kind: 'slide', lecture: 'L4', page: 38 }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 38 }],
         },
         {
           kind: 'interactive',
@@ -302,7 +302,7 @@ def copy[T](src: ArrayBuffer[? <: T], dst: ArrayBuffer[? >: T]): Unit =
         {
           kind: 'p',
           html: '<code>Cat <: Animal</code> automaticky <strong>neznamená</strong> <code>Box[Cat] <: Box[Animal]</code>. Jestli a jak se subtyping „přenese“ na generický typ, určuje <strong>variance annotation</strong> u typového parametru v definici třídy.',
-          sources: [{ kind: 'slide', lecture: 'L4', page: 75, quote: 'Subtyping does not automatically lift: C[Cat] need not be a subtype of C[Animal].' }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 75, quote: 'Subtyping does not automatically lift: C[Cat] need not be a subtype of C[Animal].' }],
         },
         {
           kind: 'callout',
@@ -314,10 +314,10 @@ def copy[T](src: ArrayBuffer[? <: T], dst: ArrayBuffer[? >: T]): Unit =
 <li><code>Box[T]</code> <strong>invariantní</strong> (default): mezi <code>Box[A]</code> a <code>Box[B]</code> není žádný vztah. Mutable kolekce (<code>ArrayList</code>, <code>ArrayBuffer</code>).</li>
 </ul>`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 46, quote: 'given A <: B then C[A] <: C[B]' },
-            { kind: 'slide', lecture: 'L4', page: 46, quote: 'given A <: B then C[B] <: C[A]' },
-            { kind: 'slide', lecture: 'L4', page: 46, quote: 'given A <: B there is no relation between C[A] and C[B]' },
-            { kind: 'slide', lecture: 'L4', page: 42 },
+            { kind: 'slide', doc: 'L4', page: 46, quote: 'given A <: B then C[A] <: C[B]' },
+            { kind: 'slide', doc: 'L4', page: 46, quote: 'given A <: B then C[B] <: C[A]' },
+            { kind: 'slide', doc: 'L4', page: 46, quote: 'given A <: B there is no relation between C[A] and C[B]' },
+            { kind: 'slide', doc: 'L4', page: 42 },
           ],
         },
         {
@@ -354,10 +354,10 @@ def copy[T](src: ArrayBuffer[? <: T], dst: ArrayBuffer[? >: T]): Unit =
 </ol>
 Problém je <strong>zápis</strong> (metoda, která bere <code>T</code>). Immutable <code>List[+A]</code> nic nezapisuje, proto může být kovariantní. Java to u polí dovolila (pole jsou kovariantní) a platí za to runtime výjimkou <code>ArrayStoreException</code>.`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 29, quote: 'Given that Cat <: Animal is it the case that' },
-            { kind: 'slide', lecture: 'L4', page: 43 },
-            { kind: 'slide', lecture: 'L4', page: 44 },
-            { kind: 'slide', lecture: 'L4', page: 63, quote: 'All generic types in Java are invariant and implemented using type erasure' },
+            { kind: 'slide', doc: 'L4', page: 29, quote: 'Given that Cat <: Animal is it the case that' },
+            { kind: 'slide', doc: 'L4', page: 43 },
+            { kind: 'slide', doc: 'L4', page: 44 },
+            { kind: 'slide', doc: 'L4', page: 63, quote: 'All generic types in Java are invariant and implemented using type erasure' },
           ],
         },
         {
@@ -387,7 +387,7 @@ def sendGarfieldToPlay(out: Playground[Cat]): Unit = out.play(Cat("Garfield"))
   sendGarfieldToPlay(CatPlayground())      // Playground[Cat] <: Playground[Cat]
   sendGarfieldToPlay(AnimalPlayground())   // Playground[Animal] <: Playground[Cat] díky -T
   // sendGarfieldToPlay(DancingCatPlayground()) // CE: Garfield neumí dance()`,
-          sources: [{ kind: 'slide', lecture: 'L4', page: 53 }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 53 }],
         },
         {
           kind: 'callout',
@@ -466,8 +466,8 @@ class Consumer[-T <: A]:            // upper bound → x.m je povolené
           kind: 'p',
           html: 'Compiler hlídá, aby varianci nešlo zneužít: kovariantní <code>T</code> nesmí být tam, kde se hodnota <em>přijímá</em>. Jinak by šlo přes <code>Cell[Any]</code> zapsat <code>1</code> do <code>Cell[String]</code> (slide 43), nebo přes <code>Cell[Any]</code> poslat <code>"FIT"</code> do overridnuté metody, která čeká <code>Int</code> (slide 45).',
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 43 },
-            { kind: 'slide', lecture: 'L4', page: 45, quote: 'A covariant type cannot occur in contravariant positions (method parameters, vars)' },
+            { kind: 'slide', doc: 'L4', page: 43 },
+            { kind: 'slide', doc: 'L4', page: 45, quote: 'A covariant type cannot occur in contravariant positions (method parameters, vars)' },
           ],
         },
         {
@@ -482,7 +482,7 @@ class Consumer[-T <: A]:            // upper bound → x.m je povolené
 <li>Lower bound typového parametru metody (<code>[U >: T]</code>) je pro <code>+T</code> v pořádku.</li>
 </ul>
 Chybové hlášky: <em>covariant type T occurs in contravariant position in type T of parameter x</em>, <em>… occurs in invariant position in type T of variable</em>, <em>contravariant type T occurs in covariant position</em>.`,
-          sources: [{ kind: 'slide', lecture: 'L4', page: 50 }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 50 }],
         },
         {
           kind: 'code',
@@ -510,8 +510,8 @@ class Sink[-T]:
 </ul>
 Přesně tak je definované <code>appended</code> ve standardní knihovně.`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 51, quote: 'T is Cat, R has to be Animal since that is' },
-            { kind: 'slide', lecture: 'L4', page: 51, quote: 'the closest basetype of both Cat and Dog' },
+            { kind: 'slide', doc: 'L4', page: 51, quote: 'T is Cat, R has to be Animal since that is' },
+            { kind: 'slide', doc: 'L4', page: 51, quote: 'the closest basetype of both Cat and Dog' },
           ],
         },
         {
@@ -548,7 +548,7 @@ class Stack[+T](val items: List[T]):
           type: 'poznamka',
           title: 'private var',
           html: '<code>private var current: T</code> uvnitř <code>Cell[+T]</code> compiler (Scala 3) toleruje — zvenku do něj nikdo nezapíše. Chyba na slidu 43 vzniká až na veřejné metodě <code>set(x: T)</code>.',
-          sources: [{ kind: 'slide', lecture: 'L4', page: 43 }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 43 }],
         },
         { kind: 'quiz', ids: ['ch4-12', 'ch4-13'], title: 'Variance positions' },
       ],
@@ -564,8 +564,8 @@ class Stack[+T](val items: List[T]):
           kind: 'p',
           html: 'Funkce <code>S => T</code> je ve Scale instance <code>Function1[S, T]</code> s metodou <code>apply(x: S): T</code>. Vstup <code>S</code> je v parametru → kontravariantní, výstup <code>T</code> je návratový typ → kovariantní. Proto <code>trait Function1[-S, +T]</code>.',
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 54 },
-            { kind: 'slide', lecture: 'L4', page: 77, quote: 'Function1[-S, +T] combines both directions.' },
+            { kind: 'slide', doc: 'L4', page: 54 },
+            { kind: 'slide', doc: 'L4', page: 77, quote: 'Function1[-S, +T] combines both directions.' },
           ],
         },
         {
@@ -580,10 +580,10 @@ class Stack[+T](val items: List[T]):
 </ol>
 Pomůcka: „accept more, return less“. Příklad: <code>(Animal => Cat) <: (Cat => Animal)</code> ✓, opačně ✗.`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 59, quote: '(A => B) <: (S => T) iff S <: A and B <: T.' },
-            { kind: 'slide', lecture: 'L4', page: 59, quote: 'Inputs are contravariant, outputs are covariant.' },
-            { kind: 'slide', lecture: 'L4', page: 56, quote: 'Input contravariance reverses the subtype relation.' },
-            { kind: 'slide', lecture: 'L4', page: 57, quote: 'Return-type covariance preserves the subtype relation.' },
+            { kind: 'slide', doc: 'L4', page: 59, quote: '(A => B) <: (S => T) iff S <: A and B <: T.' },
+            { kind: 'slide', doc: 'L4', page: 59, quote: 'Inputs are contravariant, outputs are covariant.' },
+            { kind: 'slide', doc: 'L4', page: 56, quote: 'Input contravariance reverses the subtype relation.' },
+            { kind: 'slide', doc: 'L4', page: 57, quote: 'Return-type covariance preserves the subtype relation.' },
           ],
         },
         {
@@ -607,9 +607,9 @@ def flexibleHandler(r: Request): JsonResponse = JsonResponse(202)
   println(route(jsonHandler))       // výstup užší   → OK (kovariance)
   println(route(flexibleHandler))   // obojí najednou → OK`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 56 },
-            { kind: 'slide', lecture: 'L4', page: 57 },
-            { kind: 'slide', lecture: 'L4', page: 58 },
+            { kind: 'slide', doc: 'L4', page: 56 },
+            { kind: 'slide', doc: 'L4', page: 57 },
+            { kind: 'slide', doc: 'L4', page: 58 },
           ],
         },
         {
@@ -630,7 +630,7 @@ val y: Request => Response =
 
 val z: GetRequest => JsonResponse =
   (r: Request) => Response(200)          // CE`,
-          sources: [{ kind: 'slide', lecture: 'L4', page: 59 }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 59 }],
         },
         {
           kind: 'callout',
@@ -652,8 +652,8 @@ val z: GetRequest => JsonResponse =
           kind: 'p',
           html: 'Na generika se dají položit tři nezávislé otázky: <strong>jaké argumenty jsou přípustné</strong> (bounds), <strong>kdy jsou různé instance zaměnitelné</strong> (variance, wildcardy) a <strong>jak je to implementované</strong> (erasure / reifikace / expanze).',
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 65, quote: 'What arguments are valid? Bounds, constraints, concepts.' },
-            { kind: 'slide', lecture: 'L4', page: 65, quote: 'When are different instantiations substitutable? Variance and projections.' },
+            { kind: 'slide', doc: 'L4', page: 65, quote: 'What arguments are valid? Bounds, constraints, concepts.' },
+            { kind: 'slide', doc: 'L4', page: 65, quote: 'When are different instantiations substitutable? Variance and projections.' },
           ],
         },
         {
@@ -662,8 +662,8 @@ val z: GetRequest => JsonResponse =
           title: 'Bound není variance',
           html: `<code>class Box[T <: Animal]</code> jen říká, že smím vytvořit <code>Box[Cat]</code>, ale ne <code>Box[Int]</code>, a že na <code>T</code> smím volat metody <code>Animal</code>. <code>Box[Cat]</code> <strong>pořád není</strong> podtyp <code>Box[Animal]</code> — to by udělalo jen <code>+T</code>.`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 47, quote: 'A bound (T <: Animal) restricts admissible type arguments.' },
-            { kind: 'slide', lecture: 'L4', page: 47, quote: 'Even with the bound, invariant Box[Cat] is not a subtype of Box[Animal].' },
+            { kind: 'slide', doc: 'L4', page: 47, quote: 'A bound (T <: Animal) restricts admissible type arguments.' },
+            { kind: 'slide', doc: 'L4', page: 47, quote: 'Even with the bound, invariant Box[Cat] is not a subtype of Box[Animal].' },
           ],
         },
         {
@@ -675,8 +675,8 @@ val z: GetRequest => JsonResponse =
             '<strong>Wildcard</strong> <code>Collection[? <: Animal]</code> (use-site) — omezuje jen <em>tento jeden pohled</em>, třída sama zůstává invariantní.',
           ],
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 48, quote: 'Declaration-site variance (+T or -T) determines subtyping at every use.' },
-            { kind: 'slide', lecture: 'L4', page: 48, quote: 'A wildcard/projection (Collection[_ <: Animal]) restricts only that particular view.' },
+            { kind: 'slide', doc: 'L4', page: 48, quote: 'Declaration-site variance (+T or -T) determines subtyping at every use.' },
+            { kind: 'slide', doc: 'L4', page: 48, quote: 'A wildcard/projection (Collection[_ <: Animal]) restricts only that particular view.' },
           ],
         },
         {
@@ -685,9 +685,9 @@ val z: GetRequest => JsonResponse =
           title: 'Jiné jazyky (jen pro orientaci)',
           html: 'Java: generika invariantní, varianci řeší wildcardy <code>? extends</code> / <code>? super</code> (PECS = get/put princip). Kotlin a C#: <code>out T</code> / <code>in T</code> na deklaraci (read-only <code>List</code> kovariantní, <code>MutableList</code> invariantní). C++: kontejnery nejsou kovariantní vůbec, <code>concept</code>/<code>requires</code> je bound, ne variance.',
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 68, quote: 'T extends Base restricts every Box<T> instantiation.' },
-            { kind: 'slide', lecture: 'L4', page: 71, quote: 'MutableList<T> is invariant; out projection restricts a view.' },
-            { kind: 'slide', lecture: 'L4', page: 70 },
+            { kind: 'slide', doc: 'L4', page: 68, quote: 'T extends Base restricts every Box<T> instantiation.' },
+            { kind: 'slide', doc: 'L4', page: 71, quote: 'MutableList<T> is invariant; out projection restricts a view.' },
+            { kind: 'slide', doc: 'L4', page: 70 },
           ],
         },
       ],
@@ -706,10 +706,10 @@ val z: GetRequest => JsonResponse =
           html: `Typové parametry a argumenty existují <strong>jen při kompilaci</strong>. Za běhu je <code>List[String]</code> i <code>List[Int]</code> prostě <code>List</code>. Odstranění typových argumentů se říká <strong>type erasure</strong> (Java, Scala).
 Alternativy: <strong>reifikace</strong> — typ se za běhu uchovává (C#, Java pole); <strong>expanze</strong> — compiler vyrobí pro každý typový argument zvláštní kód (C++ šablony).`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 62, quote: 'for compile-time only, no type parameters are present at runtime' },
-            { kind: 'slide', lecture: 'L4', page: 62, quote: 'the process of removing type parameters is called type erasure' },
-            { kind: 'slide', lecture: 'L4', page: 78, quote: 'Type erasure removes generic type arguments at runtime (Java, Scala).' },
-            { kind: 'slide', lecture: 'L4', page: 78, quote: 'Expansion specializes code at compile time (C++ templates).' },
+            { kind: 'slide', doc: 'L4', page: 62, quote: 'for compile-time only, no type parameters are present at runtime' },
+            { kind: 'slide', doc: 'L4', page: 62, quote: 'the process of removing type parameters is called type erasure' },
+            { kind: 'slide', doc: 'L4', page: 78, quote: 'Type erasure removes generic type arguments at runtime (Java, Scala).' },
+            { kind: 'slide', doc: 'L4', page: 78, quote: 'Expansion specializes code at compile time (C++ templates).' },
           ],
         },
         {
@@ -765,8 +765,8 @@ Odpověď „<code>false</code> pro <code>List[Int]</code>“ je špatně.`,
 <li>Bound ≠ variance. Erasure: <code>List[String]</code> vs <code>List[Int]</code> za běhu nerozlišíš.</li>
 </ul>`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 77, quote: 'C[+T] is covariant: subtyping is preserved (safe output).' },
-            { kind: 'slide', lecture: 'L4', page: 77, quote: 'C[-T] is contravariant: subtyping is reversed (safe input).' },
+            { kind: 'slide', doc: 'L4', page: 77, quote: 'C[+T] is covariant: subtyping is preserved (safe output).' },
+            { kind: 'slide', doc: 'L4', page: 77, quote: 'C[-T] is contravariant: subtyping is reversed (safe input).' },
           ],
         },
       ],

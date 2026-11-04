@@ -1,14 +1,15 @@
 import type { Metadata, Viewport } from 'next'
-import { Onest, JetBrains_Mono } from 'next/font/google'
-import { Shell } from '@/components/Shell'
-import { IconSprite } from '@/components/Icon'
-import { WorkbenchProvider } from '@/components/workbench/WorkbenchProvider'
-import { navChapters, questions, tests } from '@/lib/content'
-import { buildSearchIndex } from '@/lib/search-index'
-import './globals.css'
+import { Instrument_Sans, Source_Code_Pro } from 'next/font/google'
+import { Shell, themeInitScript } from '@skripta/ui'
+import '@skripta/ui/styles.css'
+import './oop.css'
+import { OopWorkbench } from '@/components/workbench/OopWorkbench'
+import { chapters, navChapters, questions, searchIndex, tests } from '@/lib/content'
+import { DOCS } from '@/lib/meta'
+import { OopProvider } from '@/skripta'
 
-const onest = Onest({ subsets: ['latin', 'latin-ext'], weight: ['400', '500', '600', '700'], variable: '--font-onest', display: 'swap' })
-const mono = JetBrains_Mono({ subsets: ['latin', 'latin-ext'], weight: ['400', '500'], variable: '--font-jbmono', display: 'swap' })
+const sans = Instrument_Sans({ subsets: ['latin', 'latin-ext'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' })
+const mono = Source_Code_Pro({ subsets: ['latin', 'latin-ext'], weight: ['400', '500', '600'], variable: '--font-mono', display: 'swap' })
 
 export const metadata: Metadata = {
   title: { default: 'BI-OOP skripta', template: '%s · BI-OOP skripta' },
@@ -20,26 +21,40 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: 'cover',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fcfcfd' },
-    { media: '(prefers-color-scheme: dark)', color: '#141619' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#11141a' },
   ],
 }
 
-const themeInit = `try{var t=localStorage.getItem('oop-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}`
+const lectureTitles = Object.fromEntries(chapters.map((c) => [c.lecture, c.title]))
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="cs" className={`${onest.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="cs" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript('oop') }} />
       </head>
       <body>
-        <IconSprite />
-        <WorkbenchProvider>
-          <Shell nav={navChapters()} search={buildSearchIndex()} counts={{ questions: questions.length, tests: tests.length }}>
+        <OopProvider lectureTitles={lectureTitles}>
+          <Shell
+            nav={navChapters()}
+            search={searchIndex()}
+            tabs={[
+              { href: '/kapitola/1/1', label: 'Skripta', match: ['/', '/kapitola'] },
+              { href: '/otazky', label: 'Banka otázek' },
+              { href: '/testy', label: 'Testy nanečisto' },
+              { href: '/prednasky', label: 'Přednášky' },
+            ]}
+            links={[
+              { href: '/otazky', label: 'Banka otázek', icon: 'bank', count: questions.length },
+              { href: '/testy', label: 'Testy nanečisto', icon: 'timer', count: tests.length },
+              { href: '/prednasky', label: 'Přednášky (PDF)', icon: 'slides', count: DOCS.length },
+            ]}
+            panel={<OopWorkbench />}
+          >
             {children}
           </Shell>
-        </WorkbenchProvider>
+        </OopProvider>
       </body>
     </html>
   )

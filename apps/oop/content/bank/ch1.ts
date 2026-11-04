@@ -21,7 +21,7 @@ export const ch1: Question[] = [
     sources: [
       {
         kind: 'slide',
-        lecture: 'L1',
+        doc: 'L1',
         page: 42,
         quote: 'the tendency of the software to break in many places every time it is changed',
       },
@@ -50,10 +50,10 @@ export const ch1: Question[] = [
       'Definice couplingu (Nystrom): kód je coupled, když nejde pochopit jeden kus bez druhého. Méně couplingu = změna se méně šíří. <br>Decoupling má <strong>cenu</strong>: abstrakce je spekulace na budoucí flexibilitu, vrstvy stojí výkon a organizaci je třeba udržovat. <br>Modul M může záviset na rozhraní, které N implementuje → závislost M → N zmizí. <br>Cíl je naopak <strong>vysoká cohesion, nízký coupling</strong>.',
     verified: 'slides',
     sources: [
-      { kind: 'slide', lecture: 'L1', page: 33, quote: 'understand one without understanding the other.' },
-      { kind: 'slide', lecture: 'L1', page: 37, quote: 'it is essentially a speculation that you will need the' },
-      { kind: 'slide', lecture: 'L1', page: 93, quote: 'Polymorphism which allows us to reverse the dependencies!' },
-      { kind: 'slide', lecture: 'L5', page: 25, quote: 'Aim at high cohesion and low coupling' },
+      { kind: 'slide', doc: 'L1', page: 33, quote: 'understand one without understanding the other.' },
+      { kind: 'slide', doc: 'L1', page: 37, quote: 'it is essentially a speculation that you will need the' },
+      { kind: 'slide', doc: 'L1', page: 93, quote: 'Polymorphism which allows us to reverse the dependencies!' },
+      { kind: 'slide', doc: 'L5', page: 25, quote: 'Aim at high cohesion and low coupling' },
     ],
   },
   {
@@ -76,7 +76,7 @@ export const ch1: Question[] = [
     sources: [
       {
         kind: 'slide',
-        lecture: 'L1',
+        doc: 'L1',
         page: 42,
         quote: 'it is easy to do the wrong thing, but hard to do the right thing',
       },
@@ -108,8 +108,8 @@ export const ch1: Question[] = [
       'Pětice z přednášky: <strong>multiple representations</strong> (kód vybírá objekt, ne místo volání), <strong>encapsulation</strong>, <strong>subtyping</strong>, <strong>inheritance</strong>, <strong>open recursion</strong> (self se váže až při stavbě objektu). <br>Třída jako typ, <code>new</code>, mutable state ani dispatch table mezi podstatné věci nepatří – přednáška je výslovně uvádí jako „co jsme nikdy nepotřebovali“.',
     verified: 'slides',
     sources: [
-      { kind: 'slide', lecture: 'L1', page: 75 },
-      { kind: 'slide', lecture: 'L1', page: 70, quote: 'a record of closures, plus a fixed point for self.' },
+      { kind: 'slide', doc: 'L1', page: 75 },
+      { kind: 'slide', doc: 'L1', page: 70, quote: 'a record of closures, plus a fixed point for self.' },
     ],
   },
   {
@@ -135,9 +135,9 @@ export const ch1: Question[] = [
       'Objekt = hodnota, jejíž veřejné rozhraní jsou jen procedury. Nic dalšího není potřeba: žádná třída, dědičnost ani typový systém – stačí first-class funkce. Po odstranění všeho nepodstatného zbude „record of closures plus fixed point for self“. <br>Veřejně měnitelná pole jsou opak zapouzdření.',
     verified: 'slides',
     sources: [
-      { kind: 'slide', lecture: 'L1', page: 74, quote: 'Objects hide with procedural abstraction, not type abstraction.' },
-      { kind: 'slide', lecture: 'L1', page: 74, quote: 'They need no static type system at all' },
-      { kind: 'slide', lecture: 'L1', page: 70, quote: 'a record of closures, plus a fixed point for self.' },
+      { kind: 'slide', doc: 'L1', page: 74, quote: 'Objects hide with procedural abstraction, not type abstraction.' },
+      { kind: 'slide', doc: 'L1', page: 74, quote: 'They need no static type system at all' },
+      { kind: 'slide', doc: 'L1', page: 70, quote: 'a record of closures, plus a fixed point for self.' },
     ],
   },
   {
@@ -170,7 +170,7 @@ class Doubling extends Counter:
       '<code>inc</code> je zděděná z <code>Counter</code>, ale volá <code>set</code> na <code>this</code> – a <code>this</code> je objekt typu <code>Doubling</code> (dynamic dispatch / open recursion). <br>1. <code>inc()</code>: x = 0 → <code>set(1)</code> → Doubling.set → <code>super.set(2)</code> → x = 2. <br>2. <code>inc()</code>: <code>set(3)</code> → <code>super.set(6)</code> → x = 6. <br>Statický typ <code>Counter</code> nehraje roli, rozhoduje runtime typ objektu.',
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L1', page: 83, quote: 'it makes to set lands on the overriding version.' },
+      { kind: 'slide', doc: 'L1', page: 83, quote: 'it makes to set lands on the overriding version.' },
     ],
   },
   {
@@ -196,10 +196,10 @@ class Doubling extends Counter:
       'Představ si matici: řádky = reprezentace, sloupce = operace. <strong>Objekt</strong> seskupuje kód po řádcích → nová reprezentace = nový řádek, levné. <strong>ADT</strong> seskupuje po sloupcích → nová reprezentace protne všechny operace (a <code>union</code> potřebuje větev pro každou <em>dvojici</em> variant). <br>Možnosti C a D popisují opačný případ – přidání nové <em>operace</em> (tam je levné ADT, drahé objekty).',
     verified: 'slides',
     sources: [
-      { kind: 'slide', lecture: 'L1', page: 56, quote: 'New operations are cheap, new kinds of value are not.' },
-      { kind: 'slide', lecture: 'L1', page: 85 },
-      { kind: 'slide', lecture: 'L1', page: 86, quote: 'an object groups by row:' },
-      { kind: 'slide', lecture: 'L1', page: 86, quote: 'an ADT groups by column:' },
+      { kind: 'slide', doc: 'L1', page: 56, quote: 'New operations are cheap, new kinds of value are not.' },
+      { kind: 'slide', doc: 'L1', page: 85 },
+      { kind: 'slide', doc: 'L1', page: 86, quote: 'an object groups by row:' },
+      { kind: 'slide', doc: 'L1', page: 86, quote: 'an ADT groups by column:' },
     ],
   },
   {
@@ -225,11 +225,11 @@ class Doubling extends Counter:
       'A: ano – možnost nahlédnout do několika reprezentací najednou je výhoda ADT. <br>B: ano – parametry jsou typované rozhraním, reprezentace je nedosažitelná. <br>C: ne – typ <code>set</code> je svázán s jedinou reprezentací; <code>set</code> a <code>set2</code> nejde smíchat (union pro ně nejde ani napsat). <br>D: ne – <code>Bad</code> má správný typ, ale není to množina. Typy hlídají strukturu, ne specifikaci. <br>E: ano.',
     verified: 'slides',
     sources: [
-      { kind: 'slide', lecture: 'L1', page: 53, quote: 'The ability to inspect several representations' },
-      { kind: 'slide', lecture: 'L1', page: 66, quote: 'Everything it knows about s1 and s2, it learned by calling them.' },
-      { kind: 'slide', lecture: 'L1', page: 55, quote: 'The type name set is globally bound to one hidden' },
-      { kind: 'slide', lecture: 'L1', page: 73, quote: 'Type systems enforce structure, not specification.' },
-      { kind: 'slide', lecture: 'L1', page: 74, quote: 'Objects hide with procedural abstraction, not type abstraction.' },
+      { kind: 'slide', doc: 'L1', page: 53, quote: 'The ability to inspect several representations' },
+      { kind: 'slide', doc: 'L1', page: 66, quote: 'Everything it knows about s1 and s2, it learned by calling them.' },
+      { kind: 'slide', doc: 'L1', page: 55, quote: 'The type name set is globally bound to one hidden' },
+      { kind: 'slide', doc: 'L1', page: 73, quote: 'Type systems enforce structure, not specification.' },
+      { kind: 'slide', doc: 'L1', page: 74, quote: 'Objects hide with procedural abstraction, not type abstraction.' },
     ],
   },
 ]

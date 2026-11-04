@@ -1,7 +1,7 @@
 import type { Question, SourceRef } from '../types'
 
 const s = (page: number, quote?: string): SourceRef =>
-  quote ? { kind: 'slide', lecture: 'L6', page, quote } : { kind: 'slide', lecture: 'L6', page }
+  quote ? { kind: 'slide', doc: 'L6', page, quote } : { kind: 'slide', doc: 'L6', page }
 
 export const ch6: Question[] = [
   // -------------------------------------------------------------------------

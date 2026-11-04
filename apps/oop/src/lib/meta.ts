@@ -1,16 +1,36 @@
-import type { LectureId, Question, SourceRef, Topic } from '@content/types'
+import type { CalloutDef, DocInfo as UiDoc } from '@skripta/ui'
+import type { DocId, LectureId, Question, Topic } from '@content/types'
 
-export const LECTURES: { id: LectureId | 'L3'; n: number; title: string; pages?: number }[] = [
-  { id: 'L1', n: 1, title: 'Principles of OOP' },
-  { id: 'L2', n: 2, title: 'Subtyping polymorphism' },
-  { id: 'L3', n: 3, title: 'Host – bez slidů, není na testu' },
-  { id: 'L4', n: 4, title: 'Parametric polymorphism' },
-  { id: 'L5', n: 5, title: 'Encapsulation, ADTs and pattern matching' },
-  { id: 'L6', n: 6, title: 'Composition, inheritance and ad-hoc polymorphism' },
+// Course metadata shared by server pages and the client provider (plain data — no 'server-only', no 'use client').
+
+export type DocInfo = { id: DocId; n?: number; title: string; file: string; pages: number }
+
+/** PDFs the citations and the library (/prednasky) point at. */
+export const DOCS: DocInfo[] = [
+  { id: 'L1', n: 1, title: 'Principles of OOP', file: '/slides/L1.pdf', pages: 108 },
+  { id: 'L2', n: 2, title: 'Subtyping polymorphism', file: '/slides/L2.pdf', pages: 84 },
+  { id: 'L4', n: 4, title: 'Parametric polymorphism', file: '/slides/L4.pdf', pages: 82 },
+  { id: 'L5', n: 5, title: 'Encapsulation, ADTs and pattern matching', file: '/slides/L5.pdf', pages: 78 },
+  { id: 'L6', n: 6, title: 'Composition, inheritance and ad-hoc polymorphism', file: '/slides/L6.pdf', pages: 101 },
+  { id: 'sample', title: 'Ukázkový midterm 2026', file: '/slides/sample-midterm.pdf', pages: 5 },
 ]
+export const SAMPLE_PDF = '/slides/sample-midterm.pdf'
+
 export const LECTURE_IDS: LectureId[] = ['L1', 'L2', 'L4', 'L5', 'L6']
 export const lectureNum = (l: LectureId) => Number(l.slice(1))
-export const lecturePdf = (l: LectureId) => `/slides/${l}.pdf`
+
+/** Short badge label: "P2" (přednáška 2), "Sample". */
+export const docShort = (id: DocId) => (id === 'sample' ? 'Sample' : `P${lectureNum(id)}`)
+/** Long label: "Přednáška 2", "Ukázkový midterm 2026". */
+export const docLong = (id: DocId) => (id === 'sample' ? 'Ukázkový midterm 2026' : `Přednáška ${lectureNum(id)}`)
+
+/** Docs in the shape @skripta/ui expects (citations, TOC buttons, source panel). */
+export const UI_DOCS: UiDoc[] = DOCS.map((d) => ({ id: d.id, short: docShort(d.id), long: docLong(d.id), title: d.title, file: d.file, pages: d.pages }))
+
+/** OOP calls its trap callouts „Past“ (typický chyták na testu). */
+export const CALLOUTS: Record<string, CalloutDef> = {
+  past: { label: 'Past', icon: 'warn', tone: 'coral', toc: true, tocPrefix: 'Past' },
+}
 
 export const TOPICS: Record<Topic, string> = {
   principy: 'Principy OOP',
@@ -50,26 +70,15 @@ export function sourceGroup(q: Question): SourceGroup {
   return 'orig'
 }
 
+/** Labels of `verified`; only `scala` gets the green badge. */
+export const VERIFIED = {
+  scala: { label: 'Kompilátorem', badge: 'Ověřeno kompilátorem' },
+  slides: { label: 'Slajdy' },
+  reasoning: { label: 'Jen úvahou' },
+} as const
+
 export const KIND_LABEL: Record<Question['kind'], string> = {
   mc: 'Vyber správné',
   output: 'Co to vypíše?',
   open: 'Otevřená otázka',
-}
-
-export function slideLabel(s: Extract<SourceRef, { kind: 'slide' }>) {
-  return `P${lectureNum(s.lecture)} · ${s.page}`
-}
-
-/** Strip HTML tags (for search / previews). */
-export function plain(html: string): string {
-  return html
-    .replace(/<br\s*\/?>/g, ' ')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
 }

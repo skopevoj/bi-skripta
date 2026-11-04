@@ -5,10 +5,10 @@ import type { Question, SourceRef } from '../types'
 // kód níže je přesně ten, který běžel, jen bez obalu `@main def run() = ...`.
 // U otázek s výběrem byla každá možnost zkompilována zvlášť.
 
-const L2 = (page: number, quote?: string): SourceRef => ({ kind: 'slide', lecture: 'L2', page, ...(quote ? { quote } : {}) })
-const L4 = (page: number, quote?: string): SourceRef => ({ kind: 'slide', lecture: 'L4', page, ...(quote ? { quote } : {}) })
-const L5 = (page: number, quote?: string): SourceRef => ({ kind: 'slide', lecture: 'L5', page, ...(quote ? { quote } : {}) })
-const L6 = (page: number, quote?: string): SourceRef => ({ kind: 'slide', lecture: 'L6', page, ...(quote ? { quote } : {}) })
+const L2 = (page: number, quote?: string): SourceRef => ({ kind: 'slide', doc: 'L2', page, ...(quote ? { quote } : {}) })
+const L4 = (page: number, quote?: string): SourceRef => ({ kind: 'slide', doc: 'L4', page, ...(quote ? { quote } : {}) })
+const L5 = (page: number, quote?: string): SourceRef => ({ kind: 'slide', doc: 'L5', page, ...(quote ? { quote } : {}) })
+const L6 = (page: number, quote?: string): SourceRef => ({ kind: 'slide', doc: 'L6', page, ...(quote ? { quote } : {}) })
 
 const OVERLOAD_STATIC = L2(20, 'Use the method name and static argument types to choose an overload')
 const OVERRIDE_RUNTIME = L2(20, 'Runtime: for a virtual call, select the override for that signature')

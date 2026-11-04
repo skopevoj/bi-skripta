@@ -18,7 +18,7 @@ export const chap05: Chapter = {
           kind: 'p',
           html: 'Běžící příklad: rezervace sedadel. S veřejnými poli <code>var capacity</code>, <code>var reserved</code> může kdokoli napsat <code>seats.reserved += 2</code> a přebookovat (volných −1). Kdo je zodpovědný za <code>0 &lt;= reserved &lt;= capacity</code>? Nikdo.',
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 4, quote: 'Who is responsible for keeping 0 <= reserved <= capacity?' },
+            { kind: 'slide', doc: 'L5', page: 4, quote: 'Who is responsible for keeping 0 <= reserved <= capacity?' },
           ],
         },
         {
@@ -27,7 +27,7 @@ export const chap05: Chapter = {
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 5,
               quote: 'The setter checks a range. Every client still implements booking.',
             },
@@ -56,8 +56,8 @@ export const chap05: Chapter = {
   println(seats.tryReserve(2))   // false
   println(seats.available)       // 1`,
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 7, quote: 'The public contract survives a change from reserved to free.' },
-            { kind: 'slide', lecture: 'L5', page: 8 },
+            { kind: 'slide', doc: 'L5', page: 7, quote: 'The public contract survives a change from reserved to free.' },
+            { kind: 'slide', doc: 'L5', page: 8 },
           ],
         },
         {
@@ -68,13 +68,13 @@ export const chap05: Chapter = {
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 8,
               quote: 'A small API turns a whole-application problem into a small object-level test.',
             },
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 26,
               quote: 'A good boundary makes invalid changes hard and implementation changes local.',
             },
@@ -96,14 +96,14 @@ export const chap05: Chapter = {
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 9,
               quote: 'Choose the smallest audience. Accessibility and overriding are separate decisions.',
             },
-            { kind: 'slide', lecture: 'L5', page: 10, quote: 'Scala default (differs from Java)' },
-            { kind: 'slide', lecture: 'L5', page: 11, quote: 'Unlike Java, sharing a package does not grant access.' },
-            { kind: 'slide', lecture: 'L5', page: 11, quote: 'allows calls from subclasses but prevents overriding.' },
-            { kind: 'slide', lecture: 'L5', page: 13, quote: 'Private members are accessible only from' },
+            { kind: 'slide', doc: 'L5', page: 10, quote: 'Scala default (differs from Java)' },
+            { kind: 'slide', doc: 'L5', page: 11, quote: 'Unlike Java, sharing a package does not grant access.' },
+            { kind: 'slide', doc: 'L5', page: 11, quote: 'allows calls from subclasses but prevents overriding.' },
+            { kind: 'slide', doc: 'L5', page: 13, quote: 'Private members are accessible only from' },
           ],
         },
         {
@@ -134,8 +134,8 @@ class Sub extends Super:
   println(s.peek(Super()) + " " + Super.spy(s))   // secret secret
   // println(s.f())                               // CE: protected zvenku`,
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 11 },
-            { kind: 'slide', lecture: 'L5', page: 13 },
+            { kind: 'slide', doc: 'L5', page: 11 },
+            { kind: 'slide', doc: 'L5', page: 13 },
           ],
         },
         {
@@ -168,11 +168,11 @@ class Sub extends Super:
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 12,
               quote: 'The override is public by default. The parent declaration is still protected.',
             },
-            { kind: 'slide', lecture: 'L5', page: 14, quote: 'it cannot override a private method!' },
+            { kind: 'slide', doc: 'L5', page: 14, quote: 'it cannot override a private method!' },
           ],
         },
         {
@@ -207,7 +207,7 @@ class Premium extends Account:
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 15,
               quote: 'Both mutations bypass the object. The start is now after the end.',
             },
@@ -245,7 +245,7 @@ final class SafeWindow(start: Date, end: Date):
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 16,
               quote: 'Copy on entry and on exit. Validate the copies that the object owns.',
             },
@@ -259,7 +259,7 @@ final class SafeWindow(start: Date, end: Date):
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 17,
               quote: 'Instant creates new values. Sharing these references cannot change the window.',
             },
@@ -289,14 +289,14 @@ final class Team:
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 18,
               quote: 'Policy: every member is active. The getter lets callers skip add.',
             },
-            { kind: 'slide', lecture: 'L5', page: 19, quote: 'The Vector cannot change. Its Role objects can still change.' },
+            { kind: 'slide', doc: 'L5', page: 19, quote: 'The Vector cannot change. Its Role objects can still change.' },
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 20,
               quote: 'The container and its elements are immutable. All membership changes go through Team.',
             },
@@ -308,11 +308,11 @@ final class Team:
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 21,
               quote: 'A private constructor makes the validated factory the entry point.',
             },
-            { kind: 'slide', lecture: 'L5', page: 22, quote: 'It does not repeat validation.' },
+            { kind: 'slide', doc: 'L5', page: 22, quote: 'It does not repeat validation.' },
           ],
         },
         {
@@ -334,7 +334,7 @@ def discount(price: BigDecimal, p: Percentage): BigDecimal =
   println(Percentage(150).map(p => discount(BigDecimal(200), p)))  // None
   // new Percentage(150)            // CE: private constructor
   // val p: Percentage = Percentage(50)  // CE: apply vrací Option[Percentage]`,
-          sources: [{ kind: 'slide', lecture: 'L5', page: 21 }, { kind: 'slide', lecture: 'L5', page: 22 }],
+          sources: [{ kind: 'slide', doc: 'L5', page: 21 }, { kind: 'slide', doc: 'L5', page: 22 }],
         },
         {
           kind: 'callout',
@@ -342,12 +342,12 @@ def discount(price: BigDecimal, p: Percentage): BigDecimal =
           title: 'Cohesion a coupling na rezervacích',
           html: '<strong>Cohesion</strong> – jak moc k sobě patří prvky uvnitř modulu. <strong>Coupling</strong> – vzájemná závislost modulů. Cíl: vysoká cohesion, nízký coupling.<br>API A (<code>reserved</code>, <code>reserved_=</code>, <code>records: ArrayBuffer</code>) vs. API B (<code>available</code>, <code>tryReserve</code>, <code>bookings: Iterator</code>): B je lepší – stav nemůže zneplatnit nikdo zvenku, a když se změní úložiště, klienti se měnit nemusí. <code>SeatPool</code> drží stav i pravidlo pohromadě (high cohesion), pokladna zná jen <code>tryReserve</code>/<code>available</code> (low coupling).',
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 25, quote: 'how much elements inside a module belong together?' },
-            { kind: 'slide', lecture: 'L5', page: 25, quote: 'what is the interdependence between modules?' },
-            { kind: 'slide', lecture: 'L5', page: 23, quote: 'Which callers must change when storage changes?' },
+            { kind: 'slide', doc: 'L5', page: 25, quote: 'how much elements inside a module belong together?' },
+            { kind: 'slide', doc: 'L5', page: 25, quote: 'what is the interdependence between modules?' },
+            { kind: 'slide', doc: 'L5', page: 23, quote: 'Which callers must change when storage changes?' },
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 24,
               quote: 'Keep each rule behind one boundary; expose the smallest useful contract.',
             },
@@ -368,9 +368,9 @@ def discount(price: BigDecimal, p: Percentage): BigDecimal =
           title: 'Co case class vygeneruje',
           html: 'Pro <code>case class Payment(amount: BigDecimal, currency: String)</code>:<ul><li>parametry jsou automaticky <code>val</code> (veřejná pole),</li><li><code>equals</code>/<code>hashCode</code> podle polí → <strong>hodnotová rovnost</strong>,</li><li><code>toString</code> → <code>Payment(120,CZK)</code>,</li><li><code>copy</code> s pojmenovanými parametry (vytvoří novou hodnotu),</li><li>companion s <code>apply</code> (factory, bez <code>new</code>) a <code>unapply</code> (extractor pro pattern matching),</li><li><code>product*</code> metody (<code>productArity</code>…).</li></ul>Case class je scalovská „product“ část ADT. Doporučení: immutable a <code>final</code>.',
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 30, quote: 'The val keyword is implicit in case classes' },
-            { kind: 'slide', lecture: 'L5', page: 30, quote: "Scala's take on product part of Algebraic Data Types" },
-            { kind: 'slide', lecture: 'L5', page: 30 },
+            { kind: 'slide', doc: 'L5', page: 30, quote: 'The val keyword is implicit in case classes' },
+            { kind: 'slide', doc: 'L5', page: 30, quote: "Scala's take on product part of Algebraic Data Types" },
+            { kind: 'slide', doc: 'L5', page: 30 },
           ],
         },
         {
@@ -391,28 +391,28 @@ def discount(price: BigDecimal, p: Percentage): BigDecimal =
   println(a.amount)                  // 120 – originál se nezměnil
   a match
     case Payment(amt, cur) => println(s"$amt $cur")   // 120 CZK (unapply)`,
-          sources: [{ kind: 'slide', lecture: 'L5', page: 29, quote: 'copy creates a new value.' }],
+          sources: [{ kind: 'slide', doc: 'L5', page: 29, quote: 'copy creates a new value.' }],
         },
         {
           kind: 'callout',
           type: 'past',
           title: 'Obyčejná třída: == porovnává reference',
           html: '<code>class Payment(val amount: BigDecimal, val currency: String)</code> bez <code>case</code> dědí <code>equals</code> z <code>AnyRef</code> → <code>Payment(…) == Payment(…)</code> se stejnými poli je <strong>false</strong>, v <code>Set</code> jsou dva prvky a <code>toString</code> je <code>Payment@1b2c3d</code>. <br>Pozor, slajd 28 u obyčejné třídy píše <code>a == b // true</code> – scala-cli vypíše <code>false</code>. Slajd ukazuje, jak by se rovnost hodnoty <em>měla</em> chovat; to dodá až <code>case</code>.',
-          sources: [{ kind: 'slide', lecture: 'L5', page: 28, quote: 'A plain class does not generate that API.' }],
+          sources: [{ kind: 'slide', doc: 'L5', page: 28, quote: 'A plain class does not generate that API.' }],
         },
         {
           kind: 'callout',
           type: 'past',
           title: 'Generované metody vidí jen parametry konstruktoru',
           html: '<ul><li>Pole v <strong>těle</strong> (<code>var logins = 0</code>) se do <code>equals</code>, <code>hashCode</code>, <code>toString</code> ani <code>copy</code> nepočítá – <code>copy()</code> ho resetuje na výchozí hodnotu.</li><li><code>==</code> polí se deleguje: pole typu <code>Array</code> má referenční rovnost → dvě case class se stejným obsahem pole nejsou rovny. Používej immutable typy polí (<code>List</code>, <code>Vector</code>).</li><li><code>copy</code> je mělká – sdílí reference na vnořené objekty.</li><li>Case class s <code>private</code> konstruktorem má ve Scale 3 privátní i <code>apply</code> a <code>copy</code> (<code>Even(3)</code> zvenku = CE).</li></ul>',
-          sources: [{ kind: 'slide', lecture: 'L5', page: 29 }],
+          sources: [{ kind: 'slide', doc: 'L5', page: 29 }],
         },
         {
           kind: 'callout',
           type: 'poznamka',
           title: 'unapply ve Scale 3',
           html: 'Slajd 30 ukazuje <code>unapply(c): Option[(BigDecimal, String)]</code> – to je podoba ze Scaly 2. Scala 3 pro case class generuje <code>unapply(x: Payment): Payment</code> (vrátí sám objekt, pattern pak čte jeho pole). Pro pattern matching je to jedno.',
-          sources: [{ kind: 'slide', lecture: 'L5', page: 30 }],
+          sources: [{ kind: 'slide', doc: 'L5', page: 30 }],
         },
         {
           kind: 'p',
@@ -420,19 +420,19 @@ def discount(price: BigDecimal, p: Percentage): BigDecimal =
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 42,
               quote: 'Choose case classes and ADTs when exposing the cases and',
             },
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 43,
               quote: 'Combine them: a repository object can store and return immutable Payment values.',
             },
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 74,
               quote: 'Objects protect operations; case classes and ADTs expose useful information.',
             },
@@ -455,11 +455,11 @@ def discount(price: BigDecimal, p: Percentage): BigDecimal =
           sources: [
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 32,
               quote: 'Use a product for independent choices; use a sum when exactly one alternative is selected.',
             },
-            { kind: 'slide', lecture: 'L5', page: 33, quote: 'The variants rule out incompatible' },
+            { kind: 'slide', doc: 'L5', page: 33, quote: 'The variants rule out incompatible' },
           ],
         },
         {
@@ -468,10 +468,10 @@ def discount(price: BigDecimal, p: Percentage): BigDecimal =
           title: 'Option pole a Boolean příznaky',
           html: '<code>case class Order(id, paymentId: Option[String], tracking: Option[String], cancelled: Boolean)</code> se zkompiluje i pro objednávku s trackingem bez platby nebo „odeslanou a zároveň zrušenou“. Product připouští kombinace, které doména zakazuje. Řešení: sum stavů, kde každý stav nese přesně svá fakta.',
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 35, quote: 'The product permits combinations that the domain rules forbid.' },
+            { kind: 'slide', doc: 'L5', page: 35, quote: 'The product permits combinations that the domain rules forbid.' },
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 36,
               quote: 'The sum chooses the state; each product supplies the facts required in that state.',
             },
@@ -510,9 +510,9 @@ def status(o: Order): String = o match
   // dispatch(draft, TrackingCode("X"))   // CE: Found Order.Draft, Required Order.Paid
   // val p: PaymentId = OrderId("o1")     // CE: jiný význam = jiný typ`,
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 36 },
-            { kind: 'slide', lecture: 'L5', page: 37, quote: 'These signatures restrict inputs. Protect the application boundary' },
-            { kind: 'slide', lecture: 'L5', page: 34, quote: 'Products group facts. Wrappers separate meanings;' },
+            { kind: 'slide', doc: 'L5', page: 36 },
+            { kind: 'slide', doc: 'L5', page: 37, quote: 'These signatures restrict inputs. Protect the application boundary' },
+            { kind: 'slide', doc: 'L5', page: 34, quote: 'Products group facts. Wrappers separate meanings;' },
           ],
         },
         {
@@ -520,7 +520,7 @@ def status(o: Order): String = o match
           type: 'past',
           title: 'Enum case se rozšíří na typ enumu',
           html: '<code>val draft = Order.Draft(OrderId("o1"))</code> má typ <code>Order</code>, ne <code>Order.Draft</code> – Scala 3 výsledek <code>apply</code> u enum case rozšíří na typ celého enumu. <code>pay(draft, …)</code> pak hlásí <em>Found: Order, Required: Order.Draft</em>. Proto slajd (i kód výše) píše typ explicitně: <code>val draft: Order.Draft = …</code>.',
-          sources: [{ kind: 'slide', lecture: 'L5', page: 37 }],
+          sources: [{ kind: 'slide', doc: 'L5', page: 37 }],
         },
         {
           kind: 'list',
@@ -532,17 +532,17 @@ def status(o: Order): String = o match
             '<strong>Kolekce jsou doménové rozhodnutí:</strong> <code>Option</code> 0–1, <code>Vector</code> uspořádaná 0+, <code>Set</code> bez duplicit, <code>Map</code> nejvýš jedna hodnota na klíč, <code>NonEmpty(head, tail)</code> aspoň jeden prvek.',
           ],
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 34 },
+            { kind: 'slide', doc: 'L5', page: 34 },
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 38,
               quote: 'A changed snapshot may represent the same entity. Model its identity explicitly.',
             },
-            { kind: 'slide', lecture: 'L5', page: 39, quote: 'Use Option when absent/present is the complete distinction.' },
+            { kind: 'slide', doc: 'L5', page: 39, quote: 'Use Option when absent/present is the complete distinction.' },
             {
               kind: 'slide',
-              lecture: 'L5',
+              doc: 'L5',
               page: 40,
               quote: 'Ordering, duplicates and emptiness are domain decisions. Encode them deliberately.',
             },
@@ -563,9 +563,9 @@ def status(o: Order): String = o match
           title: 'Jak vyhodnotit match na papíře',
           html: '<ol><li>Zkoušej case <strong>shora dolů</strong>; vyhraje <strong>první</strong>, který pasuje (další se už nezkoušejí).</li><li>Case pasuje, když sedí tvar <em>a</em> guard (<code>if …</code>) je true.</li><li>Nepasuje-li nic → za běhu <code>scala.MatchError</code>.</li><li>Malé písmeno v patternu = <strong>nová proměnná</strong> (chytí vše). Velké písmeno nebo <code>`backticky`</code> = <strong>porovnání</strong> s existující hodnotou.</li><li>Type pattern <code>x: T</code> pasuje i na podtypy <code>T</code>; typové argumenty (<code>List[String]</code>) se za běhu neověří.</li></ol>',
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 72, quote: 'Patterns test shape and bind names.' },
-            { kind: 'slide', lecture: 'L5', page: 72, quote: 'Cases run from top to bottom.' },
-            { kind: 'slide', lecture: 'L5', page: 72, quote: 'Guards can leave cases uncovered.' },
+            { kind: 'slide', doc: 'L5', page: 72, quote: 'Patterns test shape and bind names.' },
+            { kind: 'slide', doc: 'L5', page: 72, quote: 'Cases run from top to bottom.' },
+            { kind: 'slide', doc: 'L5', page: 72, quote: 'Guards can leave cases uncovered.' },
           ],
         },
         {
@@ -610,11 +610,11 @@ def sum(xs: List[Int]): Int = xs match
     case Add(left @ Mul(_, _), _) => println(s"left = $left")
     case _                        => println("jiný tvar")`,
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 46 },
-            { kind: 'slide', lecture: 'L5', page: 47 },
-            { kind: 'slide', lecture: 'L5', page: 53, quote: 'In a pattern, head :: tail extracts a nonempty list.' },
-            { kind: 'slide', lecture: 'L5', page: 61, quote: 'name @ pattern keeps the matched value as well as testing its structure.' },
-            { kind: 'slide', lecture: 'L5', page: 62 },
+            { kind: 'slide', doc: 'L5', page: 46 },
+            { kind: 'slide', doc: 'L5', page: 47 },
+            { kind: 'slide', doc: 'L5', page: 53, quote: 'In a pattern, head :: tail extracts a nonempty list.' },
+            { kind: 'slide', doc: 'L5', page: 61, quote: 'name @ pattern keeps the matched value as well as testing its structure.' },
+            { kind: 'slide', doc: 'L5', page: 62 },
           ],
         },
         {
@@ -629,8 +629,8 @@ def sum(xs: List[Int]): Int = xs match
 onOption(Some(11))   // "has value 11 > 10"
 onOption(Some(5))    // scala.MatchError: Some(5)`,
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 49, quote: 'match may not be exhaustive.' },
-            { kind: 'slide', lecture: 'L5', page: 50, quote: 'Prefer explicit ADT cases: a catch-all can hide a newly added variant.' },
+            { kind: 'slide', doc: 'L5', page: 49, quote: 'match may not be exhaustive.' },
+            { kind: 'slide', doc: 'L5', page: 50, quote: 'Prefer explicit ADT cases: a catch-all can hide a newly added variant.' },
           ],
         },
         {
@@ -662,7 +662,7 @@ def fixed(x: Option[Int]): String =
   println(withConst(Some(11)))   // has some other value 11
   println(trap(Some(3)))         // chyceno 3
   println(fixed(Some(3)))        // jiné`,
-          sources: [{ kind: 'slide', lecture: 'L5', page: 51, quote: 'case Some(A) => "has value 10"' }],
+          sources: [{ kind: 'slide', doc: 'L5', page: 51, quote: 'case Some(A) => "has value 10"' }],
         },
         {
           kind: 'callout',
@@ -685,7 +685,7 @@ class C extends B
     case _: A => 1
   println(r1)   // 1
   println(r2)   // 3`,
-          sources: [{ kind: 'slide', lecture: 'L5', page: 52 }],
+          sources: [{ kind: 'slide', doc: 'L5', page: 52 }],
         },
         {
           kind: 'callout',
@@ -701,7 +701,7 @@ class C extends B
   println(isStrings(List(1, 2)))   // true (!)
   println(isStrings(Vector("a")))  // false – není to List`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 78, quote: 'Type erasure removes generic type arguments at runtime (Java, Scala).' },
+            { kind: 'slide', doc: 'L4', page: 78, quote: 'Type erasure removes generic type arguments at runtime (Java, Scala).' },
             { kind: 'wiki', label: 'Zkouška 23. 1. 2026 (match na _: List[String])', page: 'oop_zkouska_2026-01-23' },
           ],
         },
@@ -709,9 +709,9 @@ class C extends B
           kind: 'p',
           html: 'Case bloky jsou i funkce: <code>counts.map { case (name, n) =&gt; … }</code> rozloží dvojici, <code>collect { case … if … }</code> filtruje a transformuje zároveň, <code>for case (name, Some(n)) &lt;- rows</code> nepasující řádky přeskočí. Tam je „nepasuje“ záměrné filtrování, ne chyba.',
           sources: [
-            { kind: 'slide', lecture: 'L5', page: 55, quote: 'The expected type determines the function.' },
-            { kind: 'slide', lecture: 'L5', page: 57 },
-            { kind: 'slide', lecture: 'L5', page: 58 },
+            { kind: 'slide', doc: 'L5', page: 55, quote: 'The expected type determines the function.' },
+            { kind: 'slide', doc: 'L5', page: 57 },
+            { kind: 'slide', doc: 'L5', page: 58 },
           ],
         },
         {

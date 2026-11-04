@@ -75,7 +75,7 @@ println(r.mc)`,
 </ol>
 Kdyby tam bylo <code>r.mb</code>, vypíše se <code>2</code>.`,
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L4', page: 23, quote: 'the type inference can often' }],
+    sources: [{ kind: 'slide', doc: 'L4', page: 23, quote: 'the type inference can often' }],
   },
   {
     id: 'ch4-03',
@@ -137,7 +137,7 @@ println(p.compute(C()))`,
 → <strong>compile error</strong> (<em>Type argument A does not conform to upper bound B</em>) hned u <code>Processor[A]()</code>.
 Že by <code>compute(C())</code> jinak fungovalo, nehraje roli. S <code>Processor[B]()</code> by se vypsalo <code>3</code> (dynamický dispatch na <code>C.m</code>).`,
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L4', page: 47, quote: 'A bound (T <: Animal) restricts admissible type arguments.' }],
+    sources: [{ kind: 'slide', doc: 'L4', page: 47, quote: 'A bound (T <: Animal) restricts admissible type arguments.' }],
   },
   {
     id: 'ch4-05',
@@ -237,8 +237,8 @@ copy(cats, animals)`,
 Stačí, když jeden z obou parametrů je „pružný“ — bound je potřeba jen tam, kde se typy liší.`,
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L4', page: 38, quote: 'use upper bound when you only get values out of a structure,' },
-      { kind: 'slide', lecture: 'L4', page: 38, quote: 'use lower bound when you only put values into a structure, and' },
+      { kind: 'slide', doc: 'L4', page: 38, quote: 'use upper bound when you only get values out of a structure,' },
+      { kind: 'slide', doc: 'L4', page: 38, quote: 'use lower bound when you only put values into a structure, and' },
     ],
   },
 
@@ -272,7 +272,7 @@ Stačí, když jeden z obou parametrů je „pružný“ — bound je potřeba j
 <li>(f) <code>+T</code> v parametru metody = kontravariantní pozice → <em>covariant type T occurs in contravariant position</em> ✗.</li>
 </ul>`,
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L4', page: 46, quote: 'given A <: B then C[A] <: C[B]' }],
+    sources: [{ kind: 'slide', doc: 'L4', page: 46, quote: 'given A <: B then C[A] <: C[B]' }],
   },
   {
     id: 'ch4-09',
@@ -294,7 +294,7 @@ var forDogs: Printer[Dog] = forAnimals`,
     explanation: `Potřebujeme <code>Printer[Animal] <: Printer[Dog]</code>, přitom <code>Dog <: Animal</code> → směr se <strong>obrací</strong> → kontravariance <code>Printer[-T]</code>.
 Dává to smysl: kdo umí vytisknout libovolné zvíře, umí vytisknout i psa. S <code>+T</code> i s invariantním <code>T</code> scala-cli hlásí <em>Found: Printer[Animal], Required: Printer[Dog]</em>.`,
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L4', page: 46, quote: 'given A <: B then C[B] <: C[A]' }],
+    sources: [{ kind: 'slide', doc: 'L4', page: 46, quote: 'given A <: B then C[B] <: C[A]' }],
   },
   {
     id: 'ch4-10',
@@ -362,7 +362,7 @@ val c: Box[C] = Box(C())`,
 <li><strong>b5</strong>: <code>Box[A]</code> do <code>Box[C]</code> ✗. <strong>b6</strong>: typ sedí přesně, <code>C()</code> je <code>A</code> ✓.</li>
 </ul>`,
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L4', page: 47, quote: 'Even with the bound, invariant Box[Cat] is not a subtype of Box[Animal].' }],
+    sources: [{ kind: 'slide', doc: 'L4', page: 47, quote: 'Even with the bound, invariant Box[Cat] is not a subtype of Box[Animal].' }],
   },
 
   // -------------------------------------------------------------------------
@@ -397,7 +397,7 @@ val c: Box[C] = Box(C())`,
 <li><code>make(f: Unit => T)</code>: <code>T</code> je výstup funkce (+) v parametru (−) → kontravariantní ✗.</li>
 </ul>`,
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L4', page: 45, quote: 'A covariant type cannot occur in contravariant positions (method parameters, vars)' }],
+    sources: [{ kind: 'slide', doc: 'L4', page: 45, quote: 'A covariant type cannot occur in contravariant positions (method parameters, vars)' }],
   },
   {
     id: 'ch4-13',
@@ -426,8 +426,8 @@ val all = cats.push(Dog())`,
 Původní <code>cats</code> zůstává <code>Stack[Cat]</code> — nic se nemutuje, vzniká nový zásobník.`,
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L4', page: 51, quote: 'T is Cat, R has to be Animal since that is' },
-      { kind: 'slide', lecture: 'L4', page: 51, quote: 'the closest basetype of both Cat and Dog' },
+      { kind: 'slide', doc: 'L4', page: 51, quote: 'T is Cat, R has to be Animal since that is' },
+      { kind: 'slide', doc: 'L4', page: 51, quote: 'the closest basetype of both Cat and Dog' },
     ],
   },
 
@@ -466,7 +466,7 @@ val f: Animal => Cat = a => Cat()`,
 </ul>
 Tedy ano: <code>(Animal => Cat) <: (Cat => Animal)</code>.`,
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L4', page: 59, quote: '(A => B) <: (S => T) iff S <: A and B <: T.' }],
+    sources: [{ kind: 'slide', doc: 'L4', page: 59, quote: '(A => B) <: (S => T) iff S <: A and B <: T.' }],
   },
 
   // -------------------------------------------------------------------------
@@ -496,7 +496,7 @@ println(check(List(1, 2)) + " " + check(Set("a")))`,
 </ul>
 Compiler to zkompiluje, jen varuje (<em>the type test for List[String] cannot be checked at runtime</em>) a druhý case označí jako <em>Unreachable</em>.`,
     verified: 'scala',
-    sources: [{ kind: 'slide', lecture: 'L4', page: 62, quote: 'for compile-time only, no type parameters are present at runtime' }],
+    sources: [{ kind: 'slide', doc: 'L4', page: 62, quote: 'for compile-time only, no type parameters are present at runtime' }],
   },
   {
     id: 'ch4-16',
@@ -526,9 +526,9 @@ Compiler to zkompiluje, jen varuje (<em>the type test for List[String] cannot be
 </ul>`,
     verified: 'scala',
     sources: [
-      { kind: 'slide', lecture: 'L4', page: 63, quote: 'All generic types in Java are invariant and implemented using type erasure' },
-      { kind: 'slide', lecture: 'L4', page: 78, quote: 'Expansion specializes code at compile time (C++ templates).' },
-      { kind: 'slide', lecture: 'L4', page: 47, quote: 'Even with the bound, invariant Box[Cat] is not a subtype of Box[Animal].' },
+      { kind: 'slide', doc: 'L4', page: 63, quote: 'All generic types in Java are invariant and implemented using type erasure' },
+      { kind: 'slide', doc: 'L4', page: 78, quote: 'Expansion specializes code at compile time (C++ templates).' },
+      { kind: 'slide', doc: 'L4', page: 47, quote: 'Even with the bound, invariant Box[Cat] is not a subtype of Box[Animal].' },
     ],
   },
 ]

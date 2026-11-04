@@ -20,7 +20,7 @@ export const chap02: Chapter = {
         {
           kind: 'p',
           html: 'Objekt má <strong>stav</strong> (pole), <strong>chování</strong> (metody) a <strong>identitu</strong>. Dva objekty se stejným stavem jsou pořád dva různé objekty: <code>a eq b</code> porovnává identitu (stejná reference).',
-          sources: [{ kind: 'slide', lecture: 'L2', page: 3, quote: 'A object has state, behavior, and identity' }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 3, quote: 'A object has state, behavior, and identity' }],
         },
         {
           kind: 'callout',
@@ -33,9 +33,9 @@ export const chap02: Chapter = {
 <li><code>private var count</code> v těle – stav, ke kterému zvenku (ani z podtřídy) nepřistoupíš.</li>
 </ul>`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 5, quote: 'init: constructor input, available inside the' },
-            { kind: 'slide', lecture: 'L2', page: 4, quote: 'val step exposes a read-only member.' },
-            { kind: 'slide', lecture: 'L2', page: 5, quote: 'A constructor parameter declared var also' },
+            { kind: 'slide', doc: 'L2', page: 5, quote: 'init: constructor input, available inside the' },
+            { kind: 'slide', doc: 'L2', page: 4, quote: 'val step exposes a read-only member.' },
+            { kind: 'slide', doc: 'L2', page: 5, quote: 'A constructor parameter declared var also' },
           ],
         },
         {
@@ -48,10 +48,10 @@ export const chap02: Chapter = {
             'Ve Scale 3 lze u tříd vynechat <code>new</code>: <code>Counter()</code> = <code>new Counter()</code>.',
           ],
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 8, quote: 'Field initializers and statements run in source' },
-            { kind: 'slide', lecture: 'L2', page: 9, quote: 'Assignment copies a reference, not the object.' },
-            { kind: 'slide', lecture: 'L2', page: 10, quote: 'object is placeholder for static items' },
-            { kind: 'slide', lecture: 'L2', page: 7, quote: 'For this class, Scala 3 allows omitting new.' },
+            { kind: 'slide', doc: 'L2', page: 8, quote: 'Field initializers and statements run in source' },
+            { kind: 'slide', doc: 'L2', page: 9, quote: 'Assignment copies a reference, not the object.' },
+            { kind: 'slide', doc: 'L2', page: 10, quote: 'object is placeholder for static items' },
+            { kind: 'slide', doc: 'L2', page: 7, quote: 'For this class, Scala 3 allows omitting new.' },
           ],
         },
         {
@@ -72,7 +72,7 @@ object Counter:
   println(a eq b)                                         // false
   println(Counter.SharedCounter eq Counter.SharedCounter) // true`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 10, quote: 'Calling its factory can still create many Counters.' },
+            { kind: 'slide', doc: 'L2', page: 10, quote: 'Calling its factory can still create many Counters.' },
           ],
         },
         { kind: 'quiz', ids: ['ch2-01', 'ch2-02'], title: 'Ověř si: objekty' },
@@ -96,7 +96,7 @@ object Counter:
 </ul>
 Upcast mění jen „pohled“, objekt je pořád tentýž (<code>c eq d</code> je <code>true</code>).`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 15, quote: 'Upcasting changes the view, not the object.' },
+            { kind: 'slide', doc: 'L2', page: 15, quote: 'Upcasting changes the view, not the object.' },
           ],
         },
         {
@@ -108,8 +108,8 @@ Upcast mění jen „pohled“, objekt je pořád tentýž (<code>c eq d</code> 
 <li><strong>Runtime třída příjemce</strong> rozhoduje, <em>které tělo (override) se spustí</em>.</li>
 </ul>`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 15, quote: 'The static type controls which members are' },
-            { kind: 'slide', lecture: 'L2', page: 15, quote: 'The runtime receiver selects an overridden body.' },
+            { kind: 'slide', doc: 'L2', page: 15, quote: 'The static type controls which members are' },
+            { kind: 'slide', doc: 'L2', page: 15, quote: 'The runtime receiver selects an overridden body.' },
           ],
         },
         {
@@ -121,8 +121,8 @@ Upcast mění jen „pohled“, objekt je pořád tentýž (<code>c eq d</code> 
 <li><code>super.m()</code> je pevně dané už při překladu: implementace <code>m</code> nejblíž <strong>nad třídou, ve které je ten kód napsaný</strong> (ne nad runtime třídou!). Pokud ji přímý předek nemá, jde se dál nahoru.</li>
 </ul>`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 16, quote: 'The meaning of this is dynamic - I can only' },
-            { kind: 'slide', lecture: 'L2', page: 16, quote: 'The meaning of super is static - I always' },
+            { kind: 'slide', doc: 'L2', page: 16, quote: 'The meaning of this is dynamic - I can only' },
+            { kind: 'slide', doc: 'L2', page: 16, quote: 'The meaning of super is static - I always' },
           ],
         },
         {
@@ -151,7 +151,7 @@ class DoubleCounter extends Counter:
           sources: [
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 17,
               quote: 'what is the value of c.get() after the subsequent c.twice()?',
             },
@@ -163,10 +163,10 @@ class DoubleCounter extends Counter:
           title: 'this.inc() uvnitř předka volá override podtřídy',
           html: '<code>twice</code> je napsané v <code>Counter</code>, ale <code>this.inc()</code> jde na <code>DoubleCounter.inc</code> (+2). Takže <code>twice</code> přičte 4, ne 2: 2 → 6. V Scale/Javě neexistuje běžná syntaxe, jak z <code>twice</code> „natvrdo“ zavolat <code>Counter.inc</code>, dokud jde přepsat (řešení: <code>final</code>, <code>private</code> nebo privátní pomocná metoda).',
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 17 },
+            { kind: 'slide', doc: 'L2', page: 17 },
             {
               kind: 'slide',
-              lecture: 'L4',
+              doc: 'L4',
               page: 5,
               quote: 'No ordinary source syntax selects Counter.inc() if it remains overridable.',
             },
@@ -186,8 +186,8 @@ class B extends A:
   override def f: Int = super.f * this.g
   override def g: Int = 5`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 11 },
-            { kind: 'slide', lecture: 'L4', page: 12 },
+            { kind: 'slide', doc: 'L4', page: 11 },
+            { kind: 'slide', doc: 'L4', page: 12 },
           ],
         },
         {
@@ -195,7 +195,7 @@ class B extends A:
           type: 'past',
           title: 'f = f * g → StackOverflowError (zkompiluje se!)',
           html: 'Když v <code>B</code> napíšeš <code>override def f: Int = f * g</code> (bez <code>super</code>), <code>f</code> volá samo sebe (<code>this.f</code> → zase <code>B.f</code>) → nekonečná rekurze → za běhu <code>StackOverflowError</code>. Je to chyba za běhu, ne CE – kompilátor (Scala 3.9) to ani nevaruje.',
-          sources: [{ kind: 'slide', lecture: 'L4', page: 9 }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 9 }],
         },
         {
           kind: 'callout',
@@ -210,7 +210,7 @@ class B extends A:
   def secret = 2           // nová metoda, ne override
 
 // B().show == 1, B().secret == 2`,
-          sources: [{ kind: 'slide', lecture: 'L2', page: 22, quote: 'On JVM, most dispatch is dynamic with some' }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 22, quote: 'On JVM, most dispatch is dynamic with some' }],
         },
         {
           kind: 'callout',
@@ -219,8 +219,8 @@ class B extends A:
           html: `Ve Scale sdílí pole a metody jeden jmenný prostor (uniform access), takže <code>override val x</code> se resolvuje <strong>dynamicky</strong> jako metoda: <code>val ab: A = B(); ab.x</code> dá hodnotu z <code>B</code>. (V Javě se pole resolvují staticky – na testu je ale Scala.)<br>
 Bonusová past (ověřeno): když <code>A</code> má <code>val x = 1; val y = x + 1</code> a <code>B</code> má <code>override val x = 10</code>, pak <code>B().y</code> je <strong>1</strong> – při běhu těla <code>A</code> ještě pole <code>x</code> z <code>B</code> není inicializované (je 0).`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 82, quote: 'Fields and methods share the same namespace' },
-            { kind: 'slide', lecture: 'L2', page: 80 },
+            { kind: 'slide', doc: 'L2', page: 82, quote: 'Fields and methods share the same namespace' },
+            { kind: 'slide', doc: 'L2', page: 80 },
           ],
         },
         { kind: 'quiz', ids: ['ch2-03', 'ch2-04'], title: 'Ověř si: this a super' },
@@ -241,11 +241,11 @@ Bonusová past (ověřeno): když <code>A</code> má <code>val x = 1; val y = x 
           sources: [
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 18,
               quote: 'Different parameter types create overloads, static types choose between them.',
             },
-            { kind: 'slide', lecture: 'L2', page: 18, quote: 'Return type alone is insufficient.' },
+            { kind: 'slide', doc: 'L2', page: 18, quote: 'Return type alone is insufficient.' },
           ],
         },
         {
@@ -253,7 +253,7 @@ Bonusová past (ověřeno): když <code>A</code> má <code>val x = 1; val y = x 
           type: 'definice',
           title: 'Overriding (přepsání)',
           html: `Podtřída nahradí implementaci metody se <strong>stejnou signaturou</strong> (jméno + stejné typy parametrů; návratový typ stejný nebo podtyp). Které tělo poběží, rozhodne <strong>runtime třída příjemce</strong>. Ve Scale je u přepsání konkrétní metody povinné <code>override</code> (bez něj CE „needs override modifier“); u implementace abstraktní metody je volitelné.`,
-          sources: [{ kind: 'slide', lecture: 'L2', page: 19, quote: 'Overriding replaces an inherited implementation' }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 19, quote: 'Overriding replaces an inherited implementation' }],
         },
         {
           kind: 'list',
@@ -264,8 +264,8 @@ Bonusová past (ověřeno): když <code>A</code> má <code>val x = 1; val y = x 
             'Jedna metoda může být zároveň overloadovaná i overridnutá (viz <code>label</code> níže).',
           ],
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 20, quote: 'An overloaded method can also be overridden' },
-            { kind: 'slide', lecture: 'L2', page: 29 },
+            { kind: 'slide', doc: 'L2', page: 20, quote: 'An overloaded method can also be overridden' },
+            { kind: 'slide', doc: 'L2', page: 29 },
           ],
         },
         {
@@ -287,7 +287,7 @@ class DoubleCounter extends Counter:
   println(d.label(a)) // D/C
   println(c.label(d)) // D/C
   println(c.label(a)) // D/C`,
-          sources: [{ kind: 'slide', lecture: 'L2', page: 21 }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 21 }],
         },
         {
           kind: 'callout',
@@ -298,11 +298,11 @@ Bez <code>override def label(other: Counter)</code> v podtřídě (varianta ze s
           sources: [
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 19,
               quote: 'Counter’s static API exposes label(Counter); c’s runtime class supplies its override.',
             },
-            { kind: 'slide', lecture: 'L2', page: 18, quote: 'The same argument object can select different overloads.' },
+            { kind: 'slide', doc: 'L2', page: 18, quote: 'The same argument object can select different overloads.' },
           ],
         },
         { kind: 'quiz', ids: ['ch2-05', 'ch2-06'], title: 'Ověř si: overloading vs. overriding' },
@@ -318,7 +318,7 @@ Bez <code>override def label(other: Counter)</code> v podtřídě (varianta ze s
         {
           kind: 'p',
           html: 'Každé volání metody se vyhodnocuje ve dvou oddělených fázích (single dispatch). Na tomhle stojí většina otázek „Co to vypíše?“.',
-          sources: [{ kind: 'slide', lecture: 'L2', page: 20, quote: 'Single dispatch: signature ﬁrst, receiver second' }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 20, quote: 'Single dispatch: signature ﬁrst, receiver second' }],
         },
         {
           kind: 'list',
@@ -330,19 +330,19 @@ Bez <code>override def label(other: Counter)</code> v podtřídě (varianta ze s
           sources: [
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 20,
               quote: 'Compile time: select an accessible signature from the receiver’s static type',
             },
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 20,
               quote: 'Runtime: for a virtual call, select the override for that signature',
             },
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 20,
               quote: 'Use the receiver’s runtime class; do not reconsider explicit argument types',
             },
@@ -361,10 +361,10 @@ Bez <code>override def label(other: Counter)</code> v podtřídě (varianta ze s
 <li><strong>Dopočítej</strong> zevnitř ven a teprve na konci aplikuj, co dělá vnější funkce (<code>* 10</code>, <code>+ 100</code>…).</li>
 </ol>`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 78, quote: 'What is the receiver’s static type, if the language has one?' },
-            { kind: 'slide', lecture: 'L2', page: 78, quote: 'What are the static types of the explicit arguments?' },
-            { kind: 'slide', lecture: 'L2', page: 78, quote: 'Is the call virtual, and what is the receiver’s runtime class?' },
-            { kind: 'slide', lecture: 'L2', page: 16, quote: 'The meaning of super is static - I always' },
+            { kind: 'slide', doc: 'L2', page: 78, quote: 'What is the receiver’s static type, if the language has one?' },
+            { kind: 'slide', doc: 'L2', page: 78, quote: 'What are the static types of the explicit arguments?' },
+            { kind: 'slide', doc: 'L2', page: 78, quote: 'Is the call virtual, and what is the receiver’s runtime class?' },
+            { kind: 'slide', doc: 'L2', page: 16, quote: 'The meaning of super is static - I always' },
           ],
         },
         {
@@ -418,7 +418,7 @@ def eval(x: D) = x.m * 100
           title: 'Statický typ je napsaný u proměnné, ne za new',
           html: 'Kdo v příkladu 1 vezme <code>eval(D)</code>, protože „je to přece D“, dostane 700 – špatně. Overload se vybírá při překladu a kompilátor ví jen <code>obj: C</code>. Runtime třída <code>D</code> se uplatní až o krok později – při výběru těla <code>m</code>.',
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 20, quote: 'Use the method name and static argument types to choose an overload' },
+            { kind: 'slide', doc: 'L2', page: 20, quote: 'Use the method name and static argument types to choose an overload' },
           ],
         },
 
@@ -461,7 +461,7 @@ def compute(obj: C) = obj.z + 100
 </ol>`,
           sources: [
             { kind: 'official', label: 'Sample midterm 2026, otázka 7' },
-            { kind: 'slide', lecture: 'L2', page: 16, quote: 'The meaning of this is dynamic - I can only' },
+            { kind: 'slide', doc: 'L2', page: 16, quote: 'The meaning of this is dynamic - I can only' },
           ],
         },
 
@@ -496,7 +496,7 @@ class B extends A:
             { kind: 'official', label: 'Sample midterm 2026, otázka 9' },
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 20,
               quote: 'Use the receiver’s runtime class; do not reconsider explicit argument types',
             },
@@ -529,9 +529,9 @@ def test(x: C) = println(x.f + 2)
   val w: C = new C
   test(w) // 8`,
           sources: [
-            { kind: 'slide', lecture: 'L4', page: 14 },
-            { kind: 'slide', lecture: 'L4', page: 15 },
-            { kind: 'slide', lecture: 'L4', page: 16 },
+            { kind: 'slide', doc: 'L4', page: 14 },
+            { kind: 'slide', doc: 'L4', page: 15 },
+            { kind: 'slide', doc: 'L4', page: 16 },
           ],
         },
         {
@@ -542,7 +542,7 @@ def test(x: C) = println(x.f + 2)
 <li>Hodnota <code>x.f</code> je pro objekt <code>C</code> vždy stejná: <code>B.f</code> = <code>super.f * 2</code> = <code>A.f * 2</code>; <code>A.f</code> = <code>1 + this.g</code> = 1 + <code>C.g</code> = 3 → 6.</li>
 <li>Liší se jen overload <code>test</code>: <code>u: A</code> → <code>test(A)</code> → 6. <code>v: B</code> → <code>test(C)</code> nejde (B není podtyp C) → <code>test(A)</code> → 6. <code>w: C</code> → <code>test(C)</code> → 6 + 2 = 8.</li>
 </ol>`,
-          sources: [{ kind: 'slide', lecture: 'L4', page: 15 }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 15 }],
         },
         {
           kind: 'callout',
@@ -552,7 +552,7 @@ def test(x: C) = println(x.f + 2)
           sources: [
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 25,
               quote: 'Inside each class, this has a speciﬁc static type, so the hitBy overload is known.',
             },
@@ -563,7 +563,7 @@ def test(x: C) = println(x.f + 2)
           type: 'shrnuti',
           title: 'Shrnutí',
           html: '<strong>Overload</strong> = statický typ (příjemce i argumentů), compile time. <strong>Override</strong> = runtime třída příjemce, runtime. <code>this</code> dynamické, <code>super</code> statické. Statický typ = deklarace, ne <code>new</code>.',
-          sources: [{ kind: 'slide', lecture: 'L2', page: 74 }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 74 }],
         },
         { kind: 'quiz', ids: ['ch2-07', 'ch2-08'], title: 'Ověř si: celý algoritmus' },
       ],
@@ -595,10 +595,10 @@ def test(x: C) = println(x.f + 2)
             '<strong>Zápis do <code>val</code></strong>, čtení parametru konstruktoru bez <code>val</code>, přístup k <code>private</code> → CE (viz 2.1).',
           ],
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 15, quote: 'The static type controls which members are' },
-            { kind: 'slide', lecture: 'L2', page: 18, quote: 'Return type alone is insufficient.' },
-            { kind: 'slide', lecture: 'L2', page: 62, quote: 'ERROR - it is not an override but overload' },
-            { kind: 'slide', lecture: 'L2', page: 56, quote: 'A does not have method g' },
+            { kind: 'slide', doc: 'L2', page: 15, quote: 'The static type controls which members are' },
+            { kind: 'slide', doc: 'L2', page: 18, quote: 'Return type alone is insufficient.' },
+            { kind: 'slide', doc: 'L2', page: 62, quote: 'ERROR - it is not an override but overload' },
+            { kind: 'slide', doc: 'L2', page: 56, quote: 'A does not have method g' },
           ],
         },
         {
@@ -621,7 +621,7 @@ val v = container.store(C())
 println(v.m3)   // CE`,
           sources: [
             { kind: 'official', label: 'Sample midterm 2026, otázka 1' },
-            { kind: 'slide', lecture: 'L2', page: 15, quote: 'The static type controls which members are' },
+            { kind: 'slide', doc: 'L2', page: 15, quote: 'The static type controls which members are' },
           ],
         },
         {
@@ -629,7 +629,7 @@ println(v.m3)   // CE`,
           type: 'past',
           title: 'Chyba za běhu ≠ chyba překladu',
           html: 'Nekonečná rekurze (<code>f = f * g</code>) nebo <code>???</code> se <strong>zkompilují</strong> a spadnou až za běhu (<code>StackOverflowError</code>, <code>NotImplementedError</code>). Odpověď „CE“ dávej jen tehdy, když porušíš typová/deklarační pravidla.',
-          sources: [{ kind: 'slide', lecture: 'L4', page: 9 }],
+          sources: [{ kind: 'slide', doc: 'L4', page: 9 }],
         },
         { kind: 'quiz', ids: ['ch2-09', 'ch2-10'], title: 'Ověř si: zkompiluje se to?' },
       ],
@@ -645,7 +645,7 @@ println(v.m3)   // CE`,
           kind: 'p',
           html: 'Problém: chceme chování podle runtime tříd <em>obou</em> objektů (asteroid × loď). Overload <code>collide(o: Spaceship)</code> nepomůže – overload se vybírá podle <em>statického</em> typu argumentu, a ten je <code>SpaceObject</code>.',
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 24, quote: 'the argument’s runtime class does not select an overload' },
+            { kind: 'slide', doc: 'L2', page: 24, quote: 'the argument’s runtime class does not select an overload' },
           ],
         },
         {
@@ -669,7 +669,7 @@ class Spaceship extends SpaceObject:
   val ship = new Spaceship()
   println(rock.collide(ship)) // ship damaged
   println(rock.collide(b))    // generic collision`,
-          sources: [{ kind: 'slide', lecture: 'L2', page: 24 }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 24 }],
         },
         {
           kind: 'callout',
@@ -683,17 +683,17 @@ class Spaceship extends SpaceObject:
           sources: [
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 25,
               quote: 'First dispatch: the receiver chooses Asteroid.collide or Spaceship.collide.',
             },
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 26,
               quote: 'Second dispatch: o’s runtime class chooses the override of the selected hitBy signature.',
             },
-            { kind: 'slide', lecture: 'L2', page: 27, quote: 'Two ordinary virtual calls; no runtime overload selection.' },
+            { kind: 'slide', doc: 'L2', page: 27, quote: 'Two ordinary virtual calls; no runtime overload selection.' },
           ],
         },
         {
@@ -723,8 +723,8 @@ class Spaceship extends SpaceObject:
   println(a.collide(a)) // rocks fragment
   println(b.collide(b)) // ships bounce`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 26 },
-            { kind: 'slide', lecture: 'L2', page: 27 },
+            { kind: 'slide', doc: 'L2', page: 26 },
+            { kind: 'slide', doc: 'L2', page: 27 },
           ],
         },
         {
@@ -733,7 +733,7 @@ class Spaceship extends SpaceObject:
           title: 'Při trasování si hlídej, kdo je příjemce',
           html: 'V <code>b.collide(a)</code> je 1. příjemce <code>b</code> (Spaceship), ale 2. příjemce je <code>a</code> → tělo se bere z <code>Asteroid.hitBy(Spaceship)</code>, ne ze Spaceship. Výsledek druhého volání určuje třída <em>argumentu</em> původního volání.',
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 26, quote: 'The hitBy parameter records the ﬁrst kind; the receiver supplies the second kind.' },
+            { kind: 'slide', doc: 'L2', page: 26, quote: 'The hitBy parameter records the ﬁrst kind; the receiver supplies the second kind.' },
           ],
         },
         { kind: 'quiz', ids: ['ch2-11'], title: 'Ověř si: double dispatch' },
@@ -752,9 +752,9 @@ class Spaceship extends SpaceObject:
           title: 'Subtyping B <: A',
           html: `<code>B &lt;: A</code> znamená: hodnotu typu <code>B</code> lze bezpečně použít všude, kde se čeká <code>A</code> – v přiřazení, jako argument i jako návratovou hodnotu. Relace je <strong>reflexivní</strong> (<code>A &lt;: A</code>) a <strong>tranzitivní</strong>. <code>A &gt;: B</code> = A je nadtyp B.`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 30, quote: 'means that any variable of type B can safely be' },
-            { kind: 'slide', lecture: 'L2', page: 30, quote: 'if B <: A and C <: B then C <: A' },
-            { kind: 'slide', lecture: 'L2', page: 31, quote: 'Invoked with a subtype argument, or returning a subtype instance.' },
+            { kind: 'slide', doc: 'L2', page: 30, quote: 'means that any variable of type B can safely be' },
+            { kind: 'slide', doc: 'L2', page: 30, quote: 'if B <: A and C <: B then C <: A' },
+            { kind: 'slide', doc: 'L2', page: 31, quote: 'Invoked with a subtype argument, or returning a subtype instance.' },
           ],
         },
         {
@@ -768,18 +768,18 @@ class Spaceship extends SpaceObject:
             'Podtřída dědí public a protected členy. <code>private</code> stav v objektu je, ale podtřída k němu nemá přístup. Podtřída musí zavolat konstruktor předka.',
           ],
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 35, quote: 'Subclassing is a declaration: DoubleCounter extends Counter.' },
-            { kind: 'slide', lecture: 'L2', page: 77, quote: 'Inheritance is the actual process of reusing the code or interface.' },
-            { kind: 'slide', lecture: 'L2', page: 76, quote: 'But in principle, subclassing ≠ subtyping.' },
-            { kind: 'slide', lecture: 'L2', page: 33, quote: 'It does not always create a subtype' },
+            { kind: 'slide', doc: 'L2', page: 35, quote: 'Subclassing is a declaration: DoubleCounter extends Counter.' },
+            { kind: 'slide', doc: 'L2', page: 77, quote: 'Inheritance is the actual process of reusing the code or interface.' },
+            { kind: 'slide', doc: 'L2', page: 76, quote: 'But in principle, subclassing ≠ subtyping.' },
+            { kind: 'slide', doc: 'L2', page: 33, quote: 'It does not always create a subtype' },
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 35,
               quote: 'A compiler can establish the nominal relation without proving the behavioral one.',
             },
-            { kind: 'slide', lecture: 'L2', page: 37, quote: 'A subclass inherits all protected and public members' },
-            { kind: 'slide', lecture: 'L2', page: 37, quote: 'It has to call superclass constructor (implicitly or explicitly)' },
+            { kind: 'slide', doc: 'L2', page: 37, quote: 'A subclass inherits all protected and public members' },
+            { kind: 'slide', doc: 'L2', page: 37, quote: 'It has to call superclass constructor (implicitly or explicitly)' },
           ],
         },
         {
@@ -788,10 +788,10 @@ class Spaceship extends SpaceObject:
           title: 'Liskov Substitution Principle (LSP)',
           html: 'Pokud o objektech typu <code>A</code> platí (dá se dokázat) vlastnost Φ, musí platit i pro objekty každého podtypu <code>B &lt;: A</code>. Česky: behavioral podtyp dodrží sliby, na které klienti předka spoléhají – hodnota B může zastoupit A, aniž by se rozbil kontrakt A.',
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 36, quote: 'A behavioral subtype preserves the promises clients rely on.' },
+            { kind: 'slide', doc: 'L2', page: 36, quote: 'A behavioral subtype preserves the promises clients rely on.' },
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 36,
               quote: 'The compiler’s nominal subtype check does not prove this behavioral relationship.',
             },
@@ -810,13 +810,13 @@ class Spaceship extends SpaceObject:
           sources: [
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 51,
               quote: 'Accept at least every input accepted by the base contract: no stronger precondition.',
             },
-            { kind: 'slide', lecture: 'L2', page: 51, quote: 'Guarantee at least the base result: no weaker postcondition.' },
-            { kind: 'slide', lecture: 'L2', page: 52, quote: 'Weaker precondition = Ask nothing extra of client' },
-            { kind: 'slide', lecture: 'L2', page: 52, quote: 'Stronger postcondition = Guarantee at least as much' },
+            { kind: 'slide', doc: 'L2', page: 51, quote: 'Guarantee at least the base result: no weaker postcondition.' },
+            { kind: 'slide', doc: 'L2', page: 52, quote: 'Weaker precondition = Ask nothing extra of client' },
+            { kind: 'slide', doc: 'L2', page: 52, quote: 'Stronger postcondition = Guarantee at least as much' },
           ],
         },
         {
@@ -832,10 +832,10 @@ class Spaceship extends SpaceObject:
 test(Rectangle(1, 2)) // OK
 test(Square(1))       // assert selže`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 43, quote: 'Violating behavioral subtyping. Subclasses should satisfy the' },
-            { kind: 'slide', lecture: 'L2', page: 44, quote: 'Square is not a true subtype of Rectangle' },
-            { kind: 'slide', lecture: 'L2', page: 45 },
-            { kind: 'slide', lecture: 'L2', page: 46 },
+            { kind: 'slide', doc: 'L2', page: 43, quote: 'Violating behavioral subtyping. Subclasses should satisfy the' },
+            { kind: 'slide', doc: 'L2', page: 44, quote: 'Square is not a true subtype of Rectangle' },
+            { kind: 'slide', doc: 'L2', page: 45 },
+            { kind: 'slide', doc: 'L2', page: 46 },
           ],
         },
         {
@@ -849,9 +849,9 @@ test(Square(1))       // assert selže`,
 <li>dodržet kontrakt Counteru a zároveň zaručit <code>get ≤ 10</code>? <strong>Ne</strong> – kontrakty si odporují.</li>
 </ul>Řešení: <strong>kompozice</strong> – BoundedCounter obsahuje Counter (není jeho podtyp) a nabízí jiné API (<code>tryInc(): Boolean</code>).`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 49, quote: 'No: that strengthens the precondition.' },
-            { kind: 'slide', lecture: 'L2', page: 49, quote: 'No: that violates the promised result.' },
-            { kind: 'slide', lecture: 'L2', page: 50, quote: 'The bounded counter contains a Counter; it is not' },
+            { kind: 'slide', doc: 'L2', page: 49, quote: 'No: that strengthens the precondition.' },
+            { kind: 'slide', doc: 'L2', page: 49, quote: 'No: that violates the promised result.' },
+            { kind: 'slide', doc: 'L2', page: 50, quote: 'The bounded counter contains a Counter; it is not' },
           ],
         },
         {
@@ -860,8 +860,8 @@ test(Square(1))       // assert selže`,
           title: '„Shodné signatury“ ≠ substituovatelnost',
           html: 'DoubleCounter, jehož <code>inc()</code> přičte 2, kontrakt „zvýší <em>alespoň</em> o step“ splňuje. Kdyby kontrakt zněl „přesně o 1“, byl by to už porušený LSP – i když se kód přeloží úplně stejně. Vždy se ptej, co přesně předek slibuje.',
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 47, quote: 'An exactly-one-step promise would be violated.' },
-            { kind: 'slide', lecture: 'L2', page: 47, quote: 'Matching signatures alone does not prove' },
+            { kind: 'slide', doc: 'L2', page: 47, quote: 'An exactly-one-step promise would be violated.' },
+            { kind: 'slide', doc: 'L2', page: 47, quote: 'Matching signatures alone does not prove' },
           ],
         },
         { kind: 'quiz', ids: ['ch2-12', 'ch2-13'], title: 'Ověř si: subtyping a LSP' },
@@ -883,11 +883,11 @@ test(Square(1))       // assert selže`,
 <li><strong>Typy parametrů</strong>: <strong>přesně stejné</strong>. Teoreticky (LSP) by šel i nadtyp – parametr je v kontravariantní pozici – ale Scala/Java/C++ to nedovolí kvůli overloadingu: jiný typ parametru = jiná signatura = overload.</li>
 </ul>`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 62, quote: 'Return type is in covariant position' },
-            { kind: 'slide', lecture: 'L2', page: 62, quote: 'Parameter types are in contravariant position' },
+            { kind: 'slide', doc: 'L2', page: 62, quote: 'Return type is in covariant position' },
+            { kind: 'slide', doc: 'L2', page: 62, quote: 'Parameter types are in contravariant position' },
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 61,
               quote: 'do not allow contravariance in override method parameters because of',
             },
@@ -912,9 +912,9 @@ class T2 extends T1:
   def m(x: A): B = ???           // zkompiluje se – je to OVERLOAD, ne override
   def m(x: B): B = ???           // CE – "needs override modifier"`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 62, quote: 'ERROR - it is not an override but overload' },
-            { kind: 'slide', lecture: 'L2', page: 55, quote: 'A subtype has all methods of the' },
-            { kind: 'slide', lecture: 'L2', page: 56, quote: 'A does not have method g' },
+            { kind: 'slide', doc: 'L2', page: 62, quote: 'ERROR - it is not an override but overload' },
+            { kind: 'slide', doc: 'L2', page: 55, quote: 'A subtype has all methods of the' },
+            { kind: 'slide', doc: 'L2', page: 56, quote: 'A does not have method g' },
           ],
         },
         {
@@ -930,8 +930,8 @@ class T2 extends T1:
           html: `<code>class X { def f(b: B): B }</code>, <code>class Y extends X { override def f(b: ?): B }</code>. Za <code>?</code> lze dát <strong>jen <code>B</code></strong>. <code>A</code> i <code>C</code> → CE („method f has a different signature than the overridden declaration“). <code>C</code> by navíc porušilo LSP (zesílená precondition); <code>A</code> by teoreticky LSP splňovalo, ale Scala kontravariantní parametr nepovolí.`,
           sources: [
             { kind: 'official', label: 'Sample midterm 2026, otázka 4' },
-            { kind: 'slide', lecture: 'L2', page: 59 },
-            { kind: 'slide', lecture: 'L2', page: 61, quote: 'Conceptually it would make sense to be able to use super type, but' },
+            { kind: 'slide', doc: 'L2', page: 59 },
+            { kind: 'slide', doc: 'L2', page: 61, quote: 'Conceptually it would make sense to be able to use super type, but' },
           ],
         },
         {
@@ -939,7 +939,7 @@ class T2 extends T1:
           type: 'past',
           title: 'Parametr vs. návrat – opačná pravidla',
           html: 'Otázka na <strong>návratový typ</strong> má odpověď „stejný nebo podtyp“ (B, C, i <code>Nothing</code>). Otázka na <strong>parametr</strong> má ve Scale odpověď „jen přesně stejný“. Přečti si pořádně, na co se ptají.',
-          sources: [{ kind: 'slide', lecture: 'L2', page: 62, quote: 'Return type is in covariant position' }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 62, quote: 'Return type is in covariant position' }],
         },
         {
           kind: 'callout',
@@ -960,7 +960,7 @@ val t: T1 = T2()
 t.m(B())      // "T1"
 T2().m(A())   // "T2"
 T2().m(B())   // CE: Ambiguous overload`,
-          sources: [{ kind: 'slide', lecture: 'L2', page: 62, quote: 'ERROR - it is not an override but overload' }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 62, quote: 'ERROR - it is not an override but overload' }],
         },
         { kind: 'quiz', ids: ['ch2-14', 'ch2-15'], title: 'Ověř si: pravidla pro override' },
       ],
@@ -984,23 +984,23 @@ T2().m(B())   // CE: Ambiguous overload`,
           sources: [
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 64,
               quote: 'type equivalence and compatibility is determined by explicit declarations',
             },
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 64,
               quote: "type equivalence and compatibility is determined by type's actual structure",
             },
             {
               kind: 'slide',
-              lecture: 'L2',
+              doc: 'L2',
               page: 64,
               quote: 'looks like structural typing, but it is a runtime characteristics',
             },
-            { kind: 'slide', lecture: 'L2', page: 34, quote: 'Structural subtyping: Go, TypeScript, Scala 3' },
+            { kind: 'slide', doc: 'L2', page: 34, quote: 'Structural subtyping: Go, TypeScript, Scala 3' },
           ],
         },
         {
@@ -1019,8 +1019,8 @@ def speak(pet: Animal) = "Animal says " + pet.speak
 @main def run() =
   println(speak(Cat("Garfield"))) // Animal says Garfield mnau!`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 68 },
-            { kind: 'slide', lecture: 'L2', page: 69 },
+            { kind: 'slide', doc: 'L2', page: 68 },
+            { kind: 'slide', doc: 'L2', page: 69 },
           ],
         },
         {
@@ -1029,8 +1029,8 @@ def speak(pet: Animal) = "Animal says " + pet.speak
           title: 'Stejná metoda nestačí u nominálního typu',
           html: `Když je <code>Animal</code> <code>abstract class</code>/<code>trait</code>, třída <code>Robot</code> s metodou <code>speak: String</code>, ale bez <code>extends Animal</code>, do <code>def speak(pet: Animal)</code> <strong>nejde</strong> předat → CE („Found: Robot, Required: Animal“). Strukturální typ <code>{ def speak: String }</code> ji přijme – ale jen s importem <code>reflectiveSelectable</code>, jinak CE.`,
           sources: [
-            { kind: 'slide', lecture: 'L2', page: 65 },
-            { kind: 'slide', lecture: 'L2', page: 64, quote: 'In this course we focus primarily on static type systems with nominal typing' },
+            { kind: 'slide', doc: 'L2', page: 65 },
+            { kind: 'slide', doc: 'L2', page: 64, quote: 'In this course we focus primarily on static type systems with nominal typing' },
           ],
         },
         {
@@ -1044,7 +1044,7 @@ def speak(pet: Animal) = "Animal says " + pet.speak
 <li>Override: návrat stejný/podtyp, parametr přesně stejný. LSP: slabší pre, silnější post.</li>
 <li>Scala je nominální; strukturální typy volitelně přes reflexi.</li>
 </ul>`,
-          sources: [{ kind: 'slide', lecture: 'L2', page: 74 }],
+          sources: [{ kind: 'slide', doc: 'L2', page: 74 }],
         },
         { kind: 'quiz', ids: ['ch2-16'], title: 'Ověř si: nominální vs. strukturální' },
       ],
