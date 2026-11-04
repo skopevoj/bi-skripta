@@ -11,7 +11,7 @@ export type CourseLink = {
 
 export const COURSES: CourseLink[] = [
   { id: 'bi-kab', code: 'BI-KAB', name: 'Kryptografie a bezpečnost', url: 'https://kab.skopik.cz', live: true, devUrl: 'http://localhost:5173' },
-  { id: 'bi-kom', code: 'BI-KOM', name: 'Konceptuální modelování', url: 'https://kom.skopik.cz', live: false, devUrl: 'http://localhost:3131' },
+  { id: 'bi-kom', code: 'BI-KOM', name: 'Konceptuální modelování', url: 'https://kom.skopik.cz', live: true, devUrl: 'http://localhost:3131' },
   { id: 'bi-oop', code: 'BI-OOP', name: 'Objektově orientované programování', url: 'https://oop.skopik.cz', live: true, devUrl: 'http://localhost:3123' },
 ]
 
