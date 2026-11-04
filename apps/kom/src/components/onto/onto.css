@@ -1,0 +1,222 @@
+/* OntoUML diagrams — 4 switchable styles (data-style on .od), light + dark.
+   Colour = ontological nature (OntoUML convention): objects rose, relators green, aspects blue, events amber. */
+
+.od{
+  --od-bg: var(--bg, #fcfcfd);
+  --od-panel: var(--bg-2, #f4f5f7);
+  --od-ink: var(--ink, #23272e);
+  --od-ink2: var(--ink-2, #5b616b);
+  --od-ink3: var(--ink-3, #8a9099);
+  --od-line: var(--line, #e3e5e9);
+  --od-hot: var(--link, #2f63c7);
+  --od-ok: var(--ok, #2f8a57);
+  --od-bad: var(--bad, #c4462b);
+  --od-font: var(--sans, "Onest", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif);
+  --od-mono: var(--mono, "JetBrains Mono", ui-monospace, Menlo, monospace);
+}
+.od-svg{ display: block; max-width: 100%; height: auto; margin: 0 auto; font-family: var(--od-font); overflow: visible; }
+.od-bg{ fill: transparent; }
+.od-gridpt{ fill: transparent; }
+
+/* hues per family */
+.od-n[data-fam="object"]  { --h: 12;  --c: 1; }
+.od-n[data-fam="relator"] { --h: 150; --c: 1; }
+.od-n[data-fam="aspect"]  { --h: 238; --c: 1; }
+.od-n[data-fam="event"]   { --h: 82;  --c: 1.1; }
+.od-n[data-fam="type"]    { --h: 300; --c: 1; }
+.od-n[data-fam="datatype"], .od-n[data-fam="plain"] { --h: 250; --c: 0.12; }
+
+/* ---------- shared node text ---------- */
+.od-st{ font-size: 11.5px; fill: var(--od-ink2); letter-spacing: .01em; }
+.od-name{ font-size: 14px; font-weight: 650; fill: var(--od-ink); }
+.od-attr{ font-size: 12.5px; fill: var(--od-ink2); font-family: var(--od-mono); font-size: 11.5px; }
+.od-shadow{ fill: transparent; }
+.od-stripe{ fill: transparent; }
+.od-rig-o{ fill: none; stroke: currentColor; stroke-width: 1.1; }
+.od-rig-f{ fill: currentColor; }
+.od-rig{ color: oklch(0.55 calc(0.12 * var(--c)) var(--h)); opacity: .75; }
+
+/* ---------- shared edge styling ---------- */
+.od-line{ stroke: var(--od-ink2); stroke-width: 1.35; stroke-linejoin: round; stroke-linecap: round; }
+.od-line[data-dash]{ stroke-dasharray: 5 4; }
+.od-e[data-kind="note"] .od-line{ stroke: var(--od-ink3); stroke-width: 1; }
+.od-tri{ fill: var(--od-bg); stroke: var(--od-ink2); stroke-width: 1.35; stroke-linejoin: round; }
+.od-dia{ fill: var(--od-bg); stroke: var(--od-ink2); stroke-width: 1.35; stroke-linejoin: round; }
+.od-dia.od-fill{ fill: var(--od-ink2); }
+.od-dot{ fill: var(--od-ink2); }
+.od-lab{ font-size: 12px; fill: var(--od-ink2); paint-order: stroke; stroke: var(--od-bg); stroke-width: 4px; stroke-linejoin: round; }
+.od-lab[data-k="st"]{ font-size: 11px; fill: var(--od-ink3); }
+.od-lab[data-k="name"]{ fill: var(--od-ink); font-weight: 500; }
+.od-lab[data-k="mult"]{ font-size: 12px; fill: var(--od-ink); font-family: var(--od-mono); font-size: 11.5px; }
+.od-lab[data-k="role"]{ font-size: 11.5px; fill: var(--od-ink3); font-style: italic; }
+.od-lab[data-k="meta"]{ font-size: 11px; fill: var(--od-ink3); }
+.od-lab[data-k="gs"]{ font-size: 11.5px; fill: var(--od-ink3); font-style: italic; }
+
+.od-note-b{ fill: oklch(0.975 0.03 95); stroke: oklch(0.82 0.06 90); stroke-width: 1; }
+.od-note-f{ stroke: oklch(0.82 0.06 90); stroke-width: 1; }
+.od-note-t{ font-size: 12.5px; fill: var(--od-ink2); }
+
+/* ---------- style: moderní ---------- */
+.od[data-style="moderni"] .od-gridpt{ fill: color-mix(in oklch, var(--od-ink3) 28%, transparent); }
+.od[data-style="moderni"] .od-shadow{ fill: oklch(0.4 0.03 var(--h) / .10); transform: translateY(2px); filter: blur(3px); }
+.od[data-style="moderni"] .od-body{ fill: oklch(0.992 calc(0.010 * var(--c)) var(--h)); }
+.od[data-style="moderni"] .od-head{ fill: oklch(0.955 calc(0.040 * var(--c)) var(--h)); }
+.od[data-style="moderni"] .od-stripe{ fill: oklch(0.70 calc(0.15 * var(--c)) var(--h)); }
+.od[data-style="moderni"] .od-border{ stroke: oklch(0.85 calc(0.05 * var(--c)) var(--h)); stroke-width: 1; }
+.od[data-style="moderni"] .od-sep{ stroke: oklch(0.88 calc(0.04 * var(--c)) var(--h)); stroke-width: 1; }
+.od[data-style="moderni"] .od-st{ fill: oklch(0.50 calc(0.13 * var(--c)) var(--h)); font-weight: 500; }
+.od[data-style="moderni"] .od-line{ stroke: color-mix(in oklch, var(--od-ink2) 85%, transparent); }
+
+/* ---------- style: klasik (OntoUML plugin look) ---------- */
+.od[data-style="klasik"] .od-body{ fill: oklch(0.905 calc(0.07 * var(--c)) var(--h)); }
+.od[data-style="klasik"] .od-head{ fill: transparent; }
+.od[data-style="klasik"] .od-border{ stroke: oklch(0.42 calc(0.06 * var(--c)) var(--h)); stroke-width: 1.2; }
+.od[data-style="klasik"] .od-sep{ stroke: oklch(0.42 calc(0.06 * var(--c)) var(--h)); stroke-width: 1; }
+.od[data-style="klasik"] .od-st{ fill: oklch(0.30 0.03 var(--h)); }
+.od[data-style="klasik"] .od-name{ fill: oklch(0.22 0.02 var(--h)); }
+.od[data-style="klasik"] .od-attr{ fill: oklch(0.30 0.02 var(--h)); }
+.od[data-style="klasik"] .od-line, .od[data-style="klasik"] .od-tri, .od[data-style="klasik"] .od-dia{ stroke: var(--od-ink); stroke-width: 1.2; }
+.od[data-style="klasik"] .od-dia.od-fill, .od[data-style="klasik"] .od-dot{ fill: var(--od-ink); }
+.od[data-style="klasik"] .od-rig{ color: oklch(0.35 0.05 var(--h)); }
+
+/* ---------- style: výrazný (solid header) ---------- */
+.od[data-style="vyrazny"] .od-body{ fill: var(--od-bg); }
+.od[data-style="vyrazny"] .od-head{ fill: oklch(0.60 calc(0.15 * var(--c)) var(--h)); }
+.od[data-style="vyrazny"] .od-border{ stroke: oklch(0.55 calc(0.15 * var(--c)) var(--h)); stroke-width: 1.4; }
+.od[data-style="vyrazny"] .od-sep{ stroke: transparent; }
+.od[data-style="vyrazny"] .od-st{ fill: oklch(0.98 0.02 var(--h) / .85); font-weight: 500; }
+.od[data-style="vyrazny"] .od-name{ fill: #fff; }
+.od[data-style="vyrazny"] .od-rig{ color: #fff; opacity: .85; }
+.od[data-style="vyrazny"] .od-n[data-fam="datatype"] .od-head, .od[data-style="vyrazny"] .od-n[data-fam="plain"] .od-head{ fill: oklch(0.45 0.02 250); }
+.od[data-style="vyrazny"] .od-line{ stroke-width: 1.6; }
+.od[data-style="vyrazny"] .od-tri, .od[data-style="vyrazny"] .od-dia{ stroke-width: 1.6; }
+
+/* ---------- style: tisk (like the slides) ---------- */
+.od[data-style="tisk"] .od-body{ fill: var(--od-bg); }
+.od[data-style="tisk"] .od-head{ fill: transparent; }
+.od[data-style="tisk"] .od-border{ stroke: var(--od-ink); stroke-width: 1.3; }
+.od[data-style="tisk"] .od-sep{ stroke: var(--od-ink); stroke-width: 1.1; }
+.od[data-style="tisk"] .od-st{ fill: var(--od-ink); font-family: var(--od-mono); font-size: 11px; }
+.od[data-style="tisk"] .od-name{ font-weight: 700; }
+.od[data-style="tisk"] .od-line, .od[data-style="tisk"] .od-tri, .od[data-style="tisk"] .od-dia{ stroke: var(--od-ink); stroke-width: 1.25; }
+.od[data-style="tisk"] .od-dia.od-fill, .od[data-style="tisk"] .od-dot{ fill: var(--od-ink); }
+.od[data-style="tisk"] .od-lab{ fill: var(--od-ink); }
+
+/* ---------- dark mode ---------- */
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .od{
+  --od-dark: 1;
+} }
+:root[data-theme="dark"] .od{ --od-dark: 1; }
+
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) {
+  .od[data-style="moderni"] .od-body{ fill: oklch(0.235 calc(0.018 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-head{ fill: oklch(0.30 calc(0.05 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-border{ stroke: oklch(0.40 calc(0.06 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-sep{ stroke: oklch(0.36 calc(0.05 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-st{ fill: oklch(0.80 calc(0.10 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-shadow{ fill: oklch(0 0 0 / .35); }
+  .od[data-style="klasik"] .od-body{ fill: oklch(0.36 calc(0.07 * var(--c)) var(--h)); }
+  .od[data-style="klasik"] .od-border, .od[data-style="klasik"] .od-sep{ stroke: oklch(0.70 calc(0.08 * var(--c)) var(--h)); }
+  .od[data-style="klasik"] .od-st, .od[data-style="klasik"] .od-attr{ fill: oklch(0.85 0.03 var(--h)); }
+  .od[data-style="klasik"] .od-name{ fill: oklch(0.96 0.01 var(--h)); }
+  .od[data-style="klasik"] .od-rig{ color: oklch(0.85 0.05 var(--h)); }
+  .od[data-style="vyrazny"] .od-head{ fill: oklch(0.50 calc(0.13 * var(--c)) var(--h)); }
+  .od[data-style="vyrazny"] .od-body{ fill: var(--od-panel); }
+  .od-rig{ color: oklch(0.78 calc(0.10 * var(--c)) var(--h)); }
+  .od-note-b{ fill: oklch(0.27 0.03 90); stroke: oklch(0.42 0.05 90); }
+  .od-note-f{ stroke: oklch(0.42 0.05 90); }
+} }
+:root[data-theme="dark"] {
+  .od[data-style="moderni"] .od-body{ fill: oklch(0.235 calc(0.018 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-head{ fill: oklch(0.30 calc(0.05 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-border{ stroke: oklch(0.40 calc(0.06 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-sep{ stroke: oklch(0.36 calc(0.05 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-st{ fill: oklch(0.80 calc(0.10 * var(--c)) var(--h)); }
+  .od[data-style="moderni"] .od-shadow{ fill: oklch(0 0 0 / .35); }
+  .od[data-style="klasik"] .od-body{ fill: oklch(0.36 calc(0.07 * var(--c)) var(--h)); }
+  .od[data-style="klasik"] .od-border, .od[data-style="klasik"] .od-sep{ stroke: oklch(0.70 calc(0.08 * var(--c)) var(--h)); }
+  .od[data-style="klasik"] .od-st, .od[data-style="klasik"] .od-attr{ fill: oklch(0.85 0.03 var(--h)); }
+  .od[data-style="klasik"] .od-name{ fill: oklch(0.96 0.01 var(--h)); }
+  .od[data-style="klasik"] .od-rig{ color: oklch(0.85 0.05 var(--h)); }
+  .od[data-style="vyrazny"] .od-head{ fill: oklch(0.50 calc(0.13 * var(--c)) var(--h)); }
+  .od[data-style="vyrazny"] .od-body{ fill: var(--od-panel); }
+  .od-rig{ color: oklch(0.78 calc(0.10 * var(--c)) var(--h)); }
+  .od-note-b{ fill: oklch(0.27 0.03 90); stroke: oklch(0.42 0.05 90); }
+  .od-note-f{ stroke: oklch(0.42 0.05 90); }
+}
+
+/* ---------- marks ---------- */
+.od-n[data-mark="bad"] .od-border{ stroke: var(--od-bad) !important; stroke-width: 2.2 !important; }
+.od-n[data-mark="good"] .od-border{ stroke: var(--od-ok) !important; stroke-width: 2.2 !important; }
+.od-n[data-mark="focus"] .od-border{ stroke: var(--od-hot) !important; stroke-width: 2.2 !important; }
+.od-n[data-mark="dim"]{ opacity: .45; }
+.od-e[data-mark="bad"] .od-line, .od-e[data-mark="bad"] .od-tri, .od-e[data-mark="bad"] .od-dia{ stroke: var(--od-bad); stroke-width: 2; }
+.od-e[data-mark="bad"] .od-lab{ fill: var(--od-bad); }
+.od-e[data-mark="good"] .od-line, .od-e[data-mark="good"] .od-tri, .od-e[data-mark="good"] .od-dia{ stroke: var(--od-ok); stroke-width: 2; }
+.od-e[data-mark="good"] .od-lab{ fill: var(--od-ok); }
+.od-e[data-mark="focus"] .od-line, .od-e[data-mark="focus"] .od-tri, .od-e[data-mark="focus"] .od-dia{ stroke: var(--od-hot); stroke-width: 2; }
+.od-e[data-mark="dim"]{ opacity: .4; }
+
+/* ---------- interaction ---------- */
+.od-n, .od-e{ transition: opacity .22s var(--ease, ease); }
+.od-n{ cursor: default; outline: none; }
+.od-n[data-dim], .od-e[data-dim]{ opacity: .22; }
+.od-e[data-hot] .od-line, .od-e[data-hot] .od-tri, .od-e[data-hot] .od-dia{ stroke: var(--od-hot); }
+.od-e[data-hot] .od-dia.od-fill, .od-e[data-hot] .od-dot{ fill: var(--od-hot); }
+.od-n[data-hover] .od-border{ stroke: var(--od-hot); stroke-width: 2; }
+.od-n:focus-visible .od-border{ stroke: var(--od-hot); stroke-width: 2.2; }
+@keyframes od-in{ from{ opacity: 0; transform: translateY(6px); } to{ opacity: 1; transform: none; } }
+.od-stage .od-n, .od-stage .od-e{ animation: od-in .35s var(--ease, ease) both; }
+@media (prefers-reduced-motion: reduce){ .od-n, .od-e{ transition: none; } .od-stage .od-n, .od-stage .od-e{ animation: none; } }
+
+/* ================= UI around the diagram (app only) ================= */
+figure.od{ margin: 26px 0 30px; border-radius: 14px; background: var(--bg); box-shadow: 0 0 0 1px var(--line); overflow: hidden; }
+figure.od.od-compact{ margin: 0; box-shadow: none; background: transparent; border-radius: 0; }
+.od-bar{ display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; padding: 10px 12px 8px 16px; border-bottom: 1px solid var(--line); background: var(--bg-2); }
+.od-compact .od-bar{ background: transparent; border: 0; padding: 4px 4px 2px; }
+.od-title{ font-size: 14px; font-weight: 650; color: var(--ink); margin-right: 4px; }
+.od-sp{ flex: 1; }
+.od-legend{ display: flex; flex-wrap: wrap; gap: 5px; }
+.od-chip{ --h: 250; --c: .15; display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; font-size: 11.5px; font-weight: 550; letter-spacing: .01em; white-space: nowrap;
+  color: oklch(0.45 calc(0.12 * var(--c)) var(--h)); background: oklch(0.95 calc(0.035 * var(--c)) var(--h)); box-shadow: inset 0 0 0 1px oklch(0.88 calc(0.05 * var(--c)) var(--h)); transition: background .15s, box-shadow .15s; }
+.od-chip[data-fam="object"]{ --h: 12; --c: 1; } .od-chip[data-fam="relator"]{ --h: 150; --c: 1; } .od-chip[data-fam="aspect"]{ --h: 238; --c: 1; }
+.od-chip[data-fam="event"]{ --h: 82; --c: 1.1; } .od-chip[data-fam="type"]{ --h: 300; --c: 1; }
+button.od-chip:hover, button.od-chip[aria-pressed="true"]{ box-shadow: inset 0 0 0 1.5px oklch(0.6 calc(0.14 * var(--c)) var(--h)); }
+.od-seg{ display: inline-flex; padding: 2px; border-radius: 8px; background: var(--bg-3); gap: 1px; }
+.od-seg button{ height: 24px; padding: 0 8px; border-radius: 6px; font-size: 12px; color: var(--ink-3); transition: background .15s, color .15s; }
+.od-seg button:hover{ color: var(--ink); }
+.od-seg button[aria-pressed="true"]{ background: var(--bg); color: var(--ink); box-shadow: 0 1px 2px oklch(0.2 0.01 250 / .12); }
+.od-stage{ position: relative; padding: 14px 10px 10px; }
+.od-compact .od-stage{ padding: 6px 0; }
+.od-scroll{ overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.od-tip{ position: absolute; z-index: 5; width: max-content; max-width: min(280px, calc(100% - 16px)); transform: translate(-50%, -100%); padding: 9px 11px; border-radius: 10px; background: var(--bg); color: var(--ink-2);
+  box-shadow: 0 0 0 1px var(--line), 0 10px 28px oklch(0.2 0.01 250 / .16); font-size: 13px; line-height: 1.45; pointer-events: none; animation: od-tip .16s var(--ease, ease); }
+.od-tip[data-below]{ transform: translate(-50%, 0); }
+@keyframes od-tip{ from{ opacity: 0; } }
+.od-tip-h{ display: flex; align-items: center; gap: 7px; margin-bottom: 3px; color: var(--ink); }
+.od-tip-p{ font-size: 12px; color: var(--ink-3); margin-bottom: 3px; }
+.od-steps{ display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-2); flex-wrap: wrap; }
+.od-steps .icon-btn:disabled{ opacity: .35; cursor: default; }
+.od-step-n{ font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink); min-width: 88px; text-align: center; }
+.od-step-l{ color: var(--ink-2); }
+figure.od > figcaption{ padding: 0 16px 12px; font-size: 14px; color: var(--ink-3); line-height: 1.5; }
+.od-compare{ margin: 26px 0 30px; }
+.od-cmp-h{ display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px; font-weight: 650; color: var(--ink); }
+.od-cmp-h span{ flex: 1; }
+.od-cmp-g{ display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+.od-cmp-i{ border-radius: 14px; padding: 10px 12px 12px; box-shadow: 0 0 0 1px var(--line); background: var(--bg); display: flex; flex-direction: column; }
+.od-cmp-i[data-verdict="bad"]{ box-shadow: 0 0 0 1px color-mix(in oklch, var(--bad) 35%, var(--line)); background: color-mix(in oklch, var(--bad-bg) 45%, var(--bg)); }
+.od-cmp-i[data-verdict="good"]{ box-shadow: 0 0 0 1px color-mix(in oklch, var(--ok) 35%, var(--line)); background: color-mix(in oklch, var(--ok-bg) 45%, var(--bg)); }
+.od-cmp-l{ display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 650; color: var(--ink); }
+.od-cmp-i[data-verdict="bad"] .od-cmp-l svg{ color: var(--bad); } .od-cmp-i[data-verdict="good"] .od-cmp-l svg{ color: var(--ok); }
+.od-cmp-i .od{ flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.od-cmp-n{ margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+.od-cmp-i .od-stage .od-bg, figure.od .od-bg{ fill: transparent; }
+.od-zoom{ width: 28px; height: 28px; }
+.od-compact .od-zoom{ margin-left: auto; }
+.od-dlg{ width: min(96vw, 1560px); max-height: 92dvh; padding: 0; border: 0; border-radius: 16px; background: var(--bg); color: var(--ink); box-shadow: 0 24px 80px oklch(0 0 0 / .35); overflow: auto; }
+.od-dlg::backdrop{ background: oklch(0.15 0.01 250 / .55); backdrop-filter: blur(3px); }
+.od-dlg figure.od{ margin: 0; box-shadow: none; border-radius: 0; }
+.od-dlg .od-bar{ padding-right: 52px; position: sticky; top: 0; z-index: 2; }
+.od-dlg-x{ position: absolute; top: 9px; right: 10px; z-index: 3; }
+.od-big .od-stage{ padding: 24px; }
