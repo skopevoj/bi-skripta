@@ -1,0 +1,9 @@
+/* Jediný vstup stylů: aplikace ho importuje jednou (Next: app/layout.tsx, Vite: main.tsx). */
+@import "./tokens/tokens.css";
+@import "./tokens/base.css";
+@import "./shell/shell.css";
+@import "./content/content.css";
+@import "./practice/practice.css";
+@import "./workbench/workbench.css";
+@import "./interactive/interactive.css";
+@import "./math/math.css";

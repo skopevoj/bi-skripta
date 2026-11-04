@@ -1,0 +1,20 @@
+/* @skripta/ui — math (prefix mx-). Bez závislosti na katexu; KaTeX CSS importuje aplikace (katex/dist/katex.min.css). */
+.mx .katex{ font-size: 1.06em; }
+.mx-display, .katex-display{ max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 2px 0; scrollbar-width: thin; }
+.mx-display{ margin: var(--s-4) 0; }
+.mx-display > .katex-display{ margin: 0; }
+.mx-err{ font-family: var(--mono); color: var(--bad); }
+
+/* pojmy s tooltipem (createTermWrapper) */
+.mx-term{ position: relative; cursor: help; border-bottom: 1px dotted var(--ink-3); outline: none; transition: border-color .15s, color .15s; }
+.mx-term:hover, .mx-term:focus-visible{ color: var(--ink); border-bottom-color: var(--acc); }
+.mx-term:focus-visible{ outline: 2px solid var(--acc); outline-offset: 2px; border-radius: 2px; }
+.mx-term-tip{ position: absolute; left: 50%; bottom: calc(100% + 8px); z-index: 40; width: max-content; max-width: min(22rem, calc(100vw - 2rem)); padding: var(--s-3) var(--s-4); border: 1px solid var(--line); border-radius: var(--r-3); background: var(--raised); box-shadow: var(--shadow-pop); color: var(--ink-2); font-family: var(--sans); font-size: 14px; font-style: normal; font-weight: 400; line-height: 20px; text-align: left; white-space: normal; letter-spacing: 0; text-transform: none; display: none; transform: translate(-50%, 0); pointer-events: none; }
+/* Hidden tips use display:none — a visibility:hidden absolute box still widens the page at 375 px. */
+.mx-term:hover > .mx-term-tip, .mx-term:focus > .mx-term-tip, .mx-term:focus-visible > .mx-term-tip{ display: block; animation: mx-tip-in .15s var(--ease); }
+@keyframes mx-tip-in{ from{ opacity: 0; translate: 0 4px; } }
+/* Narrow screens: the tip is pinned to the bottom of the viewport instead of hanging off the term. */
+@media (max-width: 640px){ .mx-term-tip{ position: fixed; left: var(--s-4); right: var(--s-4); bottom: var(--s-4); width: auto; max-width: none; transform: none; } }
+.mx-term-t{ display: block; margin-bottom: var(--s-1); font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.mx-term-d{ display: block; color: var(--ink); }
+@media (prefers-reduced-motion: reduce){ .mx-term-tip{ animation: none !important; } }

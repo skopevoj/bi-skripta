@@ -1,30 +1,24 @@
 {
-  "name": "bi-kab-skripta",
+  "name": "bi-skripta",
   "private": true,
-  "version": "0.1.0",
-  "type": "module",
+  "description": "Skripta k předmětům FIT ČVUT (BI-KAB, BI-KOM, BI-OOP) se sdíleným design systémem @skripta/ui.",
+  "workspaces": [
+    "packages/*",
+    "packages/ui/playground",
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "start": "serve -s dist -l ${PORT:-3000}"
+    "dev": "node scripts/dev-all.mjs",
+    "dev:kab": "npm run dev -w apps/kab",
+    "dev:kom": "npm run dev -w apps/kom -- -p 3131",
+    "dev:oop": "npm run dev -w apps/oop -- -p 3123",
+    "build:kab": "npm run build -w apps/kab",
+    "build:kom": "npm run build -w apps/kom",
+    "build:oop": "npm run build -w apps/oop",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "playground": "npm run dev -w packages/ui/playground"
   },
-  "dependencies": {
-    "katex": "^0.16.11",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "serve": "^14.2.4"
-  },
-  "devDependencies": {
-    "@types/katex": "^0.16.7",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17",
-    "typescript": "~5.6.2",
-    "vite": "^6.0.5",
-    "vite-plugin-singlefile": "^2.1.0"
+  "engines": {
+    "node": ">=20"
   }
 }

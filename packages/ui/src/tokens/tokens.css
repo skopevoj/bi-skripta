@@ -1,0 +1,40 @@
+/* Theme „b-reference“ (BI-KOM/design/b-reference.html). Jediné místo, kde se mění barvy a písma. */
+:root{
+  color-scheme: light;
+  --sans: var(--font-sans, "Instrument Sans"), system-ui, -apple-system, sans-serif; --mono: var(--font-mono, "Source Code Pro"), ui-monospace, Menlo, monospace;
+  --bar-h: 56px; --top-h: 100px; --side-w: 264px; --toc-w: 248px; --pn-w: 452px;
+  --r-1: 4px; --r-2: 6px; --r-3: 10px;
+  --bg: #ffffff; --bg-2: #f6f8fa; --bg-3: #ebeef1; --raised: #ffffff;
+  --ink: #1a1f36; --ink-2: #4f566b; --ink-3: #8792a2;
+  --line: #d5dbe1; --line-2: #ebeef1;
+  --acc: #4f5fd6; --acc-bg: rgba(79,95,214,.08); --on-acc: #ffffff;
+  --ok: #1b7f3b; --ok-bg: #eefaf1; --bad: #c0123c; --bad-bg: #fff0f2; --warn: #b3530b; --warn-bg: #fff6ec;
+  --mark: rgba(255,214,0,.42); --pulse: rgba(79,95,214,.10);
+  --shadow-pop: 0 8px 24px rgba(26,31,54,.12), 0 1px 2px rgba(26,31,54,.08);
+  --f-object: oklch(0.58 0.17 16); --f-relator: oklch(0.56 0.13 150); --f-aspect: oklch(0.55 0.14 245); --f-event: oklch(0.66 0.14 72); --f-type: oklch(0.54 0.12 300); --f-plain: oklch(0.6 0.01 260);
+  --dg-node: #ffffff; --dg-edge: #4f566b; --dg-bg: #ffffff; --dg-grid: #e6eaef;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  color-scheme: dark;
+  --bg: #11141a; --bg-2: #171b22; --bg-3: #1f242d; --raised: #171b22;
+  --ink: #e8ebf0; --ink-2: #a3acb9; --ink-3: #737d8c;
+  --line: #2f3540; --line-2: #232832;
+  --acc: #8e9cf4; --acc-bg: rgba(142,156,244,.12); --on-acc: #11141a;
+  --ok: #5fcf83; --ok-bg: rgba(95,207,131,.10); --bad: #ff7a8a; --bad-bg: rgba(255,122,138,.10); --warn: #f5a35c; --warn-bg: rgba(245,163,92,.10);
+  --mark: rgba(255,214,0,.26); --pulse: rgba(142,156,244,.14);
+  --shadow-pop: 0 8px 24px rgba(0,0,0,.45), 0 0 0 1px #2f3540;
+  --f-object: oklch(0.72 0.14 16); --f-relator: oklch(0.74 0.13 150); --f-aspect: oklch(0.72 0.12 245); --f-event: oklch(0.80 0.13 75); --f-type: oklch(0.72 0.11 300); --f-plain: oklch(0.70 0.01 260);
+  --dg-node: #171b22; --dg-edge: #a3acb9; --dg-bg: #11141a; --dg-grid: #1d222a;
+}}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg: #11141a; --bg-2: #171b22; --bg-3: #1f242d; --raised: #171b22;
+  --ink: #e8ebf0; --ink-2: #a3acb9; --ink-3: #737d8c;
+  --line: #2f3540; --line-2: #232832;
+  --acc: #8e9cf4; --acc-bg: rgba(142,156,244,.12); --on-acc: #11141a;
+  --ok: #5fcf83; --ok-bg: rgba(95,207,131,.10); --bad: #ff7a8a; --bad-bg: rgba(255,122,138,.10); --warn: #f5a35c; --warn-bg: rgba(245,163,92,.10);
+  --mark: rgba(255,214,0,.26); --pulse: rgba(142,156,244,.14);
+  --shadow-pop: 0 8px 24px rgba(0,0,0,.45), 0 0 0 1px #2f3540;
+  --f-object: oklch(0.72 0.14 16); --f-relator: oklch(0.74 0.13 150); --f-aspect: oklch(0.72 0.12 245); --f-event: oklch(0.80 0.13 75); --f-type: oklch(0.72 0.11 300); --f-plain: oklch(0.70 0.01 260);
+  --dg-node: #171b22; --dg-edge: #a3acb9; --dg-bg: #11141a; --dg-grid: #1d222a;
+}

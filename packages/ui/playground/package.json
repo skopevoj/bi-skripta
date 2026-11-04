@@ -1,0 +1,16 @@
+{
+  "name": "@skripta/ui-playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Ukázka všech komponent interaktivního kitu (světle/tmavě). React, react-dom a katex bere z ../node_modules (devDependencies balíčku), aby se React nezdvojil.",
+  "scripts": {
+    "dev": "vite --port 5180 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --port 5180 --strictPort"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.2.1",
+    "vite": "^8.3.5"
+  }
+}

@@ -1,0 +1,8 @@
+/* Jen rozvržení stránky playgroundu; vše ostatní z @skripta/ui/styles.css. */
+body{ background: var(--bg); }
+.pg{ max-width: 760px; margin: 0 auto; padding: var(--s-8) var(--s-4) var(--s-16); }
+.pg-h{ display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; padding-bottom: var(--s-5); border-bottom: 1px solid var(--line-2); }
+.pg-k{ font: 500 13px/20px var(--mono); color: var(--acc); }
+.pg h1{ margin: var(--s-1) 0 0; font-size: 30px; line-height: 36px; font-weight: 650; letter-spacing: -.018em; }
+.pg h2{ margin: var(--s-12) 0 var(--s-2); font-size: 20px; line-height: 28px; font-weight: 600; }
+.pg-p{ margin: 0; color: var(--ink-2); }

@@ -1,0 +1,43 @@
+{
+  "name": "@skripta/ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sdílený design system pro skripta (BI-KAB, BI-KOM, BI-OOP). Distribuováno jako TS zdroj, bez build kroku.",
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css",
+    "./interactive": "./src/interactive/index.ts",
+    "./math": "./src/math/index.ts",
+    "./practice": "./src/practice/index.ts",
+    "./workbench": "./src/workbench/index.ts",
+    "./next": "./src/next/index.tsx"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "katex": "^0.16.0",
+    "pdfjs-dist": ">=4",
+    "next": ">=15"
+  },
+  "peerDependenciesMeta": {
+    "katex": { "optional": true },
+    "pdfjs-dist": { "optional": true },
+    "next": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.7",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "katex": "^0.16.11",
+    "next": "^16.4.3",
+    "pdfjs-dist": "^6.4.299",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^5.9.3"
+  }
+}
