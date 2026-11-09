@@ -46,8 +46,11 @@ export type QuestionKindDef<Q extends QuestionLike = any> = {
 export type BankFilter = {
   id: string
   label: string
-  options: [value: string, label: string][]
+  /** `group` → options are shown under <optgroup> headings (consecutive options with the same group). */
+  options: [value: string, label: string, group?: string][]
   get: (q: QuestionLike) => string | undefined
+  /** Short tag shown in the question list and the practice header, e.g. OOP lecture "P4". */
+  tag?: (q: QuestionLike) => string | undefined
 }
 
 export type PracticeConfig = {
@@ -57,6 +60,8 @@ export type PracticeConfig = {
   verified?: Record<string, { label: string; badge?: string }>
   /** Topic id → label (bank filter, meta line). */
   topics?: Record<string, string>
+  /** Topic id → heading it is grouped under in the topic filter (OOP: its lecture). Order of `topics` decides the order. */
+  topicGroup?: (topic: string) => string | undefined
   /** Grouping of questions by origin for the bank filter. */
   sourceGroups?: { labels: Record<string, string>; of: (q: QuestionLike) => string }
   /** Additional bank filters (e.g. OOP: by lecture). Shown before the built-in ones. */

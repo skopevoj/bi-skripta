@@ -4,12 +4,12 @@ import { useMemo, type ReactNode } from 'react'
 import { docView, type CiteItem, type QuestionLike, type SourceRef } from '@skripta/ui'
 import type { PracticeConfig } from '@skripta/ui/practice'
 import { NextSkriptaProvider } from '@skripta/ui/next'
-import type { Question } from '@content/types'
+import type { Question, Topic } from '@content/types'
 import { WIDGETS } from '@/components/interactive/registry'
 import { outputKind } from '@/components/practice/output'
 import { CodeActions, RunInEditor } from '@/components/workbench/OopWorkbench'
 import { highlight } from '@/lib/highlight'
-import { CALLOUTS, LECTURE_IDS, SAMPLE_PDF, SOURCE_GROUPS, TOPICS, UI_DOCS, VERIFIED, lectureNum, sourceGroup } from '@/lib/meta'
+import { CALLOUTS, LECTURE_IDS, SAMPLE_PDF, SOURCE_GROUPS, TOPICS, TOPIC_LECTURE, UI_DOCS, VERIFIED, docShort, sourceGroup } from '@/lib/meta'
 
 const oop = (q: QuestionLike) => q as unknown as Question
 const SAMPLE_DOC = UI_DOCS.find((d) => d.id === 'sample')!
@@ -37,14 +37,19 @@ export function OopProvider({ lectureTitles, children }: { lectureTitles: Record
     () => ({
       kinds: { output: outputKind },
       topics: TOPICS,
+      topicGroup: (t) => {
+        const l = TOPIC_LECTURE[t as Topic]
+        return l && `${docShort(l)} · ${lectureTitles[l] ?? l}`
+      },
       verified: VERIFIED,
       sourceGroups: { labels: SOURCE_GROUPS, of: (q) => sourceGroup(oop(q)) },
       bankFilters: [
         {
           id: 'lec', // same key as the old bank filter (kept in oop-bank-filters)
           label: 'Přednáška',
-          options: LECTURE_IDS.map((l) => [l, `${lectureNum(l)} · ${lectureTitles[l] ?? l}`]),
+          options: LECTURE_IDS.map((l) => [l, `${docShort(l)} · ${lectureTitles[l] ?? l}`]),
           get: (q) => oop(q).lecture,
+          tag: (q) => docShort(oop(q).lecture),
         },
       ],
       resultExtra: (q) => q.code && <RunInEditor code={q.code} />,

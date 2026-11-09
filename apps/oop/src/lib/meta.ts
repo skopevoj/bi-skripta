@@ -48,6 +48,23 @@ export const TOPICS: Record<Topic, string> = {
   adhoc: 'Ad-hoc polymorfismus',
 }
 
+/** The lecture each topic belongs to (topic filter headings). A question's own `lecture` may differ (e.g. erasure in L5). */
+export const TOPIC_LECTURE: Record<Topic, LectureId> = {
+  principy: 'L1',
+  objekty: 'L2',
+  dispatch: 'L2',
+  subtyping: 'L2',
+  generics: 'L4',
+  variance: 'L4',
+  erasure: 'L4',
+  encapsulation: 'L5',
+  adt: 'L5',
+  pattern: 'L5',
+  composition: 'L6',
+  traits: 'L6',
+  adhoc: 'L6',
+}
+
 export type SourceGroup = 'sample' | 'kvizy' | 'anki' | 'wiki' | 'orig'
 export const SOURCE_GROUPS: Record<SourceGroup, string> = {
   sample: 'Sample',

@@ -20,17 +20,49 @@ function codeHint(code: string): string {
   return lines.find((l) => /println|val |def |context |select|SELECT/.test(l)) ?? lines[0] ?? ''
 }
 
-function Select({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: [string, string][] }) {
+function Select({
+  label,
+  value,
+  onChange,
+  options,
+  counts,
+}: {
+  label: string
+  value: string
+  onChange: (v: string) => void
+  options: BankFilter['options']
+  /** option value → number of questions it would select (given the other filters) */
+  counts: Map<string, number>
+}) {
+  const opt = ([v, l]: BankFilter['options'][number]) => {
+    const n = counts.get(v) ?? 0
+    return (
+      <option key={v} value={v} disabled={n === 0 && v !== value}>
+        {l} ({n})
+      </option>
+    )
+  }
+  // consecutive options with the same group → one <optgroup>
+  const groups: { g?: string; opts: BankFilter['options'] }[] = []
+  for (const o of options) {
+    const last = groups[groups.length - 1]
+    if (last && last.g === o[2]) last.opts.push(o)
+    else groups.push({ g: o[2], opts: [o] })
+  }
   return (
     <label className="sk-sel">
       <span>{label}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)}>
         <option value="">Vše</option>
-        {options.map(([v, l]) => (
-          <option key={v} value={v}>
-            {l}
-          </option>
-        ))}
+        {groups.map((gr, i) =>
+          gr.g ? (
+            <optgroup key={i} label={gr.g}>
+              {gr.opts.map(opt)}
+            </optgroup>
+          ) : (
+            gr.opts.map(opt)
+          ),
+        )}
       </select>
     </label>
   )
@@ -53,11 +85,18 @@ export function Bank({ questions, filters: extraFilters }: { questions: Question
   const prog = useProgress()
   const KEY = storageKey(course.storage, 'bank-filters')
 
+  const topics = practice?.topics
   const filters = useMemo<BankFilter[]>(() => {
     const out: BankFilter[] = [...(extraFilters ?? practice?.bankFilters ?? [])]
     if (practice?.topics) {
       const t = practice.topics
-      out.push({ id: 'topic', label: 'Téma', options: Object.entries(t), get: (q) => q.topic })
+      const grp = practice.topicGroup
+      out.push({
+        id: 'topic',
+        label: 'Téma',
+        options: Object.entries(t).map(([v, l]): BankFilter['options'][number] => [v, l, grp?.(v)]),
+        get: (q) => q.topic,
+      })
     }
     if (practice?.sourceGroups) {
       const g = practice.sourceGroups
@@ -88,23 +127,35 @@ export function Bank({ questions, filters: extraFilters }: { questions: Question
     saveJSON(KEY, next)
   }
 
-  const list = useMemo(
+  const valueOf = (flt: BankFilter, q: QuestionLike): string | undefined => {
+    if (flt !== STATE) return flt.get(q)
+    const a = prog.answers[q.id]
+    return !a ? 'new' : a.ok ? 'ok' : 'bad'
+  }
+  const passes = (q: QuestionLike, skip?: BankFilter) =>
+    filters.every((flt) => flt === skip || !f[flt.id] || valueOf(flt, q) === f[flt.id])
+
+  const list = useMemo(() => questions.filter((q) => passes(q)), [questions, f, filters, prog.answers])
+
+  // per filter: how many questions each option would give, keeping the other filters
+  const counts = useMemo(
     () =>
-      questions.filter((q) => {
-        for (const flt of filters) {
-          const v = f[flt.id]
-          if (!v) continue
-          if (flt === STATE) {
-            const a = prog.answers[q.id]
-            if (v === 'new' && a) return false
-            if (v === 'bad' && (!a || a.ok)) return false
-            if (v === 'ok' && (!a || !a.ok)) return false
-          } else if (flt.get(q) !== v) return false
-        }
-        return true
-      }),
+      new Map(
+        filters.map((flt) => {
+          const m = new Map<string, number>()
+          for (const q of questions) {
+            if (!passes(q, flt)) continue
+            const v = valueOf(flt, q)
+            if (v) m.set(v, (m.get(v) ?? 0) + 1)
+          }
+          return [flt.id, m]
+        }),
+      ),
     [questions, f, filters, prog.answers],
   )
+
+  /** "P4 · Generika a bounds" — filter tags (e.g. lecture) + topic */
+  const tagsOf = (q: QuestionLike) => [...filters.map((flt) => flt.tag?.(q)), q.topic && topics?.[q.topic]].filter(Boolean)
 
   // deep link ?id=… → practise that one question (within the whole bank)
   const deepId = useSearchParam('id')
@@ -137,7 +188,6 @@ export function Bank({ questions, filters: extraFilters }: { questions: Question
   const byId = useMemo(() => new Map(questions.map((q) => [q.id, q])), [questions])
   const answered = questions.filter((q) => prog.answers[q.id]).length
   const wrong = questions.filter((q) => prog.answers[q.id] && !prog.answers[q.id]!.ok).length
-  const topics = practice?.topics
 
   if (practiceAt !== null && practiceIds.length) {
     const q = byId.get(practiceIds[practiceAt]!)
@@ -154,7 +204,7 @@ export function Bank({ questions, filters: extraFilters }: { questions: Question
               {practiceAt + 1} / {practiceIds.length}
             </span>
           </div>
-          <QuestionCard key={q.id} q={q} n={[q.id, q.topic && topics?.[q.topic]].filter(Boolean).join(' · ')} />
+          <QuestionCard key={q.id} q={q} n={[q.id, ...tagsOf(q)].join(' · ')} />
           <nav className="sk-pn tight" aria-label="Otázky">
             {practiceAt > 0 ? (
               <button type="button" className="prev" onClick={() => go(practiceAt - 1)}>
@@ -205,7 +255,7 @@ export function Bank({ questions, filters: extraFilters }: { questions: Question
       </p>
       <div className="sk-filters">
         {filters.map((flt) => (
-          <Select key={flt.id} label={flt.label} value={f[flt.id] ?? ''} onChange={(v) => update(flt.id, v)} options={flt.options} />
+          <Select key={flt.id} label={flt.label} value={f[flt.id] ?? ''} onChange={(v) => update(flt.id, v)} options={flt.options} counts={counts.get(flt.id)!} />
         ))}
       </div>
       <div className="sk-bank-bar">
@@ -241,7 +291,7 @@ export function Bank({ questions, filters: extraFilters }: { questions: Question
             const a = prog.answers[q.id]
             const p = plain(q.prompt)
             const k = kindOf(q, practice?.kinds)
-            const meta = [k.label, q.topic && topics?.[q.topic], practice?.sourceGroups && practice.sourceGroups.labels[practice.sourceGroups.of(q)]]
+            const meta = [k.label, ...tagsOf(q), practice?.sourceGroups && practice.sourceGroups.labels[practice.sourceGroups.of(q)]]
             return (
               <li key={q.id}>
                 <button type="button" onClick={() => start(i)}>
